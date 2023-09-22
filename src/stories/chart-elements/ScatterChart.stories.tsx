@@ -115,3 +115,22 @@ WithExampleDatas.args = {
   },
   colors: ["red", "green", "blue"],
 };
+
+export const WithVeryLongValueFormatter = ResponsiveTemplate.bind({});
+WithVeryLongValueFormatter.args = {
+  ...args,
+  data,
+  valueFormatter: {
+    y: (val) => `This is a very long valueFormatter: ${val} $`,
+  },
+};
+
+export const WithFixedYAxisWidth = ResponsiveTemplate.bind({});
+WithFixedYAxisWidth.args = {
+  ...args,
+  data,
+  valueFormatter: {
+    y: (val) => `This is a very long valueFormatter: ${val} $`,
+  },
+  yAxisWidth: 260,
+};

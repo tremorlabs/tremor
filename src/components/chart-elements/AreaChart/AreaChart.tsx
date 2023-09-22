@@ -12,10 +12,11 @@ import {
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
 
-import { constructCategoryColors, getYAxisDomain } from "../common/utils";
+import { constructCategoryColors, getYAxisDomain, getYAxisWidth } from "../common/utils";
 import BaseChartProps from "../common/BaseChartProps";
 import ChartLegend from "../common/ChartLegend";
 import ChartTooltip from "../common/ChartTooltip";
+import ChartYTick from "../common/ChartYTick";
 import NoData from "../common/NoData";
 
 import {
@@ -45,7 +46,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     startEndOnly = false,
     showXAxis = true,
     showYAxis = true,
-    yAxisWidth = 56,
+    yAxisWidth = "auto",
     showAnimation = true,
     animationDuration = 900,
     showTooltip = true,
@@ -63,9 +64,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     ...other
   } = props;
   const [legendHeight, setLegendHeight] = useState(60);
+  const [widestTick, setWidestTick] = useState<number | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+  const calculatedYAxisWidth = getYAxisWidth(
+    yAxisWidth,
+    widestTick ? valueFormatter(widestTick) : undefined,
+  );
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
@@ -109,25 +115,18 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
               minTickGap={5}
             />
             <YAxis
-              width={yAxisWidth}
+              width={calculatedYAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
               type="number"
               domain={yAxisDomain as AxisDomain}
-              tick={{ transform: "translate(-3, 0)" }}
+              tick={(props: any) => <ChartYTick {...props} setWidestTick={setWidestTick} />}
               fill=""
               stroke=""
-              className={tremorTwMerge(
-                // common
-                "text-tremor-label",
-                // light
-                "fill-tremor-content",
-                // dark
-                "dark:fill-dark-tremor-content",
-              )}
-              tickFormatter={valueFormatter}
+              className={"text-tremor-label whitespace-nowrap"}
               allowDecimals={allowDecimals}
+              tickFormatter={valueFormatter}
             />
             {showTooltip ? (
               <Tooltip

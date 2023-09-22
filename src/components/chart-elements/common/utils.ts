@@ -32,3 +32,31 @@ export const constructCategories = (data: any[], color?: string): string[] => {
   });
   return Array.from(categories);
 };
+
+export const getYAxisWidth = (
+  axisWidth: number | "auto",
+  text?: string,
+  maxWidth = 100,
+): number => {
+  if (axisWidth !== "auto") return axisWidth;
+  if (!text) return 56;
+
+  const width = getElementWidth(text, "0.75rem");
+  const yAxisCalculatedWidth = width + 4.3;
+
+  return yAxisCalculatedWidth < maxWidth ? yAxisCalculatedWidth : maxWidth;
+};
+
+export const getElementWidth = (text: string | undefined, fontSize = "1rem") => {
+  if (!text) return 0;
+  const span = document.createElement("span");
+  span.style.font = `normal ${fontSize} ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
+  span.textContent = text;
+  span.style.fontVariantNumeric = "tabular-nums";
+  span.style.position = "absolute";
+  span.style.visibility = "hidden";
+  document.body.appendChild(span);
+  const width = span.offsetWidth;
+  document.body.removeChild(span);
+  return width;
+};

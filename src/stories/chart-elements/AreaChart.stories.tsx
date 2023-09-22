@@ -3,7 +3,11 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { AreaChart, Card, Title } from "components";
-import { simpleBaseChartData as data, simpleBaseChartDataWithNulls } from "./helpers/testData";
+import {
+  simpleBaseChartData as data,
+  percentagedata,
+  simpleBaseChartDataWithNulls,
+} from "./helpers/testData";
 import { valueFormatter } from "./helpers/utils";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -199,4 +203,36 @@ WithShortAnimationDuration.args = {
   animationDuration: 100,
   categories: ["Sales", "Successful Payments"],
   index: "month",
+};
+
+export const WithVeryLongValueFormatter = ResponsiveTemplate.bind({});
+WithVeryLongValueFormatter.args = {
+  ...args,
+  data,
+  valueFormatter: (val) => `This is a very long valueFormatter: ${val} $`,
+};
+
+export const WithFixedYAxisWidth = ResponsiveTemplate.bind({});
+WithFixedYAxisWidth.args = {
+  ...args,
+  data,
+  valueFormatter: (val) => `This is a very long valueFormatter: ${val} $`,
+  yAxisWidth: 260,
+};
+
+export const WithPercentageDatas = ResponsiveTemplate.bind({});
+WithPercentageDatas.args = {
+  ...args,
+  data: percentagedata,
+  categories: ["Export Growth Rate", "Import Growth Rate"],
+  index: "year",
+};
+
+export const WithPercentageDatasValueFormatter = ResponsiveTemplate.bind({});
+WithPercentageDatasValueFormatter.args = {
+  ...args,
+  data: percentagedata,
+  categories: ["Export Growth Rate", "Import Growth Rate"],
+  index: "year",
+  valueFormatter: (val) => `${val} %`,
 };
