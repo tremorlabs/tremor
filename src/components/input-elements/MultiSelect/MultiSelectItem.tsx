@@ -8,10 +8,11 @@ const makeMultiSelectItemClassName = makeClassName("MultiSelectItem");
 
 export interface MultiSelectItemProps extends React.HTMLAttributes<HTMLLIElement> {
   value: string;
+  disabled?: boolean;
 }
 
 const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((props, ref) => {
-  const { value, className, children, ...other } = props;
+  const { value, disabled = false, className, children, ...other } = props;
 
   const { selectedValue } = useContext(SelectedValueContext);
   const isSelected = isValueInArray(value, selectedValue);
@@ -32,6 +33,7 @@ const MultiSelectItem = React.forwardRef<HTMLLIElement, MultiSelectItemProps>((p
       ref={ref}
       key={value}
       value={value}
+      disabled={disabled}
       {...other}
     >
       <input
