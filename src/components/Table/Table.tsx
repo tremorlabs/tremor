@@ -1,4 +1,4 @@
-// Tremor Raw Table [v0.0.0]
+// Tremor Raw Table [v0.0.1]
 
 import React from "react"
 
@@ -27,7 +27,7 @@ TableRoot.displayName = "TableRoot"
 
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
+  React.TableHTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, forwardedRef) => (
   <table
     ref={forwardedRef}
@@ -55,7 +55,7 @@ TableHead.displayName = "TableHead"
 
 const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
+  React.ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, forwardedRef) => (
   <th
     ref={forwardedRef}
@@ -112,7 +112,7 @@ TableRow.displayName = "TableRow"
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
-  React.HTMLAttributes<HTMLTableCellElement>
+  React.TdHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, forwardedRef) => (
   <td
     ref={forwardedRef}
