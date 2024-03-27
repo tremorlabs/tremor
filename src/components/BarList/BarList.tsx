@@ -1,4 +1,4 @@
-// Tremor Raw BarList [v0.0.0]
+// Tremor Raw BarList [v0.0.1]
 
 import React from "react"
 
@@ -73,7 +73,7 @@ function BarListInner<T>(
               focusRing,
               onValueChange
                 ? [
-                    "!-m-px cursor-pointer",
+                    "!-m-0 cursor-pointer",
                     // hover
                     "hover:bg-gray-50 hover:dark:bg-gray-900",
                   ]
@@ -98,7 +98,7 @@ function BarListInner<T>(
               )}
               style={{ width: `${widths[index]}%` }}
             >
-              <div className={cx("absolute left-2 flex max-w-full")}>
+              <div className={cx("absolute left-2 flex pr-2 max-w-full")}>
                 {item.href ? (
                   <a
                     href={item.href}
