@@ -116,7 +116,7 @@ const Toast = React.forwardRef<
           // background color
           " bg-white dark:bg-[#090E1A]",
           // border color
-          "border-gray-200 dark:border-gray-900",
+          "border-gray-200 dark:border-gray-800",
           // swipe
           "data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none",
           // transition
@@ -132,7 +132,7 @@ const Toast = React.forwardRef<
             "flex flex-1 items-start gap-3 p-4",
             // border
             !disableDismiss || action
-              ? "border-r border-gray-200 dark:border-gray-900"
+              ? "border-r border-gray-200 dark:border-gray-800"
               : "",
           )}
         >
@@ -176,7 +176,7 @@ const Toast = React.forwardRef<
               >
                 {action.label}
               </ToastPrimitives.Action>
-              <div className="h-px w-full bg-gray-200 dark:bg-gray-900" />
+              <div className="h-px w-full bg-gray-200 dark:bg-gray-800" />
             </>
           )}
           {!disableDismiss && (
