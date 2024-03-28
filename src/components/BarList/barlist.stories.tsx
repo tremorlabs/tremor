@@ -102,9 +102,15 @@ export const WithOnValueChangeAndHref: Story = {
   },
 }
 
-export const DataSame: Story = {
+export const DataSameWithOnValueChange: Story = {
   args: {
     onValueChange: () => {},
+    data: dataSame,
+  },
+}
+
+export const DataSame: Story = {
+  args: {
     data: dataSame,
   },
 }
