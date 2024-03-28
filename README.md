@@ -21,7 +21,7 @@
 
 <br />
 
-![Tremor Banner](public/images/tremor_raw_banner_11.png)
+![Tremor Banner](public/images/tremor-raw-banner.png)
 
 <br />
 
