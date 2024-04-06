@@ -159,7 +159,7 @@ const Calendar = ({
           const displayIndex = displayMonths.findIndex((month) =>
             isSameMonth(props.displayMonth, month),
           )
-          const { numberOfMonths } = useDayPicker()
+          const { numberOfMonths, fromDate, toDate } = useDayPicker()
           const isFirst = displayIndex === 0
           const isLast = displayIndex === displayMonths.length - 1
           const hideNext = numberOfMonths > 1 && (isFirst || !isLast)
@@ -170,10 +170,10 @@ const Calendar = ({
               <div className="flex items-center gap-1">
                 {enableYearNavigation && !hidePrevious && (
                   <NavigationButton
-                    disabled={disableNavigation || !previousMonth}
+                    disabled={disableNavigation || !previousMonth || (fromDate && addYears(currentMonth, -1).getTime() < fromDate?.getTime())}
                     aria-label="Go to previous year"
                     onClick={() =>
-                      previousMonth && goToMonth(addYears(currentMonth, -1))
+                      previousMonth && (!fromDate || addYears(currentMonth, -1).getTime() >= fromDate?.getTime()) && goToMonth(addYears(currentMonth, -1))
                     }
                     icon={RiArrowLeftDoubleLine}
                   />
@@ -207,10 +207,10 @@ const Calendar = ({
                 )}
                 {enableYearNavigation && !hideNext && (
                   <NavigationButton
-                    disabled={disableNavigation || !nextMonth}
+                    disabled={disableNavigation || !nextMonth || (toDate && addYears(currentMonth, 1).getTime() > toDate?.getTime())}
                     aria-label="Go to next year"
                     onClick={() =>
-                      nextMonth && goToMonth(addYears(currentMonth, 1))
+                      nextMonth && (!toDate || addYears(currentMonth, 1).getTime() <= toDate?.getTime()) && goToMonth(addYears(currentMonth, 1))
                     }
                     icon={RiArrowRightDoubleLine}
                   />
