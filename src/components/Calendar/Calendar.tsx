@@ -155,30 +155,55 @@ const Calendar = ({
             currentMonth,
             displayMonths,
           } = useNavigation()
+          const { numberOfMonths, fromDate, toDate } = useDayPicker()
 
           const displayIndex = displayMonths.findIndex((month) =>
             isSameMonth(props.displayMonth, month),
           )
-          const { numberOfMonths, fromDate, toDate } = useDayPicker()
           const isFirst = displayIndex === 0
           const isLast = displayIndex === displayMonths.length - 1
-          const hideNext = numberOfMonths > 1 && (isFirst || !isLast)
-          const hidePrevious = numberOfMonths > 1 && (isLast || !isFirst)
+
+          const hideNextButton = numberOfMonths > 1 && (isFirst || !isLast)
+          const hidePreviousButton = numberOfMonths > 1 && (isLast || !isFirst)
+
+          const goToPreviousYear = () => {
+            const targetMonth = addYears(currentMonth, -1)
+            if (
+              previousMonth &&
+              (!fromDate || targetMonth.getTime() >= fromDate.getTime())
+            ) {
+              goToMonth(targetMonth)
+            }
+          }
+
+          const goToNextYear = () => {
+            const targetMonth = addYears(currentMonth, 1)
+            if (
+              nextMonth &&
+              (!toDate || targetMonth.getTime() <= toDate.getTime())
+            ) {
+              goToMonth(targetMonth)
+            }
+          }
 
           return (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1">
-                {enableYearNavigation && !hidePrevious && (
+                {enableYearNavigation && !hidePreviousButton && (
                   <NavigationButton
-                    disabled={disableNavigation || !previousMonth || (fromDate && addYears(currentMonth, -1).getTime() < fromDate?.getTime())}
-                    aria-label="Go to previous year"
-                    onClick={() =>
-                      previousMonth && (!fromDate || addYears(currentMonth, -1).getTime() >= fromDate?.getTime()) && goToMonth(addYears(currentMonth, -1))
+                    disabled={
+                      disableNavigation ||
+                      !previousMonth ||
+                      (fromDate &&
+                        addYears(currentMonth, -1).getTime() <
+                          fromDate.getTime())
                     }
+                    aria-label="Go to previous year"
+                    onClick={goToPreviousYear}
                     icon={RiArrowLeftDoubleLine}
                   />
                 )}
-                {!hidePrevious && (
+                {!hidePreviousButton && (
                   <NavigationButton
                     disabled={disableNavigation || !previousMonth}
                     aria-label="Go to previous month"
@@ -197,7 +222,7 @@ const Calendar = ({
               </div>
 
               <div className="flex items-center gap-1">
-                {!hideNext && (
+                {!hideNextButton && (
                   <NavigationButton
                     disabled={disableNavigation || !nextMonth}
                     aria-label="Go to next month"
@@ -205,13 +230,16 @@ const Calendar = ({
                     icon={RiArrowRightSLine}
                   />
                 )}
-                {enableYearNavigation && !hideNext && (
+                {enableYearNavigation && !hideNextButton && (
                   <NavigationButton
-                    disabled={disableNavigation || !nextMonth || (toDate && addYears(currentMonth, 1).getTime() > toDate?.getTime())}
-                    aria-label="Go to next year"
-                    onClick={() =>
-                      nextMonth && (!toDate || addYears(currentMonth, 1).getTime() <= toDate?.getTime()) && goToMonth(addYears(currentMonth, 1))
+                    disabled={
+                      disableNavigation ||
+                      !nextMonth ||
+                      (toDate &&
+                        addYears(currentMonth, 1).getTime() > toDate.getTime())
                     }
+                    aria-label="Go to next year"
+                    onClick={goToNextYear}
                     icon={RiArrowRightDoubleLine}
                   />
                 )}
