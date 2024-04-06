@@ -95,9 +95,9 @@ const CalendarPopover = React.forwardRef<
         avoidCollisions
         className={cx(
           // base
-          "relative z-50 w-fit overflow-hidden rounded-md border text-sm shadow-xl shadow-black/[2.5%]",
+          "relative z-50 w-fit rounded-md border text-sm shadow-xl shadow-black/[2.5%]",
           // widths
-          "min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
+          "mr-2 min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
           // heights
           "max-h-[var(--radix-popover-content-available-height)]",
           // border color
@@ -582,19 +582,30 @@ const RangeDatePicker = ({
       </Trigger>
       <CalendarPopover>
         <div className="flex">
-          <div className="flex items-start">
+          <div className="flex flex-col overflow-x-scroll sm:flex-row sm:items-start">
             {presets && presets.length > 0 && (
-              <div className="relative h-full w-[160px] border-r">
-                <div className="absolute inset-0 overflow-y-scroll p-3">
-                  <PresetContainer
-                    currentValue={range}
-                    presets={presets}
-                    onSelect={onRangeChange}
-                  />
+              <>
+                <div className="relative flex h-14 w-full items-center overflow-x-scroll border-b border-gray-300 sm:hidden">
+                  <div className="absolute left-2">
+                    <PresetContainer
+                      currentValue={range}
+                      presets={presets}
+                      onSelect={onRangeChange}
+                    />
+                  </div>
                 </div>
-              </div>
+                <div className="relative hidden h-full w-40 border-r border-gray-300 sm:flex">
+                  <div className="absolute inset-0 overflow-y-scroll px-1.5 py-2">
+                    <PresetContainer
+                      currentValue={range}
+                      presets={presets}
+                      onSelect={onRangeChange}
+                    />
+                  </div>
+                </div>
+              </>
             )}
-            <div>
+            <div className="overflow-x-scroll">
               <CalendarPrimitive
                 mode="range"
                 selected={range}
@@ -605,12 +616,13 @@ const RangeDatePicker = ({
                 disabled={disabled}
                 locale={locale}
                 enableYearNavigation={enableYearNavigation}
+                className="overflow-x-scroll"
                 classNames={{
-                  months: "flex flex-row divide-x divide-gray-200",
+                  months:
+                    "flex flex-row divide-x divide-gray-200 overflow-x-scroll",
                 }}
                 {...props}
               />
-
               <div className="flex items-center justify-between border-t border-gray-300 p-2">
                 <p
                   className={cx("font-medium text-gray-900 dark:text-gray-50")}
@@ -794,33 +806,32 @@ const validatePresets = (
 
 type DatePickerProps = (
   | {
-      mode?: "single";
-      presets?: DatePreset[];
-      defaultValue?: Date;
-      value?: Date;
-      onChange?: (date: Date | undefined) => void;
+      mode?: "single"
+      presets?: DatePreset[]
+      defaultValue?: Date
+      value?: Date
+      onChange?: (date: Date | undefined) => void
     }
   | {
-      mode: "range";
-      presets?: DateRangePreset[];
-      defaultValue?: DateRange;
-      value?: DateRange;
-      onChange?: (dateRange: DateRange | undefined) => void;
+      mode: "range"
+      presets?: DateRangePreset[]
+      defaultValue?: DateRange
+      value?: DateRange
+      onChange?: (dateRange: DateRange | undefined) => void
     }
 ) &
-  PickerProps;
-
+  PickerProps
 
 const DatePicker = ({ mode = "single", ...props }: DatePickerProps) => {
   if (props.presets) {
-    validatePresets(props.presets, props);
+    validatePresets(props.presets, props)
   }
 
   if (mode === "single") {
-    return <SingleDatePicker {...(props as SingleProps)} />;
+    return <SingleDatePicker {...(props as SingleProps)} />
   }
 
-  return <RangeDatePicker {...(props as RangeProps)} />;
-};
+  return <RangeDatePicker {...(props as RangeProps)} />
+}
 
 export { DatePicker, type DatePreset, type DateRangePreset }

@@ -109,7 +109,7 @@ const Calendar = ({
       showOutsideDays={numberOfMonths === 1 ? true : false}
       className={cx(className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-0",
+        months: "flex space-y-0",
         month: "space-y-4 p-2",
         nav: "gap-1 flex items-center rounded-full size-full justify-between p-4",
         table: "w-full border-collapse space-y-1",
