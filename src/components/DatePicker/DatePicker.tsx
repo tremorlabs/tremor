@@ -1,3 +1,5 @@
+// Tremor Raw Date Picker [v0.0.0]
+
 "use client"
 
 import * as React from "react"
@@ -824,6 +826,9 @@ const DatePicker = ({ presets, ...props }: SingleDatePickerProps) => {
 
   return <SingleDatePicker presets={presets} {...(props as SingleProps)} />
 }
+
+DatePicker.displayName = "DatePicker"
+
 type RangeDatePickerProps = {
   presets?: DateRangePreset[]
   defaultValue?: DateRange
@@ -838,4 +843,7 @@ const DateRangePicker = ({ presets, ...props }: RangeDatePickerProps) => {
 
   return <RangeDatePicker presets={presets} {...(props as RangeProps)} />
 }
+
+DateRangePicker.displayName = "DateRangePicker"
+
 export { DatePicker, DateRangePicker, type DatePreset, type DateRangePreset }
