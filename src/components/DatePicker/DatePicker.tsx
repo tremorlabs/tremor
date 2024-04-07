@@ -13,7 +13,8 @@ import { hasErrorInput } from "../../utils/hasErrorInput"
 import { Button } from "../Button/Button"
 import { Calendar as CalendarPrimitive } from "../Calendar/Calendar"
 
-// Trigger ====================================================================
+//#region Trigger
+// ============================================================================
 
 const triggerStyles = tv({
   base: [
@@ -79,7 +80,8 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
 
 Trigger.displayName = "DatePicker.Trigger"
 
-// Popover ====================================================================
+//#region Popover
+// ============================================================================
 
 const CalendarPopover = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitives.Content>,
@@ -120,7 +122,8 @@ const CalendarPopover = React.forwardRef<
 
 CalendarPopover.displayName = "DatePicker.CalendarPopover"
 
-// Preset =====================================================================
+//#region Preset
+// ============================================================================
 
 export type DateRange = {
   from: Date | undefined
@@ -254,7 +257,8 @@ const PresetContainer = <TPreset extends Preset, TValue>({
 
 PresetContainer.displayName = "DatePicker.PresetContainer"
 
-// Date Picker Shared =========================================================
+//#region Date Picker Shared
+// ============================================================================
 
 const formatDate = (date: Date, locale: Locale) => {
   const formattedDate = format(date, "MMM d, yyyy", { locale })
@@ -303,8 +307,6 @@ type CalendarProps = {
 type Translations = {
   cancel?: string
   apply?: string
-  start?: string
-  end?: string
   range?: string
 }
 
@@ -324,14 +326,15 @@ interface PickerProps extends CalendarProps {
   "aria-required"?: boolean
 }
 
-// Single Date Picker =========================================================
+//#region Single Date Picker
+// ============================================================================
 
 interface SingleProps extends Omit<PickerProps, "translations"> {
   presets?: DatePreset[]
   defaultValue?: Date
   value?: Date
   onChange?: (date: Date | undefined) => void
-  translations?: Omit<Translations, "start" | "end" | "range">
+  translations?: Omit<Translations, "range">
 }
 
 const SingleDatePicker = ({
@@ -484,7 +487,8 @@ const SingleDatePicker = ({
   )
 }
 
-// Range Date Picker ==========================================================
+//#region Range Date Picker
+// ============================================================================
 
 interface RangeProps extends PickerProps {
   presets?: DateRangePreset[]
@@ -659,7 +663,8 @@ const RangeDatePicker = ({
   )
 }
 
-// Preset Validation ==========================================================
+//#region Preset Validation
+// ============================================================================
 
 const validatePresets = (
   presets: DateRangePreset[] | DatePreset[],
@@ -802,36 +807,35 @@ const validatePresets = (
   }
 }
 
-// Types & Exports ============================================================
+//#region Types & Exports
+// ============================================================================
 
-type DatePickerProps = (
-  | {
-      mode?: "single"
-      presets?: DatePreset[]
-      defaultValue?: Date
-      value?: Date
-      onChange?: (date: Date | undefined) => void
-    }
-  | {
-      mode: "range"
-      presets?: DateRangePreset[]
-      defaultValue?: DateRange
-      value?: DateRange
-      onChange?: (dateRange: DateRange | undefined) => void
-    }
-) &
-  PickerProps
+type SingleDatePickerProps = {
+  presets?: DatePreset[]
+  defaultValue?: Date
+  value?: Date
+  onChange?: (date: Date | undefined) => void
+} & PickerProps
 
-const DatePicker = ({ mode = "single", ...props }: DatePickerProps) => {
-  if (props.presets) {
-    validatePresets(props.presets, props)
+const DatePicker = ({ presets, ...props }: SingleDatePickerProps) => {
+  if (presets) {
+    validatePresets(presets, props)
   }
 
-  if (mode === "single") {
-    return <SingleDatePicker {...(props as SingleProps)} />
-  }
-
-  return <RangeDatePicker {...(props as RangeProps)} />
+  return <SingleDatePicker presets={presets} {...(props as SingleProps)} />
 }
+type RangeDatePickerProps = {
+  presets?: DateRangePreset[]
+  defaultValue?: DateRange
+  value?: DateRange
+  onChange?: (dateRange: DateRange | undefined) => void
+} & PickerProps
 
-export { DatePicker, type DatePreset, type DateRangePreset }
+const DateRangePicker = ({ presets, ...props }: RangeDatePickerProps) => {
+  if (presets) {
+    validatePresets(presets, props)
+  }
+
+  return <RangeDatePicker presets={presets} {...(props as RangeProps)} />
+}
+export { DatePicker, DateRangePicker, type DatePreset, type DateRangePreset }
