@@ -430,26 +430,21 @@ const SingleDatePicker = ({
         <div className="flex">
           <div className="flex flex-col sm:flex-row sm:items-start">
             {presets && presets.length > 0 && (
-              <>
-                <div className="relative flex h-14 w-full items-center overflow-x-scroll border-b border-gray-300 sm:hidden">
-                  <div className="absolute left-2">
-                    <PresetContainer
-                      currentValue={date}
-                      presets={presets}
-                      onSelect={onDateChange}
-                    />
-                  </div>
+              <div
+                className={cx(
+                  "relative flex h-14 w-full items-center sm:h-full sm:w-40",
+                  "border-b border-gray-300 sm:border-b-0 sm:border-r",
+                  "overflow-auto",
+                )}
+              >
+                <div className="absolute sm:inset-0 sm:left-0 px-2 sm:py-2 pr-2">
+                  <PresetContainer
+                    currentValue={date}
+                    presets={presets}
+                    onSelect={onDateChange}
+                  />
                 </div>
-                <div className="relative hidden h-full w-40 border-r border-gray-300 sm:flex">
-                  <div className="absolute inset-0 overflow-y-scroll px-1.5 py-2">
-                    <PresetContainer
-                      currentValue={date}
-                      presets={presets}
-                      onSelect={onDateChange}
-                    />
-                  </div>
-                </div>
-              </>
+              </div>
             )}
             <div>
               <CalendarPrimitive
@@ -590,26 +585,21 @@ const RangeDatePicker = ({
         <div className="flex">
           <div className="flex flex-col overflow-x-scroll sm:flex-row sm:items-start">
             {presets && presets.length > 0 && (
-              <>
-                <div className="relative flex h-14 w-full items-center overflow-x-scroll border-b border-gray-300 sm:hidden">
-                  <div className="absolute left-2">
-                    <PresetContainer
-                      currentValue={range}
-                      presets={presets}
-                      onSelect={onRangeChange}
-                    />
-                  </div>
+              <div
+                className={cx(
+                  "relative flex h-14 w-full items-center sm:h-full sm:w-40",
+                  "border-b border-gray-300 sm:border-b-0 sm:border-r",
+                  "overflow-auto",
+                )}
+              >
+                <div className="absolute sm:inset-0 sm:left-0 px-2 sm:py-2 pr-2">
+                  <PresetContainer
+                    currentValue={range}
+                    presets={presets}
+                    onSelect={onRangeChange}
+                  />
                 </div>
-                <div className="relative hidden h-full w-40 border-r border-gray-300 sm:flex">
-                  <div className="absolute inset-0 overflow-y-scroll px-1.5 py-2">
-                    <PresetContainer
-                      currentValue={range}
-                      presets={presets}
-                      onSelect={onRangeChange}
-                    />
-                  </div>
-                </div>
-              </>
+              </div>
             )}
             <div className="overflow-x-scroll">
               <CalendarPrimitive
