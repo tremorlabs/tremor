@@ -58,15 +58,8 @@ export const Single: Story = {
   args: {},
 }
 
-export const Placeholder: Story = {
-  args: {
-    placeholder: "Enter date",
-  },
-}
-
 export const WithoutYearNavigation: Story = {
   args: {
-    placeholder: "Enter date",
     enableYearNavigation: false,
   },
 }

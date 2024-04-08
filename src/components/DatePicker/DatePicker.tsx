@@ -21,7 +21,7 @@ import { Calendar as CalendarPrimitive } from "../Calendar/Calendar"
 const triggerStyles = tv({
   base: [
     // base
-    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
+    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 h-9 shadow-sm outline-none transition-all sm:text-sm",
     // background color
     "bg-white dark:bg-gray-950 ",
     // border color
@@ -346,7 +346,7 @@ const SingleDatePicker = ({
   presets,
   disabled,
   className,
-  placeholder,
+  placeholder ="Select date",
   hasError,
   translations,
   enableYearNavigation = true,
@@ -502,7 +502,7 @@ const RangeDatePicker = ({
   disabled,
   locale = enUS,
   className,
-  placeholder,
+  placeholder = "Select date range",
   translations,
   enableYearNavigation = true,
   ...props

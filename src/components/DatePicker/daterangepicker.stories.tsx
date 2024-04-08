@@ -76,15 +76,8 @@ export const Range: Story = {
   args: {},
 }
 
-export const Placeholder: Story = {
-  args: {
-    placeholder: "Enter date",
-  },
-}
-
 export const WithoutYearNavigation: Story = {
   args: {
-    placeholder: "Enter date",
     enableYearNavigation: false,
   },
 }
@@ -99,7 +92,11 @@ export const Localized: Story = {
   args: {
     placeholder: "Choisissez une date",
     locale: fr,
-    translations: { cancel: "Annuler", apply: "Applicer", range: "Intervalle de dates" },
+    translations: {
+      cancel: "Annuler",
+      apply: "Applicer",
+      range: "Intervalle de dates",
+    },
     presets: [
       {
         label: "Aujourd'hui",
