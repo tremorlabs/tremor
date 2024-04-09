@@ -103,6 +103,7 @@ const CalendarPopover = React.forwardRef<
         side="bottom"
         align="center"
         avoidCollisions
+        onOpenAutoFocus={(e) => e.preventDefault()}
         className={cx(
           // base
           "relative z-50 w-fit rounded-md border text-sm shadow-xl shadow-black/[2.5%]",
