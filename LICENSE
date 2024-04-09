@@ -221,6 +221,7 @@ The following files use parts of:
 
 `@components/Accordion/Accordion.tsx`
 `@components/Checkbox/Checkbox.tsx`
+`@components/DatePicker/DatePicker.tsx`
 `@components/Dialog/Dialog.tsx`
 `@components/Input/Input.tsx`
 `@components/Popover/Popover.tsx`
