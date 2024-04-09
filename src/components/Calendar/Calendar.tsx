@@ -318,5 +318,4 @@ const Calendar = ({
 
 Calendar.displayName = "Calendar"
 
-export { Calendar }
-export type { Matcher }
+export { Calendar, type Matcher }
