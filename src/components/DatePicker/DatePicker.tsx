@@ -98,7 +98,7 @@ const CalendarPopover = React.forwardRef<
         ref={forwardedRef}
         sideOffset={10}
         side="bottom"
-        align="start"
+        align="center"
         avoidCollisions
         className={cx(
           // base
@@ -487,6 +487,7 @@ const RangeDatePicker = ({
   enableYearNavigation = false,
   locale = enUS,
   placeholder = "Select date range",
+  hasError,
   translations,
   className,
   ...props
@@ -558,6 +559,7 @@ const RangeDatePicker = ({
         placeholder={placeholder}
         disabled={disabled}
         className={className}
+        hasError={hasError}
         aria-required={props.required || props["aria-required"]}
         aria-invalid={props["aria-invalid"]}
         aria-label={props["aria-label"]}
