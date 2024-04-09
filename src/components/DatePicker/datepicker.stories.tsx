@@ -58,9 +58,9 @@ export const Single: Story = {
   args: {},
 }
 
-export const WithoutYearNavigation: Story = {
+export const WithYearNavigation: Story = {
   args: {
-    enableYearNavigation: false,
+    enableYearNavigation: true,
   },
 }
 

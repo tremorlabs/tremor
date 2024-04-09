@@ -13,7 +13,10 @@ import { cx } from "../../utils/cx"
 import { focusInput } from "../../utils/focusInput"
 import { hasErrorInput } from "../../utils/hasErrorInput"
 import { Button } from "../Button/Button"
-import { Calendar as CalendarPrimitive } from "../Calendar/Calendar"
+import {
+  Calendar as CalendarPrimitive,
+  type Matcher,
+} from "../Calendar/Calendar"
 
 //#region Trigger
 // ============================================================================
@@ -21,7 +24,7 @@ import { Calendar as CalendarPrimitive } from "../Calendar/Calendar"
 const triggerStyles = tv({
   base: [
     // base
-    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 h-9 shadow-sm outline-none transition-all sm:text-sm",
+    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
     // background color
     "bg-white dark:bg-gray-950 ",
     // border color
@@ -268,41 +271,14 @@ const formatDate = (date: Date, locale: Locale) => {
 }
 
 type CalendarProps = {
-  /**
-   * The year to start showing the dates from.
-   */
   fromYear?: number
-  /**
-   * The year to show dates to.
-   */
   toYear?: number
-  /**
-   * The month to start showing dates from.
-   */
   fromMonth?: Date
-  /**
-   * The month to show dates to.
-   */
   toMonth?: Date
-  /**
-   * The day to start showing dates from.
-   */
   fromDay?: Date
-  /**
-   * The day to show dates to.
-   */
   toDay?: Date
-  /**
-   * The date to show dates from.
-   */
   fromDate?: Date
-  /**
-   * The date to show dates to.
-   */
   toDate?: Date
-  /**
-   * The locale to use for formatting dates. To change the locale pass a date-fns locale object.
-   */
   locale?: Locale
 }
 
@@ -315,12 +291,14 @@ type Translations = {
 interface PickerProps extends CalendarProps {
   className?: string
   disabled?: boolean
+  disabledDays?: Matcher | Matcher[] | undefined
   required?: boolean
   placeholder?: string
   enableYearNavigation?: boolean
+  disableNavigation?: boolean
   hasError?: boolean
   id?: string
-  // Localization settings for the date picker: Customize the date picker for different languages.
+  // Customize the date picker for different languages.
   translations?: Translations
   "aria-invalid"?: boolean
   "aria-label"?: string
@@ -345,11 +323,13 @@ const SingleDatePicker = ({
   onChange,
   presets,
   disabled,
+  disabledDays,
+  disableNavigation,
   className,
-  placeholder ="Select date",
+  placeholder = "Select date",
   hasError,
   translations,
-  enableYearNavigation = true,
+  enableYearNavigation = false,
   locale = enUS,
   ...props
 }: SingleProps) => {
@@ -437,7 +417,7 @@ const SingleDatePicker = ({
                   "overflow-auto",
                 )}
               >
-                <div className="absolute sm:inset-0 sm:left-0 px-2 sm:py-2 pr-2">
+                <div className="absolute px-2 pr-2 sm:inset-0 sm:left-0 sm:py-2">
                   <PresetContainer
                     currentValue={date}
                     presets={presets}
@@ -453,9 +433,11 @@ const SingleDatePicker = ({
                 onMonthChange={setMonth}
                 selected={date}
                 onSelect={onDateChange}
-                disabled={disabled}
+                disabled={disabledDays}
                 locale={locale}
                 enableYearNavigation={enableYearNavigation}
+                disableNavigation={disableNavigation}
+                initialFocus
                 {...props}
               />
               <div className="flex items-center gap-x-2 border-t border-gray-300 p-2">
@@ -500,11 +482,13 @@ const RangeDatePicker = ({
   onChange,
   presets,
   disabled,
+  disableNavigation,
+  disabledDays,
+  enableYearNavigation = false,
   locale = enUS,
-  className,
   placeholder = "Select date range",
   translations,
-  enableYearNavigation = true,
+  className,
   ...props
 }: RangeProps) => {
   const [open, setOpen] = React.useState(false)
@@ -592,7 +576,7 @@ const RangeDatePicker = ({
                   "overflow-auto",
                 )}
               >
-                <div className="absolute sm:inset-0 sm:left-0 px-2 sm:py-2 pr-2">
+                <div className="absolute px-2 pr-2 sm:inset-0 sm:left-0 sm:py-2">
                   <PresetContainer
                     currentValue={range}
                     presets={presets}
@@ -609,9 +593,11 @@ const RangeDatePicker = ({
                 month={month}
                 onMonthChange={setMonth}
                 numberOfMonths={2}
-                disabled={disabled}
-                locale={locale}
+                disabled={disabledDays}
+                disableNavigation={disableNavigation}
                 enableYearNavigation={enableYearNavigation}
+                locale={locale}
+                initialFocus
                 className="overflow-x-scroll"
                 classNames={{
                   months:

@@ -1,3 +1,5 @@
+// Tremor Raw Calendar [v0.0.0]
+
 "use client"
 
 import * as React from "react"
@@ -16,6 +18,7 @@ import {
   type DayPickerRangeProps,
   type DayPickerSingleProps,
   type DayProps,
+  type Matcher,
 } from "react-day-picker"
 
 import { cx } from "../../utils/cx"
@@ -316,3 +319,4 @@ const Calendar = ({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+export type { Matcher }

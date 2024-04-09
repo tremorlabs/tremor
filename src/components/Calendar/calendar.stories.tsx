@@ -61,6 +61,14 @@ export const SingleWithYearNavigation: Story = {
   },
 }
 
+export const SingleDisableNavigation: Story = {
+  args: {
+    mode: "single",
+    enableYearNavigation: true,
+    disableNavigation: true
+  },
+}
+
 export const SingleTwoMonth: Story = {
   args: {
     mode: "single",
