@@ -123,7 +123,6 @@ const Calendar = ({
           "relative p-0 text-center focus-within:relative",
           "text-gray-900 dark:text-gray-50",
         ),
-        // @SEV: added text-gray-900 colors here -> otherwise it would be #000000?
         day: cx(
           "size-9 rounded text-gray-900 dark:text-gray-50",
           "hover:bg-gray-200 hover:dark:bg-gray-700",
