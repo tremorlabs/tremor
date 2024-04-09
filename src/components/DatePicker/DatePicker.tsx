@@ -28,7 +28,7 @@ const triggerStyles = tv({
     // background color
     "bg-white dark:bg-gray-950 ",
     // border color
-    "border-gray-300 dark:border-gray-800",
+    "border-gray-300 dark:border-gray-700",
     // text color
     "text-gray-900 dark:text-gray-50",
     // placeholder color
@@ -69,12 +69,12 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
           className={cx(triggerStyles({ hasError }), className)}
           {...props}
         >
-          <RiCalendar2Fill className="size-5 shrink-0 text-gray-400" />
-          <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-900">
+          <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
+          <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
             {children ? (
               children
             ) : placeholder ? (
-              <span className="text-gray-400">{placeholder}</span>
+              <span className="text-gray-400 dark:text-gray-600">{placeholder}</span>
             ) : null}
           </span>
         </button>
@@ -108,7 +108,7 @@ const CalendarPopover = React.forwardRef<
           // heights
           "max-h-[var(--radix-popover-content-available-height)]",
           // border color
-          "border-gray-300 dark:border-gray-800",
+          "border-gray-300 dark:border-gray-700",
           // background color
           "bg-white dark:bg-gray-950",
           // transition
@@ -230,27 +230,29 @@ const PresetContainer = <TPreset extends Preset, TValue>({
   }
 
   return (
-    <ul className="flex items-start gap-x-2 sm:flex-col">
+    <ul role="list" className="flex items-start gap-x-2 sm:flex-col">
       {presets.map((preset, index) => {
         return (
           <li key={index} className="sm:w-full sm:py-px">
             <button
               title={preset.label}
               className={cx(
-                "relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded px-2.5 py-1 text-left text-base sm:text-sm",
-                "text-gray-900 outline-none transition-all hover:bg-gray-100",
-                "border border-gray-300 shadow-sm sm:border-none sm:shadow-none",
-                "focus-visible:bg-gray-100",
+                "relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded px-2.5 py-1.5 sm:py-2 text-left text-base sm:text-sm",
+                "text-gray-700 dark:text-gray-300 outline-none transition-all hover:bg-gray-100 hover:dark:bg-gray-900",
+                "border border-gray-300 dark:border-gray-700 shadow-sm sm:border-none sm:shadow-none",
+                // @SEV add outline ring?
+                "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
                 {
-                  "bg-gray-100 ": matchesCurrent(preset),
+                  "bg-gray-100 dark:bg-gray-900": matchesCurrent(preset),
                 },
               )}
               onClick={() => handleClick(preset)}
               aria-label={`Select ${preset.label}`}
             >
-              {matchesCurrent(preset) && (
-                <div className="absolute left-1 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-gray-700 dark:bg-gray-400/50" />
-              )}
+              {/* @SEV: would kick out because of confusion with today-marker, same pattern */}
+              {/* {matchesCurrent(preset) && (
+                <div className="absolute left-1 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-gray-700 dark:bg-gray-400/50" />
+              )} */}
               <span>{preset.label}</span>
             </button>
           </li>
@@ -413,7 +415,7 @@ const SingleDatePicker = ({
               <div
                 className={cx(
                   "relative flex h-14 w-full items-center sm:h-full sm:w-40",
-                  "border-b border-gray-300 sm:border-b-0 sm:border-r",
+                  "border-b border-gray-300 dark:border-gray-700 sm:border-b-0 sm:border-r",
                   "overflow-auto",
                 )}
               >
@@ -440,7 +442,7 @@ const SingleDatePicker = ({
                 initialFocus
                 {...props}
               />
-              <div className="flex items-center gap-x-2 border-t border-gray-300 p-2">
+              <div className="flex items-center gap-x-2 border-t border-gray-300 dark:border-gray-700 p-3">
                 <Button
                   variant="secondary"
                   className="h-8 w-full"
@@ -573,12 +575,12 @@ const RangeDatePicker = ({
             {presets && presets.length > 0 && (
               <div
                 className={cx(
-                  "relative flex h-14 w-full items-center sm:h-full sm:w-40",
-                  "border-b border-gray-300 sm:border-b-0 sm:border-r",
+                  "relative flex h-16 w-full items-center sm:h-full sm:w-40",
+                  "border-b border-gray-300 dark:border-gray-700 sm:border-b-0 sm:border-r",
                   "overflow-auto",
                 )}
               >
-                <div className="absolute px-2 pr-2 sm:inset-0 sm:left-0 sm:py-2">
+                <div className="absolute px-3 sm:inset-0 sm:left-0 sm:p-2">
                   <PresetContainer
                     currentValue={range}
                     presets={presets}
@@ -603,23 +605,23 @@ const RangeDatePicker = ({
                 className="overflow-x-scroll"
                 classNames={{
                   months:
-                    "flex flex-row divide-x divide-gray-200 overflow-x-scroll",
+                    "flex flex-row divide-x divide-gray-300 dark:divide-gray-700 overflow-x-scroll",
                 }}
                 {...props}
               />
-              <div className="flex items-center justify-between border-t border-gray-300 p-2">
+              <div className="sm:flex sm:items-center sm:justify-between border-t border-gray-300 dark:border-gray-700 p-3">
                 <p
-                  className={cx("font-medium text-gray-900 dark:text-gray-50")}
+                  className={cx("text-gray-900 dark:text-gray-50")}
                 >
-                  <span className="text-gray-500">
+                  <span className="text-gray-700 dark:text-gray-300">
                     {translations?.range ?? "Range"}:
                   </span>{" "}
-                  {displayRange}
+                  <span className="font-medium">{displayRange}</span>
                 </p>
-                <div className="flex items-center gap-x-2">
+                <div className="mt-2 sm:mt-0 flex items-center gap-x-2">
                   <Button
                     variant="secondary"
-                    className="h-8"
+                    className="w-full sm:w-fit h-8"
                     type="button"
                     onClick={onCancel}
                   >
@@ -627,7 +629,7 @@ const RangeDatePicker = ({
                   </Button>
                   <Button
                     variant="primary"
-                    className="h-8"
+                    className="w-full sm:w-fit h-8"
                     type="button"
                     onClick={onApply}
                   >
