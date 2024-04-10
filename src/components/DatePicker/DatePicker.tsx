@@ -108,7 +108,7 @@ const CalendarPopover = React.forwardRef<
           // base
           "relative z-50 w-fit rounded-md border text-sm shadow-xl shadow-black/[2.5%]",
           // widths
-          "mr-2 min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
+          "min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
           // heights
           "max-h-[var(--radix-popover-content-available-height)]",
           // border color
