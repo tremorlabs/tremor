@@ -1,4 +1,4 @@
-// Tremor Raw Date Picker [v0.0.0]
+// Tremor Raw Date Picker [v0.0.1]
 
 "use client"
 
@@ -94,14 +94,14 @@ Trigger.displayName = "DatePicker.Trigger"
 const CalendarPopover = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitives.Content>,
   React.ComponentProps<typeof PopoverPrimitives.Content>
->(({ className, children, ...props }, forwardedRef) => {
+>(({ align, className, children, ...props }, forwardedRef) => {
   return (
     <PopoverPrimitives.Portal>
       <PopoverPrimitives.Content
         ref={forwardedRef}
         sideOffset={10}
         side="bottom"
-        align="center"
+        align={align}
         avoidCollisions
         onOpenAutoFocus={(e) => e.preventDefault()}
         className={cx(
@@ -308,6 +308,7 @@ interface PickerProps extends CalendarProps {
   id?: string
   // Customize the date picker for different languages.
   translations?: Translations
+  align?: "center" | "end" | "start"
   "aria-invalid"?: boolean
   "aria-label"?: string
   "aria-labelledby"?: string
@@ -339,6 +340,7 @@ const SingleDatePicker = ({
   translations,
   enableYearNavigation = false,
   locale = enUS,
+  align = "center",
   ...props
 }: SingleProps) => {
   const [open, setOpen] = React.useState(false)
@@ -414,7 +416,7 @@ const SingleDatePicker = ({
       >
         {formattedDate}
       </Trigger>
-      <CalendarPopover>
+      <CalendarPopover align={align}>
         <div className="flex">
           <div className="flex flex-col sm:flex-row sm:items-start">
             {presets && presets.length > 0 && (
@@ -497,6 +499,7 @@ const RangeDatePicker = ({
   placeholder = "Select date range",
   hasError,
   translations,
+  align = "center",
   className,
   ...props
 }: RangeProps) => {
@@ -575,7 +578,7 @@ const RangeDatePicker = ({
       >
         {displayRange}
       </Trigger>
-      <CalendarPopover>
+      <CalendarPopover align={align}>
         <div className="flex">
           <div className="flex flex-col overflow-x-scroll sm:flex-row sm:items-start">
             {presets && presets.length > 0 && (

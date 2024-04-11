@@ -172,6 +172,13 @@ const PopoverNested = ({ value, onChange }: PopoverNestedProps) => {
   )
 }
 
+export const AlignEnd: Story = {
+  args: {align: "end"},
+  parameters: {
+    layout: "centered"
+  }
+}
+
 const PopoverNestedDemo = () => {
   const [value, setValue] = React.useState<Date | undefined>(undefined)
 

@@ -153,6 +153,13 @@ export const Localized: Story = {
   },
 }
 
+export const AlignEnd: Story = {
+  args: {align: "end"},
+  parameters: {
+    layout: "centered"
+  }
+}
+
 const ControlledRangeDemo = () => {
   const [value, setValue] = React.useState<DateRange | undefined>(undefined)
 
