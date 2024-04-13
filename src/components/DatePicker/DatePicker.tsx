@@ -413,7 +413,7 @@ const formatDate = (
     dateString = format(date, "dd MMM, yyyy", { locale })
   }
 
-  return dateString.charAt(0).toUpperCase() + dateString.slice(1)
+  return dateString
 }
 
 type CalendarProps = {

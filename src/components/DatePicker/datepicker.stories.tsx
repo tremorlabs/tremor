@@ -156,10 +156,11 @@ const ControlledTimeDemo = () => {
   return (
     <>
       <p className="mb-6 text-gray-500">
-        {value ? value.toUTCString() : "Select a date"}
+        {value ? value.toString() : "Select a date"}
       </p>
-      <div className="flex w-80 gap-2">
+      <div className="flex w-96 gap-2">
         <DatePicker
+        className="w-60"
           showTimePicker
           value={value}
           onChange={(value) => {
