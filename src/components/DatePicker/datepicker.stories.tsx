@@ -126,7 +126,7 @@ const ControlledDemo = () => {
   return (
     <>
       <p className="mb-6 text-gray-500">
-        {value ? value.toDateString() : "Select a date"}
+        {value ? value.toString() : "Select a date"}
       </p>
       <div className="flex w-80 gap-2">
         <DatePicker
@@ -148,6 +148,37 @@ const ControlledDemo = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
+}
+
+const ControlledTimeDemo = () => {
+  const [value, setValue] = React.useState<Date | undefined>(undefined)
+
+  return (
+    <>
+      <p className="mb-6 text-gray-500">
+        {value ? value.toUTCString() : "Select a date"}
+      </p>
+      <div className="flex w-80 gap-2">
+        <DatePicker
+          showTimePicker
+          value={value}
+          onChange={(value) => {
+            setValue(value)
+          }}
+        />
+        <Button variant="destructive" onClick={() => setValue(undefined)}>
+          Reset
+        </Button>
+        <Button variant="secondary" onClick={() => setValue(new Date())}>
+          Today
+        </Button>
+      </div>
+    </>
+  )
+}
+
+export const ControlledTime: Story = {
+  render: () => <ControlledTimeDemo />,
 }
 
 type PopoverNestedProps = {
