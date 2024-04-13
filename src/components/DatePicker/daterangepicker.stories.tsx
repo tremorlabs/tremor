@@ -73,13 +73,17 @@ const rangePresets = [
 ]
 
 export const Range: Story = {
-  args: {showTimePicker: true},
+  args: {},
 }
 
 export const WithYearNavigation: Story = {
   args: {
     enableYearNavigation: true,
   },
+}
+
+export const showTimePicker: Story = {
+  args: { showTimePicker: true },
 }
 
 export const RangeWithPresets: Story = {
@@ -154,10 +158,10 @@ export const Localized: Story = {
 }
 
 export const AlignEnd: Story = {
-  args: {align: "end"},
+  args: { align: "end" },
   parameters: {
-    layout: "centered"
-  }
+    layout: "centered",
+  },
 }
 
 const ControlledRangeDemo = () => {

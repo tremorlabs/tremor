@@ -70,6 +70,10 @@ export const SingleWithPresets: Story = {
   },
 }
 
+export const ShowTimePicker: Story = {
+  args: { showTimePicker: true },
+}
+
 export const Localized: Story = {
   args: {
     placeholder: "Choisissez une date",
@@ -173,10 +177,10 @@ const PopoverNested = ({ value, onChange }: PopoverNestedProps) => {
 }
 
 export const AlignEnd: Story = {
-  args: {align: "end"},
+  args: { align: "end" },
   parameters: {
-    layout: "centered"
-  }
+    layout: "centered",
+  },
 }
 
 const PopoverNestedDemo = () => {
