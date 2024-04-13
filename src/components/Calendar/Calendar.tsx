@@ -1,4 +1,4 @@
-// Tremor Raw Calendar [v0.0.0]
+// Tremor Raw Calendar [v0.0.1]
 
 "use client"
 
@@ -148,8 +148,8 @@ const Calendar = ({
         ...classNames,
       }}
       components={{
-        IconLeft: () => <RiArrowLeftSLine className="size-4" />,
-        IconRight: () => <RiArrowRightSLine className="size-4" />,
+        IconLeft: () => <RiArrowLeftSLine aria-hidden="true" className="size-4" />,
+        IconRight: () => <RiArrowRightSLine aria-hidden="true" className="size-4" />,
         Caption: ({ ...props }) => {
           const {
             goToMonth,
@@ -251,17 +251,11 @@ const Calendar = ({
           )
         },
         Day: ({ date, displayMonth }: DayProps) => {
-          const ref = React.useRef<HTMLButtonElement>(null)
+          const buttonRef = React.useRef<HTMLButtonElement>(null)
           const { activeModifiers, buttonProps, divProps, isButton, isHidden } =
-            useDayRender(date, displayMonth, ref)
+            useDayRender(date, displayMonth, buttonRef)
 
           const { selected, today, disabled, range_middle } = activeModifiers
-
-          React.useEffect(() => {
-            if (selected) {
-              ref.current?.focus()
-            }
-          }, [selected])
 
           if (isHidden) {
             return <></>
@@ -287,7 +281,7 @@ const Calendar = ({
 
           return (
             <button
-              ref={ref}
+              ref={buttonRef}
               {...buttonPropsRest}
               type="button"
               className={cx("relative", buttonClassName)}
