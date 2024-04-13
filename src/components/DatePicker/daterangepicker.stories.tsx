@@ -73,7 +73,7 @@ const rangePresets = [
 ]
 
 export const Range: Story = {
-  args: {},
+  args: {showTimePicker: true},
 }
 
 export const WithYearNavigation: Story = {
