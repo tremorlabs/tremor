@@ -82,7 +82,7 @@ export const WithYearNavigation: Story = {
   },
 }
 
-export const showTimePicker: Story = {
+export const ShowTimePicker: Story = {
   args: { showTimePicker: true },
 }
 
