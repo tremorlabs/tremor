@@ -219,7 +219,7 @@ const ControlledTimeRangeDemo = () => {
     <>
       <p className="mb-6 text-gray-500">
         {value
-          ? `${value.from?.toUTCString()} – ${value.to?.toUTCString()}`
+          ? `${value.from?.toString()} – ${value.to?.toString()}`
           : "Select a date"}
       </p>
       <div className="flex w-80 gap-2">

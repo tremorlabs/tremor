@@ -80,7 +80,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
       <span
         aria-hidden="true"
         className={cx(
-          "pointer-events-none block w-full text-left sm:text-sm text-gray-700",
+          "pointer-events-none block w-full text-left text-gray-700 sm:text-sm",
           {
             hidden: !segment.isPlaceholder,
             "h-0": !segment.isPlaceholder,
@@ -586,6 +586,17 @@ const SingleDatePicker = ({
     onChange?.(date)
   }
 
+  React.useEffect(() => {
+    setDate(value ?? defaultValue ?? undefined)
+    setTime(
+      value
+        ? new Time(value.getHours(), value.getMinutes())
+        : defaultValue
+          ? new Time(defaultValue.getHours(), defaultValue.getMinutes())
+          : new Time(0, 0),
+    )
+  }, [value, defaultValue])
+
   return (
     <PopoverPrimitives.Root open={open} onOpenChange={onOpenChange}>
       <Trigger
@@ -847,6 +858,28 @@ const RangeDatePicker = ({
     }
   }
 
+  React.useEffect(() => {
+    setRange(value ?? defaultValue ?? undefined)
+
+    setStartTime(
+      value?.from
+        ? new Time(value.from.getHours(), value.from.getMinutes())
+        : defaultValue?.from
+          ? new Time(
+              defaultValue.from.getHours(),
+              defaultValue.from.getMinutes(),
+            )
+          : new Time(0, 0),
+    )
+    setEndTime(
+      value?.to
+        ? new Time(value.to.getHours(), value.to.getMinutes())
+        : defaultValue?.to
+          ? new Time(defaultValue.to.getHours(), defaultValue.to.getMinutes())
+          : new Time(0, 0),
+    )
+  }, [value, defaultValue])
+
   const displayRange = React.useMemo(() => {
     if (!range) {
       return null
@@ -919,7 +952,7 @@ const RangeDatePicker = ({
               {showTimePicker && (
                 <div className="flex items-center justify-evenly gap-x-3 border-t border-gray-300 p-3 dark:border-gray-800">
                   <div className="flex flex-1 items-center gap-x-2">
-                    <span className="text-gray-700 dark:text-gray-30">
+                    <span className="dark:text-gray-30 text-gray-700">
                       {translations?.start ?? "Start"}:
                     </span>
                     <TimeInput
@@ -932,7 +965,7 @@ const RangeDatePicker = ({
                   </div>
                   <RiSubtractFill className="size-4 shrink-0 text-gray-400" />
                   <div className="flex flex-1 items-center gap-x-2">
-                    <span className="text-gray-700 dark:text-gray-30">
+                    <span className="dark:text-gray-30 text-gray-700">
                       {translations?.end ?? "End"}:
                     </span>
                     <TimeInput
@@ -946,7 +979,7 @@ const RangeDatePicker = ({
                 </div>
               )}
               <div className="border-t border-gray-300 p-3 sm:flex sm:items-center sm:justify-between dark:border-gray-800">
-                <p className="text-gray-900 dark:text-gray-50 tabular-nums">
+                <p className="tabular-nums text-gray-900 dark:text-gray-50">
                   <span className="text-gray-700 dark:text-gray-300">
                     {translations?.range ?? "Range"}:
                   </span>{" "}
