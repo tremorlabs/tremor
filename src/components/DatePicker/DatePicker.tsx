@@ -1,4 +1,4 @@
-// Tremor Raw Date Picker [v0.0.1]
+// Tremor Raw Date Picker [v1.0.0]
 
 "use client"
 
@@ -25,7 +25,6 @@ import { cx } from "../../utils/cx"
 import { focusInput } from "../../utils/focusInput"
 import { focusRing } from "../../utils/focusRing"
 import { hasErrorInput } from "../../utils/hasErrorInput"
-import { isBrowserLocaleClockType24h } from "../../utils/isBrowserLocaleClockType24h"
 import { Button } from "../Button/Button"
 import {
   Calendar as CalendarPrimitive,
@@ -34,6 +33,17 @@ import {
 
 //#region TimeInput
 // ============================================================================
+
+const isBrowserLocaleClockType24h = () => {
+  const language =
+    typeof window !== "undefined" ? window.navigator.language : "en-US"
+
+  const hr = new Intl.DateTimeFormat(language, {
+    hour: "numeric",
+  }).format()
+
+  return Number.isInteger(Number(hr))
+}
 
 type TimeSegmentProps = {
   segment: DateSegment
