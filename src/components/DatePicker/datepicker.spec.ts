@@ -115,6 +115,25 @@ test.describe("Expect date picker single", () => {
         .getByLabel("Select A year from now"),
     ).toBeVisible()
   })
+  test("with time to be rendered", async ({ page }) => {
+    await page.goto(
+      "http://localhost:6006/?path=/story/ui-datepicker--controlled-time",
+    )
+    await page
+      .frameLocator('iframe[title="storybook-preview-iframe"]')
+      .getByRole("button", { name: "Select date" })
+      .click()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("hour, Time"),
+    ).toBeVisible()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("minute, Time"),
+    ).toBeVisible()
+  })
 })
 
 test.describe("Expect date picker range", () => {
@@ -246,6 +265,35 @@ test.describe("Expect date picker range", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .getByLabel("Year to date"),
+    ).toBeVisible()
+  })
+  test("with time to be rendered", async ({ page }) => {
+    await page.goto(
+      "http://localhost:6006/?path=/story/ui-daterangepicker--controlled-time-range",
+    )
+    await page
+      .frameLocator('iframe[title="storybook-preview-iframe"]')
+      .getByRole("button", { name: "Select date" })
+      .click()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("hour, Start date time"),
+    ).toBeVisible()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("minute, Start date time"),
+    ).toBeVisible()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("hour, End date time"),
+    ).toBeVisible()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("minute, End date time"),
     ).toBeVisible()
   })
 })

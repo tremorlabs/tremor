@@ -160,7 +160,7 @@ const ControlledTimeDemo = () => {
       </p>
       <div className="flex w-96 gap-2">
         <DatePicker
-        className="w-60"
+          className="w-60"
           showTimePicker
           value={value}
           onChange={(value) => {
