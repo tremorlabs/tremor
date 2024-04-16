@@ -1,10 +1,22 @@
-// Tremor Raw Date Picker [v0.0.1]
+// Tremor Raw Date Picker [v1.0.0]
 
 "use client"
 
 import * as React from "react"
+import { Time } from "@internationalized/date"
 import * as PopoverPrimitives from "@radix-ui/react-popover"
-import { RiCalendar2Fill } from "@remixicon/react"
+import {
+  AriaTimeFieldProps,
+  TimeValue,
+  useDateSegment,
+  useTimeField,
+} from "@react-aria/datepicker"
+import {
+  useTimeFieldState,
+  type DateFieldState,
+  type DateSegment,
+} from "@react-stately/datepicker"
+import { RiCalendar2Fill, RiSubtractFill } from "@remixicon/react"
 import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { tv, VariantProps } from "tailwind-variants"
@@ -18,6 +30,128 @@ import {
   Calendar as CalendarPrimitive,
   type Matcher,
 } from "../Calendar/Calendar"
+
+//#region TimeInput
+// ============================================================================
+
+const isBrowserLocaleClockType24h = () => {
+  const language =
+    typeof window !== "undefined" ? window.navigator.language : "en-US"
+
+  const hr = new Intl.DateTimeFormat(language, {
+    hour: "numeric",
+  }).format()
+
+  return Number.isInteger(Number(hr))
+}
+
+type TimeSegmentProps = {
+  segment: DateSegment
+  state: DateFieldState
+}
+
+const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
+  const ref = React.useRef<HTMLDivElement>(null)
+
+  const { segmentProps } = useDateSegment(segment, state, ref)
+
+  const isColon = segment.type === "literal" && segment.text === ":"
+  const isSpace = segment.type === "literal" && segment.text === " "
+
+  const isDecorator = isColon || isSpace
+
+  return (
+    <div
+      {...segmentProps}
+      ref={ref}
+      className={cx(
+        // base
+        "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-sm outline-none sm:text-sm",
+        // border color
+        "border-gray-300 dark:border-gray-800",
+        // text color
+        "text-gray-900 dark:text-gray-50",
+        // background color
+        "bg-white dark:bg-gray-950",
+        // focus
+        focusInput,
+        // invalid (optional)
+        "invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-[invalid=true]/time-input:border-red-500 group-aria-[invalid=true]/time-input:ring-2 group-aria-[invalid=true]/time-input:ring-red-200 group-aria-[invalid=true]/time-input:dark:ring-red-400/20",
+        {
+          "!w-fit border-none bg-transparent px-0 text-gray-400 shadow-none":
+            isDecorator,
+          hidden: isSpace,
+          "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
+            state.isDisabled,
+          "!bg-transparent !text-gray-400": !segment.isEditable,
+        },
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className={cx(
+          "pointer-events-none block w-full text-left text-gray-700 sm:text-sm",
+          {
+            hidden: !segment.isPlaceholder,
+            "h-0": !segment.isPlaceholder,
+          },
+        )}
+      >
+        {segment.placeholder}
+      </span>
+      {segment.isPlaceholder ? "" : segment.text}
+    </div>
+  )
+}
+
+type TimeInputProps = Omit<
+  AriaTimeFieldProps<TimeValue>,
+  "label" | "shouldForceLeadingZeros" | "description" | "errorMessage"
+>
+
+const TimeInput = React.forwardRef<HTMLDivElement, TimeInputProps>(
+  ({ hourCycle, ...props }: TimeInputProps, ref) => {
+    const innerRef = React.useRef<HTMLDivElement>(null)
+
+    React.useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(
+      ref,
+      () => innerRef?.current,
+    )
+
+    const locale = window !== undefined ? window.navigator.language : "en-US"
+
+    const state = useTimeFieldState({
+      hourCycle: hourCycle,
+      locale: locale,
+      shouldForceLeadingZeros: true,
+      autoFocus: true,
+      ...props,
+    })
+
+    const { fieldProps } = useTimeField(
+      {
+        ...props,
+        hourCycle: hourCycle,
+        shouldForceLeadingZeros: true,
+      },
+      state,
+      innerRef,
+    )
+
+    return (
+      <div
+        {...fieldProps}
+        ref={innerRef}
+        className="group/time-input inline-flex w-full gap-x-2"
+      >
+        {state.segments.map((segment, i) => (
+          <TimeSegment key={i} segment={segment} state={state} />
+        ))}
+      </div>
+    )
+  },
+)
+TimeInput.displayName = "TimeInput"
 
 //#region Trigger
 // ============================================================================
@@ -273,9 +407,23 @@ PresetContainer.displayName = "DatePicker.PresetContainer"
 //#region Date Picker Shared
 // ============================================================================
 
-const formatDate = (date: Date, locale: Locale) => {
-  const formattedDate = format(date, "MMM d, yyyy", { locale })
-  return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1)
+const formatDate = (
+  date: Date,
+  locale: Locale,
+  includeTime?: boolean,
+): string => {
+  const usesAmPm = !isBrowserLocaleClockType24h()
+  let dateString: string
+
+  if (includeTime) {
+    dateString = usesAmPm
+      ? format(date, "dd MMM, yyyy h:mm a", { locale })
+      : format(date, "dd MMM, yyyy HH:mm", { locale })
+  } else {
+    dateString = format(date, "dd MMM, yyyy", { locale })
+  }
+
+  return dateString
 }
 
 type CalendarProps = {
@@ -293,6 +441,8 @@ type CalendarProps = {
 type Translations = {
   cancel?: string
   apply?: string
+  start?: string
+  end?: string
   range?: string
 }
 
@@ -301,6 +451,7 @@ interface PickerProps extends CalendarProps {
   disabled?: boolean
   disabledDays?: Matcher | Matcher[] | undefined
   required?: boolean
+  showTimePicker?: boolean
   placeholder?: string
   enableYearNavigation?: boolean
   disableNavigation?: boolean
@@ -335,6 +486,7 @@ const SingleDatePicker = ({
   disabledDays,
   disableNavigation,
   className,
+  showTimePicker,
   placeholder = "Select date",
   hasError,
   translations,
@@ -348,6 +500,14 @@ const SingleDatePicker = ({
     value ?? defaultValue ?? undefined,
   )
   const [month, setMonth] = React.useState<Date | undefined>(date)
+
+  const [time, setTime] = React.useState<TimeValue>(
+    value
+      ? new Time(value.getHours(), value.getMinutes())
+      : defaultValue
+        ? new Time(defaultValue.getHours(), defaultValue.getMinutes())
+        : new Time(0, 0),
+  )
 
   const initialDate = React.useMemo(() => {
     return date
@@ -373,6 +533,11 @@ const SingleDatePicker = ({
 
   const onCancel = () => {
     setDate(initialDate)
+    setTime(
+      initialDate
+        ? new Time(initialDate.getHours(), initialDate.getMinutes())
+        : new Time(0, 0),
+    )
     setOpen(false)
   }
 
@@ -386,6 +551,35 @@ const SingleDatePicker = ({
 
   const onDateChange = (date: Date | undefined) => {
     const newDate = date
+    if (showTimePicker) {
+      if (newDate && !time) {
+        setTime(new Time(0, 0))
+      }
+      if (newDate && time) {
+        newDate.setHours(time.hour)
+        newDate.setMinutes(time.minute)
+      }
+    }
+    setDate(newDate)
+  }
+
+  const onTimeChange = (time: TimeValue) => {
+    setTime(time)
+
+    if (!date) {
+      return
+    }
+
+    const newDate = new Date(date.getTime())
+
+    if (!time) {
+      newDate.setHours(0)
+      newDate.setMinutes(0)
+    } else {
+      newDate.setHours(time.hour)
+      newDate.setMinutes(time.minute)
+    }
+
     setDate(newDate)
   }
 
@@ -394,13 +588,24 @@ const SingleDatePicker = ({
       return null
     }
 
-    return formatDate(date, locale)
-  }, [date, locale])
+    return formatDate(date, locale, showTimePicker)
+  }, [date, locale, showTimePicker])
 
   const onApply = () => {
     setOpen(false)
     onChange?.(date)
   }
+
+  React.useEffect(() => {
+    setDate(value ?? defaultValue ?? undefined)
+    setTime(
+      value
+        ? new Time(value.getHours(), value.getMinutes())
+        : defaultValue
+          ? new Time(defaultValue.getHours(), defaultValue.getMinutes())
+          : new Time(0, 0),
+    )
+  }, [value, defaultValue])
 
   return (
     <PopoverPrimitives.Root open={open} onOpenChange={onOpenChange}>
@@ -450,6 +655,17 @@ const SingleDatePicker = ({
                 initialFocus
                 {...props}
               />
+              {showTimePicker && (
+                <div className="border-t border-gray-300 p-3 dark:border-gray-800">
+                  <TimeInput
+                    aria-label="Time"
+                    onChange={onTimeChange}
+                    isDisabled={!date}
+                    value={time}
+                    isRequired={props.required}
+                  />
+                </div>
+              )}
               <div className="flex items-center gap-x-2 border-t border-gray-300 p-3 dark:border-gray-800">
                 <Button
                   variant="secondary"
@@ -496,6 +712,7 @@ const RangeDatePicker = ({
   disabledDays,
   enableYearNavigation = false,
   locale = enUS,
+  showTimePicker,
   placeholder = "Select date range",
   hasError,
   translations,
@@ -508,6 +725,21 @@ const RangeDatePicker = ({
     value ?? defaultValue ?? undefined,
   )
   const [month, setMonth] = React.useState<Date | undefined>(range?.from)
+
+  const [startTime, setStartTime] = React.useState<TimeValue>(
+    value?.from
+      ? new Time(value.from.getHours(), value.from.getMinutes())
+      : defaultValue?.from
+        ? new Time(defaultValue.from.getHours(), defaultValue.from.getMinutes())
+        : new Time(0, 0),
+  )
+  const [endTime, setEndTime] = React.useState<TimeValue>(
+    value?.to
+      ? new Time(value.to.getHours(), value.to.getMinutes())
+      : defaultValue?.to
+        ? new Time(defaultValue.to.getHours(), defaultValue.to.getMinutes())
+        : new Time(0, 0),
+  )
 
   const initialRange = React.useMemo(() => {
     return range
@@ -533,11 +765,41 @@ const RangeDatePicker = ({
 
   const onRangeChange = (range: DateRange | undefined) => {
     const newRange = range
+    if (showTimePicker) {
+      if (newRange?.from && !startTime) {
+        setStartTime(new Time(0, 0))
+      }
+
+      if (newRange?.to && !endTime) {
+        setEndTime(new Time(0, 0))
+      }
+
+      if (newRange?.from && startTime) {
+        newRange.from.setHours(startTime.hour)
+        newRange.from.setMinutes(startTime.minute)
+      }
+
+      if (newRange?.to && endTime) {
+        newRange.to.setHours(endTime.hour)
+        newRange.to.setMinutes(endTime.minute)
+      }
+    }
+
     setRange(newRange)
   }
 
   const onCancel = () => {
     setRange(initialRange)
+    setStartTime(
+      initialRange?.from
+        ? new Time(initialRange.from.getHours(), initialRange.from.getMinutes())
+        : new Time(0, 0),
+    )
+    setEndTime(
+      initialRange?.to
+        ? new Time(initialRange.to.getHours(), initialRange.to.getMinutes())
+        : new Time(0, 0),
+    )
     setOpen(false)
   }
 
@@ -549,15 +811,94 @@ const RangeDatePicker = ({
     setOpen(open)
   }
 
+  const onTimeChange = (time: TimeValue, pos: "start" | "end") => {
+    switch (pos) {
+      case "start":
+        setStartTime(time)
+        break
+      case "end":
+        setEndTime(time)
+        break
+    }
+
+    if (!range) {
+      return
+    }
+
+    if (pos === "start") {
+      if (!range.from) {
+        return
+      }
+
+      const newDate = new Date(range.from.getTime())
+
+      if (!time) {
+        newDate.setHours(0)
+        newDate.setMinutes(0)
+      } else {
+        newDate.setHours(time.hour)
+        newDate.setMinutes(time.minute)
+      }
+
+      setRange({
+        ...range,
+        from: newDate,
+      })
+    }
+
+    if (pos === "end") {
+      if (!range.to) {
+        return
+      }
+
+      const newDate = new Date(range.to.getTime())
+
+      if (!time) {
+        newDate.setHours(0)
+        newDate.setMinutes(0)
+      } else {
+        newDate.setHours(time.hour)
+        newDate.setMinutes(time.minute)
+      }
+
+      setRange({
+        ...range,
+        to: newDate,
+      })
+    }
+  }
+
+  React.useEffect(() => {
+    setRange(value ?? defaultValue ?? undefined)
+
+    setStartTime(
+      value?.from
+        ? new Time(value.from.getHours(), value.from.getMinutes())
+        : defaultValue?.from
+          ? new Time(
+              defaultValue.from.getHours(),
+              defaultValue.from.getMinutes(),
+            )
+          : new Time(0, 0),
+    )
+    setEndTime(
+      value?.to
+        ? new Time(value.to.getHours(), value.to.getMinutes())
+        : defaultValue?.to
+          ? new Time(defaultValue.to.getHours(), defaultValue.to.getMinutes())
+          : new Time(0, 0),
+    )
+  }, [value, defaultValue])
+
   const displayRange = React.useMemo(() => {
     if (!range) {
       return null
     }
 
-    return `${range.from ? formatDate(range.from, locale) : ""} - ${
-      range.to ? formatDate(range.to, locale) : ""
+    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${
+      range.to ? formatDate(range.to, locale, showTimePicker) : ""
     }`
-  }, [range, locale])
+  }, [range, locale, showTimePicker])
 
   const onApply = () => {
     setOpen(false)
@@ -618,8 +959,37 @@ const RangeDatePicker = ({
                 }}
                 {...props}
               />
+              {showTimePicker && (
+                <div className="flex items-center justify-evenly gap-x-3 border-t border-gray-300 p-3 dark:border-gray-800">
+                  <div className="flex flex-1 items-center gap-x-2">
+                    <span className="dark:text-gray-30 text-gray-700">
+                      {translations?.start ?? "Start"}:
+                    </span>
+                    <TimeInput
+                      value={startTime}
+                      onChange={(v) => onTimeChange(v, "start")}
+                      aria-label="Start date time"
+                      isDisabled={!range?.from}
+                      isRequired={props.required}
+                    />
+                  </div>
+                  <RiSubtractFill className="size-4 shrink-0 text-gray-400" />
+                  <div className="flex flex-1 items-center gap-x-2">
+                    <span className="dark:text-gray-30 text-gray-700">
+                      {translations?.end ?? "End"}:
+                    </span>
+                    <TimeInput
+                      value={endTime}
+                      onChange={(v) => onTimeChange(v, "end")}
+                      aria-label="End date time"
+                      isDisabled={!range?.to}
+                      isRequired={props.required}
+                    />
+                  </div>
+                </div>
+              )}
               <div className="border-t border-gray-300 p-3 sm:flex sm:items-center sm:justify-between dark:border-gray-800">
-                <p className={cx("text-gray-900 dark:text-gray-50")}>
+                <p className="tabular-nums text-gray-900 dark:text-gray-50">
                   <span className="text-gray-700 dark:text-gray-300">
                     {translations?.range ?? "Range"}:
                   </span>{" "}

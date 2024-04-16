@@ -82,6 +82,10 @@ export const WithYearNavigation: Story = {
   },
 }
 
+export const ShowTimePicker: Story = {
+  args: { showTimePicker: true },
+}
+
 export const RangeWithPresets: Story = {
   args: {
     presets: rangePresets,
@@ -154,10 +158,10 @@ export const Localized: Story = {
 }
 
 export const AlignEnd: Story = {
-  args: {align: "end"},
+  args: { align: "end" },
   parameters: {
-    layout: "centered"
-  }
+    layout: "centered",
+  },
 }
 
 const ControlledRangeDemo = () => {
@@ -168,18 +172,83 @@ const ControlledRangeDemo = () => {
   }, [value])
 
   return (
-    <div className="flex w-40 flex-col gap-y-4">
-      <DateRangePicker
-        value={value}
-        onChange={(value) => {
-          setValue(value)
-        }}
-      />
-      <Button onClick={() => setValue(undefined)}>Reset</Button>
-    </div>
+    <>
+      <p className="mb-6 text-gray-500">
+        {value
+          ? `${value.from?.toDateString()} – ${value.to?.toDateString()}`
+          : "Select a date"}
+      </p>
+      <div className="flex w-80 gap-2">
+        <DateRangePicker
+          value={value}
+          onChange={(value) => {
+            setValue(value)
+          }}
+        />
+        <Button variant="destructive" onClick={() => setValue(undefined)}>
+          Reset
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            setValue({
+              from: new Date(new Date().setDate(new Date().getDate() - 7)),
+              to: new Date(),
+            })
+          }
+        >
+          Week
+        </Button>
+      </div>
+    </>
   )
 }
 
 export const ControlledRange: Story = {
   render: () => <ControlledRangeDemo />,
+}
+
+const ControlledTimeRangeDemo = () => {
+  const [value, setValue] = React.useState<DateRange | undefined>(undefined)
+
+  React.useEffect(() => {
+    console.log("Value changed: ", value)
+  }, [value])
+
+  return (
+    <>
+      <p className="mb-6 text-gray-500">
+        {value
+          ? `${value.from?.toString()} – ${value.to?.toString()}`
+          : "Select a date"}
+      </p>
+      <div className="flex w-80 gap-2">
+        <DateRangePicker
+          showTimePicker
+          value={value}
+          onChange={(value) => {
+            setValue(value)
+          }}
+        />
+        <Button variant="destructive" onClick={() => setValue(undefined)}>
+          Reset
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            setValue({
+              from: new Date(new Date().setDate(new Date().getDate() - 7)),
+              to: new Date(),
+            })
+          }
+        >
+          Week
+        </Button>
+      </div>
+    </>
+  )
+}
+
+export const ControlledTimeRange: Story = {
+  render: () => <ControlledTimeRangeDemo />,
 }
