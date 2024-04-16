@@ -35,7 +35,7 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "relative flex cursor-default select-none items-center gap-x-2 rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "relative flex cursor-default select-none items-center gap-x-2 rounded px-3 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -50,7 +50,7 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <RiArrowRightSLine className="ml-auto size-4 shrink-0" />
+    <RiArrowRightSLine className="ml-auto size-4 shrink-0 " />
   </DropdownMenuPrimitives.SubTrigger>
 ))
 DropdownMenuSubMenuTrigger.displayName = "DropdownMenuSubMenuTrigger"
@@ -69,7 +69,7 @@ const DropdownMenuSubMenuContent = React.forwardRef<
         // widths
         "min-w-fit",
         // heights
-        "max-h-[var(--radix-popper-available-height)]", // @sev
+        "max-h-[var(--radix-popper-available-height)]",
         // background color
         "bg-white dark:bg-gray-950",
         // text color
@@ -122,7 +122,6 @@ const DropdownMenuContent = React.forwardRef<
           "border-gray-300 dark:border-gray-800",
           // transition
           "will-change-[transform,opacity]",
-          // "data-[state=open]:animate-slideDownAndFade",
           "data-[state=closed]:animate-hide",
           "data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade",
           className,
@@ -149,7 +148,7 @@ const DropdownMenuItem = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "group/DropdownMenuItem relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "group/DropdownMenuItem relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -194,7 +193,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       ref={forwardedRef}
       className={cx(
         // base
-        "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+        "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
         // text color
         "text-gray-900 dark:text-gray-50",
         // disabled
@@ -210,7 +209,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
       <span className="absolute left-3 flex size-4 items-center justify-center">
         <DropdownMenuPrimitives.ItemIndicator>
-          <RiCheckLine className="size-full shrink-0 text-gray-900" />
+          <RiCheckLine className="size-full shrink-0 text-blue-500 dark:text-blue-500" />
         </DropdownMenuPrimitives.ItemIndicator>
       </span>
       {children}
@@ -242,7 +241,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -257,7 +256,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   >
     <span className="absolute left-3 flex size-4 items-center justify-center">
       <DropdownMenuPrimitives.ItemIndicator>
-        <RiRadioButtonFill className="size-full shrink-0 text-gray-900" />
+        <RiRadioButtonFill className="size-full shrink-0 text-blue-500 dark:text-blue-500" />
       </DropdownMenuPrimitives.ItemIndicator>
     </span>
     {children}
@@ -318,7 +317,10 @@ const DropdownMenuIconWrapper = ({
   return (
     <div
       className={cx(
-        "group/DropdownMenuItem-data-[disabled]/DropdownMenuItem:dark:text-gray-800 text-gray-700 group-data-[disabled]/DropdownMenuItem:text-gray-400 dark:text-gray-500",
+        // text color
+        "text-gray-600 dark:text-gray-400",
+        // disabled
+        "group-data-[disabled]/DropdownMenuItem:text-gray-400 group-data-[disabled]/DropdownMenuItem:dark:text-gray-700",
         className,
       )}
       {...props}

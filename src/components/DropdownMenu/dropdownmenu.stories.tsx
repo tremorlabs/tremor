@@ -74,7 +74,9 @@ export const Default: Story = {
               <span>Billing</span>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘S">
-              <RiSettings2Fill className="size-4 text-gray-500" />
+              <DropdownMenuIconWrapper>
+              <RiSettings2Fill className="size-4" />
+              </DropdownMenuIconWrapper>
               <span>Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘K">
