@@ -23,14 +23,12 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuHint,
   DropdownMenuIconWrapper,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSubMenu,
   DropdownMenuSubMenuContent,
   DropdownMenuSubMenuTrigger,
@@ -65,37 +63,32 @@ export const Default: Story = {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem shortcut="⇧⌘P">
               <RiUser2Fill className="size-4 text-gray-500" />
               <span>Profile</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem disabled>
+            <DropdownMenuItem disabled shortcut="⌘B">
               <DropdownMenuIconWrapper>
                 <RiIdCardFill className="size-4 text-inherit" />
               </DropdownMenuIconWrapper>
               <span>Billing</span>
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">
               <RiSettings2Fill className="size-4 text-gray-500" />
               <span>Settings</span>
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">
               <RiKeyboardBoxFill className="size-4 text-gray-500" />
               <span>Keyboard shortcuts</span>
-              <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem hint="Pro">
               <RiUserSmileFill className="size-4 text-gray-500" />
               <span>Team</span>
-              <DropdownMenuHint>Hint</DropdownMenuHint>
             </DropdownMenuItem>
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>
@@ -118,26 +111,22 @@ export const Default: Story = {
                 </DropdownMenuItem>
               </DropdownMenuSubMenuContent>
             </DropdownMenuSubMenu>
-            <DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘+T">
               <RiAddFill className="size-4 text-gray-500" />
               <span>New Team</span>
-              <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-            <DropdownMenuRadioItem value="alpha">
+            <DropdownMenuRadioItem value="alpha" hint="A-Z">
               Alphabetical
-              <DropdownMenuHint>A-Z</DropdownMenuHint>
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="alpha-reverse">
+            <DropdownMenuRadioItem value="alpha-reverse" hint="Z-A">
               Reverse Alphabetical
-              <DropdownMenuHint>Z-A</DropdownMenuHint>
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="asc">
+            <DropdownMenuRadioItem value="asc" hint="1-99">
               Created At - Ascending
-              <DropdownMenuHint>1 - 30</DropdownMenuHint>
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
@@ -177,10 +166,9 @@ export const Default: Story = {
             <span>API</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem shortcut="⇧⌘Q">
             <RiLogoutBoxFill className="size-4 text-gray-500" />
             <span>Log out</span>
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

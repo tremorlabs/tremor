@@ -30,9 +30,9 @@ DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup"
 const DropdownMenuSubMenuTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.SubTrigger>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.SubTrigger
-    ref={ref}
+    ref={forwardedRef}
     className={cx(
       // base
       "relative flex cursor-default select-none items-center gap-x-2 rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -58,10 +58,10 @@ DropdownMenuSubMenuTrigger.displayName = "DropdownMenuSubMenuTrigger"
 const DropdownMenuSubMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.SubContent>
->(({ className, collisionPadding = 8, ...props }, ref) => (
+>(({ className, collisionPadding = 8, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.Portal>
     <DropdownMenuPrimitives.SubContent
-      ref={ref}
+      ref={forwardedRef}
       collisionPadding={collisionPadding}
       className={cx(
         // base
@@ -69,7 +69,7 @@ const DropdownMenuSubMenuContent = React.forwardRef<
         // widths
         "min-w-fit",
         // heights
-        "max-h-[var(--radix-popper-available-height)]",
+        "max-h-[var(--radix-popper-available-height)]", // @sev
         // background color
         "bg-white dark:bg-gray-950",
         // text color
@@ -102,11 +102,11 @@ const DropdownMenuContent = React.forwardRef<
       loop = true,
       ...props
     },
-    ref,
+    forwardedRef,
   ) => (
     <DropdownMenuPrimitives.Portal>
       <DropdownMenuPrimitives.Content
-        ref={ref}
+        ref={forwardedRef}
         className={cx(
           // base
           "relative z-50 overflow-hidden rounded-md border p-1 shadow-xl shadow-black/[2.5%]",
@@ -140,10 +140,13 @@ DropdownMenuContent.displayName = "DropdownMenuContent"
 
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.Item>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Item>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Item> & {
+    shortcut?: string
+    hint?: string
+  }
+>(({ className, shortcut, hint, children, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.Item
-    ref={ref}
+    ref={forwardedRef}
     className={cx(
       // base
       "group/DropdownMenuItem relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -158,48 +161,85 @@ const DropdownMenuItem = React.forwardRef<
       className,
     )}
     {...props}
-  />
+  >
+    {children}
+    {hint && (
+      <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+    )}
+    {shortcut && (
+      <span
+        className={cx(
+          "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+        )}
+      >
+        {shortcut}
+      </span>
+    )}
+  </DropdownMenuPrimitives.Item>
 ))
 DropdownMenuItem.displayName = "DropdownMenuItem"
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.CheckboxItem>
->(({ className, children, checked, ...props }, ref) => (
-  <DropdownMenuPrimitives.CheckboxItem
-    ref={ref}
-    className={cx(
-      // base
-      "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
-      // text color
-      "text-gray-900 dark:text-gray-50",
-      // disabled
-      "data-[disabled]:pointer-events-none  data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
-      // focus
-      "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
-      // hover
-      "hover:bg-gray-100 hover:dark:bg-gray-900",
-      className,
-    )}
-    checked={checked}
-    {...props}
-  >
-    <span className="absolute left-3 flex size-4 items-center justify-center">
-      <DropdownMenuPrimitives.ItemIndicator>
-        <RiCheckLine className="size-full shrink-0 text-gray-900" />
-      </DropdownMenuPrimitives.ItemIndicator>
-    </span>
-    {children}
-  </DropdownMenuPrimitives.CheckboxItem>
-))
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.CheckboxItem> & {
+    shortcut?: string
+    hint?: string
+  }
+>(
+  (
+    { className, hint, shortcut, children, checked, ...props },
+    forwardedRef,
+  ) => (
+    <DropdownMenuPrimitives.CheckboxItem
+      ref={forwardedRef}
+      className={cx(
+        // base
+        "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+        // text color
+        "text-gray-900 dark:text-gray-50",
+        // disabled
+        "data-[disabled]:pointer-events-none  data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
+        // focus
+        "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
+        // hover
+        "hover:bg-gray-100 hover:dark:bg-gray-900",
+        className,
+      )}
+      checked={checked}
+      {...props}
+    >
+      <span className="absolute left-3 flex size-4 items-center justify-center">
+        <DropdownMenuPrimitives.ItemIndicator>
+          <RiCheckLine className="size-full shrink-0 text-gray-900" />
+        </DropdownMenuPrimitives.ItemIndicator>
+      </span>
+      {children}
+      {hint && (
+        <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+      )}
+      {shortcut && (
+        <span
+          className={cx(
+            "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+          )}
+        >
+          {shortcut}
+        </span>
+      )}
+    </DropdownMenuPrimitives.CheckboxItem>
+  ),
+)
 DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem"
 
 const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.RadioItem>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.RadioItem> & {
+    shortcut?: string
+    hint?: string
+  }
+>(({ className, hint, shortcut, children, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.RadioItem
-    ref={ref}
+    ref={forwardedRef}
     className={cx(
       // base
       "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-2 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
@@ -221,6 +261,18 @@ const DropdownMenuRadioItem = React.forwardRef<
       </DropdownMenuPrimitives.ItemIndicator>
     </span>
     {children}
+    {hint && (
+      <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+    )}
+    {shortcut && (
+      <span
+        className={cx(
+          "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+        )}
+      >
+        {shortcut}
+      </span>
+    )}
   </DropdownMenuPrimitives.RadioItem>
 ))
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem"
@@ -228,9 +280,9 @@ DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem"
 const DropdownMenuLabel = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.Label>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Label>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.Label
-    ref={ref}
+    ref={forwardedRef}
     className={cx(
       // base
       "px-3 py-2 text-xs font-medium tracking-wide",
@@ -246,9 +298,9 @@ DropdownMenuLabel.displayName = "DropdownMenuLabel"
 const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Separator>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.Separator
-    ref={ref}
+    ref={forwardedRef}
     className={cx(
       "-mx-1 my-1 h-px border-t border-gray-300 dark:border-gray-800",
       className,
@@ -258,35 +310,7 @@ const DropdownMenuSeparator = React.forwardRef<
 ))
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator"
 
-const DropdownMenuShortcut = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement>) => {
-  return (
-    <span
-      className={cx(
-        "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
-
-const DropdownMenuHint = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement>) => {
-  return (
-    <span
-      className={cx("ml-auto text-gray-400 sm:text-sm", className)}
-      {...props}
-    />
-  )
-}
-DropdownMenuHint.displayName = "DropdownMenuHint"
-
+// @sev kick out?
 const DropdownMenuIconWrapper = ({
   className,
   ...props
@@ -312,12 +336,10 @@ export {
   DropdownMenuSubMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuRadioItem,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
+  DropdownMenuIconWrapper,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuHint,
-  DropdownMenuIconWrapper,
 }
