@@ -14,6 +14,10 @@ import {
   RiUploadCloud2Line,
   RiUser2Fill,
   RiUserSmileFill,
+  RiStackLine,
+  RiSettings2Line,
+  RiFolder5Line,
+  RiUserAddLine
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -137,20 +141,20 @@ export const Default: Story = {
             checked={showStatusBar}
             onCheckedChange={setShowStatusBar}
           >
-            Status Bar
+            Public
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={showActivityBar}
             onCheckedChange={setShowActivityBar}
-            disabled
           >
-            Activity Bar
+            Private
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={showPanel}
             onCheckedChange={setShowPanel}
+            disabled
           >
-            Panel
+            Restricted
           </DropdownMenuCheckboxItem>
 
           <DropdownMenuSeparator />
@@ -172,6 +176,215 @@ export const Default: Story = {
             <RiLogoutBoxFill className="size-4 text-gray-500" />
             <span>Log out</span>
           </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  },
+}
+
+export const Default2: Story = {
+  render: () => {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary">Open</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem shortcut="⇧⌘P">
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled shortcut="⌘B">
+              Billing
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">
+              Shortcuts
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            <DropdownMenuItem hint="Pro">
+              Team
+            </DropdownMenuItem>
+            <DropdownMenuSubMenu>
+              <DropdownMenuSubMenuTrigger>
+                Invite users
+              </DropdownMenuSubMenuTrigger>
+              <DropdownMenuSubMenuContent>
+                <DropdownMenuItem>
+                  Email
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  Message
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  More...
+                </DropdownMenuItem>
+              </DropdownMenuSubMenuContent>
+            </DropdownMenuSubMenu>
+            <DropdownMenuItem shortcut="⌘+T">
+              New Team
+            </DropdownMenuItem>
+          </DropdownMenuGroup>    
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  },
+}
+
+export const WithIcons: Story = {
+  render: () => {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary">Open</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem shortcut="⌘W">
+            <div className="flex items-center space-x-2">
+              <RiStackLine className="size-4 text-gray-500" />
+              <span>Workspaces</span>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘M">
+              {/* @SEV: should we truncate by default */}
+              <div className="flex items-center space-x-2">
+              <RiFolder5Line className="size-4 text-gray-500" />
+              {/* <span>Metrics catalogue (with long edge case)</span> */}
+              <span>Metrics catalogue</span>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">
+              <div className="flex items-center space-x-2">
+                <RiSettings2Line className="size-4 text-gray-500" />
+                <span>Settings</span>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled shortcut="⌘U">
+              <div className="flex items-center space-x-2">
+                <DropdownMenuIconWrapper>
+                  <RiUserAddLine className="size-4 text-inherit" />
+                </DropdownMenuIconWrapper>
+                <span>Invite users</span>
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            {/* @SEV: tracking-widest is okay until you have to use words, e.g. CONTROL + Q */}
+            <DropdownMenuItem>
+              Log out all
+            </DropdownMenuItem>
+          </DropdownMenuGroup>    
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  },
+}
+
+export const WithRadioButtons: Story = {
+  render: () => {
+    const [position, setPosition] = React.useState("alpha-reverse")
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary">Open</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem shortcut="⇧⌘P">
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled shortcut="⌘B">
+              Billing
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">
+              Shortcuts
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+            <DropdownMenuRadioItem value="alpha" hint="⌘K">
+              Alphabetical
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="alpha-reverse" hint="Z-A">
+              Reverse Alphabetical
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="asc" hint="1-99">
+              Created At - Ascending – 345
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+          </DropdownMenuGroup>    
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  },
+}
+
+export const WithCheckbox: Story = {
+  render: () => {
+    const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true)
+    const [showActivityBar, setShowActivityBar] = React.useState<Checked>(true)
+    const [showPanel, setShowPanel] = React.useState<Checked>(false)
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="secondary">Open</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem shortcut="⇧⌘P">
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">
+              Shortcuts
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuLabel>Layout</DropdownMenuLabel>
+          <DropdownMenuCheckboxItem
+            checked={showStatusBar}
+            onCheckedChange={setShowStatusBar}
+          >
+            Show status bar
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            checked={showActivityBar}
+            onCheckedChange={setShowActivityBar}
+          >
+            Show activity bar
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            checked={showPanel}
+            onCheckedChange={setShowPanel}
+          >
+            Show panel
+          </DropdownMenuCheckboxItem>
+
         </DropdownMenuContent>
       </DropdownMenu>
     )

@@ -35,7 +35,7 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "relative flex cursor-default select-none items-center gap-x-2 rounded px-3 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "relative flex cursor-default select-none items-center gap-x-2 rounded pl-2 pr-1 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -67,7 +67,7 @@ const DropdownMenuSubMenuContent = React.forwardRef<
         // base
         "relative z-50 overflow-hidden rounded-md border p-1 shadow-xl shadow-black/[2.5%]",
         // widths
-        "min-w-fit",
+        "min-w-32",
         // heights
         "max-h-[var(--radix-popper-available-height)]",
         // background color
@@ -75,7 +75,7 @@ const DropdownMenuSubMenuContent = React.forwardRef<
         // text color
         "text-gray-900 dark:text-gray-50",
         // border color
-        "border-gray-300 dark:border-gray-800",
+        "border-gray-200 dark:border-gray-800",
         // transition
         "will-change-[transform,opacity]",
         // "data-[state=open]:animate-slideDownAndFade",
@@ -111,7 +111,8 @@ const DropdownMenuContent = React.forwardRef<
           // base
           "relative z-50 overflow-hidden rounded-md border p-1 shadow-xl shadow-black/[2.5%]",
           // widths
-          "min-w-[calc(var(--radix-dropdown-menu-trigger-height))]",
+          // @SEV: w-56 only temp
+          "min-w-48",
           // heights
           "max-h-[var(--radix-popper-available-height)]",
           // background color
@@ -119,7 +120,7 @@ const DropdownMenuContent = React.forwardRef<
           // text color
           "text-gray-900 dark:text-gray-50",
           // border color
-          "border-gray-300 dark:border-gray-800",
+          "border-gray-200 dark:border-gray-800",
           // transition
           "will-change-[transform,opacity]",
           "data-[state=closed]:animate-hide",
@@ -148,7 +149,7 @@ const DropdownMenuItem = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "group/DropdownMenuItem relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "group/DropdownMenuItem relative flex cursor-pointer select-none items-center gap-x-4 rounded pl-2 pr-1 py-1.5 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -168,7 +169,7 @@ const DropdownMenuItem = React.forwardRef<
     {shortcut && (
       <span
         className={cx(
-          "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+          "ml-auto text-sm tracking-widest text-gray-400 dark:text-gray-500",
         )}
       >
         {shortcut}
@@ -193,7 +194,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       ref={forwardedRef}
       className={cx(
         // base
-        "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+        "relative flex cursor-pointer select-none items-center gap-x-2 rounded pr-1 py-1.5 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
         // text color
         "text-gray-900 dark:text-gray-50",
         // disabled
@@ -207,9 +208,9 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       checked={checked}
       {...props}
     >
-      <span className="absolute left-3 flex size-4 items-center justify-center">
+      <span className="absolute left-2 flex size-5 items-center justify-center">
         <DropdownMenuPrimitives.ItemIndicator>
-          <RiCheckLine className="size-full shrink-0 text-blue-500 dark:text-blue-500" />
+          <RiCheckLine className="size-5 shrink-0 text-gray-800 dark:text-gray-200" />
         </DropdownMenuPrimitives.ItemIndicator>
       </span>
       {children}
@@ -219,7 +220,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       {shortcut && (
         <span
           className={cx(
-            "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+            "ml-auto text-sm font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
           )}
         >
           {shortcut}
@@ -241,7 +242,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "relative flex cursor-pointer select-none items-center gap-x-2 rounded px-3 py-1.5 pl-9 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
+      "relative flex cursor-pointer select-none items-center gap-x-2 rounded pr-1 py-1.5 pl-8 outline-none transition-colors data-[state=checked]:font-semibold sm:text-sm",
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
@@ -254,19 +255,19 @@ const DropdownMenuRadioItem = React.forwardRef<
     )}
     {...props}
   >
-    <span className="absolute left-3 flex size-4 items-center justify-center">
+    <span className="absolute left-2 flex size-4 items-center justify-center">
       <DropdownMenuPrimitives.ItemIndicator>
         <RiRadioButtonFill className="size-full shrink-0 text-blue-500 dark:text-blue-500" />
       </DropdownMenuPrimitives.ItemIndicator>
     </span>
     {children}
     {hint && (
-      <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+      <span className={cx("ml-auto text-gray-400 dark:text-gray-400 text-sm")}>{hint}</span>
     )}
     {shortcut && (
       <span
         className={cx(
-          "ml-auto rounded border border-gray-200 px-1 py-0.5 text-xs font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+          "ml-auto font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
         )}
       >
         {shortcut}
@@ -284,7 +285,7 @@ const DropdownMenuLabel = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "px-3 py-2 text-xs font-medium tracking-wide",
+      "px-2 py-2 text-xs font-medium tracking-wide",
       // text color
       " text-gray-500 dark:text-gray-500",
       className,
@@ -301,7 +302,7 @@ const DropdownMenuSeparator = React.forwardRef<
   <DropdownMenuPrimitives.Separator
     ref={forwardedRef}
     className={cx(
-      "-mx-1 my-1 h-px border-t border-gray-300 dark:border-gray-800",
+      "-mx-1 my-1 h-px border-t border-gray-200 dark:border-gray-800",
       className,
     )}
     {...props}
