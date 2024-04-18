@@ -216,12 +216,12 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       </span>
       {children}
       {hint && (
-        <span className={cx("ml-auto text-sm text-gray-400 dark:text-gray-600")}>{hint}</span>
+        <span className={cx("ml-auto text-sm font-normal text-gray-400 dark:text-gray-600")}>{hint}</span>
       )}
       {shortcut && (
         <span
           className={cx(
-            "ml-auto text-sm font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
+            "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
           )}
         >
           {shortcut}
@@ -264,7 +264,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     {children}
     {/* @SEV: font-normal in shortcut / hint to let them stay the same when selected */}
     {hint && (
-      <span className={cx("ml-auto font-normal text-sm text-gray-400 dark:text-gray-400")}>{hint}</span>
+      <span className={cx("ml-auto font-normal text-sm text-gray-400 dark:text-gray-600")}>{hint}</span>
     )}
     {shortcut && (
       <span
