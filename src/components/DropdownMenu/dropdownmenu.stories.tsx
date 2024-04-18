@@ -6,10 +6,8 @@ import {
   RiArrowUpCircleLine,
   RiDiscordLine,
   RiFolder5Line,
-  RiGithubLine,
   RiHeartPulseLine,
   RiIdCardLine,
-  RiKeyboardBoxLine,
   RiLogoutBoxLine,
   RiMailAddLine,
   RiMessageLine,
@@ -72,7 +70,7 @@ export const Default: Story = {
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <span className="flex items-center gap-x-2">
-                  <RiArrowUpCircleLine className="size-4 text-blue-500" />
+                <RiArrowUpCircleLine className="size-4 text-blue-500" />
                 <span className="text-blue-500">Upgrade</span>
               </span>
             </DropdownMenuItem>
@@ -317,40 +315,29 @@ export const WithIcons: Story = {
   },
 }
 
-export const WithRadioButtons: Story = {
+export const WithRadioItem: Story = {
   render: () => {
-    const [position, setPosition] = React.useState("alpha-reverse")
+    const [sort, setSort] = React.useState("alpha")
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary">Open</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">Profile</DropdownMenuItem>
-            <DropdownMenuItem disabled shortcut="⌘B">
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘S">Settings</DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">Shortcuts</DropdownMenuItem>
-          </DropdownMenuGroup>
+          <DropdownMenuLabel>Sorting</DropdownMenuLabel>
 
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuRadioGroup
-              value={position}
-              onValueChange={setPosition}
-            >
-              <DropdownMenuRadioItem value="alpha" hint="⌘K">
+            <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
+              <DropdownMenuRadioItem value="alpha" hint="A–Z">
                 Alphabetical
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="alpha-reverse" hint="Z-A">
                 Reverse Alphabetical
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="asc" hint="1-99">
-                Created At - Ascending – 345
+                Created At
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuGroup>
@@ -360,7 +347,7 @@ export const WithRadioButtons: Story = {
   },
 }
 
-export const WithCheckbox: Story = {
+export const WithCheckboxItem: Story = {
   render: () => {
     const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true)
     const [showActivityBar, setShowActivityBar] = React.useState<Checked>(true)
@@ -371,16 +358,8 @@ export const WithCheckbox: Story = {
           <Button variant="secondary">Open</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">Profile</DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘S">Settings</DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">Shortcuts</DropdownMenuItem>
-          </DropdownMenuGroup>
-
-          <DropdownMenuSeparator />
-
           <DropdownMenuLabel>Layout</DropdownMenuLabel>
+          <DropdownMenuSeparator />
           <DropdownMenuCheckboxItem
             checked={showStatusBar}
             onCheckedChange={setShowStatusBar}
