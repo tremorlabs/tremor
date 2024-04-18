@@ -50,7 +50,8 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <RiArrowRightSLine className="ml-auto size-4 shrink-0 " />
+    {/* @SEV: would leave to no color, same as in select */}
+    <RiArrowRightSLine className="ml-auto size-4 shrink-0" aria-hidden="true" />
   </DropdownMenuPrimitives.SubTrigger>
 ))
 DropdownMenuSubMenuTrigger.displayName = "DropdownMenuSubMenuTrigger"
@@ -111,7 +112,6 @@ const DropdownMenuContent = React.forwardRef<
           // base
           "relative z-50 overflow-hidden rounded-md border p-1 shadow-xl shadow-black/[2.5%]",
           // widths
-          // @SEV: w-56 only temp
           "min-w-48",
           // heights
           "max-h-[var(--radix-popper-available-height)]",
@@ -164,12 +164,12 @@ const DropdownMenuItem = React.forwardRef<
   >
     {children}
     {hint && (
-      <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+      <span className={cx("ml-auto text-sm text-gray-400 dark:text-gray-600")}>{hint}</span>
     )}
     {shortcut && (
       <span
         className={cx(
-          "ml-auto text-sm tracking-widest text-gray-400 dark:text-gray-500",
+          "ml-auto text-sm tracking-widest text-gray-400 dark:text-gray-600",
         )}
       >
         {shortcut}
@@ -210,17 +210,18 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
       <span className="absolute left-2 flex size-5 items-center justify-center">
         <DropdownMenuPrimitives.ItemIndicator>
+          {/* @SEV: aria-hidden="true" for icon? */}
           <RiCheckLine className="size-5 shrink-0 text-gray-800 dark:text-gray-200" />
         </DropdownMenuPrimitives.ItemIndicator>
       </span>
       {children}
       {hint && (
-        <span className={cx("ml-auto text-gray-400 sm:text-sm")}>{hint}</span>
+        <span className={cx("ml-auto text-sm text-gray-400 dark:text-gray-600")}>{hint}</span>
       )}
       {shortcut && (
         <span
           className={cx(
-            "ml-auto text-sm font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+            "ml-auto text-sm font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
           )}
         >
           {shortcut}
@@ -261,13 +262,14 @@ const DropdownMenuRadioItem = React.forwardRef<
       </DropdownMenuPrimitives.ItemIndicator>
     </span>
     {children}
+    {/* @SEV: font-normal in shortcut / hint to let them stay the same when selected */}
     {hint && (
-      <span className={cx("ml-auto text-gray-400 dark:text-gray-400 text-sm")}>{hint}</span>
+      <span className={cx("ml-auto font-normal text-sm text-gray-400 dark:text-gray-400")}>{hint}</span>
     )}
     {shortcut && (
       <span
         className={cx(
-          "ml-auto font-medium tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-400",
+          "ml-auto text-sm font-normal tracking-widest text-gray-400 dark:border-gray-800 dark:text-gray-600",
         )}
       >
         {shortcut}
@@ -310,7 +312,6 @@ const DropdownMenuSeparator = React.forwardRef<
 ))
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator"
 
-// @sev kick out?
 const DropdownMenuIconWrapper = ({
   className,
   ...props

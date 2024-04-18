@@ -369,6 +369,7 @@ export const WithCheckbox: Story = {
           <DropdownMenuCheckboxItem
             checked={showStatusBar}
             onCheckedChange={setShowStatusBar}
+            hint="Pro"
           >
             Show status bar
           </DropdownMenuCheckboxItem>
@@ -381,6 +382,7 @@ export const WithCheckbox: Story = {
           <DropdownMenuCheckboxItem
             checked={showPanel}
             onCheckedChange={setShowPanel}
+            hint="Base"
           >
             Show panel
           </DropdownMenuCheckboxItem>
