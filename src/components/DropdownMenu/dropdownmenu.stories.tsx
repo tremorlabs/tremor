@@ -1,23 +1,25 @@
 import React from "react"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import {
-  RiAddCircleFill,
-  RiAddFill,
-  RiGithubFill,
-  RiHeartPulseLine,
-  RiIdCardFill,
-  RiKeyboardBoxFill,
-  RiLogoutBoxFill,
-  RiMailAddFill,
-  RiMessage2Fill,
-  RiSettings2Fill,
-  RiUploadCloud2Line,
-  RiUser2Fill,
-  RiUserSmileFill,
-  RiStackLine,
-  RiSettings2Line,
+  RiAddCircleLine,
+  RiAddLine,
+  RiDiscordLine,
   RiFolder5Line,
-  RiUserAddLine
+  RiGithubLine,
+  RiHeartPulseLine,
+  RiIdCardLine,
+  RiKeyboardBoxLine,
+  RiLogoutBoxLine,
+  RiMailAddLine,
+  RiMessageLine,
+  RiSettings2Line,
+  RiSlackLine,
+  RiStackLine,
+  RiTelegramLine,
+  RiUser2Line,
+  RiUserAddLine,
+  RiUserSmileLine,
+  RiWhatsappLine,
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -39,7 +41,7 @@ import {
   DropdownMenuTrigger,
 } from "./DropdownMenu"
 
-RiUser2Fill
+RiUser2Line
 
 const meta: Meta<typeof DropdownMenu> = {
   title: "ui/DropdownMenu",
@@ -62,30 +64,40 @@ export const Default: Story = {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary">Open</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
             <DropdownMenuItem shortcut="⇧⌘P">
-              <RiUser2Fill className="size-4 text-gray-500" />
-              <span>Profile</span>
+              <span className="flex items-center gap-x-2">
+                <DropdownMenuIconWrapper>
+                  <RiUser2Line className="size-4 text-inherit" />
+                </DropdownMenuIconWrapper>
+                <span>Profile</span>
+              </span>
             </DropdownMenuItem>
             <DropdownMenuItem disabled shortcut="⌘B">
-              <DropdownMenuIconWrapper>
-                <RiIdCardFill className="size-4 text-inherit" />
-              </DropdownMenuIconWrapper>
-              <span>Billing</span>
+              <span className="flex items-center gap-x-2">
+                <DropdownMenuIconWrapper>
+                  <RiIdCardLine className="size-4 text-inherit" />
+                </DropdownMenuIconWrapper>
+                <span>Billing</span>
+              </span>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘S">
-              <DropdownMenuIconWrapper>
-              <RiSettings2Fill className="size-4" />
-              </DropdownMenuIconWrapper>
-              <span>Settings</span>
+              <span className="flex items-center gap-x-2">
+                <DropdownMenuIconWrapper>
+                  <RiSettings2Line className="size-4 text-inherit" />
+                </DropdownMenuIconWrapper>
+                <span>Settings</span>
+              </span>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘K">
-              <RiKeyboardBoxFill className="size-4 text-gray-500" />
-              <span>Keyboard shortcuts</span>
+              <span className="flex items-center gap-x-2">
+                <RiKeyboardBoxLine className="size-4 text-inherit" />
+                <span>Keyboard shortcuts</span>
+              </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
@@ -93,33 +105,75 @@ export const Default: Story = {
 
           <DropdownMenuGroup>
             <DropdownMenuItem hint="Pro">
-              <RiUserSmileFill className="size-4 text-gray-500" />
-              <span>Team</span>
+              <span className="flex items-center gap-x-2">
+                <RiUserSmileLine className="size-4 text-inherit" />
+                <span>Team</span>
+              </span>
             </DropdownMenuItem>
+
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>
-                <RiAddCircleFill className="size-4 text-gray-500" />
-                <span>Invite users</span>
+                <span className="flex items-center gap-x-2">
+                  <RiAddCircleLine className="size-4 text-inherit" />
+                  <span>Invite users</span>
+                </span>
               </DropdownMenuSubMenuTrigger>
               <DropdownMenuSubMenuContent>
                 <DropdownMenuItem>
-                  <RiMailAddFill className="size-4 text-gray-500" />
-                  <span>Email</span>
+                  <span className="flex items-center gap-x-2">
+                    <RiMailAddLine className="size-4 text-inherit" />
+                    <span>Email</span>
+                  </span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <RiMessage2Fill className="size-4 text-gray-500" />
-                  <span>Message</span>
-                </DropdownMenuItem>
+
+                <DropdownMenuSubMenu>
+                  <DropdownMenuSubMenuTrigger>
+                    <span className="flex items-center gap-x-2">
+                      <RiMessageLine className="size-4 text-inherit" />
+                      <span>Message</span>
+                    </span>
+                  </DropdownMenuSubMenuTrigger>
+                  <DropdownMenuSubMenuContent>
+                    <DropdownMenuItem>
+                      <span className="flex items-center gap-x-2">
+                        <RiWhatsappLine className="size-4 text-inherit" />
+                        <span>Whatsapp</span>
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <span className="flex items-center gap-x-2">
+                        <RiTelegramLine className="size-4 text-inherit" />
+                        <span>Telegram</span>
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <span className="flex items-center gap-x-2">
+                        <RiDiscordLine className="size-4 text-inherit" />
+                        <span>Discord</span>
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <span className="flex items-center gap-x-2">
+                        <RiSlackLine className="size-4 text-inherit" />
+                        <span>Slack</span>
+                      </span>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubMenuContent>
+                </DropdownMenuSubMenu>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <RiAddCircleFill className="size-4 text-gray-500" />
-                  <span>More...</span>
+                  <span className="flex items-center gap-x-2">
+                    <RiAddCircleLine className="size-4 text-inherit" />
+                    <span>More...</span>
+                  </span>
                 </DropdownMenuItem>
               </DropdownMenuSubMenuContent>
             </DropdownMenuSubMenu>
             <DropdownMenuItem shortcut="⌘+T">
-              <RiAddFill className="size-4 text-gray-500" />
-              <span>New Team</span>
+              <span className="flex items-center gap-x-2">
+                <RiAddLine className="size-4 text-inherit" />
+                <span>New Team</span>
+              </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
@@ -160,21 +214,23 @@ export const Default: Story = {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem>
-            <RiGithubFill className="size-4 text-gray-500" />
-            <span>GitHub</span>
+            <span className="flex items-center gap-x-2">
+              <RiGithubLine className="size-4 text-inherit" />
+              <span>GitHub</span>
+            </span>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <RiHeartPulseLine className="size-4 text-gray-500" />
-            <span>Support</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <RiUploadCloud2Line className="size-4 text-gray-500" />
-            <span>API</span>
+            <span className="flex items-center gap-x-2">
+              <RiHeartPulseLine className="size-4 text-inherit" />
+              <span>Support</span>
+            </span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem shortcut="⇧⌘Q">
-            <RiLogoutBoxFill className="size-4 text-gray-500" />
-            <span>Log out</span>
+            <span className="flex items-center gap-x-2">
+              <RiLogoutBoxLine className="size-4 text-inherit" />
+              <span>Log out</span>
+            </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -182,7 +238,7 @@ export const Default: Story = {
   },
 }
 
-export const Default2: Story = {
+export const Simple: Story = {
   render: () => {
     return (
       <DropdownMenu>
@@ -192,47 +248,31 @@ export const Default2: Story = {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">
-              Profile
-            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⇧⌘P">Profile</DropdownMenuItem>
             <DropdownMenuItem disabled shortcut="⌘B">
               Billing
             </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘S">
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">
-              Shortcuts
-            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">Settings</DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">Shortcuts</DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem hint="Pro">
-              Team
-            </DropdownMenuItem>
+            <DropdownMenuItem hint="Pro">Team</DropdownMenuItem>
             <DropdownMenuSubMenu>
               <DropdownMenuSubMenuTrigger>
                 Invite users
               </DropdownMenuSubMenuTrigger>
               <DropdownMenuSubMenuContent>
-                <DropdownMenuItem>
-                  Email
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Message
-                </DropdownMenuItem>
+                <DropdownMenuItem>Email</DropdownMenuItem>
+                <DropdownMenuItem>Message</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  More...
-                </DropdownMenuItem>
+                <DropdownMenuItem>More...</DropdownMenuItem>
               </DropdownMenuSubMenuContent>
             </DropdownMenuSubMenu>
-            <DropdownMenuItem shortcut="⌘+T">
-              New Team
-            </DropdownMenuItem>
-          </DropdownMenuGroup>    
+            <DropdownMenuItem shortcut="⌘+T">New Team</DropdownMenuItem>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -250,17 +290,17 @@ export const WithIcons: Story = {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuItem shortcut="⌘W">
-            <div className="flex items-center space-x-2">
-              <RiStackLine className="size-4 text-gray-500" />
-              <span>Workspaces</span>
+              <div className="flex items-center space-x-2">
+                <RiStackLine className="size-4 text-gray-500" />
+                <span>Workspaces</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘M">
               {/* @SEV: should we truncate by default */}
               <div className="flex items-center space-x-2">
-              <RiFolder5Line className="size-4 text-gray-500" />
-              {/* <span>Metrics catalogue (with long edge case)</span> */}
-              <span>Metrics catalogue</span>
+                <RiFolder5Line className="size-4 text-gray-500" />
+                {/* <span>Metrics catalogue (with long edge case)</span> */}
+                <span>Metrics catalogue</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘S">
@@ -283,10 +323,8 @@ export const WithIcons: Story = {
 
           <DropdownMenuGroup>
             {/* @SEV: tracking-widest is okay until you have to use words, e.g. CONTROL + Q */}
-            <DropdownMenuItem>
-              Log out all
-            </DropdownMenuItem>
-          </DropdownMenuGroup>    
+            <DropdownMenuItem>Log out all</DropdownMenuItem>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -304,35 +342,32 @@ export const WithRadioButtons: Story = {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">
-              Profile
-            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⇧⌘P">Profile</DropdownMenuItem>
             <DropdownMenuItem disabled shortcut="⌘B">
               Billing
             </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘S">
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">
-              Shortcuts
-            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">Settings</DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">Shortcuts</DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-            <DropdownMenuRadioItem value="alpha" hint="⌘K">
-              Alphabetical
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="alpha-reverse" hint="Z-A">
-              Reverse Alphabetical
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="asc" hint="1-99">
-              Created At - Ascending – 345
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-          </DropdownMenuGroup>    
+            <DropdownMenuRadioGroup
+              value={position}
+              onValueChange={setPosition}
+            >
+              <DropdownMenuRadioItem value="alpha" hint="⌘K">
+                Alphabetical
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="alpha-reverse" hint="Z-A">
+                Reverse Alphabetical
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="asc" hint="1-99">
+                Created At - Ascending – 345
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -352,15 +387,9 @@ export const WithCheckbox: Story = {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘S">
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">
-              Shortcuts
-            </DropdownMenuItem>
+            <DropdownMenuItem shortcut="⇧⌘P">Profile</DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘S">Settings</DropdownMenuItem>
+            <DropdownMenuItem shortcut="⌘K">Shortcuts</DropdownMenuItem>
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
@@ -386,7 +415,6 @@ export const WithCheckbox: Story = {
           >
             Show panel
           </DropdownMenuCheckboxItem>
-
         </DropdownMenuContent>
       </DropdownMenu>
     )
