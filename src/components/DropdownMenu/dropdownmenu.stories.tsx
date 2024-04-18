@@ -280,11 +280,9 @@ export const WithIcons: Story = {
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘M">
-              {/* @SEV: should we truncate by default */}
               <div className="flex items-center space-x-2">
                 <RiFolder5Line className="size-4 text-gray-500" />
-                {/* <span>Metrics catalogue (with long edge case)</span> */}
-                <span>Metrics catalogue</span>
+                <span>Metrics catalogue (with long edge case)</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem shortcut="⌘S">

@@ -164,12 +164,12 @@ const DropdownMenuItem = React.forwardRef<
   >
     {children}
     {hint && (
-      <span className={cx("ml-auto text-sm text-gray-400 dark:text-gray-600")}>
+      <span className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}>
         {hint}
       </span>
     )}
     {shortcut && (
-      <span className={cx("ml-auto text-sm text-gray-400 dark:text-gray-600")}>
+      <span className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}>
         {shortcut}
       </span>
     )}
@@ -350,15 +350,15 @@ DropdownMenuIconWrapper.displayName = "DropdownMenuIconWrapper"
 export {
   DropdownMenu,
   DropdownMenuTrigger,
-  DropdownMenuGroup,
+  DropdownMenuSubMenuTrigger,
   DropdownMenuSubMenu,
   DropdownMenuSubMenuContent,
-  DropdownMenuSubMenuTrigger,
+  DropdownMenuGroup,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuCheckboxItem,
-  DropdownMenuRadioGroup,
   DropdownMenuIconWrapper,
   DropdownMenuLabel,
   DropdownMenuSeparator,
