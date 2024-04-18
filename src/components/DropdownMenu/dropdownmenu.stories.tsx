@@ -3,6 +3,7 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import {
   RiAddCircleLine,
   RiAddLine,
+  RiArrowUpCircleLine,
   RiDiscordLine,
   RiFolder5Line,
   RiGithubLine,
@@ -69,12 +70,10 @@ export const Default: Story = {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem shortcut="⇧⌘P">
+            <DropdownMenuItem>
               <span className="flex items-center gap-x-2">
-                <DropdownMenuIconWrapper>
-                  <RiUser2Line className="size-4 text-inherit" />
-                </DropdownMenuIconWrapper>
-                <span>Profile</span>
+                  <RiArrowUpCircleLine className="size-4 text-blue-500" />
+                <span className="text-blue-500">Upgrade</span>
               </span>
             </DropdownMenuItem>
             <DropdownMenuItem disabled shortcut="⌘B">
@@ -90,13 +89,7 @@ export const Default: Story = {
                 <DropdownMenuIconWrapper>
                   <RiSettings2Line className="size-4 text-inherit" />
                 </DropdownMenuIconWrapper>
-                <span>Settings</span>
-              </span>
-            </DropdownMenuItem>
-            <DropdownMenuItem shortcut="⌘K">
-              <span className="flex items-center gap-x-2">
-                <RiKeyboardBoxLine className="size-4 text-inherit" />
-                <span>Keyboard shortcuts</span>
+                <span>Account Settings</span>
               </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -107,7 +100,7 @@ export const Default: Story = {
             <DropdownMenuItem hint="Pro">
               <span className="flex items-center gap-x-2">
                 <RiUserSmileLine className="size-4 text-inherit" />
-                <span>Team</span>
+                <span>Manage workspace</span>
               </span>
             </DropdownMenuItem>
 
@@ -169,10 +162,10 @@ export const Default: Story = {
                 </DropdownMenuItem>
               </DropdownMenuSubMenuContent>
             </DropdownMenuSubMenu>
-            <DropdownMenuItem shortcut="⌘+T">
+            <DropdownMenuItem shortcut="⌘T">
               <span className="flex items-center gap-x-2">
                 <RiAddLine className="size-4 text-inherit" />
-                <span>New Team</span>
+                <span>New Workspace</span>
               </span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -186,7 +179,7 @@ export const Default: Story = {
               Reverse Alphabetical
             </DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="asc" hint="1-99">
-              Created At - Ascending
+              Created at
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
@@ -215,21 +208,14 @@ export const Default: Story = {
 
           <DropdownMenuItem>
             <span className="flex items-center gap-x-2">
-              <RiGithubLine className="size-4 text-inherit" />
-              <span>GitHub</span>
-            </span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span className="flex items-center gap-x-2">
               <RiHeartPulseLine className="size-4 text-inherit" />
               <span>Support</span>
             </span>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem shortcut="⇧⌘Q">
             <span className="flex items-center gap-x-2">
               <RiLogoutBoxLine className="size-4 text-inherit" />
-              <span>Log out</span>
+              <span>Sign out</span>
             </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
