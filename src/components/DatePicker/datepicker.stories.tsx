@@ -70,6 +70,10 @@ export const SingleWithPresets: Story = {
   },
 }
 
+export const ShowTimePicker: Story = {
+  args: { showTimePicker: true },
+}
+
 export const Localized: Story = {
   args: {
     placeholder: "Choisissez une date",
@@ -122,7 +126,7 @@ const ControlledDemo = () => {
   return (
     <>
       <p className="mb-6 text-gray-500">
-        {value ? value.toDateString() : "Select a date"}
+        {value ? value.toString() : "Select a date"}
       </p>
       <div className="flex w-80 gap-2">
         <DatePicker
@@ -144,6 +148,38 @@ const ControlledDemo = () => {
 
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
+}
+
+const ControlledTimeDemo = () => {
+  const [value, setValue] = React.useState<Date | undefined>(undefined)
+
+  return (
+    <>
+      <p className="mb-6 text-gray-500">
+        {value ? value.toString() : "Select a date"}
+      </p>
+      <div className="flex w-96 gap-2">
+        <DatePicker
+          className="w-60"
+          showTimePicker
+          value={value}
+          onChange={(value) => {
+            setValue(value)
+          }}
+        />
+        <Button variant="destructive" onClick={() => setValue(undefined)}>
+          Reset
+        </Button>
+        <Button variant="secondary" onClick={() => setValue(new Date())}>
+          Today
+        </Button>
+      </div>
+    </>
+  )
+}
+
+export const ControlledTime: Story = {
+  render: () => <ControlledTimeDemo />,
 }
 
 type PopoverNestedProps = {
@@ -173,10 +209,10 @@ const PopoverNested = ({ value, onChange }: PopoverNestedProps) => {
 }
 
 export const AlignEnd: Story = {
-  args: {align: "end"},
+  args: { align: "end" },
   parameters: {
-    layout: "centered"
-  }
+    layout: "centered",
+  },
 }
 
 const PopoverNestedDemo = () => {
