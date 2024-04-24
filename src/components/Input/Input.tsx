@@ -12,7 +12,7 @@ import { hasErrorInput } from "../../utils/hasErrorInput"
 const inputStyles = tv({
   base: [
     // base
-    "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 shadow-sm outline-none sm:text-sm",
+    "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 shadow-sm outline-none transition sm:text-sm",
     // border color
     "border-gray-300 dark:border-gray-800",
     // text color
@@ -52,7 +52,7 @@ const inputStyles = tv({
 interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputStyles> {
-  inputClassName: string
+  inputClassName?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
