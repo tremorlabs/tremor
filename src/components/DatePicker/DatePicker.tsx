@@ -1,4 +1,4 @@
-// Tremor Raw Date Picker [v1.0.0]
+// Tremor Raw Date Picker [v1.0.1]
 
 "use client"
 
@@ -66,7 +66,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
       ref={ref}
       className={cx(
         // base
-        "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-sm outline-none sm:text-sm",
+        "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-sm outline-none transition sm:text-sm",
         // border color
         "border-gray-300 dark:border-gray-800",
         // text color
