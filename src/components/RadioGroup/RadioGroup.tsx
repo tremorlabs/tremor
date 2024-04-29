@@ -1,4 +1,4 @@
-// Tremor Raw RadioGroup [v0.0.0]
+// Tremor Raw RadioGroup [v0.0.1]
 
 import React from "react"
 import * as RadioGroupPrimitives from "@radix-ui/react-radio-group"
@@ -33,7 +33,7 @@ const RadioGroupIndicator = React.forwardRef<
       <div
         className={cx(
           // base
-          "size size-1.5 shrink-0 rounded-full",
+          "size-1.5 shrink-0 rounded-full",
           // indicator
           "bg-white",
           // disabled
