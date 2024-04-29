@@ -15,7 +15,7 @@
 
 </div>
 
- <h1>Copy & Paste React components to build modern web applications.</h1>
+ <h1>Copy & Paste React components to build modern web applications</h1>
 
 [Tremor Raw](https://raw.tremor.so/) offers customizable, accessible React components to build dashboards and modern web applications. Built on top of Tailwind CSS and Radix UI.
 
