@@ -7,6 +7,7 @@ import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
   CartesianGrid,
   Dot,
+  Label,
   Line,
   Legend as RechartsLegend,
   LineChart as RechartsLineChart,
@@ -79,8 +80,8 @@ const AvailableChartColors: AvailableChartColors[] = Object.keys(
 const constructCategoryColors = (
   categories: string[],
   colors: AvailableChartColors[],
-): Map<string, string> => {
-  const categoryColors = new Map<string, string>()
+): Map<string, AvailableChartColors> => {
+  const categoryColors = new Map<string, AvailableChartColors>()
   categories.forEach((category, index) => {
     categoryColors.set(category, colors[index % colors.length])
   })
@@ -162,19 +163,17 @@ type BaseEventProps = {
 
 type EventProps = BaseEventProps | null | undefined
 
-type IntervalType = "preserveStartEnd" | "equidistantPreserveStart"
-
-interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: any[]
-  categories: string[]
+interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: Record<string, any>[]
   index: string
+  categories: string[]
   colors?: AvailableChartColors[]
   valueFormatter?: (value: number) => string
   startEndOnly?: boolean
   showXAxis?: boolean
   showYAxis?: boolean
   yAxisWidth?: "auto" | number
-  intervalType?: IntervalType
+  intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
   showTooltip?: boolean
   showLegend?: boolean
   autoMinValue?: boolean
@@ -184,7 +183,12 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: EventProps) => void
   enableLegendSlider?: boolean
   tickGap?: number
+  connectNulls?: boolean
+  xAxisLabel?: string
+  yAxisLabel?: string
 }
+
+//#region Legend
 
 export interface LegendItemProps {
   name: string
@@ -204,8 +208,8 @@ const LegendItem = ({
     <li
       className={cx(
         // base
-        "group inline-flex items-center whitespace-nowrap rounded-md px-2 py-0.5 transition",
-        // text
+        "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded-md px-2 py-0.5 transition",
+        // text color
         "text-gray-700 dark:text-gray-300",
         hasOnValueChange
           ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -216,18 +220,14 @@ const LegendItem = ({
         onClick?.(name, color)
       }}
     >
-      <svg
-        aria-hidden="true"
+      <span
         className={cx(
-          "mr-1.5 size-2 flex-none",
-          getColorClassName(color ?? "fallback", "text"),
+          "h-1 w-3 shrink-0 rounded-full",
+          getColorClassName(color, "bg"),
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
-        fill="currentColor"
-        viewBox="0 0 8 8"
-      >
-        <circle cx={4} cy={4} r={4} />
-      </svg>
+        aria-hidden={true}
+      />
       <p
         className={cx(
           // base
@@ -278,6 +278,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     <button
       type="button"
       className={cx(
+        //@sev
         // base
         "group inline-flex size-5 items-center truncate rounded-sm transition",
         disabled ? "cursor-not-allowed" : "cursor-pointer",
@@ -300,14 +301,14 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         setIsPressed(false)
       }}
     >
-      <Icon className={"w-full"} />
+      <Icon className="w-full" />
     </button>
   )
 }
 
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[]
-  colors?: string[]
+  colors?: AvailableChartColors[]
   onClickLegendItem?: (category: string, color: string) => void
   activeLegend?: string
   enableLegendSlider?: boolean
@@ -508,18 +509,7 @@ const ChartLegend = (
   )
 }
 
-const ChartTooltipFrame = ({ children }: { children: React.ReactNode }) => (
-  <div
-    className={cx(
-      // base
-      "rounded-md border text-sm shadow-xl",
-      // background color
-      "bg-white dark:bg-gray-950",
-    )}
-  >
-    {children}
-  </div>
-)
+//#region Tooltip
 
 export interface ChartTooltipRowProps {
   value: string
@@ -531,16 +521,8 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
   <div className="flex items-center justify-between space-x-8">
     <div className="flex items-center space-x-2">
       <span
-        className={cx(
-          // base
-          "size-3 shrink-0 rounded-full border-2 shadow",
-          // border color
-          "border-white dark:border-gray-800",
-          getColorClassName(
-            (color as AvailableChartColors) ?? "fallback",
-            "bg",
-          ),
-        )}
+        aria-hidden="true"
+        className={cx("h-1 w-3 shrink-0 rounded-full", color)}
       />
       <p
         className={cx(
@@ -585,7 +567,14 @@ const ChartTooltip = ({
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
     return (
-      <ChartTooltipFrame>
+      <div
+        className={cx(
+          // base
+          "rounded-md border text-sm shadow-xl",
+          // background color
+          "bg-white dark:bg-gray-950",
+        )}
+      >
         <div
           className={cx(
             // base
@@ -613,19 +602,18 @@ const ChartTooltip = ({
                 key={`id-${idx}`}
                 value={valueFormatter(value)}
                 name={name}
-                color={categoryColors.get(name) ?? "fallback"}
+                color={getColorClassName(
+                  categoryColors.get(name) as AvailableChartColors,
+                  "bg",
+                )}
               />
             ),
           )}
         </div>
-      </ChartTooltipFrame>
+      </div>
     )
   }
   return null
-}
-
-export interface LineChartProps extends BaseChartProps {
-  connectNulls?: boolean
 }
 
 interface ActiveDot {
@@ -656,6 +644,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       onValueChange,
       enableLegendSlider = false,
       tickGap = 5,
+      xAxisLabel,
+      yAxisLabel,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -669,7 +659,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const categoryColors = constructCategoryColors(categories, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
-    const largestValue = findLargestValue(data)
+    const largestValue = React.useMemo(() => findLargestValue(data), [data])
     const hasOnValueChange = !!onValueChange
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
@@ -734,6 +724,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   }
                 : undefined
             }
+            margin={{
+              bottom: xAxisLabel ? 30 : undefined,
+              left: yAxisLabel ? 15 : undefined,
+              right: yAxisLabel ? 5 : undefined,
+            }}
           >
             <CartesianGrid
               className={cx(
@@ -764,7 +759,17 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
-            />
+            >
+              {xAxisLabel && (
+                <Label
+                  position="insideBottom"
+                  offset={-20}
+                  className="fill-gray-900 text-sm font-medium"
+                >
+                  {xAxisLabel}
+                </Label>
+              )}
+            </XAxis>
             <YAxis
               width={
                 yAxisWidth === "auto"
@@ -788,7 +793,19 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               )}
               tickFormatter={valueFormatter}
               allowDecimals={true}
-            />
+            >
+              {yAxisLabel && (
+                <Label
+                  position="insideLeft"
+                  angle={-90}
+                  textAnchor="middle"
+                  offset={-10}
+                  className="fill-gray-900 text-sm font-medium"
+                >
+                  {yAxisLabel}
+                </Label>
+              )}
+            </YAxis>
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
@@ -833,8 +850,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               <Line
                 className={cx(
                   getColorClassName(
-                    (categoryColors.get(category) as AvailableChartColors) ??
-                      "fallback",
+                    categoryColors.get(category) as AvailableChartColors,
                     "stroke",
                   ),
                 )}
@@ -856,12 +872,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   return (
                     <Dot
                       className={cx(
-                        "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        "stroke-white dark:stroke-gray-950",
                         onValueChange ? "cursor-pointer" : "",
                         getColorClassName(
-                          (categoryColors.get(
-                            dataKey,
-                          ) as AvailableChartColors) ?? "fallback",
+                          categoryColors.get(dataKey) as AvailableChartColors,
                           "fill",
                         ),
                       )}
@@ -912,12 +926,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                         strokeLinejoin={strokeLinejoin}
                         strokeWidth={strokeWidth}
                         className={cx(
-                          "dark:stroke-dark-white stroke-white",
+                          "stroke-white dark:stroke-gray-950",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
-                            (categoryColors.get(
-                              dataKey,
-                            ) as AvailableChartColors) ?? "fallback",
+                            categoryColors.get(dataKey) as AvailableChartColors,
                             "fill",
                           ),
                         )}
