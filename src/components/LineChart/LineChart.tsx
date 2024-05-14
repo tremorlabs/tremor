@@ -16,7 +16,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import { AxisDomain } from "recharts/types/util/types"
+import { ActiveShape, AxisDomain } from "recharts/types/util/types"
 
 import { cx } from "../../utils/cx"
 
@@ -101,16 +101,6 @@ const getColorClassName = (
   return chartColors[color]?.[type] ?? fallbackColor[type]
 }
 
-export function findLargestValue(data: any) {
-  return data.reduce((max: number, obj: any) => {
-    const numericValues = Object.values(obj).filter(
-      (value) => typeof value === "number",
-    ) as number[]
-    const currentMax = Math.max(...numericValues)
-    return currentMax > max ? currentMax : max
-  }, -Infinity)
-}
-
 const getYAxisDomain = (
   autoMinValue: boolean,
   minValue: number | undefined,
@@ -121,18 +111,17 @@ const getYAxisDomain = (
   return [minDomain, maxDomain]
 }
 
-function hasOnlyOneValueForThisKey(array: any[], keyToCheck: string) {
-  const val = []
-
+function hasOnlyOneValueForThisKey(array: any[], keyToCheck: string): boolean {
+  let value: any = undefined
   for (const obj of array) {
     if (Object.prototype.hasOwnProperty.call(obj, keyToCheck)) {
-      val.push(obj[keyToCheck])
-      if (val.length > 1) {
+      if (value === undefined) {
+        value = obj[keyToCheck]
+      } else if (value !== obj[keyToCheck]) {
         return false
       }
     }
   }
-
   return true
 }
 
@@ -172,7 +161,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   startEndOnly?: boolean
   showXAxis?: boolean
   showYAxis?: boolean
-  yAxisWidth?: "auto" | number
+  yAxisWidth?: number
   intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
   showTooltip?: boolean
   showLegend?: boolean
@@ -209,10 +198,8 @@ const LegendItem = ({
       className={cx(
         // base
         "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded-md px-2 py-0.5 transition",
-        // text color
-        "text-gray-700 dark:text-gray-300",
         hasOnValueChange
-          ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+          ? "bg-transpaent cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
           : "cursor-default",
       )}
       onClick={(e) => {
@@ -235,7 +222,7 @@ const LegendItem = ({
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
-            "dark:group-hover:text-dark-gray-200 group-hover:text-gray-900",
+            "group-hover:text-gray-900 dark:group-hover:text-gray-50",
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
       >
@@ -278,14 +265,11 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
     <button
       type="button"
       className={cx(
-        //@sev
         // base
-        "group inline-flex size-5 items-center truncate rounded-sm transition",
-        disabled ? "cursor-not-allowed" : "cursor-pointer",
-        // light
+        "group inline-flex size-5 items-center truncate rounded transition",
         disabled
-          ? "dark:text-text-gray-500 text-gray-500"
-          : "hover:text-text-gray-900 dark:hover:bg-dark-gray-100 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-50",
+          ? "cursor-not-allowed text-gray-400 dark:text-gray-600"
+          : "cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50",
       )}
       disabled={disabled}
       onClick={(e) => {
@@ -301,7 +285,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         setIsPressed(false)
       }}
     >
-      <Icon className="w-full" />
+      <Icon className="size-full" aria-hidden="true" />
     </button>
   )
 }
@@ -476,7 +460,7 @@ Legend.displayName = "Legend"
 
 const ChartLegend = (
   { payload }: any,
-  categoryColors: Map<string, string>,
+  categoryColors: Map<string, string>, //@sev? availablechartcolros instead of string
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
   onClick?: (category: string, color: string) => void,
@@ -571,6 +555,8 @@ const ChartTooltip = ({
         className={cx(
           // base
           "rounded-md border text-sm shadow-xl",
+          // border color
+          "border-gray-200 dark:border-gray-800",
           // background color
           "bg-white dark:bg-gray-950",
         )}
@@ -578,9 +564,7 @@ const ChartTooltip = ({
         <div
           className={cx(
             // base
-            "border-b px-4 py-2",
-            // border color
-            "border-gray-200 dark:border-gray-800",
+            "border-b border-inherit px-4 py-2",
           )}
         >
           <p
@@ -632,7 +616,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       startEndOnly = false,
       showXAxis = true,
       showYAxis = true,
-      yAxisWidth = "auto", //@sev
+      yAxisWidth = 56,
       intervalType = "equidistantPreserveStart",
       showTooltip = true,
       showLegend = true,
@@ -659,7 +643,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const categoryColors = constructCategoryColors(categories, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
-    const largestValue = React.useMemo(() => findLargestValue(data), [data])
     const hasOnValueChange = !!onValueChange
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
@@ -726,14 +709,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
-              left: yAxisLabel ? 15 : undefined,
+              left: yAxisLabel ? 20 : undefined,
               right: yAxisLabel ? 5 : undefined,
             }}
           >
             <CartesianGrid
-              className={cx(
-                "dark:stroke-dark-gray-800 stroke-gray-200 stroke-1",
-              )}
+              className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-800")}
               horizontal={true}
               vertical={false}
             />
@@ -754,7 +735,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 // base
                 "text-xs",
                 // text fill
-                "fill-gray-700 dark:fill-gray-300",
+                "fill-gray-500 dark:fill-gray-500",
               )}
               tickLine={false}
               axisLine={false}
@@ -764,19 +745,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 <Label
                   position="insideBottom"
                   offset={-20}
-                  className="fill-gray-900 text-sm font-medium"
+                  className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
                 >
                   {xAxisLabel}
                 </Label>
               )}
             </XAxis>
             <YAxis
-              width={
-                yAxisWidth === "auto"
-                  ? valueFormatter(largestValue.toString()).length * 8 + 8
-                  : yAxisWidth
-              }
-              // width={yAxisWidth}
+              width={yAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
@@ -789,7 +765,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 // base
                 "text-xs",
                 // text fill
-                "fill-gray-700 dark:fill-gray-300",
+                "fill-gray-500 dark:fill-gray-500",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={true}
@@ -799,8 +775,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   position="insideLeft"
                   angle={-90}
                   textAnchor="middle"
-                  offset={-10}
-                  className="fill-gray-900 text-sm font-medium"
+                  offset={-15}
+                  className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
                 >
                   {yAxisLabel}
                 </Label>
@@ -809,8 +785,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
+              // isAnimationActive={true} //@chris hat schon was nices, eine ganz kurze animation
+              // animationDuration={100}
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
-              position={{ y: 0 }}
+              offset={20}
+              position={{ y: 0 }} //@chris: was meinst du, wenn legend aktiviert, dann y: 30 (dann sieht man die legend)
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -887,9 +866,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       strokeLinecap={strokeLinecap}
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
-                      onClick={(dotProps: any, event) =>
-                        onDotClick(props, event)
-                      }
+                      onClick={(
+                        dotProps: any, //@sev
+                        event,
+                      ) => onDotClick(props, event)}
                     />
                   )
                 }}

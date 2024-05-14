@@ -153,7 +153,6 @@ export const Default: Story = {
         "Gizmodo",
       ]}
       valueFormatter={dataFormatter}
-      yAxisWidth={60}
       onValueChange={(v) => console.log(v)}
       enableLegendSlider
       xAxisLabel="Month of Year"
