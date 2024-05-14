@@ -19,36 +19,66 @@ import { AxisDomain } from "recharts/types/util/types"
 
 import { cx } from "../../utils/cx"
 
-type ColorType = "bg" | "stroke" | "fill" | "text"
+type ColorUtility = "bg" | "stroke" | "fill" | "text"
 
-const chartColors: {
-  [color: string]: {
-    [key in ColorType]: string
-  }
-} = {
+const chartColors = {
   blue: {
     bg: "bg-blue-500",
     stroke: "stroke-blue-500",
     fill: "fill-blue-500",
     text: "text-blue-500",
   },
-  red: {
-    bg: "bg-red-500",
-    stroke: "stroke-red-500",
-    fill: "fill-red-500",
-    text: "text-red-500",
+  emerald: {
+    bg: "bg-emerald-500",
+    stroke: "stroke-emerald-500",
+    fill: "fill-emerald-500",
+    text: "text-emerald-500",
   },
-  green: {
-    bg: "bg-green-500",
-    stroke: "stroke-green-500",
-    fill: "fill-green-500",
-    text: "text-green-500",
+  violet: {
+    bg: "bg-violet-500",
+    stroke: "stroke-violet-500",
+    fill: "fill-violet-500",
+    text: "text-violet-500",
   },
+  amber: {
+    bg: "bg-amber-500",
+    stroke: "stroke-amber-500",
+    fill: "fill-amber-500",
+    text: "text-amber-500",
+  },
+  gray: {
+    bg: "bg-gray-500",
+    stroke: "stroke-gray-500",
+    fill: "fill-gray-500",
+    text: "text-gray-500",
+  },
+  cyan: {
+    bg: "bg-cyan-500",
+    stroke: "stroke-cyan-500",
+    fill: "fill-cyan-500",
+    text: "text-cyan-500",
+  },
+  pink: {
+    bg: "bg-pink-500",
+    stroke: "stroke-pink-500",
+    fill: "fill-pink-500",
+    text: "text-pink-500",
+  },
+} as const satisfies {
+  [color: string]: {
+    [key in ColorUtility]: string
+  }
 }
+
+type AvailableChartColors = keyof typeof chartColors
+
+const AvailableChartColors: AvailableChartColors[] = Object.keys(
+  chartColors,
+) as Array<AvailableChartColors>
 
 const constructCategoryColors = (
   categories: string[],
-  colors: string[],
+  colors: AvailableChartColors[],
 ): Map<string, string> => {
   const categoryColors = new Map<string, string>()
   categories.forEach((category, index) => {
@@ -58,8 +88,8 @@ const constructCategoryColors = (
 }
 
 const getColorClassName = (
-  color: string, //keyof typeof chartColors,
-  type: ColorType,
+  color: AvailableChartColors,
+  type: ColorUtility,
 ): string => {
   const fallbackColor = {
     bg: "bg-gray-500",
@@ -68,6 +98,16 @@ const getColorClassName = (
     text: "text-gray-500",
   }
   return chartColors[color]?.[type] ?? fallbackColor[type]
+}
+
+export function findLargestValue(data: any) {
+  return data.reduce((max: number, obj: any) => {
+    const numericValues = Object.values(obj).filter(
+      (value) => typeof value === "number",
+    ) as number[]
+    const currentMax = Math.max(...numericValues)
+    return currentMax > max ? currentMax : max
+  }, -Infinity)
 }
 
 const getYAxisDomain = (
@@ -128,16 +168,15 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any[]
   categories: string[]
   index: string
-  colors?: string[]
+  colors?: AvailableChartColors[]
   valueFormatter?: (value: number) => string
   startEndOnly?: boolean
   showXAxis?: boolean
   showYAxis?: boolean
-  yAxisWidth?: number
+  yAxisWidth?: "auto" | number
   intervalType?: IntervalType
   showTooltip?: boolean
   showLegend?: boolean
-  showGridLines?: boolean
   autoMinValue?: boolean
   minValue?: number
   maxValue?: number
@@ -149,8 +188,8 @@ interface BaseChartProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface LegendItemProps {
   name: string
-  color: string
-  onClick?: (name: string, color: string) => void
+  color: AvailableChartColors
+  onClick?: (name: string, color: AvailableChartColors) => void
   activeLegend?: string
 }
 
@@ -282,7 +321,7 @@ type HasScrollProps = {
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const {
     categories,
-    colors = ["blue", "red", "green"],
+    colors = AvailableChartColors,
     className,
     onClickLegendItem,
     activeLegend,
@@ -303,7 +342,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
       scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft
 
     setHasScroll({ left: hasLeftScroll, right: hasRightScroll })
-  }, [setHasScroll]) // dependencies are listed here in the array
+  }, [setHasScroll])
 
   const scrollToTest = React.useCallback(
     (direction: "left" | "right") => {
@@ -361,14 +400,11 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     const scrollable = scrollableRef?.current
     if (enableLegendSlider) {
       checkScroll()
-
       scrollable?.addEventListener("keydown", keyDown)
       scrollable?.addEventListener("keyup", keyUp)
     }
 
     return () => {
-      //   document.removeEventListener("keydown", keyDown);
-      //   document.removeEventListener("keyup", keyUp);
       scrollable?.removeEventListener("keydown", keyDown)
       scrollable?.removeEventListener("keyup", keyUp)
     }
@@ -384,7 +420,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         ref={scrollableRef}
         tabIndex={0}
         className={cx(
-          //common
           "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
@@ -393,11 +428,11 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             : "flex-wrap",
         )}
       >
-        {categories.map((category, idx) => (
+        {categories.map((category, index) => (
           <LegendItem
-            key={`item-${idx}`}
+            key={`item-${index}`}
             name={category}
-            color={colors[idx]}
+            color={colors[index] as AvailableChartColors}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />
@@ -407,12 +442,10 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         <>
           <div
             className={cx(
-              // light mode
-              "bg-white",
-              // dark mode
-              "dark:bg-gray-950",
               // base
               "absolute bottom-0 right-0 top-0 flex h-full items-center justify-center pr-1",
+              // background color
+              "bg-white dark:bg-gray-950",
             )}
           >
             <ScrollButton
@@ -421,7 +454,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
                 setIsKeyDowned(null)
                 scrollToTest("left")
               }}
-              disabled={!hasScroll?.left ?? true}
+              disabled={!hasScroll?.left}
             />
             <ScrollButton
               icon={RiArrowRightSLine}
@@ -429,7 +462,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
                 setIsKeyDowned(null)
                 scrollToTest("right")
               }}
-              disabled={!hasScroll?.right ?? true}
+              disabled={!hasScroll?.right}
             />
           </div>
         </>
@@ -503,7 +536,10 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
           "size-3 shrink-0 rounded-full border-2 shadow",
           // border color
           "border-white dark:border-gray-800",
-          getColorClassName(color ?? "fallback", "bg"),
+          getColorClassName(
+            (color as AvailableChartColors) ?? "fallback",
+            "bg",
+          ),
         )}
       />
       <p
@@ -603,21 +639,19 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       data = [],
       categories = [],
       index,
-      colors = ["blue", "red", "green"],
+      colors = AvailableChartColors,
       valueFormatter = (value: number) => value.toString(),
       startEndOnly = false,
       showXAxis = true,
       showYAxis = true,
-      yAxisWidth = 56,
+      yAxisWidth = "auto", //@sev
       intervalType = "equidistantPreserveStart",
       showTooltip = true,
       showLegend = true,
-      showGridLines = true,
       autoMinValue = false,
       minValue,
       maxValue,
       connectNulls = false,
-      allowDecimals = true,
       className,
       onValueChange,
       enableLegendSlider = false,
@@ -635,6 +669,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const categoryColors = constructCategoryColors(categories, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
+    const largestValue = findLargestValue(data)
     const hasOnValueChange = !!onValueChange
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
@@ -687,7 +722,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
     return (
       <div ref={ref} className={cx("h-80 w-full", className)} {...other}>
-        <ResponsiveContainer className="h-full w-full">
+        <ResponsiveContainer>
           <RechartsLineChart
             data={data}
             onClick={
@@ -700,16 +735,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 : undefined
             }
           >
-            {showGridLines ? (
-              <CartesianGrid
-                className={cx(
-                  // stroke
-                  "dark:stroke-dark-gray-800 stroke-gray-200 stroke-1",
-                )}
-                horizontal={true}
-                vertical={false}
-              />
-            ) : null}
+            <CartesianGrid
+              className={cx(
+                "dark:stroke-dark-gray-800 stroke-gray-200 stroke-1",
+              )}
+              horizontal={true}
+              vertical={false}
+            />
             <XAxis
               padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
@@ -723,13 +755,23 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               }
               fill=""
               stroke=""
-              className={cx("dark:fill-dark-gray-400 fill-gray-600 text-sm")}
+              className={cx(
+                // base
+                "text-xs",
+                // text fill
+                "fill-gray-700 dark:fill-gray-300",
+              )}
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
             />
             <YAxis
-              width={yAxisWidth}
+              width={
+                yAxisWidth === "auto"
+                  ? valueFormatter(largestValue.toString()).length * 8 + 8
+                  : yAxisWidth
+              }
+              // width={yAxisWidth}
               hide={!showYAxis}
               axisLine={false}
               tickLine={false}
@@ -740,17 +782,18 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               stroke=""
               className={cx(
                 // base
-                "text-sm",
-                // light
+                "text-xs",
+                // text fill
                 "fill-gray-700 dark:fill-gray-300",
               )}
               tickFormatter={valueFormatter}
-              allowDecimals={allowDecimals}
+              allowDecimals={true}
             />
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
+              position={{ y: 0 }}
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -766,9 +809,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   <></>
                 )
               }
-              position={{ y: 0 }}
             />
-
             {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"
@@ -792,7 +833,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               <Line
                 className={cx(
                   getColorClassName(
-                    categoryColors.get(category) ?? "fallback",
+                    (categoryColors.get(category) as AvailableChartColors) ??
+                      "fallback",
                     "stroke",
                   ),
                 )}
@@ -801,48 +843,50 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                     ? 0.3
                     : 1
                 }
-                // activeDot={(props: any) => {
-                //   const {
-                //     cx,
-                //     cy,
-                //     stroke,
-                //     strokeLinecap,
-                //     strokeLinejoin,
-                //     strokeWidth,
-                //     dataKey,
-                //   } = props
-                //   return (
-                //     <Dot
-                //       className={cx(
-                //         "stroke-tremor-background dark:stroke-dark-tremor-background",
-                //         onValueChange ? "cursor-pointer" : "",
-                //         getColorClassName(
-                //           categoryColors.get(dataKey) ?? "fallback",
-                //           "fill",
-                //         ),
-                //       )}
-                //       cx={cx}
-                //       cy={cy}
-                //       r={5}
-                //       fill=""
-                //       stroke={stroke}
-                //       strokeLinecap={strokeLinecap}
-                //       strokeLinejoin={strokeLinejoin}
-                //       strokeWidth={strokeWidth}
-                //       onClick={(dotProps: any, event) =>
-                //         onDotClick(props, event)
-                //       }
-                //     />
-                //   )
-                // }}
+                activeDot={(props: any) => {
+                  const {
+                    cx: cxCoord,
+                    cy: cyCoord,
+                    stroke,
+                    strokeLinecap,
+                    strokeLinejoin,
+                    strokeWidth,
+                    dataKey,
+                  } = props
+                  return (
+                    <Dot
+                      className={cx(
+                        "stroke-tremor-background dark:stroke-dark-tremor-background",
+                        onValueChange ? "cursor-pointer" : "",
+                        getColorClassName(
+                          (categoryColors.get(
+                            dataKey,
+                          ) as AvailableChartColors) ?? "fallback",
+                          "fill",
+                        ),
+                      )}
+                      cx={cxCoord}
+                      cy={cyCoord}
+                      r={5}
+                      fill=""
+                      stroke={stroke}
+                      strokeLinecap={strokeLinecap}
+                      strokeLinejoin={strokeLinejoin}
+                      strokeWidth={strokeWidth}
+                      onClick={(dotProps: any, event) =>
+                        onDotClick(props, event)
+                      }
+                    />
+                  )
+                }}
                 dot={(props: any) => {
                   const {
                     stroke,
                     strokeLinecap,
                     strokeLinejoin,
                     strokeWidth,
-                    cx,
-                    cy,
+                    cx: cxCoord,
+                    cy: cyCoord,
                     dataKey,
                     index,
                   } = props
@@ -859,8 +903,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                     return (
                       <Dot
                         key={index}
-                        cx={cx}
-                        cy={cy}
+                        cx={cxCoord}
+                        cy={cyCoord}
                         r={5}
                         stroke={stroke}
                         fill=""
@@ -871,7 +915,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                           "dark:stroke-dark-white stroke-white",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
-                            categoryColors.get(dataKey) ?? "fallback",
+                            (categoryColors.get(
+                              dataKey,
+                            ) as AvailableChartColors) ?? "fallback",
                             "fill",
                           ),
                         )}
