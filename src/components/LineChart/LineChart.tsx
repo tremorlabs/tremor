@@ -950,6 +950,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 connectNulls={connectNulls}
               />
             ))}
+            {/* hidden lines to increase clickable target area */}
             {onValueChange
               ? categories.map((category) => (
                   <Line
