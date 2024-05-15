@@ -1,7 +1,6 @@
-import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import LineChart from "./LineChart"
+import { LineChart } from "./LineChart"
 
 const chartdata = [
   {
@@ -153,7 +152,7 @@ export const Default: Story = {
         "Gizmodo",
       ]}
       valueFormatter={dataFormatter}
-      onValueChange={(v) => console.log(v)}
+      onValueChange={(v: any) => console.log(v)}
       enableLegendSlider
       xAxisLabel="Month of Year"
       yAxisLabel="Revenue"

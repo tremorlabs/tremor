@@ -18,7 +18,7 @@ import {
 } from "recharts"
 import { AxisDomain } from "recharts/types/util/types"
 
-import { useOnWindowResize } from "../../hooks/useWindowResize"
+import { useOnWindowResize } from "../../hooks/useOnWindowResize"
 import {
   AvailableChartColors,
   AvailableChartColorsKeys,
@@ -463,7 +463,7 @@ type BaseEventProps = {
   [key: string]: number | string
 }
 
-type EventProps = BaseEventProps | null | undefined
+type LineChartEventProps = BaseEventProps | null | undefined
 
 interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
@@ -482,7 +482,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   minValue?: number
   maxValue?: number
   allowDecimals?: boolean
-  onValueChange?: (value: EventProps) => void
+  onValueChange?: (value: LineChartEventProps) => void
   enableLegendSlider?: boolean
   tickGap?: number
   connectNulls?: boolean
@@ -508,6 +508,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       autoMinValue = false,
       minValue,
       maxValue,
+      allowDecimals = true,
       connectNulls = false,
       className,
       onValueChange,
@@ -654,13 +655,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 "fill-gray-500 dark:fill-gray-500",
               )}
               tickFormatter={valueFormatter}
-              allowDecimals={true}
+              allowDecimals={allowDecimals}
             >
               {yAxisLabel && (
                 <Label
                   position="insideLeft"
+                  style={{ textAnchor: "middle" }}
                   angle={-90}
-                  textAnchor="middle"
                   offset={-15}
                   className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
                 >
@@ -852,4 +853,4 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
 LineChart.displayName = "LineChart"
 
-export default LineChart
+export { LineChart, type LineChartEventProps }

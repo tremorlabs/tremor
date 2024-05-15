@@ -4,4 +4,4 @@
 
 ### Changes
 
-- New: useWindowResize hook for charts
+- New: useOnWindowResize hook for charts
