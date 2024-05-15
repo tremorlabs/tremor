@@ -29,42 +29,9 @@ import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
 import { hasOnlyOneValueForKey } from "../../utils/hasOnlyOneValueForKey"
 
-type BaseEventProps = {
-  eventType: "dot" | "category"
-  categoryClicked: string
-  [key: string]: number | string
-}
-
-type EventProps = BaseEventProps | null | undefined
-
-interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: Record<string, any>[]
-  index: string
-  categories: string[]
-  colors?: AvailableChartColorsKeys[]
-  valueFormatter?: (value: number) => string
-  startEndOnly?: boolean
-  showXAxis?: boolean
-  showYAxis?: boolean
-  yAxisWidth?: number
-  intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
-  showTooltip?: boolean
-  showLegend?: boolean
-  autoMinValue?: boolean
-  minValue?: number
-  maxValue?: number
-  allowDecimals?: boolean
-  onValueChange?: (value: EventProps) => void
-  enableLegendSlider?: boolean
-  tickGap?: number
-  connectNulls?: boolean
-  xAxisLabel?: string
-  yAxisLabel?: string
-}
-
 //#region Legend
 
-export interface LegendItemProps {
+interface LegendItemProps {
   name: string
   color: AvailableChartColorsKeys
   onClick?: (name: string, color: AvailableChartColorsKeys) => void
@@ -117,7 +84,7 @@ const LegendItem = ({
   )
 }
 
-export interface ScrollButtonProps {
+interface ScrollButtonProps {
   icon: React.ElementType
   onClick?: () => void
   disabled?: boolean
@@ -175,7 +142,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
   )
 }
 
-export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
+interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[]
   colors?: AvailableChartColorsKeys[]
   onClickLegendItem?: (category: string, color: string) => void
@@ -378,7 +345,7 @@ const ChartLegend = (
 
 //#region Tooltip
 
-export interface ChartTooltipRowProps {
+interface ChartTooltipRowProps {
   value: string
   name: string
   color: string
@@ -415,7 +382,7 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
   </div>
 )
 
-export interface ChartTooltipProps {
+interface ChartTooltipProps {
   active: boolean | undefined
   payload: any
   label: string
@@ -483,9 +450,44 @@ const ChartTooltip = ({
   return null
 }
 
+//#region LineChart
+
 interface ActiveDot {
   index?: number
   dataKey?: string
+}
+
+type BaseEventProps = {
+  eventType: "dot" | "category"
+  categoryClicked: string
+  [key: string]: number | string
+}
+
+type EventProps = BaseEventProps | null | undefined
+
+interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: Record<string, any>[]
+  index: string
+  categories: string[]
+  colors?: AvailableChartColorsKeys[]
+  valueFormatter?: (value: number) => string
+  startEndOnly?: boolean
+  showXAxis?: boolean
+  showYAxis?: boolean
+  yAxisWidth?: number
+  intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
+  showTooltip?: boolean
+  showLegend?: boolean
+  autoMinValue?: boolean
+  minValue?: number
+  maxValue?: number
+  allowDecimals?: boolean
+  onValueChange?: (value: EventProps) => void
+  enableLegendSlider?: boolean
+  tickGap?: number
+  connectNulls?: boolean
+  xAxisLabel?: string
+  yAxisLabel?: string
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
