@@ -82,7 +82,7 @@ const LegendItem = ({
     <li
       className={cx(
         // base
-        "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded-md px-2 py-0.5 transition",
+        "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded px-2 py-1 transition",
         hasOnValueChange
           ? "bg-transpaent cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
           : "cursor-default",
@@ -94,7 +94,7 @@ const LegendItem = ({
     >
       <span
         className={cx(
-          "h-1 w-3 shrink-0 rounded-full",
+          "h-0.5 w-4 shrink-0 rounded-full",
           getColorClassName(color, "bg"),
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
@@ -103,11 +103,11 @@ const LegendItem = ({
       <p
         className={cx(
           // base
-          "truncate whitespace-nowrap text-sm",
+          "truncate whitespace-nowrap text-xs",
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
-            "group-hover:text-gray-900 dark:group-hover:text-gray-50",
+          "group-hover:text-gray-900 dark:group-hover:text-gray-50",
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
       >
@@ -356,7 +356,7 @@ const ChartLegend = (
   useOnWindowResize(() => {
     const calculateHeight = (height: number | undefined) =>
       height
-        ? Number(height) + 20 // 20px extra padding
+        ? Number(height) + 15 // 15px extra padding (@sev: change back if text-xs in chart is not appealing)
         : 60 // default height
     setLegendHeight(calculateHeight(legendRef.current?.clientHeight))
   })
@@ -391,7 +391,7 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
     <div className="flex items-center space-x-2">
       <span
         aria-hidden="true"
-        className={cx("h-1 w-3 shrink-0 rounded-full", color)}
+        className={cx("h-0.5 w-4 shrink-0 rounded-full", color)}
       />
       <p
         className={cx(
@@ -439,7 +439,7 @@ const ChartTooltip = ({
       <div
         className={cx(
           // base
-          "rounded-md border text-sm shadow-xl",
+          "rounded-md border text-sm shadow-md",
           // border color
           "border-gray-200 dark:border-gray-800",
           // background color
@@ -586,16 +586,17 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
                 ? () => {
-                    setActiveDot(undefined)
-                    setActiveLegend(undefined)
-                    onValueChange?.(null)
-                  }
+                  setActiveDot(undefined)
+                  setActiveLegend(undefined)
+                  onValueChange?.(null)
+                }
                 : undefined
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
               left: yAxisLabel ? 20 : undefined,
               right: yAxisLabel ? 5 : undefined,
+              top: 0
             }}
           >
             <CartesianGrid
@@ -669,12 +670,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             </YAxis>
             <Tooltip
               wrapperStyle={{ outline: "none" }}
-              isAnimationActive={false}
-              // isAnimationActive={true} //@chris hat schon was nices, eine ganz kurze animation
-              // animationDuration={100}
+              // isAnimationActive={false}
+              isAnimationActive={true} //@chris hat schon was nices, eine ganz kurze animation // @sev: schmerzbefreit, aber wenn unter <= 100ms -> schau mal alte tinybird tremor streams an -> zu langsam von damals
+              animationDuration={100}
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               offset={20}
-              position={{ y: 0 }} //@chris: was meinst du, wenn legend aktiviert, dann y: 30 (dann sieht man die legend)
+              position={{ y: 0 }}
+              //@chris: was meinst du, wenn legend aktiviert, dann y: 30 (dann sieht man die legend)
+              //@sev: y: 0 passt -> natürliches verhalten, wenn ich was z-hover wird was anderes verdeckt. Ist mir gar nicht aufgefallen ohne dein Kommentar.
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -703,7 +706,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                     activeLegend,
                     hasOnValueChange
                       ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
+                        onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
                   )
@@ -748,7 +751,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       cx={cxCoord}
                       cy={cyCoord}
                       r={5}
-                      fill=""
+                      fill="" // @sev from chris
                       stroke={stroke}
                       strokeLinecap={strokeLinecap}
                       strokeLinejoin={strokeLinejoin}
@@ -788,7 +791,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                         cy={cyCoord}
                         r={5}
                         stroke={stroke}
-                        fill=""
+                        fill="" // @sev from chris
                         strokeLinecap={strokeLinecap}
                         strokeLinejoin={strokeLinejoin}
                         strokeWidth={strokeWidth}
@@ -822,26 +825,26 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             {/* hidden lines to increase clickable target area */}
             {onValueChange
               ? categories.map((category) => (
-                  <Line
-                    className={cx("cursor-pointer")}
-                    strokeOpacity={0}
-                    key={category}
-                    name={category}
-                    type="linear"
-                    dataKey={category}
-                    stroke="transparent"
-                    fill="transparent"
-                    legendType="none"
-                    tooltipType="none"
-                    strokeWidth={12}
-                    connectNulls={connectNulls}
-                    onClick={(props: any, event) => {
-                      event.stopPropagation()
-                      const { name } = props
-                      onCategoryClick(name)
-                    }}
-                  />
-                ))
+                <Line
+                  className={cx("cursor-pointer")}
+                  strokeOpacity={0}
+                  key={category}
+                  name={category}
+                  type="linear"
+                  dataKey={category}
+                  stroke="transparent"
+                  fill="transparent"
+                  legendType="none"
+                  tooltipType="none"
+                  strokeWidth={12}
+                  connectNulls={connectNulls}
+                  onClick={(props: any, event) => {
+                    event.stopPropagation()
+                    const { name } = props
+                    onCategoryClick(name)
+                  }}
+                />
+              ))
               : null}
           </RechartsLineChart>
         </ResponsiveContainer>

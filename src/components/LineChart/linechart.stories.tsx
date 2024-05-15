@@ -140,7 +140,7 @@ type Story = StoryObj<typeof LineChart>
 export const Default: Story = {
   render: () => (
     <LineChart
-      className="h-80"
+      className="h-96"
       data={chartdata}
       index="date"
       categories={[
