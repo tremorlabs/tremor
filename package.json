@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "component-folder": "node ./scripts/component-folder.js ./src"
+    "component-folder": "node ./scripts/component-folder.js ./src",
+    "test:all": "npx vitest run && npx playwright test"
   },
   "dependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",

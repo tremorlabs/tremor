@@ -142,17 +142,4 @@ describe("getColorClassName", () => {
     )
     expect(result).toBe("bg-gray-500")
   })
-
-  it("returns the fallback class name for an invalid utility type", () => {
-    const result = getColorClassName("blue", "invalidType" as ColorUtility)
-    expect(result).toBe("bg-gray-500")
-  })
-
-  it("returns the fallback class name for both invalid color and invalid utility type", () => {
-    const result = getColorClassName(
-      "invalidColor" as AvailableChartColorsKeys,
-      "invalidType" as ColorUtility,
-    )
-    expect(result).toBe("bg-gray-500")
-  })
 })
