@@ -16,136 +16,21 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import { ActiveShape, AxisDomain } from "recharts/types/util/types"
+import { AxisDomain } from "recharts/types/util/types"
 
+import { useOnWindowResize } from "../../hooks/useWindowResize"
+import {
+  AvailableChartColors,
+  AvailableChartColorsKeys,
+  constructCategoryColors,
+  getColorClassName,
+} from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
-
-type ColorUtility = "bg" | "stroke" | "fill" | "text"
-
-const chartColors = {
-  blue: {
-    bg: "bg-blue-500",
-    stroke: "stroke-blue-500",
-    fill: "fill-blue-500",
-    text: "text-blue-500",
-  },
-  emerald: {
-    bg: "bg-emerald-500",
-    stroke: "stroke-emerald-500",
-    fill: "fill-emerald-500",
-    text: "text-emerald-500",
-  },
-  violet: {
-    bg: "bg-violet-500",
-    stroke: "stroke-violet-500",
-    fill: "fill-violet-500",
-    text: "text-violet-500",
-  },
-  amber: {
-    bg: "bg-amber-500",
-    stroke: "stroke-amber-500",
-    fill: "fill-amber-500",
-    text: "text-amber-500",
-  },
-  gray: {
-    bg: "bg-gray-500",
-    stroke: "stroke-gray-500",
-    fill: "fill-gray-500",
-    text: "text-gray-500",
-  },
-  cyan: {
-    bg: "bg-cyan-500",
-    stroke: "stroke-cyan-500",
-    fill: "fill-cyan-500",
-    text: "text-cyan-500",
-  },
-  pink: {
-    bg: "bg-pink-500",
-    stroke: "stroke-pink-500",
-    fill: "fill-pink-500",
-    text: "text-pink-500",
-  },
-} as const satisfies {
-  [color: string]: {
-    [key in ColorUtility]: string
-  }
-}
-
-type AvailableChartColors = keyof typeof chartColors
-
-const AvailableChartColors: AvailableChartColors[] = Object.keys(
-  chartColors,
-) as Array<AvailableChartColors>
-
-const constructCategoryColors = (
-  categories: string[],
-  colors: AvailableChartColors[],
-): Map<string, AvailableChartColors> => {
-  const categoryColors = new Map<string, AvailableChartColors>()
-  categories.forEach((category, index) => {
-    categoryColors.set(category, colors[index % colors.length])
-  })
-  return categoryColors
-}
-
-const getColorClassName = (
-  color: AvailableChartColors,
-  type: ColorUtility,
-): string => {
-  const fallbackColor = {
-    bg: "bg-gray-500",
-    stroke: "stroke-gray-500",
-    fill: "fill-gray-500",
-    text: "text-gray-500",
-  }
-  return chartColors[color]?.[type] ?? fallbackColor[type]
-}
-
-const getYAxisDomain = (
-  autoMinValue: boolean,
-  minValue: number | undefined,
-  maxValue: number | undefined,
-) => {
-  const minDomain = autoMinValue ? "auto" : minValue ?? 0
-  const maxDomain = maxValue ?? "auto"
-  return [minDomain, maxDomain]
-}
-
-function hasOnlyOneValueForThisKey(array: any[], keyToCheck: string): boolean {
-  let value: any = undefined
-  for (const obj of array) {
-    if (Object.prototype.hasOwnProperty.call(obj, keyToCheck)) {
-      if (value === undefined) {
-        value = obj[keyToCheck]
-      } else if (value !== obj[keyToCheck]) {
-        return false
-      }
-    }
-  }
-  return true
-}
-
-const useOnWindowResize = (
-  handler: { (): void },
-  initialWindowSize?: number,
-) => {
-  const [windowSize, setWindowSize] = React.useState<undefined | number>(
-    initialWindowSize,
-  )
-  React.useEffect(() => {
-    const handleResize = () => {
-      setWindowSize(window.innerWidth)
-      handler()
-    }
-    handleResize()
-    window.addEventListener("resize", handleResize)
-
-    return () => window.removeEventListener("resize", handleResize)
-  }, [handler, windowSize])
-}
+import { getYAxisDomain } from "../../utils/getYAxisDomain"
+import { hasOnlyOneValueForKey } from "../../utils/hasOnlyOneValueForKey"
 
 type BaseEventProps = {
-  eventType: "dot" | "category" | "bar" | "slice" | "bubble"
+  eventType: "dot" | "category"
   categoryClicked: string
   [key: string]: number | string
 }
@@ -156,7 +41,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
   categories: string[]
-  colors?: AvailableChartColors[]
+  colors?: AvailableChartColorsKeys[]
   valueFormatter?: (value: number) => string
   startEndOnly?: boolean
   showXAxis?: boolean
@@ -181,8 +66,8 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface LegendItemProps {
   name: string
-  color: AvailableChartColors
-  onClick?: (name: string, color: AvailableChartColors) => void
+  color: AvailableChartColorsKeys
+  onClick?: (name: string, color: AvailableChartColorsKeys) => void
   activeLegend?: string
 }
 
@@ -292,7 +177,7 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
 
 export interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
   categories: string[]
-  colors?: AvailableChartColors[]
+  colors?: AvailableChartColorsKeys[]
   onClickLegendItem?: (category: string, color: string) => void
   activeLegend?: string
   enableLegendSlider?: boolean
@@ -417,7 +302,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           <LegendItem
             key={`item-${index}`}
             name={category}
-            color={colors[index] as AvailableChartColors}
+            color={colors[index] as AvailableChartColorsKeys}
             onClick={onClickLegendItem}
             activeLegend={activeLegend}
           />
@@ -587,7 +472,7 @@ const ChartTooltip = ({
                 value={valueFormatter(value)}
                 name={name}
                 color={getColorClassName(
-                  categoryColors.get(name) as AvailableChartColors,
+                  categoryColors.get(name) as AvailableChartColorsKeys,
                   "bg",
                 )}
               />
@@ -652,7 +537,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       if (
         (itemData.index === activeDot?.index &&
           itemData.dataKey === activeDot?.dataKey) ||
-        (hasOnlyOneValueForThisKey(data, itemData.dataKey) &&
+        (hasOnlyOneValueForKey(data, itemData.dataKey) &&
           activeLegend &&
           activeLegend === itemData.dataKey)
       ) {
@@ -677,7 +562,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       if (!hasOnValueChange) return
       if (
         (dataKey === activeLegend && !activeDot) ||
-        (hasOnlyOneValueForThisKey(data, dataKey) &&
+        (hasOnlyOneValueForKey(data, dataKey) &&
           activeDot &&
           activeDot.dataKey === dataKey)
       ) {
@@ -829,7 +714,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               <Line
                 className={cx(
                   getColorClassName(
-                    categoryColors.get(category) as AvailableChartColors,
+                    categoryColors.get(category) as AvailableChartColorsKeys,
                     "stroke",
                   ),
                 )}
@@ -854,7 +739,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                         "stroke-white dark:stroke-gray-950",
                         onValueChange ? "cursor-pointer" : "",
                         getColorClassName(
-                          categoryColors.get(dataKey) as AvailableChartColors,
+                          categoryColors.get(
+                            dataKey,
+                          ) as AvailableChartColorsKeys,
                           "fill",
                         ),
                       )}
@@ -886,7 +773,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   } = props
 
                   if (
-                    (hasOnlyOneValueForThisKey(data, category) &&
+                    (hasOnlyOneValueForKey(data, category) &&
                       !(
                         activeDot ||
                         (activeLegend && activeLegend !== category)
@@ -909,7 +796,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                           "stroke-white dark:stroke-gray-950",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
-                            categoryColors.get(dataKey) as AvailableChartColors,
+                            categoryColors.get(
+                              dataKey,
+                            ) as AvailableChartColorsKeys,
                             "fill",
                           ),
                         )}
