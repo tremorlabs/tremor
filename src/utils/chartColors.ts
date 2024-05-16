@@ -1,8 +1,8 @@
 // Tremor Raw chartColors [v0.0.0]
 
-type ColorUtility = "bg" | "stroke" | "fill" | "text"
+export type ColorUtility = "bg" | "stroke" | "fill" | "text"
 
-const chartColors = {
+export const chartColors = {
   blue: {
     bg: "bg-blue-500",
     stroke: "stroke-blue-500",
@@ -51,13 +51,13 @@ const chartColors = {
   }
 }
 
-type AvailableChartColorsKeys = keyof typeof chartColors
+export type AvailableChartColorsKeys = keyof typeof chartColors
 
-const AvailableChartColors: AvailableChartColorsKeys[] = Object.keys(
+export const AvailableChartColors: AvailableChartColorsKeys[] = Object.keys(
   chartColors,
 ) as Array<AvailableChartColorsKeys>
 
-const constructCategoryColors = (
+export const constructCategoryColors = (
   categories: string[],
   colors: AvailableChartColorsKeys[],
 ): Map<string, AvailableChartColorsKeys> => {
@@ -68,7 +68,7 @@ const constructCategoryColors = (
   return categoryColors
 }
 
-const getColorClassName = (
+export const getColorClassName = (
   color: AvailableChartColorsKeys,
   type: ColorUtility,
 ): string => {
@@ -79,13 +79,4 @@ const getColorClassName = (
     text: "text-gray-500",
   }
   return chartColors[color]?.[type] ?? fallbackColor[type]
-}
-
-export {
-  chartColors,
-  AvailableChartColors,
-  constructCategoryColors,
-  getColorClassName,
-  type ColorUtility,
-  type AvailableChartColorsKeys,
 }
