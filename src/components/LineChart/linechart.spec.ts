@@ -1,84 +1,61 @@
 import { expect, test } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:6006/?path=/story/ui-accordion--default")
+  await page.goto(
+    "http://localhost:6006/?path=/story/visualization-linechart--default",
+  )
 })
 
-test.describe("Expect default accordion", () => {
+test.describe("Expect default line chart", () => {
   test("to be rendered", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByRole("button", { name: "In the app" }),
-    ).toBeVisible()
-    await expect(
-      page
-        .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByRole("button", { name: "Via browser extension" }),
+        .getByTestId("line-chart"),
     ).toBeVisible()
   })
 
-  test("to be open and closeable", async ({ page }) => {
-    await page
-      .frameLocator('iframe[title="storybook-preview-iframe"]')
-      .getByRole("button", { name: "In the app" })
-      .click()
+  test("to render legend two items", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByText("Step 1:"),
+        .locator("li")
+        .filter({ hasText: "SolarCells" }),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByText("Step 2:"),
+        .locator("li")
+        .filter({ hasText: "Glass" }),
     ).toBeVisible()
-    await page
-      .frameLocator('iframe[title="storybook-preview-iframe"]')
-      .getByRole("button", { name: "In the app" })
-      .click()
   })
 
-  test("have a disabled item", async ({ page }) => {
+  test("to render an x-axis", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByRole("button", { name: "Via email forwarding" }),
-    ).toBeDisabled()
+        .locator(".recharts-xAxis"),
+    ).toHaveClass(/recharts-xAxis/)
   })
-})
 
-test.describe("Expect accordion multiple to", () => {
-  test("have all elements opened", async ({ page }) => {
-    await page.goto(
-      "http://localhost:6006/?path=/story/ui-accordion--type-multiple",
-    )
-    await page
-      .frameLocator('iframe[title="storybook-preview-iframe"]')
-      .getByRole("button", { name: "Does NASA provide public" })
-      .click()
-    await page
-      .frameLocator('iframe[title="storybook-preview-iframe"]')
-      .getByRole("button", { name: "Are NASA's educational" })
-      .click()
-    await page
-      .frameLocator('iframe[title="storybook-preview-iframe"]')
-      .getByRole("button", { name: "Can the public participate in" })
-      .click()
+  test("to render an y-axis", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByText("Absolutely. NASA offers open"),
+        .locator(".recharts-yAxis"),
+    ).toHaveClass(/recharts-yAxis/)
+  })
+
+  test("to render two lines", async ({ page }) => {
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .locator('path.recharts-curve.recharts-line-curve[name="SolarCells"]'),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByText("Yes. NASA provides a wide"),
-    ).toBeVisible()
-    await expect(
-      page
-        .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByText("Yes! Through various citizen"),
+        .locator('path.recharts-curve.recharts-line-curve[name="Glass"]'),
     ).toBeVisible()
   })
 })

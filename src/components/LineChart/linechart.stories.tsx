@@ -128,41 +128,37 @@ const chartdata = [
 const meta: Meta<typeof LineChart> = {
   title: "visualization/LineChart",
   component: LineChart,
+  args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
 }
 
 export default meta
 type Story = StoryObj<typeof LineChart>
 
 export const Default: Story = {
-  args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
-  },
+  render: () => (
+    <LineChart
+      data-testid="line-chart"
+      data={chartdata}
+      index="date"
+      categories={["SolarCells", "Glass"]}
+    />
+  ),
 }
 
 export const DefaultNegative: Story = {
   args: {
-    data: chartdata,
-    index: "date",
     categories: ["SolarCells", "Adhesive"],
   },
 }
 
 export const WithValueFormatter: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
   },
 }
 
 export const WithAxisLabels: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     xAxisLabel: "Month of Year",
     yAxisLabel: "Revenue",
   },
@@ -170,18 +166,12 @@ export const WithAxisLabels: Story = {
 
 export const WithMinValue: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     autoMinValue: true,
   },
 }
 
 export const WithMinAndMaxValue: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     maxValue: 5000,
     minValue: -3000,
   },
@@ -224,9 +214,6 @@ export const WithLegendSlider: Story = {
 
 export const ShiftColors: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     colors: ["amber", "cyan"],
   },
 }
@@ -260,18 +247,12 @@ export const WithConnectNullsFalse: Story = {
 
 export const WithStartEndOnly: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     startEndOnly: true,
   },
 }
 
 export const WithNoAxis: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     showXAxis: false,
     showYAxis: false,
   },
@@ -279,28 +260,25 @@ export const WithNoAxis: Story = {
 
 export const WithNoLegend: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     showLegend: false,
   },
 }
 
 export const WithNoTooltip: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     showTooltip: false,
   },
 }
 
 export const WithOnValueChange: Story = {
   args: {
-    data: chartdata,
-    index: "date",
-    categories: ["SolarCells", "Glass"],
     onValueChange: (v) => console.log(v),
+  },
+}
+
+export const WithLargeTickGap: Story = {
+  args: {
+    tickGap: 300,
   },
 }
 
