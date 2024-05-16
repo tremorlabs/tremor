@@ -757,10 +757,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       strokeLinecap={strokeLinecap}
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
-                      onClick={(
-                        dotProps: any, //@sev
-                        event,
-                      ) => onDotClick(props, event)}
+                      onClick={(_, event) => onDotClick(props, event)}
                     />
                   )
                 }}
