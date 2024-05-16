@@ -431,9 +431,12 @@ const ChartTooltip = ({
 
         <div className={cx("space-y-1 px-4 py-2")}>
           {filteredPayload.map(
-            ({ value, name }: { value: number; name: string }, idx: number) => (
+            (
+              { value, name }: { value: number; name: string },
+              index: number,
+            ) => (
               <ChartTooltipRow
-                key={`id-${idx}`}
+                key={`id-${index}`}
                 value={valueFormatter(value)}
                 name={name}
                 color={getColorClassName(
