@@ -4,132 +4,129 @@ import { LineChart } from "./LineChart"
 
 const chartdata = [
   {
-    date: "Jan 22",
-    SemiAnalysis: 2890,
-    "The Pragmatic Engineer": 2338,
-    "Tech Crunch": 1450,
-    "Venture Beat": 1900,
-    Wired: 1600,
-    "Ars Technica": 1800,
-    Gizmodo: 1700,
+    date: "Jan 23",
+    SolarCells: 2890,
+    Glass: 2338,
+    Encapsulant: 1450,
+    BackSheet: 1900,
+    Frame: 1600,
+    JunctionBox: 1800,
+    Adhesive: -1700,
   },
   {
-    date: "Feb 22",
-    SemiAnalysis: 2756,
-    "The Pragmatic Engineer": 2103,
-    "Tech Crunch": 1200,
-    "Venture Beat": 1850,
-    Wired: 1700,
-    "Ars Technica": 1750,
-    Gizmodo: 1650,
+    date: "Feb 23",
+    SolarCells: 2756,
+    Glass: 2103,
+    Encapsulant: 1200,
+    BackSheet: 1850,
+    Frame: 1700,
+    JunctionBox: 1750,
+    Adhesive: -1650,
   },
   {
-    date: "Mar 22",
-    SemiAnalysis: 3322,
-    "The Pragmatic Engineer": 2194,
-    "Tech Crunch": 1300,
-    "Venture Beat": 2200,
-    Wired: 1400,
-    "Ars Technica": 2000,
-    Gizmodo: 1800,
+    date: "Mar 23",
+    SolarCells: 3322,
+    Glass: 2194,
+    Encapsulant: 1300,
+    BackSheet: 2200,
+    Frame: 1400,
+    JunctionBox: 2000,
+    Adhesive: -1800,
   },
   {
-    date: "Apr 22",
-    SemiAnalysis: 3470,
-    "The Pragmatic Engineer": 2108,
-    "Tech Crunch": 1400,
-    "Venture Beat": 1600,
-    Wired: 1800,
-    "Ars Technica": 1900,
-    Gizmodo: 1950,
+    date: "Apr 23",
+    SolarCells: 3470,
+    Glass: 2108,
+    Encapsulant: 1400,
+    BackSheet: 1600,
+    Frame: 1800,
+    JunctionBox: 1900,
+    Adhesive: -1950,
   },
   {
-    date: "May 22",
-    SemiAnalysis: 3475,
-    "The Pragmatic Engineer": 1812,
-    "Tech Crunch": 1550,
-    "Venture Beat": 2300,
-    Wired: 1450,
-    "Ars Technica": 2200,
-    Gizmodo: 1600,
+    date: "May 23",
+    SolarCells: 3475,
+    Glass: 1812,
+    Encapsulant: 1550,
+    BackSheet: 2300,
+    Frame: 1450,
+    JunctionBox: 2200,
+    Adhesive: -1600,
   },
   {
-    date: "Jun 22",
-    SemiAnalysis: 3129,
-    "The Pragmatic Engineer": 1726,
-    "Tech Crunch": 1350,
-    "Venture Beat": 2100,
-    Wired: 1750,
-    "Ars Technica": 2050,
-    Gizmodo: 1700,
+    date: "Jun 23",
+    SolarCells: 3129,
+    Glass: 1726,
+    Encapsulant: 1350,
+    BackSheet: 2100,
+    Frame: 1750,
+    JunctionBox: 2050,
+    Adhesive: -1700,
   },
   {
-    date: "Jul 22",
-    SemiAnalysis: 3490,
-    "The Pragmatic Engineer": 1982,
-    "Tech Crunch": 1450,
-    "Venture Beat": 1950,
-    Wired: 1500,
-    "Ars Technica": 2300,
-    Gizmodo: 1800,
+    date: "Jul 23",
+    SolarCells: 3490,
+    Glass: 1982,
+    Encapsulant: 1450,
+    BackSheet: 1950,
+    Frame: 1500,
+    JunctionBox: 2300,
+    Adhesive: -1800,
   },
   {
-    date: "Aug 22",
-    SemiAnalysis: 2903,
-    "The Pragmatic Engineer": 2012,
-    "Tech Crunch": 1250,
-    "Venture Beat": 1700,
-    Wired: 1850,
-    "Ars Technica": 2150,
-    Gizmodo: 1900,
+    date: "Aug 23",
+    SolarCells: 2903,
+    Glass: 2012,
+    Encapsulant: 1250,
+    BackSheet: 1700,
+    Frame: 1850,
+    JunctionBox: 2150,
+    Adhesive: -1900,
   },
   {
-    date: "Sep 22",
-    SemiAnalysis: 2643,
-    "The Pragmatic Engineer": 2342,
-    "Tech Crunch": 1400,
-    "Venture Beat": 1600,
-    Wired: 1500,
-    "Ars Technica": 2000,
-    Gizmodo: 1750,
+    date: "Sep 23",
+    SolarCells: 2643,
+    Glass: 2342,
+    Encapsulant: 1400,
+    BackSheet: 1600,
+    Frame: 1500,
+    JunctionBox: 2000,
+    Adhesive: -3750,
   },
   {
-    date: "Oct 22",
-    SemiAnalysis: 2837,
-    "The Pragmatic Engineer": 2473,
-    "Tech Crunch": 1350,
-    "Venture Beat": 1850,
-    Wired: 1900,
-    "Ars Technica": 2100,
-    Gizmodo: 1600,
+    date: "Oct 23",
+    SolarCells: 2837,
+    Glass: 2473,
+    Encapsulant: 1350,
+    BackSheet: 1850,
+    Frame: 1900,
+    JunctionBox: 2100,
+    Adhesive: -2600,
   },
   {
-    date: "Nov 22",
-    SemiAnalysis: 2954,
-    "The Pragmatic Engineer": 3848,
-    "Tech Crunch": 1200,
-    "Venture Beat": 2000,
-    Wired: 1750,
-    "Ars Technica": 2400,
-    Gizmodo: 1950,
+    date: "Nov 23",
+    SolarCells: 2954,
+    Glass: 3848,
+    Encapsulant: 1200,
+    BackSheet: 2000,
+    Frame: 1750,
+    JunctionBox: 2400,
+    Adhesive: -2950,
   },
   {
-    date: "Dec 22",
-    SemiAnalysis: 3239,
-    "The Pragmatic Engineer": 3736,
-    "Tech Crunch": 1550,
-    "Venture Beat": 1700,
-    Wired: 1600,
-    "Ars Technica": 2250,
-    Gizmodo: 1800,
+    date: "Dec 23",
+    SolarCells: 3239,
+    Glass: 3736,
+    Encapsulant: 1550,
+    BackSheet: 1700,
+    Frame: 1600,
+    JunctionBox: 2250,
+    Adhesive: -3800,
   },
 ]
 
-const dataFormatter = (number: any) =>
-  `$${Intl.NumberFormat("us").format(number).toString()}`
-
 const meta: Meta<typeof LineChart> = {
-  title: "ui/LineChart",
+  title: "visualization/LineChart",
   component: LineChart,
 }
 
@@ -137,25 +134,181 @@ export default meta
 type Story = StoryObj<typeof LineChart>
 
 export const Default: Story = {
-  render: () => (
-    <LineChart
-      className="h-96"
-      data={chartdata}
-      index="date"
-      categories={[
-        "SemiAnalysis",
-        "The Pragmatic Engineer",
-        "Tech Crunch",
-        "Venture Beat",
-        "Wired",
-        "Ars Technica",
-        "Gizmodo",
-      ]}
-      valueFormatter={dataFormatter}
-      onValueChange={(v: any) => console.log(v)}
-      enableLegendSlider
-      xAxisLabel="Month of Year"
-      yAxisLabel="Revenue"
-    />
-  ),
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+  },
+}
+
+export const DefaultNegative: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Adhesive"],
+  },
+}
+
+export const WithValueFormatter: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+  },
+}
+
+export const WithAxisLabels: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    xAxisLabel: "Month of Year",
+    yAxisLabel: "Revenue",
+  },
+}
+
+export const WithMinValue: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    autoMinValue: true,
+  },
+}
+
+export const WithMinAndMaxValue: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    maxValue: 5000,
+    minValue: -3000,
+  },
+}
+
+export const AllColors: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: [
+      "SolarCells",
+      "Glass",
+      "Encapsulant",
+      "BackSheet",
+      "Frame",
+      "JunctionBox",
+      "Adhesive",
+    ],
+  },
+}
+
+export const WithLegendSlider: Story = {
+  args: {
+    className: "max-w-md",
+    data: chartdata,
+    index: "date",
+    categories: [
+      "SolarCells",
+      "Glass",
+      "Encapsulant",
+      "BackSheet",
+      "Frame",
+      "JunctionBox",
+      "Adhesive",
+    ],
+    enableLegendSlider: true,
+    onValueChange: (v) => console.log(v),
+  },
+}
+
+export const ShiftColors: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    colors: ["amber", "cyan"],
+  },
+}
+
+export const WithConnectNullsFalse: Story = {
+  args: {
+    data: chartdata.map(
+      (
+        item,
+        index,
+      ): {
+        date: string
+        Glass: number | null
+      } => {
+        let glassValue: number | null = item.Glass
+        if (index > 5 && index < 8) {
+          glassValue = null
+        }
+        return {
+          date: item.date,
+          Glass: glassValue,
+        }
+      },
+    ),
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    colors: ["amber", "cyan"],
+    connectNulls: false,
+  },
+}
+
+export const WithStartEndOnly: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    startEndOnly: true,
+  },
+}
+
+export const WithNoAxis: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    showXAxis: false,
+    showYAxis: false,
+  },
+}
+
+export const WithNoLegend: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    showLegend: false,
+  },
+}
+
+export const WithNoTooltip: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    showTooltip: false,
+  },
+}
+
+export const WithOnValueChange: Story = {
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    onValueChange: (v) => console.log(v),
+  },
+}
+
+export const OneDataValue: Story = {
+  args: {
+    data: chartdata.slice(0, 1),
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    onValueChange: (v) => console.log(v),
+  },
 }
