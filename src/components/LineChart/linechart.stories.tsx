@@ -258,6 +258,12 @@ export const WithNoAxis: Story = {
   },
 }
 
+export const WithNoGridlines: Story = {
+  args: {
+    showGridLines: false,
+  },
+}
+
 export const WithNoLegend: Story = {
   args: {
     showLegend: false,

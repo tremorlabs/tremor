@@ -477,6 +477,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   startEndOnly?: boolean
   showXAxis?: boolean
   showYAxis?: boolean
+  showGridLines?: boolean
   yAxisWidth?: number
   intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
   showTooltip?: boolean
@@ -504,6 +505,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       startEndOnly = false,
       showXAxis = true,
       showYAxis = true,
+      showGridLines = true,
       yAxisWidth = 56,
       intervalType = "equidistantPreserveStart",
       showTooltip = true,
@@ -603,11 +605,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               top: 0,
             }}
           >
-            <CartesianGrid
-              className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-800")}
-              horizontal={true}
-              vertical={false}
-            />
+            {showGridLines ? (
+              <CartesianGrid
+                className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-800")}
+                horizontal={true}
+                vertical={false}
+              />
+            ) : null}
             <XAxis
               padding={{ left: paddingValue, right: paddingValue }}
               hide={!showXAxis}
