@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { LineChart } from "./LineChart"
+import { AreaChart } from "./AreaChart"
 
 const chartdata = [
   {
@@ -125,18 +125,18 @@ const chartdata = [
   },
 ]
 
-const meta: Meta<typeof LineChart> = {
-  title: "visualization/LineChart",
-  component: LineChart,
+const meta: Meta<typeof AreaChart> = {
+  title: "visualization/AreaChart",
+  component: AreaChart,
   args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
 }
 
 export default meta
-type Story = StoryObj<typeof LineChart>
+type Story = StoryObj<typeof AreaChart>
 
 export const Default: Story = {
   render: () => (
-    <LineChart
+    <AreaChart
       data-testid="line-chart"
       data={chartdata}
       index="date"
@@ -286,6 +286,28 @@ export const WithLargeTickGap: Story = {
   args: {
     tickGap: 300,
   },
+}
+
+export const WithTypePercent: Story = {
+  render: () => (
+    <AreaChart
+      data={chartdata}
+      index="date"
+      categories={["SolarCells", "Glass"]}
+      type="percent"
+    />
+  ),
+}
+
+export const WithTypeStacked: Story = {
+  render: () => (
+    <AreaChart
+      data={chartdata}
+      index="date"
+      categories={["SolarCells", "Glass"]}
+      type="stacked"
+    />
+  ),
 }
 
 export const OneDataValue: Story = {
