@@ -1,4 +1,4 @@
-// Tremor Raw Calendar [v0.0.1]
+// Tremor Raw Calendar [v0.0.2]
 
 "use client"
 
@@ -124,7 +124,7 @@ const Calendar = ({
           "text-gray-900 dark:text-gray-50",
         ),
         day: cx(
-          "text-sm size-9 rounded text-gray-900 dark:text-gray-50",
+          "size-9 rounded text-sm text-gray-900 dark:text-gray-50",
           "hover:bg-gray-200 hover:dark:bg-gray-700",
           focusRing,
         ),
@@ -148,8 +148,12 @@ const Calendar = ({
         ...classNames,
       }}
       components={{
-        IconLeft: () => <RiArrowLeftSLine aria-hidden="true" className="size-4" />,
-        IconRight: () => <RiArrowRightSLine aria-hidden="true" className="size-4" />,
+        IconLeft: () => (
+          <RiArrowLeftSLine aria-hidden="true" className="size-4" />
+        ),
+        IconRight: () => (
+          <RiArrowRightSLine aria-hidden="true" className="size-4" />
+        ),
         Caption: ({ ...props }) => {
           const {
             goToMonth,
@@ -296,7 +300,8 @@ const Calendar = ({
                       "!bg-white dark:!bg-gray-950": selected,
                       "!bg-gray-400 dark:!bg-gray-600":
                         selected && range_middle,
-                      "text-gray-400 dark:text-gray-600": disabled,
+                      "bg-gray-400 text-gray-400 dark:bg-gray-400 dark:text-gray-600":
+                        disabled,
                     },
                   )}
                 />

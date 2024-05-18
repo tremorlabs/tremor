@@ -27,10 +27,12 @@ test.describe("Expect calendar single", () => {
       month: "long",
     })
     await page.goto("http://localhost:6006/?path=/story/ui-calendar--single")
+
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator(`text=${currentMonthText}`),
+        .getByTestId("react-day-picker-calendar")
+        .getByText(`${currentMonthText}`),
     ).toBeVisible()
   })
   test("to render month and year navigation", async ({ page }) => {
