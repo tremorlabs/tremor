@@ -6,12 +6,12 @@ test.beforeEach(async ({ page }) => {
   )
 })
 
-test.describe("Expect default line chart", () => {
+test.describe("Expect default area chart", () => {
   test("to be rendered", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByTestId("line-chart"),
+        .getByTestId("area-chart"),
     ).toBeVisible()
   })
 
@@ -50,12 +50,12 @@ test.describe("Expect default line chart", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator('path.recharts-curve.recharts-line-curve[name="SolarCells"]'),
+        .locator('path.recharts-curve.recharts-area-curve[name="SolarCells"]'),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator('path.recharts-curve.recharts-line-curve[name="Glass"]'),
+        .locator('path.recharts-curve.recharts-area-curve[name="Glass"]'),
     ).toBeVisible()
   })
 })

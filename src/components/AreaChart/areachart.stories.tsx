@@ -137,7 +137,7 @@ type Story = StoryObj<typeof AreaChart>
 export const Default: Story = {
   render: () => (
     <AreaChart
-      data-testid="line-chart"
+      data-testid="area-chart"
       data={chartdata}
       index="date"
       categories={["SolarCells", "Glass"]}
