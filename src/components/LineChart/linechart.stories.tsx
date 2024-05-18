@@ -11,7 +11,7 @@ const chartdata = [
     BackSheet: 1900,
     Frame: 1600,
     JunctionBox: 1800,
-    Adhesive: 1700,
+    Adhesive: -1700,
   },
   {
     date: "Feb 23",
@@ -21,7 +21,7 @@ const chartdata = [
     BackSheet: 1850,
     Frame: 1700,
     JunctionBox: 1750,
-    Adhesive: 1650,
+    Adhesive: -1650,
   },
   {
     date: "Mar 23",
@@ -31,7 +31,7 @@ const chartdata = [
     BackSheet: 2200,
     Frame: 1400,
     JunctionBox: 2000,
-    Adhesive: 800,
+    Adhesive: -1800,
   },
   {
     date: "Apr 23",
