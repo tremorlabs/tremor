@@ -51,7 +51,7 @@ const LegendItem = ({
         // base
         "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded px-2 py-1 transition",
         hasOnValueChange
-          ? "bg-transpaent cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+          ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
           : "cursor-default",
       )}
       onClick={(e) => {
