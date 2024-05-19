@@ -609,7 +609,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               bottom: xAxisLabel ? 30 : undefined,
               left: yAxisLabel ? 20 : undefined,
               right: yAxisLabel ? 5 : undefined,
-              top: 0,
+              top: 5,
             }}
             stackOffset={type === "percent" ? "expand" : undefined}
           >
