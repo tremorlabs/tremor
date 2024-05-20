@@ -153,6 +153,19 @@ test.describe("Expect barlist sort order", () => {
   })
 })
 
+test.describe("Expect barlist sort order", () => {
+  test("to have aria-sort='none'", async ({ page }) => {
+    await page.goto(
+      "http://localhost:6006/?path=/story/visualization-barlist--with-sort-order-none",
+    )
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByTestId("barlist"),
+    ).toHaveAttribute("aria-sort", "none")
+  })
+})
+
 test.describe("Expect barlist onvaluechange", () => {
   test("to be clickable", async ({ page }) => {
     await page.goto(
