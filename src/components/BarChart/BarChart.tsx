@@ -512,7 +512,7 @@ const ChartTooltip = ({
 //#region BarChart
 
 type BaseEventProps = {
-  eventType: "dot" | "category"
+  eventType: "category" | "bar"
   categoryClicked: string
   [key: string]: number | string
 }
