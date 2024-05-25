@@ -14,11 +14,11 @@ const Demo = ({ mode, ...args }: Parameters<typeof Calendar>[0]) => {
   return (
     <div className="flex flex-col items-center gap-y-4">
       <Calendar
-       data-testid="react-day-picker-calendar"
-       mode={mode}
-       selected={mode === "single" ? date : dateRange}
-       onSelect={mode === "single" ? setDate : setDateRange}
-       {...(args as any)}
+        data-testid="react-day-picker-calendar"
+        mode={mode}
+        selected={mode === "single" ? date : dateRange}
+        onSelect={mode === "single" ? setDate : setDateRange}
+        {...(args as any)}
       />
 
       {mode === "single" && (
@@ -66,7 +66,7 @@ export const SingleDisableNavigation: Story = {
   args: {
     mode: "single",
     enableYearNavigation: true,
-    disableNavigation: true
+    disableNavigation: true,
   },
 }
 

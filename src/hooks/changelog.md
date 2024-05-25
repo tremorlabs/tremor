@@ -1,6 +1,12 @@
 # Tremor Raw hooks Changelog
 
-## 0.1.0
+## 0.0.1
+
+### Changes
+
+- Fix: Maximum update depth exceeded error on useOnWindowResize
+
+## 0.0.0
 
 ### Changes
 
