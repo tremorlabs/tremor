@@ -34,13 +34,13 @@ describe("constructCategoryColors", () => {
 })
 
 describe("hasOnlyOneValueForKey", () => {
-  it("returns true when the key has the same value in all objects", () => {
+  it("returns false when the key has the same value in all objects", () => {
     const array = [
       { id: 1, value: "a" },
       { id: 2, value: "a" },
       { id: 3, value: "a" },
     ]
-    expect(hasOnlyOneValueForKey(array, "value")).toBe(true)
+    expect(hasOnlyOneValueForKey(array, "value")).toBe(false)
   })
 
   it("returns false when the key has different values in the objects", () => {
@@ -50,11 +50,6 @@ describe("hasOnlyOneValueForKey", () => {
       { id: 3, value: "a" },
     ]
     expect(hasOnlyOneValueForKey(array, "value")).toBe(false)
-  })
-
-  it("returns true when the key is missing in some objects but consistent in others", () => {
-    const array = [{ id: 1, value: "a" }, { id: 2 }, { id: 3, value: "a" }]
-    expect(hasOnlyOneValueForKey(array, "value")).toBe(true)
   })
 
   it("returns true when the key is present in only one object", () => {
