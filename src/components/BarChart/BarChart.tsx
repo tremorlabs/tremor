@@ -666,9 +666,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               hide={!showXAxis}
               tick={{
                 transform:
-                  layout !== "vertical"
-                    ? "translate(0, 6)"
-                    : "translate(-3, 0)",
+                  layout !== "vertical" ? "translate(0, 6)" : undefined,
               }}
               fill=""
               stroke=""
@@ -697,7 +695,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 : {
                     type: "number",
                     domain: yAxisDomain as AxisDomain,
-                    tickFormatter: valueFormatter,
+                    tickFormatter:
+                      type === "percent" ? valueToPercent : valueFormatter,
                     allowDecimals: allowDecimals,
                   })}
             >
@@ -728,7 +727,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 transform:
                   layout !== "vertical"
                     ? "translate(-3, 0)"
-                    : "translate(0, 6)",
+                    : "translate(0, 0)",
               }}
               {...(layout !== "vertical"
                 ? {
@@ -744,7 +743,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       ? [data[0][index], data[data.length - 1][index]]
                       : undefined,
                     type: "category",
-                    interval: "preserveStartEnd",
+                    interval: "equidistantPreserveStart",
                   })}
             >
               {yAxisLabel && (
