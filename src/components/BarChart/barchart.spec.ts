@@ -2,16 +2,16 @@ import { expect, test } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
   await page.goto(
-    "http://localhost:6006/?path=/story/visualization-areachart--default",
+    "http://localhost:6006/?path=/story/visualization-barchart--default",
   )
 })
 
-test.describe("Expect default area chart", () => {
+test.describe("Expect default bar chart", () => {
   test("to be rendered", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .getByTestId("area-chart"),
+        .getByTestId("bar-chart"),
     ).toBeVisible()
   })
 
@@ -46,16 +46,18 @@ test.describe("Expect default area chart", () => {
     ).toHaveClass(/recharts-yAxis/)
   })
 
-  test("to render two lines", async ({ page }) => {
+  test("to render first two bars", async ({ page }) => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator('path.recharts-curve.recharts-area-curve[name="SolarCells"]'),
+        .locator(".recharts-layer > rect")
+        .first(),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator('path.recharts-curve.recharts-area-curve[name="Glass"]'),
+        .locator("g:nth-child(8) > g > g > rect")
+        .first(),
     ).toBeVisible()
   })
 })

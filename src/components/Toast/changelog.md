@@ -4,4 +4,4 @@
 
 ### Changes
 
-* Improved dark mode visbility
+- Improved dark mode visbility
