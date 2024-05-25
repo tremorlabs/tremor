@@ -318,6 +318,7 @@ const ChartLegend = (
   activeLegend: string | undefined,
   onClick?: (category: string, color: string) => void,
   enableLegendSlider?: boolean,
+  legendPosition?: "left" | "center" | "right",
 ) => {
   const legendRef = React.useRef<HTMLDivElement>(null)
 
@@ -330,7 +331,15 @@ const ChartLegend = (
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
   return (
-    <div ref={legendRef} className="flex items-center justify-end">
+    <div
+      ref={legendRef}
+      className={cx(
+        "flex items-center",
+        { "justify-center": legendPosition === "center" },
+        { "justify-start": legendPosition === "left" },
+        { "justify-end": legendPosition === "right" },
+      )}
+    >
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
         colors={filteredPayload.map((entry: any) =>
@@ -494,6 +503,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   xAxisLabel?: string
   yAxisLabel?: string
   type?: "default" | "stacked" | "percent"
+  legendPosition?: "left" | "center" | "right"
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
@@ -524,6 +534,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       xAxisLabel,
       yAxisLabel,
       type = "default",
+      legendPosition = "right",
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -724,6 +735,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                           onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
+                    legendPosition,
                   )
                 }
               />
