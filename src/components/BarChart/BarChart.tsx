@@ -386,15 +386,17 @@ const ChartLegend = (
 
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
+  const width = legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+
   return (
     <div
+      style={{ paddingLeft: width }}
       ref={legendRef}
       className={cx(
         "flex items-center",
         { "justify-center": legendPosition === "center" },
         {
-          [`justify-start pl-[${yAxisWidth ? yAxisWidth - 8 : 0}px]`]:
-            legendPosition === "left",
+          "justify-start": legendPosition === "left",
         },
         { "justify-end": legendPosition === "right" },
       )}
