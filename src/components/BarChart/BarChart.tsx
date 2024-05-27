@@ -374,6 +374,7 @@ const ChartLegend = (
   onClick?: (category: string, color: string) => void,
   enableLegendSlider?: boolean,
   legendPosition?: "left" | "center" | "right",
+  yAxisWidth?: number,
 ) => {
   const legendRef = React.useRef<HTMLDivElement>(null)
 
@@ -385,13 +386,18 @@ const ChartLegend = (
 
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
+  const width = legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+
   return (
     <div
+      style={{ paddingLeft: width }}
       ref={legendRef}
       className={cx(
         "flex items-center",
         { "justify-center": legendPosition === "center" },
-        { "justify-start": legendPosition === "left" },
+        {
+          "justify-start": legendPosition === "left",
+        },
         { "justify-end": legendPosition === "right" },
       )}
     >
@@ -808,6 +814,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       : undefined,
                     enableLegendSlider,
                     legendPosition,
+                    yAxisWidth,
                   )
                 }
               />
