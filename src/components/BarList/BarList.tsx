@@ -98,7 +98,7 @@ function BarListInner<T>(
               )}
               style={{ width: `${widths[index]}%` }}
             >
-              <div className={cx("absolute left-2 flex pr-2 max-w-full")}>
+              <div className={cx("absolute left-2 flex max-w-full pr-2")}>
                 {item.href ? (
                   <a
                     href={item.href}

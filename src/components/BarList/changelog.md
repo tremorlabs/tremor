@@ -4,5 +4,5 @@
 
 ### Changes
 
-* Improve spacing when bar is a button.
-* Improve padding for long labels.
+- Improve spacing when bar is a button.
+- Improve padding for long labels.
