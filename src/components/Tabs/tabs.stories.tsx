@@ -108,6 +108,35 @@ export const VariantSolid: Story = {
   ),
 }
 
+export const VariantLineWithIcons: Story = {
+  render: () => (
+    <Tabs defaultValue="tab1">
+      <TabsList variant="line">
+        <TabsTrigger value="tab1" className="inline-flex gap-2">
+          <RiMapPin2Line className="-ml-1 size-4" aria-hidden="true" />
+          Location
+        </TabsTrigger>
+        <TabsTrigger value="tab2" className="inline-flex gap-2">
+          <RiCalculatorLine className="-ml-1 size-4" aria-hidden="true" />
+          Calculation
+        </TabsTrigger>
+      </TabsList>
+      <div className="mt-4">
+        <TabsContent value="tab1">
+          <p className="text-sm text-gray-500 sm:text-gray-500">
+            Tab 1 content
+          </p>
+        </TabsContent>
+        <TabsContent value="tab2">
+          <p className="text-sm text-gray-500 sm:text-gray-500">
+            Tab 2 content
+          </p>
+        </TabsContent>
+      </div>
+    </Tabs>
+  ),
+}
+
 export const VariantSolidWithIcons: Story = {
   render: () => (
     <Tabs defaultValue="tab1">
@@ -132,17 +161,14 @@ export const VariantSolidWithIcons: Story = {
   ),
 }
 
-export const VariantLineWithIcons: Story = {
+export const VariantLineDisabled: Story = {
   render: () => (
     <Tabs defaultValue="tab1">
       <TabsList variant="line">
-        <TabsTrigger value="tab1" className="inline-flex gap-2">
-          <RiMapPin2Line className="-ml-1 size-4" aria-hidden="true" />
-          Location
-        </TabsTrigger>
-        <TabsTrigger value="tab2" className="inline-flex gap-2">
-          <RiCalculatorLine className="-ml-1 size-4" aria-hidden="true" />
-          Calculation
+        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+        <TabsTrigger value="tab3" disabled>
+          Tab 3
         </TabsTrigger>
       </TabsList>
       <div className="mt-4">
@@ -154,6 +180,11 @@ export const VariantLineWithIcons: Story = {
         <TabsContent value="tab2">
           <p className="text-sm text-gray-500 sm:text-gray-500">
             Tab 2 content
+          </p>
+        </TabsContent>
+        <TabsContent value="tab3">
+          <p className="text-sm text-gray-500 sm:text-gray-500">
+            Tab 3 content
           </p>
         </TabsContent>
       </div>
@@ -192,15 +223,13 @@ export const VariantSolidDisabled: Story = {
   ),
 }
 
-export const VariantLineDisabled: Story = {
+export const VariantLineStrechWidth: Story = {
   render: () => (
-    <Tabs defaultValue="tab1">
-      <TabsList variant="line">
+    <Tabs defaultValue="tab1" className="w-96">
+      <TabsList className="grid w-full grid-cols-3" variant="line">
         <TabsTrigger value="tab1">Tab 1</TabsTrigger>
         <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-        <TabsTrigger value="tab3" disabled>
-          Tab 3
-        </TabsTrigger>
+        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
       </TabsList>
       <div className="mt-4">
         <TabsContent value="tab1">
@@ -227,35 +256,6 @@ export const VariantSolidStrechWidth: Story = {
   render: () => (
     <Tabs defaultValue="tab1" className="w-96">
       <TabsList className="grid w-full grid-cols-3" variant="solid">
-        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-      </TabsList>
-      <div className="mt-4">
-        <TabsContent value="tab1">
-          <p className="text-sm text-gray-500 sm:text-gray-500">
-            Tab 1 content
-          </p>
-        </TabsContent>
-        <TabsContent value="tab2">
-          <p className="text-sm text-gray-500 sm:text-gray-500">
-            Tab 2 content
-          </p>
-        </TabsContent>
-        <TabsContent value="tab3">
-          <p className="text-sm text-gray-500 sm:text-gray-500">
-            Tab 3 content
-          </p>
-        </TabsContent>
-      </div>
-    </Tabs>
-  ),
-}
-
-export const VariantLineStrechWidth: Story = {
-  render: () => (
-    <Tabs defaultValue="tab1" className="w-96">
-      <TabsList className="grid w-full grid-cols-3" variant="line">
         <TabsTrigger value="tab1">Tab 1</TabsTrigger>
         <TabsTrigger value="tab2">Tab 2</TabsTrigger>
         <TabsTrigger value="tab3">Tab 3</TabsTrigger>
