@@ -164,12 +164,16 @@ const DropdownMenuItem = React.forwardRef<
   >
     {children}
     {hint && (
-      <span className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}>
+      <span
+        className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}
+      >
         {hint}
       </span>
     )}
     {shortcut && (
-      <span className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}>
+      <span
+        className={cx("ml-auto pl-2 text-sm text-gray-400 dark:text-gray-600")}
+      >
         {shortcut}
       </span>
     )}
