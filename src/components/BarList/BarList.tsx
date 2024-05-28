@@ -1,4 +1,4 @@
-// Tremor Raw BarList [v0.0.1]
+// Tremor Raw BarList [v0.1.0]
 
 import React from "react"
 
@@ -18,7 +18,7 @@ interface BarListProps<T = unknown>
   valueFormatter?: (value: number) => string
   showAnimation?: boolean
   onValueChange?: (payload: Bar<T>) => void
-  sortOrder?: "ascending" | "descending"
+  sortOrder?: "ascending" | "descending" | "none"
 }
 
 function BarListInner<T>(
@@ -35,12 +35,12 @@ function BarListInner<T>(
 ) {
   const Component = onValueChange ? "button" : "div"
   const sortedData = React.useMemo(() => {
-    if (sortOrder) {
-      return [...data].sort((a, b) => {
-        return sortOrder === "ascending" ? a.value - b.value : b.value - a.value
-      })
+    if (sortOrder === "none") {
+      return data
     }
-    return data
+    return [...data].sort((a, b) => {
+      return sortOrder === "ascending" ? a.value - b.value : b.value - a.value
+    })
   }, [data, sortOrder])
 
   const widths = React.useMemo(() => {

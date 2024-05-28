@@ -56,6 +56,13 @@ export const WithSortOrderAscending: Story = {
   },
 }
 
+export const WithSortOrderNone: Story = {
+  args: {
+    data: data,
+    sortOrder: "none",
+  },
+}
+
 export const WithOnValueChange: Story = {
   args: {
     data: data,

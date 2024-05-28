@@ -1,16 +1,17 @@
-// Tremor Raw LineChart [v0.0.0]
+// Tremor Raw AreaChart [v0.0.0]
 
 "use client"
 
 import React from "react"
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
+  Area,
   CartesianGrid,
   Dot,
   Label,
   Line,
+  AreaChart as RechartsAreaChart,
   Legend as RechartsLegend,
-  LineChart as RechartsLineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -453,7 +454,7 @@ const ChartTooltip = ({
   return null
 }
 
-//#region LineChart
+//#region AreaChart
 
 interface ActiveDot {
   index?: number
@@ -466,9 +467,9 @@ type BaseEventProps = {
   [key: string]: number | string
 }
 
-type LineChartEventProps = BaseEventProps | null | undefined
+type AreaChartEventProps = BaseEventProps | null | undefined
 
-interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
   categories: string[]
@@ -486,15 +487,16 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   minValue?: number
   maxValue?: number
   allowDecimals?: boolean
-  onValueChange?: (value: LineChartEventProps) => void
+  onValueChange?: (value: AreaChartEventProps) => void
   enableLegendSlider?: boolean
   tickGap?: number
   connectNulls?: boolean
   xAxisLabel?: string
   yAxisLabel?: string
+  type?: "default" | "stacked" | "percent"
 }
 
-const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
+const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
   (props, ref) => {
     const {
       data = [],
@@ -521,6 +523,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       tickGap = 5,
       xAxisLabel,
       yAxisLabel,
+      type = "default",
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -535,6 +538,10 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
+    const stacked = type === "stacked" || type === "percent"
+    function valueToPercent(value: number) {
+      return `${(value * 100).toFixed(0)}%`
+    }
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
       event.stopPropagation()
@@ -587,7 +594,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     return (
       <div ref={ref} className={cx("h-80 w-full", className)} {...other}>
         <ResponsiveContainer>
-          <RechartsLineChart
+          <RechartsAreaChart
             data={data}
             onClick={
               hasOnValueChange && (activeLegend || activeDot)
@@ -604,6 +611,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               right: yAxisLabel ? 5 : undefined,
               top: 5,
             }}
+            stackOffset={type === "percent" ? "expand" : undefined}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -661,7 +669,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 // text fill
                 "fill-gray-500 dark:fill-gray-500",
               )}
-              tickFormatter={valueFormatter}
+              tickFormatter={
+                type === "percent" ? valueToPercent : valueFormatter
+              }
               allowDecimals={allowDecimals}
             >
               {yAxisLabel && (
@@ -719,7 +729,35 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               />
             ) : null}
             {categories.map((category) => (
-              <Line
+              <defs key={category}>
+                <linearGradient
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(category) as AvailableChartColorsKeys,
+                      "text",
+                    ),
+                  )}
+                  id={categoryColors.get(category)}
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop
+                    offset="5%"
+                    stopColor="currentColor"
+                    stopOpacity={
+                      activeDot || (activeLegend && activeLegend !== category)
+                        ? 0.15
+                        : 0.4
+                    }
+                  />
+                  <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+            ))}
+            {categories.map((category) => (
+              <Area
                 className={cx(
                   getColorClassName(
                     categoryColors.get(category) as AvailableChartColorsKeys,
@@ -822,6 +860,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 strokeLinecap="round"
                 isAnimationActive={false}
                 connectNulls={connectNulls}
+                stackId={stacked ? "stack" : undefined}
+                fill={`url(#${categoryColors.get(category) as AvailableChartColorsKeys})`}
               />
             ))}
             {/* hidden lines to increase clickable target area */}
@@ -848,13 +888,13 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                   />
                 ))
               : null}
-          </RechartsLineChart>
+          </RechartsAreaChart>
         </ResponsiveContainer>
       </div>
     )
   },
 )
 
-LineChart.displayName = "LineChart"
+AreaChart.displayName = "AreaChart"
 
-export { LineChart, type LineChartEventProps }
+export { AreaChart, type AreaChartEventProps }

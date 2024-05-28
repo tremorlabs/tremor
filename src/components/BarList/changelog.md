@@ -1,5 +1,11 @@
 # Tremor Raw BarList Changelog
 
+## 0.1.0
+
+### Changes
+
+- Added sortOrder: `none` option
+
 ## 0.0.1
 
 ### Changes
