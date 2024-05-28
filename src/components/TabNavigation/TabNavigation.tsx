@@ -53,7 +53,7 @@ const TabNavigationLink = React.forwardRef<
     "onSelect"
   > & { disabled?: boolean }
 >(({ asChild, disabled, className, children, ...props }, forwardedRef) => (
-  <NavigationMenuPrimitives.Item className="flex">
+  <NavigationMenuPrimitives.Item className="flex" aria-disabled={disabled}>
     <NavigationMenuPrimitives.Link
       aria-disabled={disabled}
       className={cx(

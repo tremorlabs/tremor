@@ -47,7 +47,7 @@ export const Icons: Story = {
         <RiExchange2Line className="-ml-1 size-4" aria-hidden="true" />
         Transactions
       </TabNavigationLink>
-      <TabNavigationLink href="#" disabled className="inline-flex gap-2">
+      <TabNavigationLink href="#" className="inline-flex gap-2">
         <RiCustomerService2Fill className="-ml-1 size-4" aria-hidden="true" />
         Customers
       </TabNavigationLink>
