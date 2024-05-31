@@ -193,6 +193,19 @@ export const AllColors: Story = {
   },
 }
 
+
+export const WithLegendLeft: Story = {
+  args: {
+    legendPosition: "left",
+  },
+}
+
+export const WithLegendCenter: Story = {
+  args: {
+    legendPosition: "center",
+  },
+}
+
 export const WithLegendSlider: Story = {
   args: {
     className: "max-w-md",

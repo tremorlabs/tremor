@@ -4,4 +4,4 @@
 
 ### Changes
 
-* Improved types of table elements: Table, TableHeaderCell, TableCell
+- Improved types of table elements: Table, TableHeaderCell, TableCell

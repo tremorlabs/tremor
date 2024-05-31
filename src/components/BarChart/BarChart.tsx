@@ -373,6 +373,8 @@ const ChartLegend = (
   activeLegend: string | undefined,
   onClick?: (category: string, color: string) => void,
   enableLegendSlider?: boolean,
+  legendPosition?: "left" | "center" | "right",
+  yAxisWidth?: number,
 ) => {
   const legendRef = React.useRef<HTMLDivElement>(null)
 
@@ -384,8 +386,22 @@ const ChartLegend = (
 
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
+  const paddingLeft =
+    legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+
   return (
-    <div ref={legendRef} className="flex items-center justify-end">
+    <div
+      style={{ paddingLeft: paddingLeft }}
+      ref={legendRef}
+      className={cx(
+        "flex items-center",
+        { "justify-center": legendPosition === "center" },
+        {
+          "justify-start": legendPosition === "left",
+        },
+        { "justify-end": legendPosition === "right" },
+      )}
+    >
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
         colors={filteredPayload.map((entry: any) =>
@@ -512,7 +528,7 @@ const ChartTooltip = ({
 //#region BarChart
 
 type BaseEventProps = {
-  eventType: "dot" | "category"
+  eventType: "category" | "bar"
   categoryClicked: string
   [key: string]: number | string
 }
@@ -545,6 +561,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisLabel?: string
   layout?: "vertical" | "horizontal"
   type?: "default" | "stacked" | "percent"
+  legendPosition?: "left" | "center" | "right"
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -576,6 +593,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       yAxisLabel,
       layout = "horizontal",
       type = "default",
+      legendPosition = "right",
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -796,6 +814,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                           onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
+                    legendPosition,
+                    yAxisWidth,
                   )
                 }
               />
