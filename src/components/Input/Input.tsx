@@ -114,7 +114,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 // base
                 "h-fit w-fit rounded-sm outline-none transition-all",
                 // text
-                "text-gray-400  dark:text-gray-600",
+                "text-gray-400 dark:text-gray-600",
                 // hover
                 "hover:text-gray-500 hover:dark:text-gray-500",
                 focusRing,

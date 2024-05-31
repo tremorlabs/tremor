@@ -186,7 +186,7 @@ const SelectGroupLabel = React.forwardRef<
       // base
       "px-3 py-2 text-xs font-medium tracking-wide",
       // text color
-      " text-gray-500 dark:text-gray-500",
+      "text-gray-500 dark:text-gray-500",
       className,
     )}
     {...props}
