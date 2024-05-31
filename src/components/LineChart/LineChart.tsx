@@ -317,6 +317,8 @@ const ChartLegend = (
   activeLegend: string | undefined,
   onClick?: (category: string, color: string) => void,
   enableLegendSlider?: boolean,
+  legendPosition?: "left" | "center" | "right",
+  yAxisWidth?: number,
 ) => {
   const legendRef = React.useRef<HTMLDivElement>(null)
 
@@ -328,8 +330,20 @@ const ChartLegend = (
 
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
+  const paddingLeft =
+    legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+
   return (
-    <div ref={legendRef} className="flex items-center justify-end">
+    <div
+      ref={legendRef}
+      style={{ paddingLeft: paddingLeft }}
+      className={cx(
+        "flex items-center",
+        { "justify-center": legendPosition === "center" },
+        { "justify-start": legendPosition === "left" },
+        { "justify-end": legendPosition === "right" },
+      )}
+    >
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
         colors={filteredPayload.map((entry: any) =>
@@ -492,6 +506,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   connectNulls?: boolean
   xAxisLabel?: string
   yAxisLabel?: string
+  legendPosition?: "left" | "center" | "right"
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
@@ -521,6 +536,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       tickGap = 5,
       xAxisLabel,
       yAxisLabel,
+      legendPosition = "right",
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -714,6 +730,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                           onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
+                    legendPosition,
+                    yAxisWidth,
                   )
                 }
               />

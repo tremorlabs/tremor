@@ -128,7 +128,11 @@ const chartdata = [
 const meta: Meta<typeof LineChart> = {
   title: "visualization/LineChart",
   component: LineChart,
-  args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+  },
 }
 
 export default meta
@@ -190,6 +194,18 @@ export const AllColors: Story = {
       "JunctionBox",
       "Adhesive",
     ],
+  },
+}
+
+export const WithLegendLeft: Story = {
+  args: {
+    legendPosition: "left",
+  },
+}
+
+export const WithLegendCenter: Story = {
+  args: {
+    legendPosition: "center",
   },
 }
 
