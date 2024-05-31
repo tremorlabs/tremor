@@ -42,7 +42,7 @@ const DropdownMenuSubMenuTrigger = React.forwardRef<
       // disabled
       "data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
       // focus
-      "focus-visible:bg-gray-100 data-[state=open]:bg-gray-100  focus-visible:dark:bg-gray-900 data-[state=open]:dark:bg-gray-900",
+      "focus-visible:bg-gray-100 data-[state=open]:bg-gray-100 focus-visible:dark:bg-gray-900 data-[state=open]:dark:bg-gray-900",
       // hover
       "hover:bg-gray-100 hover:dark:bg-gray-900",
       //
@@ -200,7 +200,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
         // text color
         "text-gray-900 dark:text-gray-50",
         // disabled
-        "data-[disabled]:pointer-events-none  data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
+        "data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
         // focus
         "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
         // hover
@@ -257,7 +257,7 @@ const DropdownMenuRadioItem = React.forwardRef<
       // text color
       "text-gray-900 dark:text-gray-50",
       // disabled
-      "data-[disabled]:pointer-events-none  data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
+      "data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:hover:bg-none dark:data-[disabled]:text-gray-600",
       // focus
       "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
       // hover
@@ -309,7 +309,7 @@ const DropdownMenuLabel = React.forwardRef<
       // base
       "px-2 py-2 text-xs font-medium tracking-wide",
       // text color
-      " text-gray-500 dark:text-gray-500",
+      "text-gray-500 dark:text-gray-500",
       className,
     )}
     {...props}

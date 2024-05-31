@@ -63,7 +63,7 @@ const RadioGroupItem = React.forwardRef<
           // base
           "flex size-4 shrink-0 items-center justify-center rounded-full border shadow-sm",
           // border color
-          " border-gray-300 dark:border-gray-800",
+          "border-gray-300 dark:border-gray-800",
           // background color
           "bg-white dark:bg-gray-950",
           // checked

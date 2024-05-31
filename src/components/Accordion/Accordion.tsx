@@ -38,7 +38,7 @@ const AccordionTrigger = React.forwardRef<
           // text color
           "text-gray-400 dark:text-gray-600",
           // disabled
-          " group-data-[disabled]:text-gray-300 group-data-[disabled]:dark:text-gray-700",
+          "group-data-[disabled]:text-gray-300 group-data-[disabled]:dark:text-gray-700",
         )}
         aria-hidden="true"
         focusable="false"

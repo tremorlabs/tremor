@@ -114,7 +114,7 @@ const Toast = React.forwardRef<
           // base
           "flex h-fit min-h-16 w-full overflow-hidden rounded-md border shadow-lg shadow-black/5",
           // background color
-          " bg-white dark:bg-[#090E1A]",
+          "bg-white dark:bg-[#090E1A]",
           // border color
           "border-gray-200 dark:border-gray-800",
           // swipe

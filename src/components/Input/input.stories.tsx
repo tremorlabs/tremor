@@ -27,7 +27,7 @@ export const WithPlaceholder: Story = {
 
 export const TypePassword: Story = {
   render: () => (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <Label htmlFor="password">Password</Label>
       <Input
         placeholder="Enter password"
@@ -41,7 +41,7 @@ export const TypePassword: Story = {
 
 export const TypeSearchDisabled: Story = {
   render: () => (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <Label htmlFor="search">Search</Label>
       <Input
         disabled
@@ -56,7 +56,7 @@ export const TypeSearchDisabled: Story = {
 
 export const RequiredAndPattern: Story = {
   render: () => (
-    <form className="flex flex-col gap-2 ">
+    <form className="flex flex-col gap-2">
       <p>Non capitalized characters only</p>
       <Label htmlFor="secret">Secret</Label>
       <Input
@@ -76,7 +76,7 @@ export const RequiredAndPattern: Story = {
 
 export const TypeFile: Story = {
   render: () => (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <Label htmlFor="upload">Search</Label>
       <Input id="upload" name="upload" type="file" />
     </div>
@@ -85,7 +85,7 @@ export const TypeFile: Story = {
 
 export const TypeNumber: Story = {
   render: () => (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <Label htmlFor="number">Enter Salary</Label>
       <Input id="number" name="number" type="number" />
     </div>
@@ -94,7 +94,7 @@ export const TypeNumber: Story = {
 
 export const HasError: Story = {
   render: () => (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <Label htmlFor="email">Email</Label>
       <Input
         hasError
@@ -127,7 +127,7 @@ export const Controlled: Story = {
   render: () => {
     const [search, setSearch] = React.useState("")
     return (
-      <form className="flex flex-col gap-2 ">
+      <form className="flex flex-col gap-2">
         <Label htmlFor="File">Search</Label>
         <Input
           placeholder="Enter search"
