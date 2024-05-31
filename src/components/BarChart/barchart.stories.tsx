@@ -193,7 +193,6 @@ export const AllColors: Story = {
   },
 }
 
-
 export const WithLegendLeft: Story = {
   args: {
     legendPosition: "left",
