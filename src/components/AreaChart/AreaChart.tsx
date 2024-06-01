@@ -1,4 +1,4 @@
-// Tremor Raw AreaChart [v0.0.0]
+// Tremor Raw AreaChart [v0.1.0]
 
 "use client"
 
