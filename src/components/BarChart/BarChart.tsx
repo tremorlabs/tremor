@@ -784,7 +784,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               offset={20}
               position={{
                 y: layout === "horizontal" ? 0 : undefined,
-                x: layout === "horizontal" ? undefined : yAxisWidth + 10,
+                x: layout === "horizontal" ? undefined : yAxisWidth + 20,
               }}
               content={
                 showTooltip ? (
