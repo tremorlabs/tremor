@@ -843,7 +843,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   renderShape(props, activeBar, activeLegend, layout)
                 }
                 onClick={onBarClick}
-                radius={20}
               />
             ))}
           </RechartsBarChart>
