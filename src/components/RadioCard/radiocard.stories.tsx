@@ -1,11 +1,6 @@
-import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import {
-  RadioCardGroup,
-  RadioCardGroupIndicator,
-  RadioCardItem,
-} from "./RadioCard"
+import { RadioCardGroup, RadioCardIndicator, RadioCardItem } from "./RadioCard"
 
 const meta: Meta<typeof RadioCardGroup> = {
   title: "ui/RadioCardGroup",
@@ -21,19 +16,19 @@ export const Default: Story = {
       <RadioCardGroup>
         <RadioCardItem value="1">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Software Engineer</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="2">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Platform Engineer</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="3">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Hardware Engineer</span>
           </div>
         </RadioCardItem>
@@ -48,37 +43,37 @@ export const Grid: Story = {
       <RadioCardGroup className="grid-cols-2">
         <RadioCardItem value="1">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Software Engineer</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="2">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Platform Engineer</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="3">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Hardware Engineer</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="4">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Security</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="5">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Marketing Ops</span>
           </div>
         </RadioCardItem>
         <RadioCardItem value="6">
           <div className="flex items-center gap-3">
-            <RadioCardGroupIndicator />
+            <RadioCardIndicator />
             <span>Product Manager</span>
           </div>
         </RadioCardItem>

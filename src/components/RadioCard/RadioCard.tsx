@@ -21,7 +21,34 @@ const RadioCardGroup = React.forwardRef<
 })
 RadioCardGroup.displayName = "RadioCardGroup"
 
-const RadioCardGroupIndicator = React.forwardRef<
+const RadioCardItem = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitives.Item>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Item>
+>(({ className, children, ...props }, forwardedRef) => {
+  return (
+    <RadioGroupPrimitives.Item
+      ref={forwardedRef}
+      className={cx(
+        // base
+        "group relative w-full rounded-md border p-4 text-left shadow-sm transition focus:outline-none",
+        // background color
+        "bg-white dark:bg-gray-950",
+        // border color
+        "border-gray-200 dark:border-gray-800",
+        "data-[state=checked]:border-blue-500",
+        "data-[state=checked]:dark:border-blue-500",
+        focusInput,
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </RadioGroupPrimitives.Item>
+  )
+})
+RadioCardItem.displayName = "RadioCardItem"
+
+const RadioCardIndicator = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitives.Indicator>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Indicator>
 >(({ className, ...props }, forwardedRef) => {
@@ -29,9 +56,9 @@ const RadioCardGroupIndicator = React.forwardRef<
     <div
       className={cx(
         // base
-        "relative flex size-4 shrink-0  appearance-none items-center justify-center rounded-full border shadow-sm outline-none",
+        "relative flex size-4 shrink-0 appearance-none items-center justify-center rounded-full border shadow-sm outline-none",
         // border color
-        " border-gray-300 dark:border-gray-800",
+        "border-gray-300 dark:border-gray-800",
         // background color
         "bg-white dark:bg-gray-950",
         // checked
@@ -42,11 +69,12 @@ const RadioCardGroupIndicator = React.forwardRef<
         "group-data-[disabled]:dark:border-gray-700 group-data-[disabled]:dark:bg-gray-800",
         // focus
         focusRing,
+        className,
       )}
     >
       <RadioGroupPrimitives.Indicator
         ref={forwardedRef}
-        className={cx("flex items-center justify-center", className)}
+        className={cx("flex items-center justify-center")}
         {...props}
       >
         <div
@@ -63,33 +91,6 @@ const RadioCardGroupIndicator = React.forwardRef<
     </div>
   )
 })
-RadioCardGroupIndicator.displayName = "RadioCardGroupIndicator"
+RadioCardIndicator.displayName = "RadioCardIndicator"
 
-const RadioCardItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupPrimitives.Item>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitives.Item>
->(({ className, children, ...props }, forwardedRef) => {
-  return (
-    <RadioGroupPrimitives.Item
-      ref={forwardedRef}
-      className={cx(
-        // base
-        "group relative w-full rounded-md border p-6 text-left shadow-sm focus:outline-none",
-        // background color
-        " bg-white dark:bg-[#090E1A]",
-        // border color
-        "border-gray-200 dark:border-gray-900",
-        "data-[state=checked]:border-blue-500",
-        "data-[state=checked]:bg-blue-50",
-        focusInput,
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </RadioGroupPrimitives.Item>
-  )
-})
-RadioCardItem.displayName = "RadioCardItem"
-
-export { RadioCardGroup, RadioCardGroupIndicator, RadioCardItem }
+export { RadioCardGroup, RadioCardIndicator, RadioCardItem }
