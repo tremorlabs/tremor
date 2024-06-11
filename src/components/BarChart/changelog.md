@@ -5,3 +5,4 @@
 ### Changes
 
 - Fix: Dynamic tooltip position on vertical layout
+- Fix: `barCategoryGap` propagation
