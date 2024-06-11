@@ -1,7 +1,6 @@
-// Tremor Raw AreaChart [v0.1.0]
-
 "use client"
 
+// Tremor Raw AreaChart [v0.1.0]
 import React from "react"
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
@@ -403,7 +402,15 @@ interface ChartTooltipProps {
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
+  tooltipCallback?: TooltipCallback
 }
+
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
+type TooltipCallback = (props: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -411,7 +418,14 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  tooltipCallback,
 }: ChartTooltipProps) => {
+  React.useEffect(() => {
+    if (tooltipCallback) {
+      tooltipCallback({ active, payload, label })
+    }
+  }, [tooltipCallback, active, payload, label])
+
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -509,6 +523,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisLabel?: string
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: TooltipCallback
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
@@ -540,6 +555,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       yAxisLabel,
       type = "default",
       legendPosition = "right",
+      tooltipCallback,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -718,6 +734,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      tooltipCallback={tooltipCallback}
                     />
                   )
                 ) : (
@@ -915,4 +932,4 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
 
 AreaChart.displayName = "AreaChart"
 
-export { AreaChart, type AreaChartEventProps }
+export { AreaChart, type AreaChartEventProps, type TooltipCallbackProps }
