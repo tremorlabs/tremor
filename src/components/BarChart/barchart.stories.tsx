@@ -273,6 +273,12 @@ export const WithLargeTickGap: Story = {
   },
 }
 
+export const WithBarCategoryGap: Story = {
+  args: {
+    barCategoryGap: "30%",
+  },
+}
+
 export const WithLayoutVertical: Story = {
   args: {
     categories: ["SolarCells"],
