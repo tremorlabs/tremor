@@ -672,6 +672,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             }}
             stackOffset={type === "percent" ? "expand" : undefined}
             layout={layout}
+            barCategoryGap={barCategoryGap}
           >
             {showGridLines ? (
               <CartesianGrid
