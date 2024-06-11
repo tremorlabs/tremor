@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
 import { AreaChart } from "./AreaChart"
+import CallbackExample from "./AreaChartCallbackExample"
 
 const chartdata = [
   {
@@ -329,4 +330,8 @@ export const OneDataValue: Story = {
     categories: ["SolarCells", "Glass"],
     onValueChange: (v) => console.log(v),
   },
+}
+
+export const CallbackExampleStory: Story = {
+  render: () => CallbackExample(),
 }
