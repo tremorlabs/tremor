@@ -37,6 +37,9 @@ const RadioCardItem = React.forwardRef<
         "border-gray-200 dark:border-gray-800",
         "data-[state=checked]:border-blue-500",
         "data-[state=checked]:dark:border-blue-500",
+        // disabled
+        "data-[disabled]:border-gray-100 data-[disabled]:dark:border-gray-800",
+        "data-[disabled]:bg-gray-50 data-[disabled]:shadow-none data-[disabled]:dark:bg-gray-900",
         focusInput,
         className,
       )}
@@ -64,7 +67,6 @@ const RadioCardIndicator = React.forwardRef<
         // checked
         "group-data-[state=checked]:border-0 group-data-[state=checked]:border-transparent group-data-[state=checked]:bg-blue-500",
         // disabled
-        "group-data-[disabled]:border",
         "group-data-[disabled]:border-gray-300 group-data-[disabled]:bg-gray-100 group-data-[disabled]:text-gray-400",
         "group-data-[disabled]:dark:border-gray-700 group-data-[disabled]:dark:bg-gray-800",
         // focus
