@@ -226,6 +226,7 @@ The following files use parts of:
 `@components/Input/Input.tsx`
 `@components/Popover/Popover.tsx`
 `@components/RadioGroup/RadioGroup.tsx`
+`@components/RadioCardGroup/RadioCardGroup.tsx`
 `@components/Select/Select.tsx`
 `@components/Switch/Switch.tsx`
 `@components/Tabs/Tabs.tsx`
