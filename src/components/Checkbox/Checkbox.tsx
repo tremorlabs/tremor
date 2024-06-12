@@ -1,4 +1,4 @@
-// Tremor Raw Checkbox [v0.0.0]
+// Tremor Raw Checkbox [v0.0.1]
 
 import React from "react"
 import * as CheckboxPrimitives from "@radix-ui/react-checkbox"
@@ -59,6 +59,7 @@ const Checkbox = React.forwardRef<
           </svg>
         ) : (
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 16 16"

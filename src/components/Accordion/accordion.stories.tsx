@@ -88,7 +88,7 @@ export const WithIcons: Story = {
       <Accordion type="multiple" className="mt-3">
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiCoupon3Fill className="size-4 text-blue-500" />
               Access Your Booking
             </span>
@@ -103,7 +103,7 @@ export const WithIcons: Story = {
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiArrowLeftRightLine className="size-4 text-blue-500" />
               Change Flights
             </span>
@@ -141,7 +141,7 @@ export const WithIcons: Story = {
         </AccordionItem>
         <AccordionItem value="item-3">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiAddCircleFill className="size-4 text-blue-500" />
               Add Special Requests
             </span>
@@ -156,7 +156,7 @@ export const WithIcons: Story = {
         </AccordionItem>
         <AccordionItem value="item-4">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiCheckboxMultipleFill className="size-4 text-blue-500" />
               Check-In Online
             </span>
@@ -210,7 +210,7 @@ export const DefaultValueAndCollapsibleDisabled: Story = {
       >
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiCoupon3Fill className="group-data-[disabled]:texdark:t-blue-200 group-data-[disabled]:t8xt-blue-200 size-4 text-blue-500" />
               Access Your Booking
             </span>
@@ -225,7 +225,7 @@ export const DefaultValueAndCollapsibleDisabled: Story = {
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiArrowLeftRightLine className="size-4 text-blue-500 group-data-[disabled]:text-blue-200 dark:group-data-[disabled]:text-blue-900" />
               Change Flights
             </span>
@@ -263,7 +263,7 @@ export const DefaultValueAndCollapsibleDisabled: Story = {
         </AccordionItem>
         <AccordionItem value="item-3" disabled>
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiAddCircleFill className="size-4 text-blue-500 group-data-[disabled]:text-blue-200 dark:group-data-[disabled]:text-blue-900" />
               Add Special Requests
             </span>
@@ -278,7 +278,7 @@ export const DefaultValueAndCollapsibleDisabled: Story = {
         </AccordionItem>
         <AccordionItem value="item-4">
           <AccordionTrigger>
-            <span className="flex items-center gap-2 ">
+            <span className="flex items-center gap-2">
               <RiCheckboxMultipleFill className="size-4 text-blue-500 group-data-[disabled]:text-blue-200 dark:group-data-[disabled]:text-blue-900" />
               Check-In Online
             </span>

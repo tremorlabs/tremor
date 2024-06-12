@@ -55,7 +55,7 @@ const presets = [
 ]
 
 export const Single: Story = {
-  args: {},
+  args: { toDate: new Date() },
 }
 
 export const WithYearNavigation: Story = {

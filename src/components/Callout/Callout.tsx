@@ -13,23 +13,23 @@ const calloutVariants = tv({
         // text color
         "text-blue-900 dark:text-blue-400",
         // background color
-        "bg-blue-50 dark:bg-blue-950/70 ",
+        "bg-blue-50 dark:bg-blue-950/70",
       ],
       success: [
         // text color
         "text-emerald-900 dark:text-emerald-500",
         // background color
-        "bg-emerald-50 dark:bg-emerald-950/70 ",
+        "bg-emerald-50 dark:bg-emerald-950/70",
       ],
       error: [
         // text color
-        " text-red-900 dark:text-red-500",
+        "text-red-900 dark:text-red-500",
         // background color
         "bg-red-50 dark:bg-red-950/70",
       ],
       warning: [
         // text color
-        " text-yellow-900 dark:text-yellow-500",
+        "text-yellow-900 dark:text-yellow-500",
         // background color
         "bg-yellow-50 dark:bg-yellow-950/70",
       ],

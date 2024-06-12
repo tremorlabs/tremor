@@ -1,18 +1,18 @@
-// Tremor Raw Label [v0.0.0]
+// Tremor Raw Label [v0.0.1]
 
 import React from "react"
 import * as LabelPrimitives from "@radix-ui/react-label"
 
 import { cx } from "../../utils/cx"
 
-interface CheckboxProps
+interface LabelProps
   extends React.ComponentPropsWithoutRef<typeof LabelPrimitives.Root> {
   disabled?: boolean
 }
 
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitives.Root>,
-  CheckboxProps
+  LabelProps
 >(({ className, disabled, ...props }, forwardedRef) => (
   <LabelPrimitives.Root
     ref={forwardedRef}

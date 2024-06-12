@@ -210,14 +210,16 @@ subject to the terms and conditions of the following licenses.
 MIT
 =================================================================
 
-The following parts are provided under the MIT License. 
+The following parts are provided under the MIT License.
 See project link for details.
 
 Radix Primitives by WorkOS (https://github.com/radix-ui/primitives?tab=MIT-1-ov-file#readme)
 
 The following files use parts of:
-* [shadcn](https://github.com/shadcn-ui/ui?tab=MIT-1-ov-file#readme), and;
-* [Medusajs](https://github.com/medusajs/medusa/blob/develop/packages/design-system/ui/LICENSE)
+
+- [shadcn](https://github.com/shadcn-ui/ui?tab=MIT-1-ov-file#readme),
+- [radix-ui/themes](https://github.com/radix-ui/themes?tab=MIT-1-ov-file#readme) and;
+- [Medusajs](https://github.com/medusajs/medusa/blob/develop/packages/design-system/ui/LICENSE)
 
 `@components/Accordion/Accordion.tsx`
 `@components/Checkbox/Checkbox.tsx`
@@ -233,4 +235,5 @@ The following files use parts of:
 `@components/Toast/Toast.tsx`
 `@components/Toast/Toaster.tsx`
 `@components/Tooltip/Tooltip.tsx`
+`@components/TabNavigation/TabNavigation.tsx`
 `@utils/useToast.tsx`

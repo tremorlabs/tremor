@@ -4,4 +4,4 @@
 
 ### Changes
 
-* Added onClick event to HoverCard to make tracker appear on touch devices. 
+- Added onClick event to HoverCard to make tracker appear on touch devices.

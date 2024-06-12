@@ -12,7 +12,7 @@ const selectNativeStyles = tv({
     // base
     "peer w-full cursor-pointer appearance-none truncate rounded-md border py-2 pl-3 pr-7 shadow-sm outline-none transition-all sm:text-sm",
     // background color
-    "bg-white dark:bg-gray-950 ",
+    "bg-white dark:bg-gray-950",
     // border color
     "border-gray-300 dark:border-gray-800",
     // text color

@@ -11,7 +11,7 @@ test.describe("Expect date picker single", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .locator("div")
-        .getByRole("presentation"),
+        .getByRole("dialog"),
     ).toBeVisible()
   })
   test("to render footer with buttons", async ({ page }) => {
@@ -45,7 +45,7 @@ test.describe("Expect date picker single", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .locator("div")
-        .getByRole("presentation"),
+        .getByRole("dialog"),
     ).toBeHidden()
   })
   test("to close on Apply", async ({ page }) => {
@@ -62,7 +62,7 @@ test.describe("Expect date picker single", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .locator("div")
-        .getByRole("presentation"),
+        .getByRole("dialog"),
     ).toBeHidden()
   })
   test("to render presets", async ({ page }) => {
@@ -77,7 +77,7 @@ test.describe("Expect date picker single", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .locator("div")
-        .getByRole("presentation"),
+        .getByRole("dialog"),
     ).toBeVisible()
     await expect(
       page
