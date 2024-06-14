@@ -37,7 +37,7 @@ interface SparkAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   maxValue?: number
   connectNulls?: boolean
   type?: "default" | "stacked" | "percent"
-  fill?: "gradient" | "solid"
+  fill?: "gradient" | "solid" | "none"
 }
 
 const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
@@ -76,40 +76,52 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
           >
             <XAxis hide dataKey={index} />
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
-            {categories.map((category) => (
-              <defs key={category}>
-                <linearGradient
-                  className={cx(
-                    getColorClassName(
-                      categoryColors.get(category) as AvailableChartColorsKeys,
-                      "text",
-                    ),
-                  )}
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  {fill === "gradient" ? (
-                    <>
-                      <stop
-                        offset="5%"
-                        stopColor="currentColor"
-                        stopOpacity={0.4}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor="currentColor"
-                        stopOpacity={0}
-                      />
-                    </>
-                  ) : (
-                    <stop stopColor="currentColor" stopOpacity={0.3} />
-                  )}
-                </linearGradient>
-              </defs>
-            ))}
+            {categories.map((category) => {
+              const noneGradient = (
+                <stop stopColor="currentColor" stopOpacity={0} />
+              )
+
+              const gradient =
+                fill === "gradient" ? (
+                  <>
+                    <stop
+                      offset="5%"
+                      stopColor="currentColor"
+                      stopOpacity={0.4}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="currentColor"
+                      stopOpacity={0}
+                    />
+                  </>
+                ) : (
+                  <stop stopColor="currentColor" stopOpacity={0.3} />
+                )
+
+              return (
+                <defs key={category}>
+                  <linearGradient
+                    className={cx(
+                      getColorClassName(
+                        categoryColors.get(
+                          category,
+                        ) as AvailableChartColorsKeys,
+                        "text",
+                      ),
+                    )}
+                    id={categoryColors.get(category)}
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    {fill === "none" ? noneGradient : gradient}
+                  </linearGradient>
+                </defs>
+              )
+            })}
+
             {categories.map((category) => (
               <Area
                 className={cx(

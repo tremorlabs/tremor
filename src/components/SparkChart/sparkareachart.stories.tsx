@@ -157,6 +157,12 @@ export const WithFillSolid: Story = {
   },
 }
 
+export const WithFillNone: Story = {
+  args: {
+    fill: "none",
+  },
+}
+
 export const WithMinValue: Story = {
   args: {
     autoMinValue: true,
