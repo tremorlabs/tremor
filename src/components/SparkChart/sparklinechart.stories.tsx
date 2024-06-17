@@ -212,25 +212,3 @@ export const WithConnectNullsFalse: Story = {
     connectNulls: false,
   },
 }
-
-export const WithTypePercent: Story = {
-  render: () => (
-    <SparkLineChart
-      data={chartdata}
-      index="date"
-      categories={["SolarCells", "Glass"]}
-      type="percent"
-    />
-  ),
-}
-
-export const WithTypeStacked: Story = {
-  render: () => (
-    <SparkLineChart
-      data={chartdata}
-      index="date"
-      categories={["SolarCells", "Glass"]}
-      type="stacked"
-    />
-  ),
-}
