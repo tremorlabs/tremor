@@ -114,6 +114,8 @@ export const Default: Story = {}
 export const WithHoverEffect: Story = {
   args: {
     hoverEffect: true,
+    className: "mt-56",
+    data: data.slice(0, 40),
   },
 }
 

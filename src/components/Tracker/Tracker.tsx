@@ -1,4 +1,4 @@
-// Tremor Raw Tracker [v0.0.1]
+// Tremor Raw Tracker [v0.1.0]
 
 import React from "react"
 import * as HoverCardPrimitives from "@radix-ui/react-hover-card"
@@ -28,13 +28,15 @@ const Block = ({
       closeDelay={0}
     >
       <HoverCardPrimitives.Trigger onClick={() => setOpen(true)} asChild>
-        <div
-          className={cx(
-            "h-full w-full rounded-[1px] transition first:rounded-l-[4px] last:rounded-r-[4px]",
-            color || defaultBackgroundColor,
-            hoverEffect ? "hover:!opacity-100 group-hover:opacity-35" : "",
-          )}
-        />
+        <div className="size-full overflow-hidden px-[0.5px] transition first:rounded-l-[4px] first:pl-0 last:rounded-r-[4px] last:pr-0 sm:px-px">
+          <div
+            className={cx(
+              "size-full rounded-[1px]",
+              color || defaultBackgroundColor,
+              hoverEffect ? "hover:opacity-50" : "",
+            )}
+          />
+        </div>
       </HoverCardPrimitives.Trigger>
       <HoverCardPrimitives.Portal>
         <HoverCardPrimitives.Content
@@ -78,10 +80,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
     return (
       <div
         ref={forwardedRef}
-        className={cx(
-          "items-cente group flex h-10 w-full gap-px sm:gap-0.5",
-          className,
-        )}
+        className={cx("items-cente group flex h-8 w-full", className)}
         {...props}
       >
         {data.map((props, index) => (
