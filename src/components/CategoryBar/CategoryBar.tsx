@@ -11,24 +11,24 @@ import { cx } from "../../utils/cx"
 import { Tooltip } from "../Tooltip/Tooltip"
 
 const getMarkerBgColor = (
-  markerValue: number | undefined,
+  marker: number | undefined,
   values: number[],
   colors: AvailableChartColorsKeys[],
 ): string => {
-  if (markerValue === undefined) return ""
+  if (marker === undefined) return ""
 
-  if (markerValue === 0) {
-    for (const [index, value] of values.entries()) {
-      if (value > 0) {
+  if (marker === 0) {
+    for (let index = 0; index < values.length; index++) {
+      if (values[index] > 0) {
         return getColorClassName(colors[index], "bg")
       }
     }
   }
 
   let prefixSum = 0
-  for (const [index, value] of values.entries()) {
-    prefixSum += value
-    if (prefixSum >= markerValue) {
+  for (let index = 0; index < values.length; index++) {
+    prefixSum += values[index]
+    if (prefixSum >= marker) {
       return getColorClassName(colors[index], "bg")
     }
   }
@@ -102,10 +102,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
 interface CategoryBarProps extends React.HTMLAttributes<HTMLDivElement> {
   values: number[]
   colors?: AvailableChartColorsKeys[]
-  markerValue?: number
+  marker?: { value: number; tooltip?: string; showAnimation?: boolean }
   showLabels?: boolean
-  tooltip?: string
-  showAnimation?: boolean
 }
 
 const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
@@ -113,25 +111,23 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
     {
       values = [],
       colors = AvailableChartColors,
-      markerValue,
-      showLabels = true,
-      tooltip,
-      showAnimation = false,
+      marker,
+      showLabels = false,
       className,
       ...props
     },
     forwardedRef,
   ) => {
     const markerBgColor = React.useMemo(
-      () => getMarkerBgColor(markerValue, values, colors),
-      [markerValue, values, colors],
+      () => getMarkerBgColor(marker?.value, values, colors),
+      [marker, values, colors],
     )
 
     const maxValue = React.useMemo(() => sumNumericArray(values), [values])
 
     const markerPositionLeft: number = React.useMemo(
-      () => getPositionLeft(markerValue, maxValue),
-      [markerValue, maxValue],
+      () => getPositionLeft(marker?.value, maxValue),
+      [marker, maxValue],
     )
 
     return (
@@ -139,7 +135,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
         ref={forwardedRef}
         className={cx(className)}
         aria-label="category bar"
-        aria-valuenow={markerValue}
+        aria-valuenow={marker?.value}
         {...props}
       >
         {showLabels ? <BarLabels values={values} /> : null}
@@ -157,22 +153,23 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
                       barColor as AvailableChartColorsKeys,
                       "bg",
                     ),
+                    percentage === 0 && "hidden",
                   )}
                   style={{ width: `${percentage}%` }}
                 />
               )
             })}
           </div>
-          {markerValue !== undefined ? (
+          {marker !== undefined ? (
             <div
               className="absolute w-2 -translate-x-1/2"
               style={{
                 left: `${markerPositionLeft}%`,
-                transition: showAnimation ? "all 1s" : "",
+                transition: marker.showAnimation ? "all 1s" : "",
               }}
             >
-              {tooltip ? (
-                <Tooltip content={tooltip}>
+              {marker.tooltip ? (
+                <Tooltip content={marker.tooltip}>
                   <div
                     aria-hidden
                     className="absolute size-7 -translate-x-[45%] -translate-y-[15%]"
