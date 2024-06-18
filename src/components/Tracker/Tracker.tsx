@@ -9,15 +9,16 @@ interface TrackerBlockProps {
   key?: string | number
   color?: string
   tooltip?: string
+  hoverEffect?: boolean
+  defaultBackgroundColor?: string
 }
 
 const Block = ({
   color,
   tooltip,
   defaultBackgroundColor,
-}: TrackerBlockProps & {
-  defaultBackgroundColor?: string
-}) => {
+  hoverEffect,
+}: TrackerBlockProps) => {
   const [open, setOpen] = React.useState(false)
   return (
     <HoverCardPrimitives.Root
@@ -29,8 +30,9 @@ const Block = ({
       <HoverCardPrimitives.Trigger onClick={() => setOpen(true)} asChild>
         <div
           className={cx(
-            "h-full w-full rounded-[1px] first:rounded-l-[4px] last:rounded-r-[4px]",
+            "h-full w-full rounded-[1px] transition first:rounded-l-[4px] last:rounded-r-[4px]",
             color || defaultBackgroundColor,
+            hoverEffect ? "hover:!opacity-100 group-hover:opacity-35" : "",
           )}
         />
       </HoverCardPrimitives.Trigger>
@@ -59,6 +61,7 @@ const Block = ({
 interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TrackerBlockProps[]
   defaultBackgroundColor?: string
+  hoverEffect?: boolean
 }
 
 const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
@@ -67,6 +70,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
       data = [],
       defaultBackgroundColor = "bg-gray-400 dark:bg-gray-400",
       className,
+      hoverEffect,
       ...props
     },
     forwardedRef,
@@ -75,7 +79,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
       <div
         ref={forwardedRef}
         className={cx(
-          "flex h-10 w-full items-center gap-px sm:gap-0.5",
+          "items-cente group flex h-10 w-full gap-px sm:gap-0.5",
           className,
         )}
         {...props}
@@ -84,6 +88,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
           <Block
             key={props.key ?? index}
             defaultBackgroundColor={defaultBackgroundColor}
+            hoverEffect={hoverEffect}
             {...props}
           />
         ))}
