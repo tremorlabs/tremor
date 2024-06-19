@@ -460,7 +460,15 @@ interface ChartTooltipProps {
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
+  tooltipCallback?: TooltipCallback
 }
+
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
+type TooltipCallback = (props: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -468,7 +476,13 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  tooltipCallback,
 }: ChartTooltipProps) => {
+  React.useEffect(() => {
+    if (tooltipCallback) {
+      tooltipCallback({ active, payload, label })
+    }
+  }, [tooltipCallback, active, payload, label])
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -562,6 +576,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   layout?: "vertical" | "horizontal"
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: TooltipCallback
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -594,6 +609,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       layout = "horizontal",
       type = "default",
       legendPosition = "right",
+      tooltipCallback,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -796,6 +812,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      tooltipCallback={tooltipCallback}
                     />
                   )
                 ) : (
@@ -855,4 +872,4 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
 BarChart.displayName = "BarChart"
 
-export { BarChart, type BarChartEventProps }
+export { BarChart, type BarChartEventProps, type TooltipCallbackProps }
