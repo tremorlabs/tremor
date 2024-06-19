@@ -5,7 +5,6 @@
 ### Changes
 
 - Feat: Add tooltipCallback prop
-- Feat: Add fill prop
 
 ## 0.1.0
 
