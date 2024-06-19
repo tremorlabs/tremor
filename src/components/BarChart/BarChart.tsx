@@ -482,7 +482,7 @@ const ChartTooltip = ({
     if (tooltipCallback) {
       tooltipCallback({ active, payload, label })
     }
-  }, [tooltipCallback, active, payload, label])
+  }, [label])
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
