@@ -1,6 +1,7 @@
+// Tremor Raw AreaChart [v0.2.0]
+
 "use client"
 
-// Tremor Raw AreaChart [v0.1.0]
 import React from "react"
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
@@ -524,6 +525,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
   tooltipCallback?: TooltipCallback
+  fill?: "gradient" | "solid" | "none"
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
@@ -556,6 +558,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       type = "default",
       legendPosition = "right",
       tooltipCallback,
+      fill = "gradient",
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -571,6 +574,42 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
     const stacked = type === "stacked" || type === "percent"
+    const areaId = React.useId()
+
+    const getFillContent = ({
+      fillType,
+      activeDot,
+      activeLegend,
+      category,
+    }: {
+      fillType: AreaChartProps["fill"]
+      activeDot: ActiveDot | undefined
+      activeLegend: string | undefined
+      category: string
+    }) => {
+      const stopOpacity =
+        activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+
+      switch (fillType) {
+        case "none":
+          return <stop stopColor="currentColor" stopOpacity={0} />
+        case "gradient":
+          return (
+            <>
+              <stop
+                offset="5%"
+                stopColor="currentColor"
+                stopOpacity={stopOpacity}
+              />
+              <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
+            </>
+          )
+        case "solid":
+        default:
+          return <stop stopColor="currentColor" stopOpacity={stopOpacity} />
+      }
+    }
+
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`
     }
@@ -763,142 +802,146 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                 }
               />
             ) : null}
-            {categories.map((category) => (
-              <defs key={category}>
-                <linearGradient
-                  className={cx(
-                    getColorClassName(
-                      categoryColors.get(category) as AvailableChartColorsKeys,
-                      "text",
-                    ),
-                  )}
-                  id={categoryColors.get(category)}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  <stop
-                    offset="5%"
-                    stopColor="currentColor"
-                    stopOpacity={
-                      activeDot || (activeLegend && activeLegend !== category)
-                        ? 0.15
-                        : 0.4
-                    }
-                  />
-                  <stop offset="95%" stopColor="currentColor" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-            ))}
-            {categories.map((category) => (
-              <Area
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "stroke",
-                  ),
-                )}
-                strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== category)
-                    ? 0.3
-                    : 1
-                }
-                activeDot={(props: any) => {
-                  const {
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    dataKey,
-                  } = props
-                  return (
-                    <Dot
+            {categories.map((category) => {
+              const categoryId = `${areaId}-${category}`
+              return (
+                <React.Fragment key={category}>
+                  <defs key={category}>
+                    <linearGradient
+                      key={category}
                       className={cx(
-                        "stroke-white dark:stroke-gray-950",
-                        onValueChange ? "cursor-pointer" : "",
                         getColorClassName(
                           categoryColors.get(
-                            dataKey,
+                            category,
                           ) as AvailableChartColorsKeys,
-                          "fill",
+                          "text",
                         ),
                       )}
-                      cx={cxCoord}
-                      cy={cyCoord}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
-                      onClick={(_, event) => onDotClick(props, event)}
-                    />
-                  )
-                }}
-                dot={(props: any) => {
-                  const {
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    dataKey,
-                    index,
-                  } = props
+                      id={categoryId}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      {getFillContent({
+                        fillType: fill,
+                        activeDot: activeDot,
+                        activeLegend: activeLegend,
+                        category: category,
+                      })}
+                    </linearGradient>
+                  </defs>
+                  <Area
+                    className={cx(
+                      getColorClassName(
+                        categoryColors.get(
+                          category,
+                        ) as AvailableChartColorsKeys,
+                        "stroke",
+                      ),
+                    )}
+                    strokeOpacity={
+                      activeDot || (activeLegend && activeLegend !== category)
+                        ? 0.3
+                        : 1
+                    }
+                    activeDot={(props: any) => {
+                      const {
+                        cx: cxCoord,
+                        cy: cyCoord,
+                        stroke,
+                        strokeLinecap,
+                        strokeLinejoin,
+                        strokeWidth,
+                        dataKey,
+                      } = props
+                      return (
+                        <Dot
+                          className={cx(
+                            "stroke-white dark:stroke-gray-950",
+                            onValueChange ? "cursor-pointer" : "",
+                            getColorClassName(
+                              categoryColors.get(
+                                dataKey,
+                              ) as AvailableChartColorsKeys,
+                              "fill",
+                            ),
+                          )}
+                          cx={cxCoord}
+                          cy={cyCoord}
+                          r={5}
+                          fill=""
+                          stroke={stroke}
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
+                          onClick={(_, event) => onDotClick(props, event)}
+                        />
+                      )
+                    }}
+                    dot={(props: any) => {
+                      const {
+                        stroke,
+                        strokeLinecap,
+                        strokeLinejoin,
+                        strokeWidth,
+                        cx: cxCoord,
+                        cy: cyCoord,
+                        dataKey,
+                        index,
+                      } = props
 
-                  if (
-                    (hasOnlyOneValueForKey(data, category) &&
-                      !(
-                        activeDot ||
-                        (activeLegend && activeLegend !== category)
-                      )) ||
-                    (activeDot?.index === index &&
-                      activeDot?.dataKey === category)
-                  ) {
-                    return (
-                      <Dot
-                        key={index}
-                        cx={cxCoord}
-                        cy={cyCoord}
-                        r={5}
-                        stroke={stroke}
-                        fill=""
-                        strokeLinecap={strokeLinecap}
-                        strokeLinejoin={strokeLinejoin}
-                        strokeWidth={strokeWidth}
-                        className={cx(
-                          "stroke-white dark:stroke-gray-950",
-                          onValueChange ? "cursor-pointer" : "",
-                          getColorClassName(
-                            categoryColors.get(
-                              dataKey,
-                            ) as AvailableChartColorsKeys,
-                            "fill",
-                          ),
-                        )}
-                      />
-                    )
-                  }
-                  return <React.Fragment key={index}></React.Fragment>
-                }}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={false}
-                connectNulls={connectNulls}
-                stackId={stacked ? "stack" : undefined}
-                fill={`url(#${categoryColors.get(category) as AvailableChartColorsKeys})`}
-              />
-            ))}
+                      if (
+                        (hasOnlyOneValueForKey(data, category) &&
+                          !(
+                            activeDot ||
+                            (activeLegend && activeLegend !== category)
+                          )) ||
+                        (activeDot?.index === index &&
+                          activeDot?.dataKey === category)
+                      ) {
+                        return (
+                          <Dot
+                            key={index}
+                            cx={cxCoord}
+                            cy={cyCoord}
+                            r={5}
+                            stroke={stroke}
+                            fill=""
+                            strokeLinecap={strokeLinecap}
+                            strokeLinejoin={strokeLinejoin}
+                            strokeWidth={strokeWidth}
+                            className={cx(
+                              "stroke-white dark:stroke-gray-950",
+                              onValueChange ? "cursor-pointer" : "",
+                              getColorClassName(
+                                categoryColors.get(
+                                  dataKey,
+                                ) as AvailableChartColorsKeys,
+                                "fill",
+                              ),
+                            )}
+                          />
+                        )
+                      }
+                      return <React.Fragment key={index}></React.Fragment>
+                    }}
+                    key={category}
+                    name={category}
+                    type="linear"
+                    dataKey={category}
+                    stroke=""
+                    strokeWidth={2}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    isAnimationActive={false}
+                    connectNulls={connectNulls}
+                    stackId={stacked ? "stack" : undefined}
+                    fill={`url(#${categoryId})`}
+                  />
+                </React.Fragment>
+              )
+            })}
             {/* hidden lines to increase clickable target area */}
             {onValueChange
               ? categories.map((category) => (

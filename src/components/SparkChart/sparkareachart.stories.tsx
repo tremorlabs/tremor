@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { BarChart } from "./BarChart"
+import { SparkAreaChart } from "./SparkChart"
 
 const chartdata = [
   {
@@ -125,19 +125,19 @@ const chartdata = [
   },
 ]
 
-const meta: Meta<typeof BarChart> = {
-  title: "visualization/BarChart",
-  component: BarChart,
+const meta: Meta<typeof SparkAreaChart> = {
+  title: "visualization/SparkAreaChart",
+  component: SparkAreaChart,
   args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
 }
 
 export default meta
-type Story = StoryObj<typeof BarChart>
+type Story = StoryObj<typeof SparkAreaChart>
 
 export const Default: Story = {
   render: () => (
-    <BarChart
-      data-testid="bar-chart"
+    <SparkAreaChart
+      data-testid="spark-area-chart"
       data={chartdata}
       index="date"
       categories={["SolarCells", "Glass"]}
@@ -151,16 +151,15 @@ export const DefaultNegative: Story = {
   },
 }
 
-export const WithValueFormatter: Story = {
+export const WithFillSolid: Story = {
   args: {
-    valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+    fill: "solid",
   },
 }
 
-export const WithAxisLabels: Story = {
+export const WithFillNone: Story = {
   args: {
-    xAxisLabel: "Month of Year",
-    yAxisLabel: "Revenue",
+    fill: "none",
   },
 }
 
@@ -193,129 +192,57 @@ export const AllColors: Story = {
   },
 }
 
-export const WithLegendLeft: Story = {
-  args: {
-    legendPosition: "left",
-  },
-}
-
-export const WithLegendCenter: Story = {
-  args: {
-    legendPosition: "center",
-  },
-}
-
-export const WithLegendSlider: Story = {
-  args: {
-    className: "max-w-md",
-    data: chartdata,
-    index: "date",
-    categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
-    ],
-    enableLegendSlider: true,
-    onValueChange: (v) => console.log(v),
-  },
-}
-
 export const ShiftColors: Story = {
   args: {
     colors: ["amber", "cyan"],
   },
 }
 
-export const WithStartEndOnly: Story = {
+export const WithConnectNullsFalse: Story = {
   args: {
-    startEndOnly: true,
-  },
-}
-
-export const WithNoAxis: Story = {
-  args: {
-    showXAxis: false,
-    showYAxis: false,
-  },
-}
-
-export const WithNoGridlines: Story = {
-  args: {
-    showGridLines: false,
-  },
-}
-
-export const WithNoLegend: Story = {
-  args: {
-    showLegend: false,
-  },
-}
-
-export const WithNoTooltip: Story = {
-  args: {
-    showTooltip: false,
-  },
-}
-
-export const WithOnValueChange: Story = {
-  args: {
-    onValueChange: (v) => console.log(v),
-  },
-}
-
-export const WithLargeTickGap: Story = {
-  args: {
-    tickGap: 300,
-  },
-}
-
-export const WithBarCategoryGap: Story = {
-  args: {
-    barCategoryGap: "30%",
-  },
-}
-
-export const WithLayoutVertical: Story = {
-  args: {
-    categories: ["SolarCells"],
-    layout: "vertical",
+    data: chartdata.map(
+      (
+        item,
+        index,
+      ): {
+        date: string
+        Glass: number | null
+      } => {
+        let glassValue: number | null = item.Glass
+        if (index > 5 && index < 8) {
+          glassValue = null
+        }
+        return {
+          date: item.date,
+          Glass: glassValue,
+        }
+      },
+    ),
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+    colors: ["amber", "cyan"],
+    connectNulls: false,
   },
 }
 
 export const WithTypePercent: Story = {
-  args: {
-    type: "percent",
-  },
-}
-export const WithTypePercentVertical: Story = {
-  args: {
-    layout: "vertical",
-    type: "percent",
-  },
-}
-
-export const stacked: Story = {
-  args: {
-    type: "stacked",
-  },
+  render: () => (
+    <SparkAreaChart
+      data={chartdata}
+      index="date"
+      categories={["SolarCells", "Glass"]}
+      type="percent"
+    />
+  ),
 }
 
-export const WithTypeStackedVertical: Story = {
-  args: {
-    layout: "vertical",
-    type: "stacked",
-  },
-}
-
-export const OneDataValue: Story = {
-  args: {
-    data: chartdata.slice(0, 1),
-    index: "date",
-    categories: ["SolarCells", "Glass"],
-    onValueChange: (v) => console.log(v),
-  },
+export const WithTypeStacked: Story = {
+  render: () => (
+    <SparkAreaChart
+      data={chartdata}
+      index="date"
+      categories={["SolarCells", "Glass"]}
+      type="stacked"
+    />
+  ),
 }

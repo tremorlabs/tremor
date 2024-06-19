@@ -38,6 +38,13 @@ export const Light: Story = {
   },
 }
 
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Ghost",
+  },
+}
+
 export const Destructive: Story = {
   args: {
     variant: "destructive",

@@ -1,4 +1,4 @@
-// Tremor Raw BarChart [v0.0.0]
+// Tremor Raw BarChart [v0.0.1]
 
 "use client"
 
@@ -672,6 +672,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             }}
             stackOffset={type === "percent" ? "expand" : undefined}
             layout={layout}
+            barCategoryGap={barCategoryGap}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -782,7 +783,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               animationDuration={100}
               cursor={{ fill: "#d1d5db", opacity: "0.15" }}
               offset={20}
-              position={{ y: 0 }}
+              position={{
+                y: layout === "horizontal" ? 0 : undefined,
+                x: layout === "horizontal" ? undefined : yAxisWidth + 20,
+              }}
               content={
                 showTooltip ? (
                   ({ active, payload, label }) => (
@@ -840,7 +844,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   renderShape(props, activeBar, activeLegend, layout)
                 }
                 onClick={onBarClick}
-                radius={20}
               />
             ))}
           </RechartsBarChart>

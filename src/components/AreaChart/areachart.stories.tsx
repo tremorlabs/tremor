@@ -336,3 +336,15 @@ export const OneDataValue: Story = {
     onValueChange: (v) => console.log(v),
   },
 }
+
+export const WithFillSolid: Story = {
+  args: {
+    fill: "solid",
+  },
+}
+
+export const WithFillNone: Story = {
+  args: {
+    fill: "none",
+  },
+}

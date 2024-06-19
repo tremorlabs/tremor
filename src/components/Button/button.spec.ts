@@ -25,6 +25,14 @@ test.describe("Expect button variant", () => {
         .getByRole("button", { name: "Light" }),
     ).toBeVisible()
   })
+  test("ghost to exist", async ({ page }) => {
+    await page.goto("http://localhost:6006/?path=/story/ui-button--ghost")
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByRole("button", { name: "Ghost" }),
+    ).toBeVisible()
+  })
   test("destructive to exist", async ({ page }) => {
     await page.goto("http://localhost:6006/?path=/story/ui-button--destructive")
     await expect(
