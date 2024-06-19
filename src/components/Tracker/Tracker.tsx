@@ -92,6 +92,6 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
   },
 )
 
-Block.displayName = "Tracker"
+Tracker.displayName = "Tracker"
 
 export { Tracker, type TrackerBlockProps }
