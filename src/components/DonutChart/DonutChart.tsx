@@ -357,10 +357,9 @@ const parseData = (
   colors: (AvailableChartColorsKeys | string)[],
 ) =>
   data.map((dataPoint: any, index: number) => {
-    const baseColor = index < colors.length ? colors[index] : "gray"
+    const baseColor = colors[index % colors.length]
     return {
       ...dataPoint,
-      // explicitly adding color key if not present for tooltip coloring
       color: baseColor,
       className: getColorClassName(
         baseColor as AvailableChartColorsKeys,
@@ -396,7 +395,10 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
     <div className="flex items-center space-x-2">
       <span
         aria-hidden="true"
-        className={cx("h-[3px] w-3.5 shrink-0 rounded-full", color)}
+        className={cx(
+          "size-2.5 shrink-0 rounded-full",
+          getColorClassName(color as AvailableChartColorsKeys, "bg"),
+        )}
       />
       <p
         className={cx(
@@ -425,14 +427,12 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
 interface ChartTooltipProps {
   active: boolean | undefined
   payload: any
-  categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
 }
 
 const ChartTooltip = ({
   active,
   payload,
-  categoryColors,
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload) {
@@ -452,19 +452,23 @@ const ChartTooltip = ({
         <div className={cx("space-y-1 px-4 py-2")}>
           {filteredPayload.map(
             (
-              { value, name }: { value: number; name: string },
+              {
+                value,
+                name,
+                payload: itemPayload,
+              }: { value: number; name: string; payload: any },
               index: number,
-            ) => (
-              <ChartTooltipRow
-                key={`id-${index}`}
-                value={valueFormatter(value)}
-                name={name}
-                color={getColorClassName(
-                  categoryColors.get(name) as AvailableChartColorsKeys,
-                  "bg",
-                )}
-              />
-            ),
+            ) => {
+              const color = itemPayload?.color || "gray" // Extract color with a fallback
+              return (
+                <ChartTooltipRow
+                  key={`id-${index}`}
+                  value={valueFormatter(value)}
+                  name={name}
+                  color={color}
+                />
+              )
+            },
           )}
         </div>
       </div>
@@ -485,8 +489,8 @@ type DonutChartEventProps = BaseEventProps | null | undefined
 
 export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
-  index?: string //@really optional?
-  category?: string //@really optional?
+  category: string //@really optional?
+  value: string //@really optional?
   colors?: AvailableChartColorsKeys[]
   variant?: DonutChartVariant
   valueFormatter?: (value: number) => string
@@ -535,8 +539,8 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
   (
     {
       data = [],
-      category = "value",
-      index = "name",
+      value,
+      category,
       colors = AvailableChartColors,
       variant = "donut",
       valueFormatter = (value: number) => value.toString(),
@@ -557,8 +561,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
       category,
     )
 
-    const categoryColors = constructCategoryColors(categories, colors)
-
+    // const categoryColors = constructCategoryColors(categories, colors)
 
     const [activeIndex, setActiveIndex] = React.useState<number | undefined>(
       undefined,
@@ -638,8 +641,9 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
               outerRadius="100%"
               stroke=""
               strokeLinejoin="round"
-              dataKey={category}
-              nameKey={index}
+              dataKey={value}
+              nameKey={category}
+              isAnimationActive={false}
               onClick={onShapeClick}
               activeIndex={activeIndex}
               inactiveShape={renderInactiveShape}
@@ -655,7 +659,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
                       active={active}
                       payload={payload}
                       valueFormatter={valueFormatter}
-                      categoryColors={}
                     />
                   )
                 ) : (
