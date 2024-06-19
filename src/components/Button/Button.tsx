@@ -1,4 +1,4 @@
-// Tremor Raw Button [v0.0.0]
+// Tremor Raw Button [v0.1.0]
 
 import React from "react"
 import { Slot } from "@radix-ui/react-slot"
