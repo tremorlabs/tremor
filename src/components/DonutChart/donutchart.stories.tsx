@@ -36,10 +36,63 @@ const chartdata = [
 const meta: Meta<typeof DonutChart> = {
   title: "visualization/DonutChart",
   component: DonutChart,
-  args: { category: "value", index: "category", data: chartdata },
+  args: { value: "value", category: "category", data: chartdata },
 }
 
 export default meta
 type Story = StoryObj<typeof DonutChart>
 
 export const Default: Story = {}
+
+export const ValueFormatter: Story = {
+  args: { valueFormatter: (v) => `${v} units` },
+}
+
+export const CustomLabel: Story = {
+  args: { label: "Custom Label" },
+}
+
+export const LabelDisabled: Story = {
+  args: {
+    label: "Custom Label",
+    showLabel: false,
+  },
+}
+
+export const OtherColors: Story = {
+  args: { colors: ["blue", "amber", "pink", "emerald", "violet", "cyan"] },
+}
+
+export const MoreDatapointsThanColors: Story = {
+  args: {
+    data: [
+      // extra long data array
+      ...chartdata,
+      ...chartdata,
+    ],
+  },
+}
+
+export const LongValues: Story = {
+  args: {
+    data: chartdata.map((dataPoint) => ({
+      ...dataPoint,
+      value: dataPoint.value * 10000000,
+    })),
+  },
+}
+
+export const VariantPie: Story = {
+  args: { variant: "pie" },
+}
+
+export const OnValueChangeExample: Story = {
+  args: { onValueChange: (value) => alert(JSON.stringify(value)) },
+}
+
+export const OnValueChangePieExample: Story = {
+  args: {
+    variant: "pie",
+    onValueChange: (value) => alert(JSON.stringify(value)),
+  },
+}
