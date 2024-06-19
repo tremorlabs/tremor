@@ -402,7 +402,15 @@ interface ChartTooltipProps {
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
+  tooltipCallback?: TooltipCallback
 }
+
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
+type TooltipCallback = (props: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -410,7 +418,13 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  tooltipCallback,
 }: ChartTooltipProps) => {
+  React.useEffect(() => {
+    if (tooltipCallback) {
+      tooltipCallback({ active, payload, label })
+    }
+  }, [tooltipCallback, active, payload, label])
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -507,6 +521,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   xAxisLabel?: string
   yAxisLabel?: string
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: TooltipCallback
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
@@ -537,6 +552,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       xAxisLabel,
       yAxisLabel,
       legendPosition = "right",
+      tooltipCallback,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -708,6 +724,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      tooltipCallback={tooltipCallback}
                     />
                   )
                 ) : (
@@ -875,4 +892,4 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
 LineChart.displayName = "LineChart"
 
-export { LineChart, type LineChartEventProps }
+export { LineChart, type LineChartEventProps, type TooltipCallbackProps }
