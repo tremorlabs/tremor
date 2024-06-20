@@ -1,4 +1,4 @@
-// Tremor Raw Spark Chart [v0.0.0]
+// Tremor Raw Spark Chart [v0.0.1]
 
 "use client"
 
@@ -96,7 +96,7 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
 
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category}`
+              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
               return (
                 <React.Fragment key={category}>
                   <defs>

@@ -1,5 +1,11 @@
 # Tremor Raw AreaChart Changelog
 
+## 0.2.1
+
+### Changes
+
+- Fix: Gradient category id
+
 ## 0.2.0
 
 ### Changes

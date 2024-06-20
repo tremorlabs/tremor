@@ -1,4 +1,4 @@
-// Tremor Raw AreaChart [v0.2.0]
+// Tremor Raw AreaChart [v0.2.1]
 
 "use client"
 
@@ -810,7 +810,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               />
             ) : null}
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category}`
+              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
               return (
                 <React.Fragment key={category}>
                   <defs key={category}>
