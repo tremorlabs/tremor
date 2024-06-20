@@ -300,7 +300,7 @@ export const WithOnValueChange: Story = {
 
 export const WithTooltipCallback: Story = {
   args: {
-    tooltipCallback: (props) => console.log(props),
+    tooltipCallback: (props) => console.log(JSON.stringify(props.payload)),
   },
 }
 

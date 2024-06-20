@@ -468,7 +468,7 @@ type TooltipCallbackProps = Pick<
   "active" | "payload" | "label"
 >
 
-type TooltipCallback = (props: TooltipCallbackProps) => void
+type TooltipCallback = (tooltipCallbackContent: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -479,10 +479,18 @@ const ChartTooltip = ({
   tooltipCallback,
 }: ChartTooltipProps) => {
   React.useEffect(() => {
-    if (tooltipCallback) {
-      tooltipCallback({ active, payload, label })
+    if (tooltipCallback && payload) {
+      const filteredPayload = payload.map((item: any) => ({
+        category: item.dataKey,
+        value: item.value,
+        index: item.payload.date,
+        color: categoryColors.get(item.dataKey) as AvailableChartColorsKeys,
+        payload: item.payload,
+      }))
+      tooltipCallback({ active, payload: filteredPayload, label })
     }
   }, [label])
+
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
