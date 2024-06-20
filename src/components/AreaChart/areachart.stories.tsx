@@ -1,5 +1,8 @@
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
+import { Label } from "../Label/Label"
+import { Switch } from "../Switch/Switch"
 import { AreaChart } from "./AreaChart"
 
 const chartdata = [
@@ -295,8 +298,26 @@ export const WithOnValueChange: Story = {
 }
 
 export const WithTooltipCallback: Story = {
-  args: {
-    tooltipCallback: (props) => console.log(JSON.stringify(props.payload)),
+  render: () => {
+    const [callback, setCallBack] = React.useState(null)
+    const [checked, setChecked] = React.useState(true)
+    return (
+      <>
+        <div className="flex items-center gap-3">
+          <Label htmlFor="a">showTooltip</Label>
+          <Switch id="a" checked={checked} onCheckedChange={setChecked} />
+        </div>
+
+        <AreaChart
+          data={chartdata}
+          index="date"
+          categories={["SolarCells", "Glass"]}
+          tooltipCallback={(props) => setCallBack(props.payload)}
+          showTooltip={checked}
+        />
+        <pre>{JSON.stringify(callback, null, 2)}</pre>
+      </>
+    )
   },
 }
 

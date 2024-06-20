@@ -454,21 +454,18 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
   </div>
 )
 
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
 interface ChartTooltipProps {
   active: boolean | undefined
   payload: any
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
-  tooltipCallback?: TooltipCallback
 }
-
-type TooltipCallbackProps = Pick<
-  ChartTooltipProps,
-  "active" | "payload" | "label"
->
-
-type TooltipCallback = (tooltipCallbackContent: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -476,21 +473,7 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
-  tooltipCallback,
 }: ChartTooltipProps) => {
-  React.useEffect(() => {
-    if (tooltipCallback && payload) {
-      const filteredPayload = payload.map((item: any) => ({
-        category: item.dataKey,
-        value: item.value,
-        index: item.payload.date,
-        color: categoryColors.get(item.dataKey) as AvailableChartColorsKeys,
-        payload: item.payload,
-      }))
-      tooltipCallback({ active, payload: filteredPayload, label })
-    }
-  }, [label, active])
-
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -584,7 +567,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   layout?: "vertical" | "horizontal"
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
-  tooltipCallback?: TooltipCallback
+  tooltipCallback?: (tooltipCallbackContent: TooltipCallbackProps) => void
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -811,22 +794,36 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 y: layout === "horizontal" ? 0 : undefined,
                 x: layout === "horizontal" ? undefined : yAxisWidth + 20,
               }}
-              content={
-                showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                      tooltipCallback={tooltipCallback}
-                    />
-                  )
-                ) : (
-                  <></>
-                )
-              }
+              content={({ active, payload, label }) => {
+                React.useEffect(() => {
+                  if (tooltipCallback && payload) {
+                    const filteredPayload = payload.map((item: any) => ({
+                      category: item.dataKey,
+                      value: item.value,
+                      index: item.payload.date,
+                      color: categoryColors.get(
+                        item.dataKey,
+                      ) as AvailableChartColorsKeys,
+                      payload: item.payload,
+                    }))
+                    tooltipCallback({
+                      active,
+                      payload: filteredPayload,
+                      label,
+                    })
+                  }
+                }, [label, active])
+
+                return showTooltip && active ? (
+                  <ChartTooltip
+                    active={active}
+                    payload={payload}
+                    label={label}
+                    valueFormatter={valueFormatter}
+                    categoryColors={categoryColors}
+                  />
+                ) : null
+              }}
             />
             {showLegend ? (
               <RechartsLegend

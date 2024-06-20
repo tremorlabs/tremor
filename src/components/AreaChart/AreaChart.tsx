@@ -402,8 +402,6 @@ type TooltipCallbackProps = Pick<
   "active" | "payload" | "label"
 >
 
-type TooltipCallback = (tooltipCallbackContent: TooltipCallbackProps) => void
-
 interface ChartTooltipProps {
   active: boolean | undefined
   payload: any
@@ -516,7 +514,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisLabel?: string
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
-  tooltipCallback?: TooltipCallback
+  tooltipCallback?: (tooltipCallbackContent: TooltipCallbackProps) => void
   fill?: "gradient" | "solid" | "none"
 }
 
