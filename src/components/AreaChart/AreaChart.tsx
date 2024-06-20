@@ -1,4 +1,4 @@
-// Tremor Raw AreaChart [v0.2.0]
+// Tremor Raw AreaChart [v0.2.1]
 
 "use client"
 
@@ -403,7 +403,15 @@ interface ChartTooltipProps {
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
+  tooltipCallback?: TooltipCallback
 }
+
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
+type TooltipCallback = (tooltipCallbackContent: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -411,7 +419,21 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  tooltipCallback,
 }: ChartTooltipProps) => {
+  React.useEffect(() => {
+    if (tooltipCallback && payload) {
+      const filteredPayload = payload.map((item: any) => ({
+        category: item.dataKey,
+        value: item.value,
+        index: item.payload.date,
+        color: categoryColors.get(item.dataKey) as AvailableChartColorsKeys,
+        payload: item.payload,
+      }))
+      tooltipCallback({ active, payload: filteredPayload, label })
+    }
+  }, [label, active])
+
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -509,6 +531,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisLabel?: string
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: TooltipCallback
   fill?: "gradient" | "solid" | "none"
 }
 
@@ -541,6 +564,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       yAxisLabel,
       type = "default",
       legendPosition = "right",
+      tooltipCallback,
       fill = "gradient",
       ...other
     } = props
@@ -756,6 +780,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      tooltipCallback={tooltipCallback}
                     />
                   )
                 ) : (
@@ -785,7 +810,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               />
             ) : null}
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category}`
+              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
               return (
                 <React.Fragment key={category}>
                   <defs key={category}>
@@ -957,4 +982,4 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
 
 AreaChart.displayName = "AreaChart"
 
-export { AreaChart, type AreaChartEventProps }
+export { AreaChart, type AreaChartEventProps, type TooltipCallbackProps }

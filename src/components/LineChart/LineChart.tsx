@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.1.0]
+// Tremor Raw LineChart [v0.2.0]
 
 "use client"
 
@@ -402,7 +402,15 @@ interface ChartTooltipProps {
   label: string
   categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
+  tooltipCallback?: TooltipCallback
 }
+
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
+type TooltipCallback = (tooltipCallbackContent: TooltipCallbackProps) => void
 
 const ChartTooltip = ({
   active,
@@ -410,7 +418,21 @@ const ChartTooltip = ({
   label,
   categoryColors,
   valueFormatter,
+  tooltipCallback,
 }: ChartTooltipProps) => {
+  React.useEffect(() => {
+    if (tooltipCallback && payload) {
+      const filteredPayload = payload.map((item: any) => ({
+        category: item.dataKey,
+        value: item.value,
+        index: item.payload.date,
+        color: categoryColors.get(item.dataKey) as AvailableChartColorsKeys,
+        payload: item.payload,
+      }))
+      tooltipCallback({ active, payload: filteredPayload, label })
+    }
+  }, [label, active])
+
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
@@ -507,6 +529,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   xAxisLabel?: string
   yAxisLabel?: string
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: TooltipCallback
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
@@ -537,6 +560,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       xAxisLabel,
       yAxisLabel,
       legendPosition = "right",
+      tooltipCallback,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -708,6 +732,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       label={label}
                       valueFormatter={valueFormatter}
                       categoryColors={categoryColors}
+                      tooltipCallback={tooltipCallback}
                     />
                   )
                 ) : (
@@ -875,4 +900,4 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
 LineChart.displayName = "LineChart"
 
-export { LineChart, type LineChartEventProps }
+export { LineChart, type LineChartEventProps, type TooltipCallbackProps }

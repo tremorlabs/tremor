@@ -298,6 +298,12 @@ export const WithOnValueChange: Story = {
   },
 }
 
+export const WithTooltipCallback: Story = {
+  args: {
+    tooltipCallback: (props) => console.log(JSON.stringify(props.payload)),
+  },
+}
+
 export const WithLargeTickGap: Story = {
   args: {
     tickGap: 300,
