@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.1.0]
+// Tremor Raw LineChart [v0.2.0]
 
 "use client"
 
@@ -431,7 +431,7 @@ const ChartTooltip = ({
       }))
       tooltipCallback({ active, payload: filteredPayload, label })
     }
-  }, [label])
+  }, [label, active])
 
   if (active && payload) {
     const filteredPayload = payload.filter((item: any) => item.type !== "none")

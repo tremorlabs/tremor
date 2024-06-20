@@ -1,4 +1,4 @@
-// Tremor Raw Spark Chart [v0.0.1]
+// Tremor Raw Spark Chart [v0.1.1]
 
 "use client"
 
