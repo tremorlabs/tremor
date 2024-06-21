@@ -34,7 +34,6 @@ const parseData = (
         baseColor as AvailableChartColorsKeys,
         "fill",
       ),
-      fill: "",
     }
   })
 
