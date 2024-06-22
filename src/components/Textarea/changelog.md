@@ -4,4 +4,4 @@
 
 ### Changes
 
-- Chore: Add transition
+- Fix: Update transition
