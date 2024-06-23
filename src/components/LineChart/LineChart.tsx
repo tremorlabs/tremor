@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.2.1]
+// Tremor Raw LineChart [v0.2.2]
 
 "use client"
 
@@ -549,7 +549,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       tooltipCallback,
       ...other
     } = props
-    const paddingValue = !showXAxis && !showYAxis ? 0 : 20
+    const paddingValue =
+      (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
     const [legendHeight, setLegendHeight] = React.useState(60)
     const [activeDot, setActiveDot] = React.useState<ActiveDot | undefined>(
       undefined,
