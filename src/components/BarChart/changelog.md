@@ -1,5 +1,11 @@
 # Tremor Raw BarChart Changelog
 
+## 0.1.1
+
+### Changes
+
+- Fix: Legend scroll distance
+
 ## 0.1.0
 
 ### Changes

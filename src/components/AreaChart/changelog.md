@@ -1,5 +1,11 @@
 # Tremor Raw AreaChart Changelog
 
+## 0.2.2
+
+### Changes
+
+- Fix: Legend scroll distance
+
 ## 0.2.1
 
 ### Changes
