@@ -42,10 +42,19 @@ const meta: Meta<typeof DonutChart> = {
 export default meta
 type Story = StoryObj<typeof DonutChart>
 
-export const Default: Story = {}
+export const Default: Story = {
+  render: () => (
+    <DonutChart
+      data-testid="donut-chart"
+      value="value"
+      category="category"
+      data={chartdata}
+    />
+  ),
+}
 
 export const ValueFormatter: Story = {
-  args: { valueFormatter: (v) => `${v} units` },
+  args: { showLabel: true, valueFormatter: (v) => `${v} units` },
 }
 
 export const CustomLabel: Story = {

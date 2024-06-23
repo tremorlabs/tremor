@@ -150,7 +150,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
       variant = "donut",
       valueFormatter = (value: number) => value.toString(),
       label,
-      showLabel = true,
+      showLabel = false,
       showTooltip = true,
       onValueChange,
       className,
