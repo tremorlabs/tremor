@@ -19,7 +19,6 @@ import {
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 
-// Helper functions
 const sumNumericArray = (arr: number[]): number =>
   arr.reduce((sum, num) => sum + num, 0)
 
