@@ -1,4 +1,4 @@
-// Tremor Raw ProgressCircle [v0.0.0]
+// Tremor Raw ProgressCircle [v0.0.1]
 
 import React from "react"
 import { tv, VariantProps } from "tailwind-variants"
@@ -113,7 +113,8 @@ const ProgressCircle = React.forwardRef<SVGSVGElement, ProgressCircleProps>(
                 className={cx(
                   "transition-colors ease-linear",
                   circle(),
-                  showAnimation && "transition-all duration-300 ease-in-out",
+                  showAnimation &&
+                    "transform-gpu transition-all duration-300 ease-in-out",
                 )}
               />
             ) : null}
