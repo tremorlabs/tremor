@@ -1,3 +1,5 @@
+// Tremor Raw CategoryBar [v0.0.0]
+
 "use client"
 
 import React from "react"
@@ -33,7 +35,7 @@ const getMarkerBgColor = (
     }
   }
 
-  return ""
+  return getColorClassName(colors[values.length - 1], "bg")
 }
 
 const getPositionLeft = (
@@ -83,7 +85,8 @@ const BarLabels = ({ values }: { values: number[] }) => {
             <span
               className={cx(
                 showLabel ? "block" : "hidden",
-                "left-1/2 translate-x-1/2 tabular-nums",
+                "left-1/2 text-sm tabular-nums",
+                `translate-x-[calc(50%-${index === values.length - 2 ? "0" : "2"}px)]`,
               )}
             >
               {prefixSum}
@@ -112,7 +115,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
       values = [],
       colors = AvailableChartColors,
       marker,
-      showLabels = false,
+      showLabels = true,
       className,
       ...props
     },
@@ -125,9 +128,16 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
 
     const maxValue = React.useMemo(() => sumNumericArray(values), [values])
 
+    const adjustedMarkerValue = React.useMemo(() => {
+      if (marker === undefined) return undefined
+      if (marker.value < 0) return 0
+      if (marker.value > maxValue) return maxValue
+      return marker.value
+    }, [marker, maxValue])
+
     const markerPositionLeft: number = React.useMemo(
-      () => getPositionLeft(marker?.value, maxValue),
-      [marker, maxValue],
+      () => getPositionLeft(adjustedMarkerValue, maxValue),
+      [adjustedMarkerValue, maxValue],
     )
 
     return (
@@ -174,12 +184,9 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
               {marker.tooltip ? (
                 <Tooltip content={marker.tooltip}>
                   <div
-                    aria-hidden
-                    className="absolute size-7 -translate-x-[45%] -translate-y-[15%]"
-                  ></div>
-                  <div
+                    aria-hidden="true"
                     className={cx(
-                      "mx-auto h-4 w-1 translate-y-0.5 rounded-full ring-2",
+                      "mx-auto h-4 w-1 shrink-0 translate-x-0.5 translate-y-[3px] rounded-full ring-2",
                       "ring-white dark:ring-gray-950",
                       markerBgColor,
                     )}
@@ -188,7 +195,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
               ) : (
                 <div
                   className={cx(
-                    "mx-auto h-4 w-1 rounded-full ring-2",
+                    "mx-auto h-4 w-1 shrink-0 rounded-full ring-2",
                     "ring-white dark:ring-gray-950",
                     markerBgColor,
                   )}
