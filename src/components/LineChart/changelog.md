@@ -1,5 +1,11 @@
 # Tremor Raw LineChart Changelog
 
+## 0.2.1
+
+### Changes
+
+- Fix: Legend scroll distance
+
 ## 0.2.0
 
 ### Changes

@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.2.0]
+// Tremor Raw LineChart [v0.2.1]
 
 "use client"
 
@@ -166,6 +166,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     ...other
   } = props
   const scrollableRef = React.useRef<HTMLInputElement>(null)
+  const scrollButtonsRef = React.useRef<HTMLDivElement>(null)
   const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null)
   const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null)
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
@@ -184,14 +185,16 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const scrollToTest = React.useCallback(
     (direction: "left" | "right") => {
       const element = scrollableRef?.current
+      const scrollButtons = scrollButtonsRef?.current
+      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0
       const width = element?.clientWidth ?? 0
 
       if (element && enableLegendSlider) {
         element.scrollTo({
           left:
             direction === "left"
-              ? element.scrollLeft - width
-              : element.scrollLeft + width,
+              ? element.scrollLeft - width + scrollButtonsWith
+              : element.scrollLeft + width - scrollButtonsWith,
           behavior: "smooth",
         })
         setTimeout(() => {
