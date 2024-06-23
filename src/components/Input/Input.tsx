@@ -1,4 +1,4 @@
-// Tremor Raw Input [v1.0.0]
+// Tremor Raw Input [v1.0.1]
 
 import React from "react"
 import { RiEyeFill, RiEyeOffFill, RiSearchLine } from "@remixicon/react"
@@ -26,7 +26,7 @@ const inputStyles = tv({
     "disabled:dark:border-gray-700 disabled:dark:bg-gray-800 disabled:dark:text-gray-500",
     // file
     [
-      "file:-my-1.5 file:-ml-2.5 file:h-[36px] file:cursor-pointer file:rounded-l-md file:rounded-r-none file:border-0 file:px-3 file:py-1.5 file:outline-none focus:outline-none disabled:pointer-events-none file:disabled:pointer-events-none",
+      "file:-my-1.5 file:-ml-2.5 file:cursor-pointer file:rounded-l-md file:rounded-r-none file:border-0 file:px-3 file:py-1.5 file:outline-none focus:outline-none disabled:pointer-events-none file:disabled:pointer-events-none",
       "file:border-solid file:border-gray-300 file:bg-gray-50 file:text-gray-500 file:hover:bg-gray-100 file:dark:border-gray-800 file:dark:bg-gray-950 file:hover:dark:bg-gray-900/20 file:disabled:dark:border-gray-700",
       "file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]",
       "file:disabled:bg-gray-100 file:disabled:text-gray-500 file:disabled:dark:bg-gray-800",

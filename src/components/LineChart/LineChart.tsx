@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.1.0]
+// Tremor Raw LineChart [v0.2.1]
 
 "use client"
 
@@ -166,6 +166,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     ...other
   } = props
   const scrollableRef = React.useRef<HTMLInputElement>(null)
+  const scrollButtonsRef = React.useRef<HTMLDivElement>(null)
   const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null)
   const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null)
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
@@ -184,14 +185,16 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const scrollToTest = React.useCallback(
     (direction: "left" | "right") => {
       const element = scrollableRef?.current
+      const scrollButtons = scrollButtonsRef?.current
+      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0
       const width = element?.clientWidth ?? 0
 
       if (element && enableLegendSlider) {
         element.scrollTo({
           left:
             direction === "left"
-              ? element.scrollLeft - width
-              : element.scrollLeft + width,
+              ? element.scrollLeft - width + scrollButtonsWith
+              : element.scrollLeft + width - scrollButtonsWith,
           behavior: "smooth",
         })
         setTimeout(() => {
@@ -396,6 +399,11 @@ const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
   </div>
 )
 
+type TooltipCallbackProps = Pick<
+  ChartTooltipProps,
+  "active" | "payload" | "label"
+>
+
 interface ChartTooltipProps {
   active: boolean | undefined
   payload: any
@@ -507,6 +515,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   xAxisLabel?: string
   yAxisLabel?: string
   legendPosition?: "left" | "center" | "right"
+  tooltipCallback?: (tooltipCallbackContent: TooltipCallbackProps) => void
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
@@ -537,6 +546,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       xAxisLabel,
       yAxisLabel,
       legendPosition = "right",
+      tooltipCallback,
       ...other
     } = props
     const paddingValue = !showXAxis && !showYAxis ? 0 : 20
@@ -699,21 +709,36 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               offset={20}
               position={{ y: 0 }}
-              content={
-                showTooltip ? (
-                  ({ active, payload, label }) => (
-                    <ChartTooltip
-                      active={active}
-                      payload={payload}
-                      label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
-                    />
-                  )
-                ) : (
-                  <></>
-                )
-              }
+              content={({ active, payload, label }) => {
+                React.useEffect(() => {
+                  if (tooltipCallback && payload) {
+                    const filteredPayload = payload.map((item: any) => ({
+                      category: item.dataKey,
+                      value: item.value,
+                      index: item.payload.date,
+                      color: categoryColors.get(
+                        item.dataKey,
+                      ) as AvailableChartColorsKeys,
+                      payload: item.payload,
+                    }))
+                    tooltipCallback({
+                      active,
+                      payload: filteredPayload,
+                      label,
+                    })
+                  }
+                }, [label, active])
+
+                return showTooltip && active ? (
+                  <ChartTooltip
+                    active={active}
+                    payload={payload}
+                    label={label}
+                    valueFormatter={valueFormatter}
+                    categoryColors={categoryColors}
+                  />
+                ) : null
+              }}
             />
             {showLegend ? (
               <RechartsLegend
@@ -875,4 +900,4 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
 LineChart.displayName = "LineChart"
 
-export { LineChart, type LineChartEventProps }
+export { LineChart, type LineChartEventProps, type TooltipCallbackProps }
