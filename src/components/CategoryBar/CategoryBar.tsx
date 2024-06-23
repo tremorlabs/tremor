@@ -162,10 +162,13 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
           </div>
           {marker !== undefined ? (
             <div
-              className="absolute w-2 -translate-x-1/2"
+              className={cx(
+                "absolute w-2 -translate-x-1/2",
+                marker.showAnimation &&
+                  "transform-gpu transition-all duration-300 ease-in-out",
+              )}
               style={{
                 left: `${markerPositionLeft}%`,
-                transition: marker.showAnimation ? "all 1s" : "",
               }}
             >
               {marker.tooltip ? (
