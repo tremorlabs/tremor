@@ -79,14 +79,13 @@ const BarLabels = ({ values }: { values: number[] }) => {
         return (
           <div
             key={`item-${index}`}
-            className="flex items-center justify-end"
+            className="flex items-center justify-end pr-0.5"
             style={{ width: `${widthPositionLeft}%` }}
           >
             <span
               className={cx(
                 showLabel ? "block" : "hidden",
-                "left-1/2 text-sm tabular-nums",
-                `translate-x-[calc(50%-${index === values.length - 2 ? "0" : "2"}px)]`,
+                "translate-x-1/2 text-sm tabular-nums",
               )}
             >
               {prefixSum}
@@ -170,6 +169,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
               )
             })}
           </div>
+
           {marker !== undefined ? (
             <div
               className={cx(
@@ -182,20 +182,25 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
               }}
             >
               {marker.tooltip ? (
-                <Tooltip content={marker.tooltip}>
+                <Tooltip triggerAsChild content={marker.tooltip}>
                   <div
                     aria-hidden="true"
                     className={cx(
-                      "mx-auto h-4 w-1 shrink-0 translate-x-0.5 translate-y-[3px] rounded-full ring-2",
+                      "relative mx-auto h-4 w-1 rounded-full ring-2",
                       "ring-white dark:ring-gray-950",
                       markerBgColor,
                     )}
-                  />
+                  >
+                    <div
+                      aria-hidden
+                      className="absolute size-7 -translate-x-[45%] -translate-y-[15%]"
+                    ></div>
+                  </div>
                 </Tooltip>
               ) : (
                 <div
                   className={cx(
-                    "mx-auto h-4 w-1 shrink-0 rounded-full ring-2",
+                    "mx-auto h-4 w-1 rounded-full ring-2",
                     "ring-white dark:ring-gray-950",
                     markerBgColor,
                   )}

@@ -20,7 +20,7 @@ export const Default: Story = {
 export const WithMarker: Story = {
   args: {
     values: [60, 10, 15, 15],
-    marker: { value: 70 },
+    marker: { value: 65, tooltip: "65" },
     showLabels: true,
   },
 }
