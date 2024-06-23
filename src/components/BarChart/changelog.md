@@ -1,5 +1,11 @@
 # Tremor Raw BarChart Changelog
 
+## 0.1.2
+
+### Changes
+
+- Chore: Padding if no y-axis and startEndOnly
+
 ## 0.1.1
 
 ### Changes

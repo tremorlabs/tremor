@@ -1,4 +1,4 @@
-// Tremor Raw BarChart [v0.1.1]
+// Tremor Raw BarChart [v0.1.2]
 
 "use client"
 
@@ -606,7 +606,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       tooltipCallback,
       ...other
     } = props
-    const paddingValue = !showXAxis && !showYAxis ? 0 : 20
+    const paddingValue =
+      (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
     const [legendHeight, setLegendHeight] = React.useState(60)
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,

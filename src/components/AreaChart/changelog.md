@@ -1,5 +1,12 @@
 # Tremor Raw AreaChart Changelog
 
+## 0.2.3
+
+### Changes
+
+- Chore: Gradient fill values
+- Chore: Padding if no y-axis and startEndOnly
+
 ## 0.2.2
 
 ### Changes

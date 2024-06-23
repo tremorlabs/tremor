@@ -1,5 +1,11 @@
 # Tremor Raw LineChart Changelog
 
+## 0.2.2
+
+### Changes
+
+- Chore: Padding if no y-axis and startEndOnly
+
 ## 0.2.1
 
 ### Changes
