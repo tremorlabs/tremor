@@ -164,7 +164,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
     const isDonut = variant === "donut"
     const parsedLabelInput = parseLabelInput(label, valueFormatter, data, value)
 
-    const categories = [...new Set(data.map((item) => item[category]))]
+    const categories = Array.from(new Set(data.map((item) => item[category])))
     const categoryColors = constructCategoryColors(categories, colors)
 
     const handleShapeClick = (
