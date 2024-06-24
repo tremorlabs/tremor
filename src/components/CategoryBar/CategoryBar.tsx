@@ -114,7 +114,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
       values = [],
       colors = AvailableChartColors,
       marker,
-      showLabels = true,
+      showLabels = false,
       className,
       ...props
     },
