@@ -1,4 +1,4 @@
-// Tremor Raw AreaChart [v0.2.2]
+// Tremor Raw AreaChart [v0.2.3]
 
 "use client"
 
@@ -554,7 +554,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       fill = "gradient",
       ...other
     } = props
-    const paddingValue = !showXAxis && !showYAxis ? 0 : 20
+    const paddingValue =
+      (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
     const [legendHeight, setLegendHeight] = React.useState(60)
     const [activeDot, setActiveDot] = React.useState<ActiveDot | undefined>(
       undefined,
@@ -581,7 +582,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       category: string
     }) => {
       const stopOpacity =
-        activeDot || (activeLegend && activeLegend !== category) ? 0.15 : 0.4
+        activeDot || (activeLegend && activeLegend !== category) ? 0.1 : 0.3
 
       switch (fillType) {
         case "none":
