@@ -93,6 +93,6 @@ const TabNavigationLink = React.forwardRef<
     </NavigationMenuPrimitives.Link>
   </NavigationMenuPrimitives.Item>
 ))
-TabNavigation.displayName = "TabNavigation"
+TabNavigationLink.displayName = "TabNavigationLink"
 
 export { TabNavigation, TabNavigationLink }
