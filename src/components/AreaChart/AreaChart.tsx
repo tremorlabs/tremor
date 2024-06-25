@@ -495,8 +495,8 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   yAxisLabel?: string
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
-  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   fill?: "gradient" | "solid" | "none"
+  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
 }
 
@@ -529,8 +529,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       yAxisLabel,
       type = "default",
       legendPosition = "right",
-      tooltipCallback,
       fill = "gradient",
+      tooltipCallback,
       customTooltip,
       ...other
     } = props

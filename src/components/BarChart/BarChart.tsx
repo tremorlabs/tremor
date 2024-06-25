@@ -1,4 +1,4 @@
-// Tremor Raw BarChart [v0.1.2]
+// Tremor Raw BarChart [v0.2.0]
 
 "use client"
 
@@ -28,7 +28,8 @@ import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
 
 //#region Shape
-export function deepEqual(obj1: any, obj2: any) {
+
+function deepEqual(obj1: any, obj2: any) {
   if (obj1 === obj2) return true
 
   if (
@@ -420,53 +421,20 @@ const ChartLegend = (
 
 //#region Tooltip
 
-interface ChartTooltipRowProps {
-  value: string
-  name: string
-  color: string
+type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">
+
+type PayloadItem = {
+  category: string
+  value: number
+  index: string
+  color: AvailableChartColorsKeys
+  payload: any
 }
-
-const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
-  <div className="flex items-center justify-between space-x-8">
-    <div className="flex items-center space-x-2">
-      <span
-        aria-hidden="true"
-        className={cx("size-2 shrink-0 rounded-sm", color)}
-      />
-      <p
-        className={cx(
-          // commmon
-          "whitespace-nowrap text-right",
-          // text color
-          "text-gray-700 dark:text-gray-300",
-        )}
-      >
-        {name}
-      </p>
-    </div>
-    <p
-      className={cx(
-        // base
-        "whitespace-nowrap text-right font-medium tabular-nums",
-        // text color
-        "text-gray-900 dark:text-gray-50",
-      )}
-    >
-      {value}
-    </p>
-  </div>
-)
-
-type TooltipCallbackProps = Pick<
-  ChartTooltipProps,
-  "active" | "payload" | "label"
->
 
 interface ChartTooltipProps {
   active: boolean | undefined
-  payload: any
+  payload: PayloadItem[]
   label: string
-  categoryColors: Map<string, string>
   valueFormatter: (value: number) => string
 }
 
@@ -474,12 +442,9 @@ const ChartTooltip = ({
   active,
   payload,
   label,
-  categoryColors,
   valueFormatter,
 }: ChartTooltipProps) => {
-  if (active && payload) {
-    const filteredPayload = payload.filter((item: any) => item.type !== "none")
-
+  if (active && payload && payload.length) {
     return (
       <div
         className={cx(
@@ -491,12 +456,7 @@ const ChartTooltip = ({
           "bg-white dark:bg-gray-950",
         )}
       >
-        <div
-          className={cx(
-            // base
-            "border-b border-inherit px-4 py-2",
-          )}
-        >
+        <div className={cx("border-b border-inherit px-4 py-2")}>
           <p
             className={cx(
               // base
@@ -508,24 +468,43 @@ const ChartTooltip = ({
             {label}
           </p>
         </div>
-
         <div className={cx("space-y-1 px-4 py-2")}>
-          {filteredPayload.map(
-            (
-              { value, name }: { value: number; name: string },
-              index: number,
-            ) => (
-              <ChartTooltipRow
-                key={`id-${index}`}
-                value={valueFormatter(value)}
-                name={name}
-                color={getColorClassName(
-                  categoryColors.get(name) as AvailableChartColorsKeys,
-                  "bg",
+          {payload.map(({ value, category, color }, index) => (
+            <div
+              key={`id-${index}`}
+              className="flex items-center justify-between space-x-8"
+            >
+              <div className="flex items-center space-x-2">
+                <span
+                  aria-hidden="true"
+                  className={cx(
+                    "size-2 shrink-0 rounded-sm",
+                    getColorClassName(color, "bg"),
+                  )}
+                />
+                <p
+                  className={cx(
+                    // base
+                    "whitespace-nowrap text-right",
+                    // text color
+                    "text-gray-700 dark:text-gray-300",
+                  )}
+                >
+                  {category}
+                </p>
+              </div>
+              <p
+                className={cx(
+                  // base
+                  "whitespace-nowrap text-right font-medium tabular-nums",
+                  // text color
+                  "text-gray-900 dark:text-gray-50",
                 )}
-              />
-            ),
-          )}
+              >
+                {valueFormatter(value)}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     )
@@ -570,7 +549,8 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   layout?: "vertical" | "horizontal"
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
-  tooltipCallback?: (tooltipCallbackContent: TooltipCallbackProps) => void
+  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
+  customTooltip?: React.ComponentType<TooltipProps>
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -604,8 +584,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       type = "default",
       legendPosition = "right",
       tooltipCallback,
+      customTooltip,
       ...other
     } = props
+    const CustomTooltip = customTooltip
     const paddingValue =
       (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
     const [legendHeight, setLegendHeight] = React.useState(60)
@@ -799,33 +781,43 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 x: layout === "horizontal" ? undefined : yAxisWidth + 20,
               }}
               content={({ active, payload, label }) => {
-                React.useEffect(() => {
-                  if (tooltipCallback && payload) {
-                    const filteredPayload = payload.map((item: any) => ({
+                const cleanPayload = payload
+                  ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,
-                      index: item.payload.date,
+                      index: item.payload[index],
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
                       payload: item.payload,
                     }))
+                  : []
+
+                React.useEffect(() => {
+                  if (tooltipCallback) {
                     tooltipCallback({
                       active,
-                      payload: filteredPayload,
+                      payload: cleanPayload,
                       label,
                     })
                   }
                 }, [label, active])
 
                 return showTooltip && active ? (
-                  <ChartTooltip
-                    active={active}
-                    payload={payload}
-                    label={label}
-                    valueFormatter={valueFormatter}
-                    categoryColors={categoryColors}
-                  />
+                  !!CustomTooltip ? (
+                    <CustomTooltip
+                      active={active}
+                      payload={cleanPayload}
+                      label={label}
+                    />
+                  ) : (
+                    <ChartTooltip
+                      active={active}
+                      payload={cleanPayload}
+                      label={label}
+                      valueFormatter={valueFormatter}
+                    />
+                  )
                 ) : null
               }}
             />
@@ -881,4 +873,4 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
 BarChart.displayName = "BarChart"
 
-export { BarChart, type BarChartEventProps, type TooltipCallbackProps }
+export { BarChart, type BarChartEventProps, type TooltipProps }
