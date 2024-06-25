@@ -37,6 +37,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { Color, ValueFormatter, IntervalType } from "../../../lib/inputTypes";
+import { useInternalState } from "hooks";
 
 export type ScatterChartValueFormatter = {
   x?: ValueFormatter;
@@ -83,6 +84,9 @@ export interface ScatterChartProps
   tickGap?: number;
   xAxisLabel?: string;
   yAxisLabel?: string;
+  defaultDisplayedCategories?: string[];
+  displayedCategories?: string[];
+  onDisplayCategoriesChange?: (categories: string[]) => void;
 }
 
 const renderShape = (props: any, activeNode: any | undefined, activeLegend: string | undefined) => {
@@ -145,12 +149,16 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    defaultDisplayedCategories: inputDefaultDisplayedCategories,
+    displayedCategories: inputDisplayedCategories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
   const [legendHeight, setLegendHeight] = useState(60);
   const [activeNode, setActiveNode] = React.useState<any | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
+
   const hasOnValueChange = !!onValueChange;
 
   function onNodeClick(data: any, index: number, event: React.MouseEvent) {
@@ -188,6 +196,10 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
 
   const categories = constructCategories(data, category);
   const categoryColors = constructCategoryColors(categories, colors);
+  const [displayedCategories, setDisplayedCategories] = useInternalState(
+    inputDefaultDisplayedCategories || categories,
+    inputDisplayedCategories,
+  );
 
   //maybe rename getYAxisDomain to getAxisDomain
   const xAxisDomain = getYAxisDomain(autoMinXValue, minXValue, maxXValue);
@@ -361,7 +373,17 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   fillOpacity={showOpacity ? 0.7 : 1}
                   key={cat}
                   name={cat}
-                  data={category ? data.filter((d) => d[category] === cat) : data}
+                  //   data={category ? data.filter((d) => d[category] === cat) : data}
+                  data={
+                    category
+                      ? data.filter(
+                          (d) =>
+                            displayedCategories &&
+                            displayedCategories.includes(d[category]) &&
+                            d[category] === cat,
+                        )
+                      : data
+                  }
                   isAnimationActive={showAnimation}
                   animationDuration={animationDuration}
                   shape={(props: any) => renderShape(props, activeNode, activeLegend)}
@@ -379,9 +401,22 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
+
+                      const newDisplayedCategories =
+                        displayedCategories && displayedCategories.includes(clickedLegendItem)
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [
+                              ...(displayedCategories ? displayedCategories : []),
+                              clickedLegendItem,
+                            ];
+                      onDisplayCategoriesChange?.(newDisplayedCategories);
+                      setDisplayedCategories(newDisplayedCategories);
+                    },
                     enableLegendSlider,
                   )
                 }

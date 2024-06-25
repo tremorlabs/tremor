@@ -197,3 +197,30 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const DefaultDisplayedCategories: Story = {
+  args: {
+    defaultDisplayedCategories: ["Location A"],
+  },
+};
+
+export const DisplayedCategories: Story = {
+  args: {
+    displayedCategories: ["Location A"],
+  },
+};
+
+export const ControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Location A"]);
+    return (
+      <ScatterChart
+        {...args}
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};

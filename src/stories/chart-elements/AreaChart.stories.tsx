@@ -364,3 +364,30 @@ export const AxisLabels: Story = {
     yAxisLabel: "Amount (USD)",
   },
 };
+
+export const DefaultDisplayedCategories: Story = {
+  args: {
+    defaultDisplayedCategories: ["Sales"],
+  },
+};
+
+export const DisplayedCategories: Story = {
+  args: {
+    displayedCategories: ["Sales"],
+  },
+};
+
+export const ControlledDisplayedCategories: Story = {
+  render: (args) => {
+    const [displayedCategories, setDisplayedCategories] = React.useState<string[]>(["Sales"]);
+    return (
+      <AreaChart
+        {...args}
+        displayedCategories={displayedCategories}
+        onDisplayCategoriesChange={(v) => {
+          setDisplayedCategories(v);
+        }}
+      />
+    );
+  },
+};
