@@ -64,6 +64,7 @@ export interface ScatterChartProps
   showTooltip?: boolean;
   showLegend?: boolean;
   showGridLines?: boolean;
+  showAxisLine?: boolean;
   autoMinXValue?: boolean;
   minXValue?: number;
   maxXValue?: number;
@@ -129,6 +130,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
     showTooltip = true,
     showLegend = true,
     showGridLines = true,
+    showAxisLine = false,
     autoMinXValue = false,
     minXValue,
     maxXValue,
@@ -246,10 +248,16 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 tickLine={false}
                 tickFormatter={valueFormatter.x}
-                axisLine={false}
+                axisLine={showAxisLine}
                 minTickGap={tickGap}
                 domain={xAxisDomain as AxisDomain}
                 allowDataOverflow={true}
@@ -272,7 +280,7 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
               <YAxis
                 width={yAxisWidth}
                 hide={!showYAxis}
-                axisLine={false}
+                axisLine={showAxisLine}
                 tickLine={false}
                 dataKey={y}
                 type="number"
@@ -289,6 +297,12 @@ const ScatterChart = React.forwardRef<HTMLDivElement, ScatterChartProps>((props,
                   "fill-tremor-content",
                   // dark
                   "dark:fill-dark-tremor-content",
+                  // common
+                  "stroke-1",
+                  // light
+                  "stroke-tremor-border",
+                  // dark
+                  "dark:stroke-dark-tremor-border",
                 )}
                 allowDecimals={allowDecimals}
                 allowDataOverflow={true}
