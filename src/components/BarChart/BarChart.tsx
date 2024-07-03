@@ -30,7 +30,7 @@ import { getYAxisDomain } from "../../utils/getYAxisDomain"
 
 //#region Shape
 
-function deepEqual(obj1: any, obj2: any) {
+function deepEqual<T>(obj1: T, obj2: T): boolean {
   if (obj1 === obj2) return true
 
   if (
@@ -38,11 +38,12 @@ function deepEqual(obj1: any, obj2: any) {
     typeof obj2 !== "object" ||
     obj1 === null ||
     obj2 === null
-  )
+  ) {
     return false
+  }
 
-  const keys1 = Object.keys(obj1)
-  const keys2 = Object.keys(obj2)
+  const keys1 = Object.keys(obj1) as Array<keyof T>
+  const keys2 = Object.keys(obj2) as Array<keyof T>
 
   if (keys1.length !== keys2.length) return false
 
