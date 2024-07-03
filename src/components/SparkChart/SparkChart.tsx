@@ -1,4 +1,5 @@
 // Tremor Raw Spark Chart [v0.1.1]
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -39,6 +40,7 @@ interface SparkAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "default" | "stacked" | "percent"
   fill?: "gradient" | "solid" | "none"
 }
+
 const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
   (props, forwardedRef) => {
     const {

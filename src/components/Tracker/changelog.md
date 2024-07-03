@@ -1,5 +1,11 @@
 # Tremor Raw Tracker Changelog
 
+## 0.1.1
+
+### Changes
+
+- Fix: Block Displayname
+
 ## 0.1.0
 
 ### Changes
