@@ -1,4 +1,5 @@
 // Tremor Raw LineChart [v0.3.0]
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -543,6 +544,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
+    const prevLabelRef = React.useRef<string | undefined>(undefined)
 
     function onDotClick(itemData: any, event: React.MouseEvent) {
       event.stopPropagation()
@@ -704,18 +707,18 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                     }))
                   : []
 
-                React.useEffect(() => {
-                  if (tooltipCallback) {
-                    tooltipCallback({
-                      active,
-                      payload: cleanPayload,
-                      label,
-                    })
-                  }
-                }, [label, active])
+                if (
+                  tooltipCallback &&
+                  (active !== prevActiveRef.current ||
+                    label !== prevLabelRef.current)
+                ) {
+                  tooltipCallback({ active, payload: cleanPayload, label })
+                  prevActiveRef.current = active
+                  prevLabelRef.current = label
+                }
 
                 return showTooltip && active ? (
-                  !!CustomTooltip ? (
+                  CustomTooltip ? (
                     <CustomTooltip
                       active={active}
                       payload={cleanPayload}

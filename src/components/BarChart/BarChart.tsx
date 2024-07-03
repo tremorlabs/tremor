@@ -1,4 +1,5 @@
 // Tremor Raw BarChart [v0.2.0]
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -599,6 +600,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
     const stacked = type === "stacked" || type === "percent"
+
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
+    const prevLabelRef = React.useRef<string | undefined>(undefined)
+
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`
     }
@@ -793,18 +798,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     }))
                   : []
 
-                React.useEffect(() => {
-                  if (tooltipCallback) {
-                    tooltipCallback({
-                      active,
-                      payload: cleanPayload,
-                      label,
-                    })
-                  }
-                }, [label, active])
+                if (
+                  tooltipCallback &&
+                  (active !== prevActiveRef.current ||
+                    label !== prevLabelRef.current)
+                ) {
+                  tooltipCallback({ active, payload: cleanPayload, label })
+                  prevActiveRef.current = active
+                  prevLabelRef.current = label
+                }
 
                 return showTooltip && active ? (
-                  !!CustomTooltip ? (
+                  CustomTooltip ? (
                     <CustomTooltip
                       active={active}
                       payload={cleanPayload}

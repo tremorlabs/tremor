@@ -1,4 +1,5 @@
 // Tremor Raw AreaChart [v0.3.0]
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -551,6 +552,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
     const stacked = type === "stacked" || type === "percent"
     const areaId = React.useId()
 
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
+    const prevLabelRef = React.useRef<string | undefined>(undefined)
+
     const getFillContent = ({
       fillType,
       activeDot,
@@ -752,18 +756,18 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     }))
                   : []
 
-                React.useEffect(() => {
-                  if (tooltipCallback) {
-                    tooltipCallback({
-                      active,
-                      payload: cleanPayload,
-                      label,
-                    })
-                  }
-                }, [label, active])
+                if (
+                  tooltipCallback &&
+                  (active !== prevActiveRef.current ||
+                    label !== prevLabelRef.current)
+                ) {
+                  tooltipCallback({ active, payload: cleanPayload, label })
+                  prevActiveRef.current = active
+                  prevLabelRef.current = label
+                }
 
                 return showTooltip && active ? (
-                  !!CustomTooltip ? (
+                  CustomTooltip ? (
                     <CustomTooltip
                       active={active}
                       payload={cleanPayload}
