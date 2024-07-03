@@ -297,10 +297,11 @@ const PresetContainer = <TPreset extends Preset, TValue>({
   // Currently selected preset
   currentValue,
 }: PresetContainerProps<TPreset, TValue>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isDateRangePresets = (preset: any): preset is DateRangePreset => {
     return "dateRange" in preset
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isDatePresets = (preset: any): preset is DatePreset => {
     return "date" in preset
   }

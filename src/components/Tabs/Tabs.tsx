@@ -14,6 +14,7 @@ const Tabs = (
 ) => {
   return <TabsPrimitives.Root {...props} />
 }
+
 Tabs.displayName = "Tabs"
 
 type TabsListVariant = "line" | "solid"
