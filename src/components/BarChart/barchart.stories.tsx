@@ -285,7 +285,7 @@ export const WithTooltipCallback: Story = {
           data={chartdata}
           index="date"
           categories={["SolarCells", "Glass"]}
-          tooltipCallback={(cooltipContent) => setCallBack(cooltipContent)}
+          tooltipCallback={(tooltipContent) => setCallBack(tooltipContent)}
           showTooltip={checked}
         />
         <pre>{JSON.stringify(callback, null, 2)}</pre>
@@ -325,7 +325,7 @@ export const WithTypePercentVertical: Story = {
   },
 }
 
-export const stacked: Story = {
+export const Stacked: Story = {
   args: {
     type: "stacked",
   },
