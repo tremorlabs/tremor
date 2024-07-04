@@ -90,7 +90,7 @@ const ChartTooltip = ({
                 <span
                   aria-hidden="true"
                   className={cx(
-                    "size-2 shrink-0 rounded-sm",
+                    "size-2 shrink-0 rounded-full",
                     getColorClassName(color, "bg"),
                   )}
                 />
