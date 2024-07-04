@@ -1,4 +1,4 @@
-// Tremor Raw Date Picker [v1.0.1]
+// Tremor Raw Date Picker [v1.0.2]
 
 "use client"
 
@@ -266,7 +266,7 @@ CalendarPopover.displayName = "DatePicker.CalendarPopover"
 //#region Preset
 // ============================================================================
 
-export type DateRange = {
+type DateRange = {
   from: Date | undefined
   to?: Date | undefined
 }
@@ -1202,4 +1202,10 @@ const DateRangePicker = ({ presets, ...props }: RangeDatePickerProps) => {
 
 DateRangePicker.displayName = "DateRangePicker"
 
-export { DatePicker, DateRangePicker, type DatePreset, type DateRangePreset }
+export {
+  DatePicker,
+  DateRangePicker,
+  type DatePreset,
+  type DateRangePreset,
+  type DateRange,
+}

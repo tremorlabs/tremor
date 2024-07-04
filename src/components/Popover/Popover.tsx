@@ -1,4 +1,4 @@
-// Tremor Raw Popover [v0.0.1]
+// Tremor Raw Popover [v0.0.2]
 
 import React from "react"
 import * as PopoverPrimitives from "@radix-ui/react-popover"

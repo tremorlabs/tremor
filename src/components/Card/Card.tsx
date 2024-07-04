@@ -1,4 +1,4 @@
-// Tremor Raw Card [v0.0.0]
+// Tremor Raw Card [v0.0.1]
 
 import React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -17,7 +17,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={forwardedRef}
         className={cx(
           // base
-          "relative w-full rounded-md border p-6 text-left shadow-sm",
+          "relative w-full rounded-lg border p-6 text-left shadow-sm",
           // background color
           "bg-white dark:bg-[#090E1A]",
           // border color

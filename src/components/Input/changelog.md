@@ -4,6 +4,12 @@
 
 ### Changes
 
+- Fix: Default height
+
+## 1.0.1
+
+### Changes
+
 - Fix: Harmonised input height type: file
 
 ## 1.0.0

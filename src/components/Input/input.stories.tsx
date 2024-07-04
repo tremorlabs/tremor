@@ -14,7 +14,13 @@ export default meta
 type Story = StoryObj<typeof Input>
 
 export const Default: Story = {
-  render: () => <Input />,
+  render: () => (
+    <div className="flex">
+      <Input />
+      <Input type="password" />
+      <Input type="file" />
+    </div>
+  ),
 }
 
 export const Disabled: Story = {

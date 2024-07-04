@@ -1,5 +1,11 @@
 # Tremor Raw Calendar Changelog
 
+## 0.0.3
+
+### Changes
+
+- Fix: Default height
+
 ## 0.0.2
 
 ### Changes
