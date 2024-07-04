@@ -63,7 +63,7 @@ const RadioCardIndicator = React.forwardRef<
         // base
         "relative flex size-4 shrink-0 appearance-none items-center justify-center rounded-full border shadow-sm outline-none",
         // border color
-        "border-gray-300 dark:border-gray-800",
+        "border-gray-200 dark:border-gray-800",
         // background color
         "bg-white dark:bg-gray-950",
         // checked

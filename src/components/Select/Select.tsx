@@ -31,7 +31,7 @@ const selectTriggerStyles = [
     // text color
     "text-gray-900 dark:text-gray-50",
     // placeholder
-    "data-[placeholder]:text-gray-400 data-[placeholder]:dark:text-gray-500",
+    "data-[placeholder]:text-gray-500 data-[placeholder]:dark:text-gray-500",
     // background color
     "bg-white dark:bg-gray-950",
     // hover
@@ -145,7 +145,7 @@ const SelectContent = React.forwardRef<
           // text color
           "text-gray-900 dark:text-gray-50",
           // border color
-          "border-gray-300 dark:border-gray-800",
+          "border-gray-200 dark:border-gray-800",
           // transition
           "will-change-[transform,opacity]",
           // "data-[state=open]:animate-slideDownAndFade",

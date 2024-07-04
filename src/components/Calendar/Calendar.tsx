@@ -51,7 +51,7 @@ const NavigationButton = React.forwardRef<
           "text-gray-600 hover:text-gray-800",
           "dark:text-gray-400 hover:dark:text-gray-200",
           // border color
-          "border-gray-300 dark:border-gray-700",
+          "border-gray-300 dark:border-gray-800",
           // background color
           "hover:bg-gray-50 active:bg-gray-100",
           "hover:dark:bg-gray-900 active:dark:bg-gray-800",
