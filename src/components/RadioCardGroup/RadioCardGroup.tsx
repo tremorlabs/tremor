@@ -35,7 +35,7 @@ const RadioCardItem = React.forwardRef<
         // background color
         "bg-white dark:bg-gray-950",
         // border color
-        "border-gray-200 dark:border-gray-800",
+        "border-gray-300 dark:border-gray-800",
         "data-[state=checked]:border-blue-500",
         "data-[state=checked]:dark:border-blue-500",
         // disabled
