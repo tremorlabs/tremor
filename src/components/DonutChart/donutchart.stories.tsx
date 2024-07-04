@@ -7,32 +7,32 @@ import { DonutChart, TooltipProps } from "./DonutChart"
 
 const chartdata = [
   {
-    category: "SolarCells",
-    value: 4890,
+    name: "SolarCells",
+    amount: 4890,
   },
   {
-    category: "Glass",
-    value: 2103,
+    name: "Glass",
+    amount: 2103,
   },
   {
-    category: "JunctionBox",
-    value: 2050,
+    name: "JunctionBox",
+    amount: 2050,
   },
   {
-    category: "Adhesive",
-    value: 1300,
+    name: "Adhesive",
+    amount: 1300,
   },
   {
-    category: "BackSheet",
-    value: 1100,
+    name: "BackSheet",
+    amount: 1100,
   },
   {
-    category: "Frame",
-    value: 700,
+    name: "Frame",
+    amount: 700,
   },
   {
-    category: "Encapsulant",
-    value: 200,
+    name: "Encapsulant",
+    amount: 200,
   },
 ]
 
@@ -49,8 +49,8 @@ export const Default: Story = {
   render: () => (
     <DonutChart
       data-testid="donut-chart"
-      value="value"
-      category="category"
+      value="amount"
+      category="name"
       data={chartdata}
     />
   ),
@@ -89,7 +89,7 @@ export const LongValues: Story = {
   args: {
     data: chartdata.map((dataPoint) => ({
       ...dataPoint,
-      value: dataPoint.value * 10000000,
+      value: dataPoint.amount * 10000000,
     })),
   },
 }
