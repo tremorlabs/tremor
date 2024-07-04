@@ -39,7 +39,7 @@ const chartdata = [
 const meta: Meta<typeof DonutChart> = {
   title: "visualization/DonutChart",
   component: DonutChart,
-  args: { value: "value", category: "category", data: chartdata },
+  args: { category: "name", value: "amount", data: chartdata },
 }
 
 export default meta
@@ -49,8 +49,8 @@ export const Default: Story = {
   render: () => (
     <DonutChart
       data-testid="donut-chart"
-      value="amount"
       category="name"
+      value="amount"
       data={chartdata}
     />
   ),
@@ -61,7 +61,7 @@ export const ValueFormatter: Story = {
 }
 
 export const CustomLabel: Story = {
-  args: { label: "Custom Label" },
+  args: { showLabel: true, label: "Custom Label" },
 }
 
 export const LabelDisabled: Story = {
@@ -89,7 +89,7 @@ export const LongValues: Story = {
   args: {
     data: chartdata.map((dataPoint) => ({
       ...dataPoint,
-      value: dataPoint.amount * 10000000,
+      amount: dataPoint.amount * 10000000,
     })),
   },
 }
@@ -98,14 +98,16 @@ export const VariantPie: Story = {
   args: { variant: "pie" },
 }
 
-export const OnValueChangeExample: Story = {
-  args: { onValueChange: (value) => alert(JSON.stringify(value)) },
+export const WithOnValueChange: Story = {
+  args: {
+    onValueChange: console.log,
+  },
 }
 
-export const OnValueChangePieExample: Story = {
+export const OnValueChangePie: Story = {
   args: {
     variant: "pie",
-    onValueChange: (value) => alert(JSON.stringify(value)),
+    onValueChange: console.log,
   },
 }
 
@@ -122,8 +124,8 @@ export const WithTooltipCallback: Story = {
 
         <DonutChart
           data={chartdata}
-          value="value"
-          category="category"
+          category="name"
+          value="amount"
           tooltipCallback={(tooltipContent) => setCallBack(tooltipContent)}
           showTooltip={checked}
         />
@@ -135,8 +137,8 @@ export const WithTooltipCallback: Story = {
 
 export const CustomTooltip: Story = {
   args: {
-    category: "category",
-    value: "value",
+    category: "name",
+    value: "amount",
     customTooltip: (props: TooltipProps) => {
       const { payload, active } = props
       if (!active || !payload || payload.length === 0) return null

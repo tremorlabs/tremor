@@ -200,7 +200,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
     const categoryColors = constructCategoryColors(categories, colors)
 
     const prevActiveRef = React.useRef<boolean | undefined>(undefined)
-    const prevLabelRef = React.useRef<string | undefined>(undefined)
 
     const handleShapeClick = (
       data: any,
@@ -291,13 +290,13 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
                       }))
                     : []
 
-                  if (tooltipCallback && active) {
+                  console.log(cleanPayload)
+                  if (tooltipCallback && active !== prevActiveRef.current) {
                     tooltipCallback({
                       active,
                       payload: cleanPayload,
                     })
                     prevActiveRef.current = active
-                    prevLabelRef.current = label
                   }
 
                   return showTooltip && active ? (
