@@ -230,7 +230,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
     }, [activeIndex])
 
     return (
-      <div ref={forwardedRef} className={cx("h-40", className)} {...other}>
+      <div ref={forwardedRef} className={cx("h-40 w-40", className)} {...other}>
         <ResponsiveContainer className="size-full">
           <ReChartsDonutChart
             onClick={
