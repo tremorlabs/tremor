@@ -1,4 +1,4 @@
-// Tremor Raw Radio Card [v0.0.0]
+// Tremor Raw Radio Card [v0.0.1]
 
 import React from "react"
 import * as RadioGroupPrimitives from "@radix-ui/react-radio-group"
@@ -19,6 +19,7 @@ const RadioCardGroup = React.forwardRef<
     />
   )
 })
+
 RadioCardGroup.displayName = "RadioCardGroup"
 
 const RadioCardItem = React.forwardRef<
@@ -34,7 +35,7 @@ const RadioCardItem = React.forwardRef<
         // background color
         "bg-white dark:bg-gray-950",
         // border color
-        "border-gray-200 dark:border-gray-800",
+        "border-gray-300 dark:border-gray-800",
         "data-[state=checked]:border-blue-500",
         "data-[state=checked]:dark:border-blue-500",
         // disabled
@@ -49,6 +50,7 @@ const RadioCardItem = React.forwardRef<
     </RadioGroupPrimitives.Item>
   )
 })
+
 RadioCardItem.displayName = "RadioCardItem"
 
 const RadioCardIndicator = React.forwardRef<
@@ -61,7 +63,7 @@ const RadioCardIndicator = React.forwardRef<
         // base
         "relative flex size-4 shrink-0 appearance-none items-center justify-center rounded-full border shadow-sm outline-none",
         // border color
-        "border-gray-300 dark:border-gray-800",
+        "border-gray-200 dark:border-gray-800",
         // background color
         "bg-white dark:bg-gray-950",
         // checked
@@ -93,6 +95,7 @@ const RadioCardIndicator = React.forwardRef<
     </div>
   )
 })
+
 RadioCardIndicator.displayName = "RadioCardIndicator"
 
 export { RadioCardGroup, RadioCardIndicator, RadioCardItem }

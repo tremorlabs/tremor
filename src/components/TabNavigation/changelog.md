@@ -4,4 +4,4 @@
 
 ### Changes
 
-- Fix: Link dislay name
+- Fix: TabNavigationLink display name

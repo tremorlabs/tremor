@@ -1,4 +1,4 @@
-// Tremor Raw Tracker [v0.1.0]
+// Tremor Raw Tracker [v0.1.1]
 
 import React from "react"
 import * as HoverCardPrimitives from "@radix-ui/react-hover-card"
@@ -59,6 +59,8 @@ const Block = ({
     </HoverCardPrimitives.Root>
   )
 }
+
+Block.displayName = "Block"
 
 interface TrackerProps extends React.HTMLAttributes<HTMLDivElement> {
   data: TrackerBlockProps[]

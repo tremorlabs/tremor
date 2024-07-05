@@ -1,5 +1,11 @@
 # Tremor Raw BarChart Changelog
 
+## 0.2.0
+
+### Changes
+
+- Feat: customTooltip
+
 ## 0.1.2
 
 ### Changes

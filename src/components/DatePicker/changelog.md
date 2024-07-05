@@ -1,5 +1,12 @@
 # Tremor Raw Date Picker Changelog
 
+## 1.0.2
+
+### Changes
+
+- Fix: One export
+- Fix: Border style
+
 ## 1.0.1
 
 ### Changes

@@ -1,5 +1,11 @@
 # Tremor Raw Input Changelog
 
+## 1.0.2
+
+### Changes
+
+- Fix: Default height
+
 ## 1.0.1
 
 ### Changes

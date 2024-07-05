@@ -304,7 +304,6 @@ export const WithIcons: Story = {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            {/* @SEV: tracking-widest is okay until you have to use words, e.g. CONTROL + Q */}
             <DropdownMenuItem>Log out all</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

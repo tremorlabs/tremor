@@ -1,4 +1,4 @@
-// Tremor Raw Button [v0.1.0]
+// Tremor Raw Button [v0.1.1]
 
 import React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -11,7 +11,7 @@ import { focusRing } from "../../utils/focusRing"
 const buttonVariants = tv({
   base: [
     // base
-    "relative inline-flex items-center justify-center whitespace-nowrap rounded-md border px-3 py-1.5 text-center text-sm font-medium shadow-sm transition-all duration-100 ease-in-out",
+    "relative inline-flex items-center justify-center whitespace-nowrap rounded-md border px-3 py-2 text-center text-sm font-medium shadow-sm transition-all duration-100 ease-in-out",
     // disabled
     "disabled:pointer-events-none disabled:shadow-none",
     // focus
@@ -141,5 +141,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     )
   },
 )
+
+Button.displayName = "Button"
 
 export { Button, buttonVariants, type ButtonProps }

@@ -1,5 +1,11 @@
 # Tremor Raw LineChart Changelog
 
+## 0.3.0
+
+### Changes
+
+- Feat: customTooltip
+
 ## 0.2.2
 
 ### Changes
