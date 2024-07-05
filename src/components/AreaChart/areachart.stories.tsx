@@ -315,7 +315,7 @@ export const WithTooltipCallback: Story = {
           tooltipCallback={(cooltipContent) => setCallBack(cooltipContent)}
           showTooltip={checked}
         />
-        <pre>{JSON.stringify(callback?.payload, null, 2)}</pre>
+        <pre>{JSON.stringify(callback, null, 2)}</pre>
       </>
     )
   },
