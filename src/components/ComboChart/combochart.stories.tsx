@@ -128,7 +128,11 @@ const chartdata = [
 const meta: Meta<typeof ComboChart> = {
   title: "visualization/ComboChart",
   component: ComboChart,
-  args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Glass"],
+  },
 }
 
 export default meta
@@ -140,7 +144,7 @@ export const Default: Story = {
       data-testid="combo-chart"
       data={chartdata}
       index="date"
-      categories={["SolarCells", "Glass"]}
+      categories={["SolarCells"]}
     />
   ),
 }
