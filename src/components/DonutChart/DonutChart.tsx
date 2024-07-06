@@ -223,12 +223,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
       }
     }
 
-    React.useEffect(() => {
-      document.querySelectorAll(".recharts-pie-sector").forEach((sector) => {
-        sector.setAttribute("style", "outline: none")
-      })
-    }, [activeIndex])
-
     return (
       <div ref={forwardedRef} className={cx("h-40 w-40", className)} {...other}>
         <ResponsiveContainer className="size-full">
@@ -256,7 +250,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             )}
             <Pie
               className={cx(
-                "stroke-white dark:stroke-gray-950",
+                "stroke-white dark:stroke-gray-950 [&_.recharts-pie-sector]:outline-none",
                 onValueChange ? "cursor-pointer" : "cursor-default",
               )}
               data={parseData(data, categoryColors, category)}
