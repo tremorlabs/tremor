@@ -1,4 +1,4 @@
-// Tremor Raw Select [v0.0.0]
+// Tremor Raw Select [v0.0.2]
 
 import React from "react"
 import * as SelectPrimitives from "@radix-ui/react-select"
@@ -25,13 +25,13 @@ SelectValue.displayName = "SelectValue"
 const selectTriggerStyles = [
   cx(
     // base
-    "group/trigger flex w-full select-none items-center justify-between truncate rounded-md border px-3 py-2 shadow-sm outline-none transition sm:text-sm",
+    "group/trigger flex w-full select-none items-center justify-between gap-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition sm:text-sm",
     // border color
     "border-gray-300 dark:border-gray-800",
     // text color
     "text-gray-900 dark:text-gray-50",
     // placeholder
-    "data-[placeholder]:text-gray-400 data-[placeholder]:dark:text-gray-500",
+    "data-[placeholder]:text-gray-500 data-[placeholder]:dark:text-gray-500",
     // background color
     "bg-white dark:bg-gray-950",
     // hover
@@ -145,7 +145,7 @@ const SelectContent = React.forwardRef<
           // text color
           "text-gray-900 dark:text-gray-50",
           // border color
-          "border-gray-300 dark:border-gray-800",
+          "border-gray-200 dark:border-gray-800",
           // transition
           "will-change-[transform,opacity]",
           // "data-[state=open]:animate-slideDownAndFade",

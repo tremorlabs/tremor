@@ -1,6 +1,9 @@
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { LineChart } from "./LineChart"
+import { Label } from "../Label/Label"
+import { Switch } from "../Switch/Switch"
+import { LineChart, TooltipProps } from "./LineChart"
 
 const chartdata = [
   {
@@ -298,6 +301,30 @@ export const WithOnValueChange: Story = {
   },
 }
 
+export const WithTooltipCallback: Story = {
+  render: () => {
+    const [callback, setCallBack] = React.useState<TooltipProps | null>(null)
+    const [checked, setChecked] = React.useState(true)
+    return (
+      <>
+        <div className="flex items-center gap-3">
+          <Label htmlFor="a">showTooltip</Label>
+          <Switch id="a" checked={checked} onCheckedChange={setChecked} />
+        </div>
+
+        <LineChart
+          data={chartdata}
+          index="date"
+          categories={["SolarCells", "Glass"]}
+          tooltipCallback={(tooltipContent) => setCallBack(tooltipContent)}
+          showTooltip={checked}
+        />
+        <pre>{JSON.stringify(callback, null, 2)}</pre>
+      </>
+    )
+  },
+}
+
 export const WithLargeTickGap: Story = {
   args: {
     tickGap: 300,
@@ -310,5 +337,36 @@ export const OneDataValue: Story = {
     index: "date",
     categories: ["SolarCells", "Glass"],
     onValueChange: (v) => console.log(v),
+  },
+}
+
+export const CustomTooltip: Story = {
+  args: {
+    categories: ["SolarCells"],
+    yAxisWidth: 65,
+    customTooltip: (props: TooltipProps) => {
+      const { payload, active, label } = props
+      if (!active || !payload || payload.length === 0) return null
+      return (
+        <div className="w-56 rounded-md border bg-white p-2 text-sm shadow-sm">
+          <div className="flex flex-1 space-x-2.5">
+            <div
+              className={`flex w-1.5 flex-col bg-${payload[0].color}-500 rounded`}
+            />
+            <div className="w-full">
+              <p className="font-medium text-gray-900">{label}</p>
+              <div className="flex items-center justify-between space-x-8">
+                <p className="whitespace-nowrap text-right text-gray-700">
+                  {payload[0].category}
+                </p>
+                <p className="whitespace-nowrap text-right font-medium text-gray-900">
+                  {payload[0].value}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
   },
 }

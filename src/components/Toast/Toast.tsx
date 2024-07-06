@@ -1,4 +1,4 @@
-// Tremor Raw Toast [v0.0.1]
+// Tremor Raw Toast [v0.0.2]
 
 import React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
@@ -41,7 +41,7 @@ interface ToastProps
   extends React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> {
   variant?: "info" | "success" | "warning" | "error" | "loading"
   title?: string
-  description?: any
+  description?: string
   action?: ActionProps
   disableDismiss?: boolean
 }
