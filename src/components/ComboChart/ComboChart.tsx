@@ -31,7 +31,7 @@ import { getYAxisDomain } from "../../utils/getYAxisDomain"
 import { hasOnlyOneValueForKey } from "../../utils/hasOnlyOneValueForKey"
 
 //#region Shape
-export function deepEqual(obj1: any, obj2: any) {
+function deepEqual<T>(obj1: T, obj2: T): boolean {
   if (obj1 === obj2) return true
 
   if (
@@ -39,11 +39,12 @@ export function deepEqual(obj1: any, obj2: any) {
     typeof obj2 !== "object" ||
     obj1 === null ||
     obj2 === null
-  )
+  ) {
     return false
+  }
 
-  const keys1 = Object.keys(obj1)
-  const keys2 = Object.keys(obj2)
+  const keys1 = Object.keys(obj1) as Array<keyof T>
+  const keys2 = Object.keys(obj2) as Array<keyof T>
 
   if (keys1.length !== keys2.length) return false
 
@@ -416,61 +417,36 @@ const ChartLegend = (
 
 //#region Tooltip
 
-interface ChartTooltipRowProps {
-  value: string
-  name: string
-  color: string
-}
+//#region Tooltip
 
-const ChartTooltipRow = ({ value, name, color }: ChartTooltipRowProps) => (
-  <div className="flex items-center justify-between space-x-8">
-    <div className="flex items-center space-x-2">
-      <span
-        aria-hidden="true"
-        className={cx("size-2 shrink-0 rounded-sm", color)}
-      />
-      <p
-        className={cx(
-          // commmon
-          "whitespace-nowrap text-right",
-          // text color
-          "text-gray-700 dark:text-gray-300",
-        )}
-      >
-        {name}
-      </p>
-    </div>
-    <p
-      className={cx(
-        // base
-        "whitespace-nowrap text-right font-medium tabular-nums",
-        // text color
-        "text-gray-900 dark:text-gray-50",
-      )}
-    >
-      {value}
-    </p>
-  </div>
-)
+type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">
+
+type PayloadItem = {
+  category: string
+  value: number
+  index: string
+  barColor: AvailableChartColorsKeys
+  lineColor: AvailableChartColorsKeys
+  chartType: "bar" | "line"
+  payload: any
+}
 
 interface ChartTooltipProps {
   active: boolean | undefined
-  payload: any
+  payload: PayloadItem[]
   label: string
-  categoryColors: Map<string, string>
-  valueFormatter: (value: number) => string
+  barValueFormatter?: (value: number) => string
+  lineValueFormatter?: (value: number) => string
 }
 
 const ChartTooltip = ({
   active,
   payload,
   label,
-  categoryColors,
-  valueFormatter,
+  barValueFormatter = (value: number): string => value.toString(),
+  lineValueFormatter = (value: number): string => value.toString(),
 }: ChartTooltipProps) => {
-  if (active && payload) {
-    const filteredPayload = payload.filter((item: any) => item.type !== "none")
-
+  if (active && payload && payload.length) {
     return (
       <div
         className={cx(
@@ -482,12 +458,7 @@ const ChartTooltip = ({
           "bg-white dark:bg-gray-950",
         )}
       >
-        <div
-          className={cx(
-            // base
-            "border-b border-inherit px-4 py-2",
-          )}
-        >
+        <div className={cx("border-b border-inherit px-4 py-2")}>
           <p
             className={cx(
               // base
@@ -499,22 +470,54 @@ const ChartTooltip = ({
             {label}
           </p>
         </div>
-
         <div className={cx("space-y-1 px-4 py-2")}>
-          {filteredPayload.map(
-            (
-              { value, name }: { value: number; name: string },
-              index: number,
-            ) => (
-              <ChartTooltipRow
+          {payload.map(
+            ({ value, category, barColor, lineColor, chartType }, index) => (
+              <div
                 key={`id-${index}`}
-                value={valueFormatter(value)}
-                name={name}
-                color={getColorClassName(
-                  categoryColors.get(name) as AvailableChartColorsKeys,
-                  "bg",
-                )}
-              />
+                className="flex items-center justify-between space-x-8"
+              >
+                <div className="flex items-center space-x-2">
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      { "size-2 rounded-sm": chartType === "bar" },
+                      { "size-2 rounded-sm": chartType === "bar" },
+                      {
+                        "h-[3px] w-3.5 shrink-0 rounded-full":
+                          chartType === "line",
+                      },
+                      "shrink-0",
+                      getColorClassName(
+                        chartType === "bar" ? barColor : lineColor,
+                        "bg",
+                      ),
+                    )}
+                  />
+                  <p
+                    className={cx(
+                      // base
+                      "whitespace-nowrap text-right",
+                      // text color
+                      "text-gray-700 dark:text-gray-300",
+                    )}
+                  >
+                    {category}
+                  </p>
+                </div>
+                <p
+                  className={cx(
+                    // base
+                    "whitespace-nowrap text-right font-medium tabular-nums",
+                    // text color
+                    "text-gray-900 dark:text-gray-50",
+                  )}
+                >
+                  {chartType === "bar"
+                    ? barValueFormatter(value)
+                    : lineValueFormatter(value)}
+                </p>
+              </div>
             ),
           )}
         </div>
@@ -539,12 +542,12 @@ type BaseEventProps = {
 
 type BarChartEventProps = BaseEventProps | null | undefined
 
-interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
-  // general
+interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
   startEndOnly?: boolean
   showXAxis?: boolean
+  xAxisLabel?: string
   showGridLines?: boolean
   intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
   showLegend?: boolean
@@ -552,60 +555,111 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: BarChartEventProps) => void
   enableLegendSlider?: boolean
   legendPosition?: "left" | "center" | "right"
-  xAxisLabel?: string
   tickGap?: number
-
-  // ???
-  autoMinValue?: boolean
-  minValue?: number
-  maxValue?: number
-  barCategoryGap?: string | number
-  connectNulls?: boolean
+  enableBiaxial?: boolean
+  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
+  customTooltip?: React.ComponentType<TooltipProps>
 
   // prop for every series
-  categories: string[]
-  colors?: AvailableChartColorsKeys[]
-  valueFormatter?: (value: number) => string
-  showYAxis?: boolean
-  yAxisWidth?: number
-  allowDecimals?: boolean
-  yAxisLabel?: string
+
+  barSeries: {
+    categories: string[]
+    colors?: AvailableChartColorsKeys[]
+    valueFormatter?: (value: number) => string
+    showYAxis?: boolean
+    yAxisWidth?: number
+    allowDecimals?: boolean
+    yAxisLabel?: string
+    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
+    autoMinValue?: boolean
+    minValue?: number
+    maxValue?: number
+  }
+
+  lineSeries?: {
+    categories: string[]
+    colors?: AvailableChartColorsKeys[]
+    valueFormatter?: (value: number) => string
+    showYAxis?: boolean
+    yAxisWidth?: number
+    allowDecimals?: boolean
+    yAxisLabel?: string
+    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
+    autoMinValue?: boolean
+    minValue?: number
+    maxValue?: number
+    connectNulls?: boolean
+  }
+
   type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
 }
 
-const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
+const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
   (props, forwardedRef) => {
     const {
       data = [],
-      categories = [],
       index,
-      colors = AvailableChartColors,
-      valueFormatter = (value: number) => value.toString(),
       startEndOnly = false,
       showXAxis = true,
-      showYAxis = true,
       showGridLines = true,
-      yAxisWidth = 56,
       intervalType = "equidistantPreserveStart",
       showTooltip = true,
       showLegend = true,
-      autoMinValue = false,
-      minValue,
-      maxValue,
-      allowDecimals = true,
-      connectNulls = false,
       className,
       onValueChange,
       enableLegendSlider = false,
-      barCategoryGap,
       tickGap = 5,
       xAxisLabel,
-      yAxisLabel,
-      type = "default",
       legendPosition = "right",
+      enableBiaxial = false,
+
+      barSeries = {
+        categories: [],
+        colors: AvailableChartColors,
+        valueFormatter: (value: number) => value.toString(),
+        showYAxis: true,
+        yAxisWidth: 56,
+        yAxisLabel: undefined,
+        allowDecimals: true,
+        type: "default",
+        autoMinValue: false,
+        minValue: undefined,
+        maxValue: undefined,
+      },
+      lineSeries = {
+        categories: [],
+        colors: AvailableChartColors,
+        valueFormatter: (value: number) => value.toString(),
+        showYAxis: true,
+        yAxisWidth: 56,
+        yAxisLabel: undefined,
+        allowDecimals: true,
+        type: "default",
+        autoMinValue: false,
+        minValue: undefined,
+        maxValue: undefined,
+        connectNulls: false,
+      },
+      tooltipCallback,
+      customTooltip,
+
+      type = "default", // sev
+
       ...other
     } = props
-    const paddingValue = !showXAxis && !showYAxis ? 0 : 20
+    const CustomTooltip = customTooltip
+
+    const paddingValue =
+      (!showXAxis &&
+        !barSeries.showYAxis &&
+        enableBiaxial &&
+        !lineSeries.showYAxis) ||
+      (startEndOnly &&
+        !barSeries.showYAxis &&
+        enableBiaxial &&
+        !lineSeries.showYAxis)
+        ? 0
+        : 20
     const [legendHeight, setLegendHeight] = React.useState(60)
     const [activeDot, setActiveDot] = React.useState<ActiveDot | undefined>(
       undefined,
@@ -613,9 +667,25 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
-    const categoryColors = constructCategoryColors(categories, colors)
+    const barCategoryColors = constructCategoryColors(
+      barSeries.categories,
+      barSeries.colors ?? AvailableChartColors, // sev check logic
+    )
+    const lineCategoryColors = constructCategoryColors(
+      lineSeries.categories,
+      lineSeries.colors ?? AvailableChartColors, // sev check logic
+    )
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
-    const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
+    const barYAxisDomain = getYAxisDomain(
+      barSeries.autoMinValue ?? false,
+      barSeries.minValue,
+      barSeries.maxValue,
+    )
+    const lineYAxisDomain = getYAxisDomain(
+      lineSeries.autoMinValue ?? false,
+      lineSeries.minValue,
+      lineSeries.maxValue,
+    )
     const hasOnValueChange = !!onValueChange
     const stacked = type === "stacked" || type === "percent"
     function valueToPercent(value: number) {
@@ -706,8 +776,8 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
-              left: yAxisLabel ? 20 : undefined,
-              right: yAxisLabel ? 5 : undefined,
+              left: barSeries.yAxisLabel ? 20 : undefined, // sev
+              right: lineSeries.yAxisLabel ? 20 : undefined, // sev
               top: 5,
             }}
             stackOffset={type === "percent" ? "expand" : undefined}
@@ -758,8 +828,9 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               )}
             </XAxis>
             <YAxis
-              width={yAxisWidth}
-              hide={!showYAxis}
+              yAxisId={enableBiaxial ? "left" : undefined}
+              width={barSeries.yAxisWidth}
+              hide={!barSeries.showYAxis}
               axisLine={false}
               tickLine={false}
               fill=""
@@ -774,13 +845,13 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 transform: "translate(-3, 0)",
               }}
               type="number"
-              domain={yAxisDomain as AxisDomain}
+              domain={barYAxisDomain as AxisDomain}
               tickFormatter={
-                type === "percent" ? valueToPercent : valueFormatter
+                type === "percent" ? valueToPercent : barSeries.valueFormatter
               }
-              allowDecimals={allowDecimals}
+              allowDecimals={barSeries.allowDecimals}
             >
-              {yAxisLabel && (
+              {barSeries.yAxisLabel && (
                 <Label
                   position="insideLeft"
                   style={{ textAnchor: "middle" }}
@@ -788,10 +859,52 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   offset={-15}
                   className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
                 >
-                  {yAxisLabel}
+                  {barSeries.yAxisLabel}
                 </Label>
               )}
             </YAxis>
+
+            {enableBiaxial ? (
+              <YAxis
+                yAxisId="right"
+                orientation="right"
+                width={lineSeries.yAxisWidth}
+                hide={!lineSeries.showYAxis} // maybe remove prop in favour of enablebiaxial?
+                axisLine={false}
+                tickLine={false}
+                fill=""
+                stroke=""
+                className={cx(
+                  // base
+                  "text-xs",
+                  // text fill
+                  "fill-gray-500 dark:fill-gray-500",
+                )}
+                tick={{
+                  transform: "translate(3, 0)",
+                }}
+                type="number"
+                domain={lineYAxisDomain as AxisDomain}
+                tickFormatter={
+                  type === "percent"
+                    ? valueToPercent
+                    : lineSeries.valueFormatter
+                }
+                allowDecimals={lineSeries.allowDecimals}
+              >
+                {lineSeries.yAxisLabel && (
+                  <Label
+                    position="insideRight"
+                    style={{ textAnchor: "middle" }}
+                    angle={-90}
+                    offset={-15}
+                    className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
+                  >
+                    {lineSeries.yAxisLabel}
+                  </Label>
+                )}
+              </YAxis>
+            ) : null}
 
             <Tooltip
               wrapperStyle={{ outline: "none" }}
@@ -799,24 +912,58 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               animationDuration={100}
               cursor={{ fill: "#d1d5db", opacity: "0.15" }}
               offset={20}
-              position={{ y: 0 }}
-              content={
-                showTooltip ? (
-                  ({ active, payload, label }) => (
+              position={{
+                y: 0,
+              }}
+              content={({ active, payload, label }) => {
+                const cleanPayload = payload
+                  ? payload.map((item: any) => ({
+                      category: item.dataKey,
+                      value: item.value,
+                      index: item.payload[index],
+                      barColor: barCategoryColors.get(
+                        item.dataKey,
+                      ) as AvailableChartColorsKeys,
+                      lineColor: lineCategoryColors.get(
+                        item.dataKey, // sev ? same as bar?
+                      ) as AvailableChartColorsKeys,
+                      chartType: barSeries.categories.includes(item.dataKey)
+                        ? "bar"
+                        : ("line" as PayloadItem["chartType"]),
+                      payload: item.payload,
+                    }))
+                  : []
+
+                // if (
+                //   tooltipCallback &&
+                //   (active !== prevActiveRef.current ||
+                //     label !== prevLabelRef.current)
+                // ) {
+                //   tooltipCallback({ active, payload: cleanPayload, label })
+                //   prevActiveRef.current = active
+                //   prevLabelRef.current = label
+                // }
+
+                return showTooltip && active ? (
+                  CustomTooltip ? (
+                    <CustomTooltip
+                      active={active}
+                      payload={cleanPayload}
+                      label={label}
+                    />
+                  ) : (
                     <ChartTooltip
                       active={active}
-                      payload={payload}
+                      payload={cleanPayload}
                       label={label}
-                      valueFormatter={valueFormatter}
-                      categoryColors={categoryColors}
+                      barValueFormatter={barSeries.valueFormatter}
+                      lineValueFormatter={lineSeries.valueFormatter}
                     />
                   )
-                ) : (
-                  <></>
-                )
-              }
+                ) : null
+              }}
             />
-            {showLegend ? (
+            {/* {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"
                 height={legendHeight}
@@ -836,12 +983,13 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   )
                 }
               />
-            ) : null}
-            {categories.map((category) => (
+            ) : null} */}
+            {barSeries.categories.map((category) => (
               <Bar
+                yAxisId={enableBiaxial ? "left" : undefined}
                 className={cx(
                   getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
+                    barCategoryColors.get(category) as AvailableChartColorsKeys,
                     "fill",
                   ),
                   onValueChange ? "cursor-pointer" : "",
@@ -857,14 +1005,16 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   renderShape(props, activeBar, activeLegend)
                 }
                 onClick={onBarClick}
-                radius={20}
               />
             ))}
-            {categories.map((category) => (
+            {lineSeries.categories.map((category) => (
               <Line
+                yAxisId={enableBiaxial ? "right" : undefined}
                 className={cx(
                   getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
+                    lineCategoryColors.get(
+                      category,
+                    ) as AvailableChartColorsKeys,
                     "stroke",
                   ),
                 )}
@@ -889,7 +1039,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                         "stroke-white dark:stroke-gray-950",
                         onValueChange ? "cursor-pointer" : "",
                         getColorClassName(
-                          categoryColors.get(
+                          lineCategoryColors.get(
                             dataKey,
                           ) as AvailableChartColorsKeys,
                           "fill",
@@ -943,7 +1093,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                           "stroke-white dark:stroke-gray-950",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
-                            categoryColors.get(
+                            lineCategoryColors.get(
                               dataKey,
                             ) as AvailableChartColorsKeys,
                             "fill",
@@ -963,9 +1113,34 @@ const ComboChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 strokeLinejoin="round"
                 strokeLinecap="round"
                 isAnimationActive={false}
-                connectNulls={connectNulls}
+                connectNulls={lineSeries.connectNulls}
               />
             ))}
+            {/* hidden lines to increase clickable target area */}
+            {onValueChange
+              ? lineSeries.categories.map((category) => (
+                  <Line
+                    yAxisId={enableBiaxial ? "right" : undefined}
+                    className={cx("cursor-pointer")}
+                    strokeOpacity={0}
+                    key={category}
+                    name={category}
+                    type="linear"
+                    dataKey={category}
+                    stroke="transparent"
+                    fill="transparent"
+                    legendType="none"
+                    tooltipType="none"
+                    strokeWidth={12}
+                    connectNulls={lineSeries.connectNulls}
+                    onClick={(props: any, event) => {
+                      event.stopPropagation()
+                      const { name } = props
+                      onCategoryClick(name)
+                    }}
+                  />
+                ))
+              : null}
           </RechartsComposedChart>
         </ResponsiveContainer>
       </div>

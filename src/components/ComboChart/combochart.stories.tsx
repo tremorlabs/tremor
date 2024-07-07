@@ -12,6 +12,7 @@ const chartdata = [
     Frame: 1600,
     JunctionBox: 1800,
     Adhesive: 1700,
+    Small: 50,
   },
   {
     date: "Feb 23",
@@ -22,6 +23,7 @@ const chartdata = [
     Frame: 1700,
     JunctionBox: 1750,
     Adhesive: 1650,
+    Small: 51,
   },
   {
     date: "Mar 23",
@@ -32,6 +34,7 @@ const chartdata = [
     Frame: 1400,
     JunctionBox: 2000,
     Adhesive: 800,
+    Small: 55,
   },
   {
     date: "Apr 23",
@@ -42,6 +45,7 @@ const chartdata = [
     Frame: 1800,
     JunctionBox: 1900,
     Adhesive: -1950,
+    Small: 30,
   },
   {
     date: "May 23",
@@ -52,6 +56,7 @@ const chartdata = [
     Frame: 1450,
     JunctionBox: 2200,
     Adhesive: -1600,
+    Small: 60,
   },
   {
     date: "Jun 23",
@@ -62,6 +67,7 @@ const chartdata = [
     Frame: 1750,
     JunctionBox: 2050,
     Adhesive: -1700,
+    Small: 50,
   },
   {
     date: "Jul 23",
@@ -72,6 +78,7 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2300,
     Adhesive: -1800,
+    Small: 57,
   },
   {
     date: "Aug 23",
@@ -82,6 +89,7 @@ const chartdata = [
     Frame: 1850,
     JunctionBox: 2150,
     Adhesive: -1900,
+    Small: 55,
   },
   {
     date: "Sep 23",
@@ -92,6 +100,7 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2000,
     Adhesive: -3750,
+    Small: 14,
   },
   {
     date: "Oct 23",
@@ -102,6 +111,7 @@ const chartdata = [
     Frame: 1900,
     JunctionBox: 2100,
     Adhesive: -2600,
+    Small: 21,
   },
   {
     date: "Nov 23",
@@ -112,6 +122,7 @@ const chartdata = [
     Frame: 1750,
     JunctionBox: 2400,
     Adhesive: -2950,
+    Small: 29,
   },
   {
     date: "Dec 23",
@@ -122,6 +133,7 @@ const chartdata = [
     Frame: 1600,
     JunctionBox: 2250,
     Adhesive: -3800,
+    Small: 40,
   },
 ]
 
@@ -131,7 +143,6 @@ const meta: Meta<typeof ComboChart> = {
   args: {
     data: chartdata,
     index: "date",
-    categories: ["SolarCells", "Glass"],
   },
 }
 
@@ -144,7 +155,18 @@ export const Default: Story = {
       data-testid="combo-chart"
       data={chartdata}
       index="date"
-      categories={["SolarCells"]}
+      barSeries={{
+        categories: ["SolarCells"],
+        showYAxis: true,
+        yAxisLabel: "BarSeries",
+      }}
+      enableBiaxial={true}
+      lineSeries={{
+        categories: ["Frame"],
+        showYAxis: true,
+        yAxisLabel: "LineSeries",
+        colors: ["pink"],
+      }}
     />
   ),
 }
