@@ -155,17 +155,19 @@ export const Default: Story = {
       data-testid="combo-chart"
       data={chartdata}
       index="date"
+      onValueChange={(v) => v}
+      enableBiaxial={true}
       barSeries={{
-        categories: ["SolarCells"],
+        categories: ["SolarCells", "Adhesive"],
         showYAxis: true,
         yAxisLabel: "BarSeries",
       }}
-      enableBiaxial={true}
       lineSeries={{
-        categories: ["Frame"],
+        categories: ["Frame", "Glass"],
         showYAxis: true,
         yAxisLabel: "LineSeries",
-        colors: ["pink"],
+        colors: ["pink", "violet"],
+        yAxisWidth: 70,
       }}
     />
   ),

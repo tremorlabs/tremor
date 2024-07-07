@@ -1,4 +1,5 @@
 // Tremor Raw ComboChart [v0.0.0]
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -60,8 +61,8 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
 ) => {
-  const { fillOpacity, name, payload, value } = props
-  let { x, width, y, height } = props
+  const { fillOpacity, name, payload, value, width, x } = props
+  let { y, height } = props
 
   if (height < 0) {
     y += height
@@ -92,6 +93,7 @@ interface LegendItemProps {
   color: AvailableChartColorsKeys
   onClick?: (name: string, color: AvailableChartColorsKeys) => void
   activeLegend?: string
+  chartType: "bar" | "line"
 }
 
 const LegendItem = ({
@@ -99,8 +101,11 @@ const LegendItem = ({
   color,
   onClick,
   activeLegend,
+  chartType,
 }: LegendItemProps) => {
   const hasOnValueChange = !!onClick
+  const colorClass = getColorClassName(color, "bg")
+
   return (
     <li
       className={cx(
@@ -117,8 +122,12 @@ const LegendItem = ({
     >
       <span
         className={cx(
-          "size-2 shrink-0 rounded-sm",
-          getColorClassName(color, "bg"),
+          { "size-2 rounded-sm": chartType === "bar" },
+          {
+            "h-[3px] w-3.5 shrink-0 rounded-full": chartType === "line",
+          },
+          "shrink-0",
+          colorClass,
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
         aria-hidden={true}
@@ -199,9 +208,13 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
 }
 
 interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
-  categories: string[]
-  colors?: AvailableChartColorsKeys[]
-  onClickLegendItem?: (category: string, color: string) => void
+  categories: { name: string; chartType: "bar" | "line" }[]
+  barCategoryColors: Map<string, AvailableChartColorsKeys>
+  lineCategoryColors: Map<string, AvailableChartColorsKeys>
+  onClickLegendItem?: (
+    category: string,
+    color: AvailableChartColorsKeys,
+  ) => void
   activeLegend?: string
   enableLegendSlider?: boolean
 }
@@ -214,11 +227,12 @@ type HasScrollProps = {
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const {
     categories,
-    colors = AvailableChartColors,
-    className,
+    barCategoryColors,
+    lineCategoryColors,
     onClickLegendItem,
     activeLegend,
     enableLegendSlider = false,
+    className,
     ...other
   } = props
   const scrollableRef = React.useRef<HTMLInputElement>(null)
@@ -321,15 +335,20 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             : "flex-wrap",
         )}
       >
-        {categories.map((category, index) => (
-          <LegendItem
-            key={`item-${index}`}
-            name={category}
-            color={colors[index] as AvailableChartColorsKeys}
-            onClick={onClickLegendItem}
-            activeLegend={activeLegend}
-          />
-        ))}
+        {categories.map((category, index) => {
+          const barColor = barCategoryColors.get(category.name)
+          const lineColor = lineCategoryColors.get(category.name)
+          return (
+            <LegendItem
+              key={`item-${index}`}
+              name={category.name}
+              chartType={category.chartType}
+              onClick={onClickLegendItem}
+              activeLegend={activeLegend}
+              color={category.chartType === "bar" ? barColor! : lineColor!}
+            />
+          )
+        })}
       </div>
       {enableLegendSlider && (hasScroll?.right || hasScroll?.left) ? (
         <>
@@ -368,13 +387,15 @@ Legend.displayName = "Legend"
 
 const ChartLegend = (
   { payload }: any,
-  categoryColors: Map<string, AvailableChartColorsKeys>,
+  barCategoryColors: Map<string, AvailableChartColorsKeys>,
+  lineCategoryColors: Map<string, AvailableChartColorsKeys>,
   setLegendHeight: React.Dispatch<React.SetStateAction<number>>,
   activeLegend: string | undefined,
-  onClick?: (category: string, color: string) => void,
+  onClick?: (category: string, color: AvailableChartColorsKeys) => void,
   enableLegendSlider?: boolean,
   legendPosition?: "left" | "center" | "right",
-  yAxisWidth?: number,
+  barYAxisWidth?: number,
+  lineYAxisWidth?: number,
 ) => {
   const legendRef = React.useRef<HTMLDivElement>(null)
 
@@ -387,11 +408,16 @@ const ChartLegend = (
   const filteredPayload = payload.filter((item: any) => item.type !== "none")
 
   const paddingLeft =
-    legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+    legendPosition === "left" && barYAxisWidth ? barYAxisWidth - 8 : 0
+  const paddingRight =
+    (legendPosition === "right" || legendPosition === undefined) &&
+    lineYAxisWidth
+      ? lineYAxisWidth - 8
+      : 52
 
   return (
     <div
-      style={{ paddingLeft: paddingLeft }}
+      style={{ paddingLeft: paddingLeft, paddingRight: paddingRight }}
       ref={legendRef}
       className={cx(
         "flex items-center",
@@ -403,10 +429,12 @@ const ChartLegend = (
       )}
     >
       <Legend
-        categories={filteredPayload.map((entry: any) => entry.value)}
-        colors={filteredPayload.map((entry: any) =>
-          categoryColors.get(entry.value),
-        )}
+        categories={filteredPayload.map((entry: any) => ({
+          name: entry.value,
+          chartType: entry.type === "rect" ? "bar" : entry.type,
+        }))}
+        barCategoryColors={barCategoryColors}
+        lineCategoryColors={lineCategoryColors}
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
         enableLegendSlider={enableLegendSlider}
@@ -414,8 +442,6 @@ const ChartLegend = (
     </div>
   )
 }
-
-//#region Tooltip
 
 //#region Tooltip
 
@@ -481,7 +507,6 @@ const ChartTooltip = ({
                   <span
                     aria-hidden="true"
                     className={cx(
-                      { "size-2 rounded-sm": chartType === "bar" },
                       { "size-2 rounded-sm": chartType === "bar" },
                       {
                         "h-[3px] w-3.5 shrink-0 rounded-full":
@@ -605,12 +630,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       intervalType = "equidistantPreserveStart",
       showTooltip = true,
       showLegend = true,
-      className,
-      onValueChange,
+      legendPosition = "right",
       enableLegendSlider = false,
+      onValueChange,
       tickGap = 5,
       xAxisLabel,
-      legendPosition = "right",
       enableBiaxial = false,
 
       barSeries = {
@@ -640,11 +664,12 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
         maxValue: undefined,
         connectNulls: false,
       },
-      tooltipCallback,
+      // tooltipCallback,
       customTooltip,
 
       type = "default", // sev
 
+      className,
       ...other
     } = props
     const CustomTooltip = customTooltip
@@ -963,14 +988,15 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 ) : null
               }}
             />
-            {/* {showLegend ? (
+            {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"
                 height={legendHeight}
                 content={({ payload }) =>
                   ChartLegend(
                     { payload },
-                    categoryColors,
+                    barCategoryColors,
+                    lineCategoryColors,
                     setLegendHeight,
                     activeLegend,
                     hasOnValueChange
@@ -979,11 +1005,12 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       : undefined,
                     enableLegendSlider,
                     legendPosition,
-                    yAxisWidth,
+                    barSeries.yAxisWidth,
+                    lineSeries.yAxisWidth,
                   )
                 }
               />
-            ) : null} */}
+            ) : null}
             {barSeries.categories.map((category) => (
               <Bar
                 yAxisId={enableBiaxial ? "left" : undefined}
