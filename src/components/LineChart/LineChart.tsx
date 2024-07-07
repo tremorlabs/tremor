@@ -332,7 +332,7 @@ const ChartLegend = (
     setLegendHeight(calculateHeight(legendRef.current?.clientHeight))
   })
 
-  const filteredPayload = payload.filter((item: any) => item.type !== "none")
+  const legendPayload = payload.filter((item: any) => item.type !== "none")
 
   const paddingLeft =
     legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
@@ -349,8 +349,8 @@ const ChartLegend = (
       )}
     >
       <Legend
-        categories={filteredPayload.map((entry: any) => entry.value)}
-        colors={filteredPayload.map((entry: any) =>
+        categories={legendPayload.map((entry: any) => entry.value)}
+        colors={legendPayload.map((entry: any) =>
           categoryColors.get(entry.value),
         )}
         onClickLegendItem={onClick}
@@ -735,6 +735,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 ) : null
               }}
             />
+            
             {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"
