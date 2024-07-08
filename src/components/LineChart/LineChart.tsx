@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.3.0]
+// Tremor Raw LineChart [v0.3.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"

@@ -1,5 +1,11 @@
 # Tremor Raw LineChart Changelog
 
+## 0.3.1
+
+### Changes
+
+- Fix: tooltip payload
+
 ## 0.3.0
 
 ### Changes
