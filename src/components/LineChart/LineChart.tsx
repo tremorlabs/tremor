@@ -387,6 +387,7 @@ const ChartTooltip = ({
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload && payload.length) {
+    const legendPayload = payload.filter((item: any) => item.type !== "none")
     return (
       <div
         className={cx(
@@ -411,7 +412,7 @@ const ChartTooltip = ({
           </p>
         </div>
         <div className={cx("space-y-1 px-4 py-2")}>
-          {payload.map(({ value, category, color }, index) => (
+          {legendPayload.map(({ value, category, color }, index) => (
             <div
               key={`id-${index}`}
               className="flex items-center justify-between space-x-8"
@@ -695,6 +696,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               offset={20}
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
+                {
+                  console.log(JSON.stringify(payload, null, 2))
+                }
                 const cleanPayload = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
@@ -703,6 +707,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []
@@ -735,7 +740,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 ) : null
               }}
             />
-            
+
             {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"

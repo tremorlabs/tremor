@@ -752,6 +752,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []

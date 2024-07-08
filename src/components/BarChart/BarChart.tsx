@@ -795,6 +795,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []
