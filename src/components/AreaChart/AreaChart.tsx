@@ -371,6 +371,7 @@ type PayloadItem = {
   value: number
   index: string
   color: AvailableChartColorsKeys
+  type: string
   payload: any
 }
 
@@ -744,7 +745,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               offset={20}
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
-                const cleanPayload = payload
+                const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,

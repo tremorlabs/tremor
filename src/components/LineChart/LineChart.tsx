@@ -370,6 +370,7 @@ type PayloadItem = {
   value: number
   index: string
   color: AvailableChartColorsKeys
+  type: string
   payload: any
 }
 
@@ -696,10 +697,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               offset={20}
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
-                {
-                  console.log(JSON.stringify(payload, null, 2))
-                }
-                const cleanPayload = payload
+                const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,
