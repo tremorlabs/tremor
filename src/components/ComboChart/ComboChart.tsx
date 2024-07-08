@@ -454,6 +454,7 @@ type PayloadItem = {
   barColor: AvailableChartColorsKeys
   lineColor: AvailableChartColorsKeys
   chartType: "bar" | "line"
+  type: string
   payload: any
 }
 
@@ -473,6 +474,7 @@ const ChartTooltip = ({
   lineValueFormatter = (value: number): string => value.toString(),
 }: ChartTooltipProps) => {
   if (active && payload && payload.length) {
+    const filteredPayload = payload.filter((item: any) => item.type !== "none")
     return (
       <div
         className={cx(
@@ -497,7 +499,7 @@ const ChartTooltip = ({
           </p>
         </div>
         <div className={cx("space-y-1 px-4 py-2")}>
-          {payload.map(
+          {filteredPayload.map(
             ({ value, category, barColor, lineColor, chartType }, index) => (
               <div
                 key={`id-${index}`}
@@ -941,7 +943,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 y: 0,
               }}
               content={({ active, payload, label }) => {
-                const cleanPayload = payload
+                const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,
@@ -955,6 +957,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                       chartType: barSeries.categories.includes(item.dataKey)
                         ? "bar"
                         : ("line" as PayloadItem["chartType"]),
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []

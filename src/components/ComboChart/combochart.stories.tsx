@@ -158,12 +158,12 @@ export const Default: Story = {
       onValueChange={(v) => v}
       enableBiaxial={true}
       barSeries={{
-        categories: ["SolarCells", "Adhesive"],
+        categories: ["SolarCells"],
         showYAxis: true,
         yAxisLabel: "BarSeries",
       }}
       lineSeries={{
-        categories: ["Frame", "Glass"],
+        categories: ["Frame"],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["pink", "violet"],
