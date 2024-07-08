@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.3.0]
+// Tremor Raw LineChart [v0.3.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -332,7 +332,7 @@ const ChartLegend = (
     setLegendHeight(calculateHeight(legendRef.current?.clientHeight))
   })
 
-  const filteredPayload = payload.filter((item: any) => item.type !== "none")
+  const legendPayload = payload.filter((item: any) => item.type !== "none")
 
   const paddingLeft =
     legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
@@ -349,8 +349,8 @@ const ChartLegend = (
       )}
     >
       <Legend
-        categories={filteredPayload.map((entry: any) => entry.value)}
-        colors={filteredPayload.map((entry: any) =>
+        categories={legendPayload.map((entry: any) => entry.value)}
+        colors={legendPayload.map((entry: any) =>
           categoryColors.get(entry.value),
         )}
         onClickLegendItem={onClick}
@@ -370,6 +370,7 @@ type PayloadItem = {
   value: number
   index: string
   color: AvailableChartColorsKeys
+  type: string
   payload: any
 }
 
@@ -387,6 +388,7 @@ const ChartTooltip = ({
   valueFormatter,
 }: ChartTooltipProps) => {
   if (active && payload && payload.length) {
+    const legendPayload = payload.filter((item: any) => item.type !== "none")
     return (
       <div
         className={cx(
@@ -411,7 +413,7 @@ const ChartTooltip = ({
           </p>
         </div>
         <div className={cx("space-y-1 px-4 py-2")}>
-          {payload.map(({ value, category, color }, index) => (
+          {legendPayload.map(({ value, category, color }, index) => (
             <div
               key={`id-${index}`}
               className="flex items-center justify-between space-x-8"
@@ -695,7 +697,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               offset={20}
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
-                const cleanPayload = payload
+                const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,
@@ -703,6 +705,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []
@@ -735,6 +738,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 ) : null
               }}
             />
+
             {showLegend ? (
               <RechartsLegend
                 verticalAlign="top"

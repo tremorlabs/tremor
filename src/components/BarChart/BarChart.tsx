@@ -430,6 +430,7 @@ type PayloadItem = {
   value: number
   index: string
   color: AvailableChartColorsKeys
+  type: string
   payload: any
 }
 
@@ -787,7 +788,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 x: layout === "horizontal" ? undefined : yAxisWidth + 20,
               }}
               content={({ active, payload, label }) => {
-                const cleanPayload = payload
+                const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
                       value: item.value,
@@ -795,6 +796,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       color: categoryColors.get(
                         item.dataKey,
                       ) as AvailableChartColorsKeys,
+                      type: item.type,
                       payload: item.payload,
                     }))
                   : []
