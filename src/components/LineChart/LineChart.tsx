@@ -370,7 +370,7 @@ type PayloadItem = {
   value: number
   index: string
   color: AvailableChartColorsKeys
-  type: string
+  type?: string
   payload: any
 }
 
