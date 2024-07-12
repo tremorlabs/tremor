@@ -1,6 +1,6 @@
 // Tremor Raw Drawer [v0.0.0]
 
-import React from "react"
+import * as React from "react"
 import * as DrawerPrimitives from "@radix-ui/react-dialog"
 import { RiCloseLine } from "@remixicon/react"
 
@@ -13,7 +13,6 @@ const Drawer = (
 ) => {
   return <DrawerPrimitives.Root {...props} />
 }
-
 Drawer.displayName = "Drawer"
 
 const DrawerTrigger = React.forwardRef<
@@ -24,7 +23,6 @@ const DrawerTrigger = React.forwardRef<
     <DrawerPrimitives.Trigger ref={ref} className={cx(className)} {...props} />
   )
 })
-
 DrawerTrigger.displayName = "Drawer.Trigger"
 
 const DrawerClose = React.forwardRef<
@@ -35,7 +33,6 @@ const DrawerClose = React.forwardRef<
     <DrawerPrimitives.Close ref={ref} className={cx(className)} {...props} />
   )
 })
-
 DrawerClose.displayName = "Drawer.Close"
 
 const DrawerPortal = DrawerPrimitives.Portal
@@ -53,7 +50,7 @@ const DrawerOverlay = React.forwardRef<
         // base
         "fixed inset-0 z-50 overflow-y-auto",
         // background color
-        "bg-black/70",
+        "bg-black/30",
         // transition
         "data-[state=closed]:animate-hide data-[state=open]:animate-dialogOverlayShow",
         className,
@@ -80,7 +77,7 @@ const DrawerContent = React.forwardRef<
           ref={forwardedRef}
           className={cx(
             // base
-            "fixed inset-y-2 mx-auto flex w-[95vw] flex-1 flex-col overflow-y-auto rounded-md border p-6 shadow-lg focus:outline-none max-sm:inset-x-2 sm:inset-y-2 sm:right-2 sm:max-w-lg",
+            "fixed inset-y-2 mx-auto flex w-[95vw] flex-1 flex-col overflow-y-auto rounded-md border p-4 shadow-lg focus:outline-none max-sm:inset-x-2 sm:inset-y-2 sm:right-2 sm:max-w-lg sm:p-6",
             // border color
             "border-gray-200 dark:border-gray-900",
             // background color
@@ -109,10 +106,15 @@ const DrawerHeader = React.forwardRef<
       className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-4 dark:border-gray-900"
       {...props}
     >
-      <div className={cx("flex flex-col gap-y-1", className)}>{children}</div>
+      <div className={cx("mt-1 flex flex-col gap-y-1", className)}>
+        {children}
+      </div>
       <DrawerPrimitives.Close asChild>
-        <Button variant="light" className="aspect-square p-1">
-          <RiCloseLine className="size-4 text-gray-900" />
+        <Button
+          variant="ghost"
+          className="aspect-square p-1 hover:bg-gray-100 hover:dark:bg-gray-400/10"
+        >
+          <RiCloseLine className="size-6" aria-hidden="true" />
         </Button>
       </DrawerPrimitives.Close>
     </div>
@@ -129,7 +131,7 @@ const DrawerTitle = React.forwardRef<
     ref={forwardedRef}
     className={cx(
       // base
-      "text-lg font-semibold",
+      "text-base font-semibold",
       // text color
       "text-gray-900 dark:text-gray-50",
       className,
@@ -146,7 +148,6 @@ const DrawerBody = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return <div ref={ref} className={cx("flex-1 py-4", className)} {...props} />
 })
-
 DrawerBody.displayName = "Drawer.Body"
 
 const DrawerDescription = React.forwardRef<
@@ -183,9 +184,9 @@ DrawerFooter.displayName = "DrawerFooter"
 
 export {
   Drawer,
+  DrawerBody,
   DrawerClose,
   DrawerContent,
-  DrawerBody,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
