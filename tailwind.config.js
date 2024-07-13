@@ -49,6 +49,10 @@ export default {
           from: { opacity: "0", transform: "translateX(50%)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        drawerSlideRightAndFade: {
+          from: { opacity: "1", transform: "translateX(0)" },
+          to: { opacity: "0", transform: "translateX(50%)" },
+        },
       },
       animation: {
         hide: "hide 150ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -69,6 +73,8 @@ export default {
           "dialogContentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         drawerSlideLeftAndFade:
           "drawerSlideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        drawerSlideRightAndFade:
+          "drawerSlideRightAndFade 300ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },
