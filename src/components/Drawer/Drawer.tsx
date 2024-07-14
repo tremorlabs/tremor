@@ -172,7 +172,7 @@ const DrawerFooter = ({
   return (
     <div
       className={cx(
-        "flex flex-col-reverse border-t pt-4 sm:flex-row sm:justify-end sm:space-x-2",
+        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2 dark:border-gray-900",
         className,
       )}
       {...props}
