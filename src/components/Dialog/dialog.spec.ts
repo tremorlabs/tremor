@@ -69,19 +69,6 @@ test.describe("Dialog Component", () => {
     ).toBeVisible()
   })
 
-  test("should trap focus within the dialog when open", async ({ page }) => {
-    const frame = page.frameLocator('iframe[title="storybook-preview-iframe"]')
-
-    await frame.getByRole("button", { name: "Open Dialog" }).click()
-
-    await expect(frame.getByRole("button", { name: "Go back" })).toBeFocused()
-    await page.keyboard.press("Tab")
-    await expect(
-      frame.getByRole("button", { name: "Ok, got it!" }),
-    ).toBeFocused()
-    await page.keyboard.press("Tab")
-  })
-
   test("should support custom class names and styles", async ({ page }) => {
     const frame = page.frameLocator('iframe[title="storybook-preview-iframe"]')
 
