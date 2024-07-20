@@ -1,5 +1,11 @@
 # Tremor Raw Input Changelog
 
+## 1.0.3
+
+### Changes
+
+- Fix: enableStepper logic
+
 ## 1.0.2
 
 ### Changes
