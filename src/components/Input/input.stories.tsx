@@ -77,7 +77,6 @@ export const RequiredAndPattern: Story = {
 export const TypeFile: Story = {
   render: () => (
     <div className="flex gap-1">
-      {/* <Label htmlFor="upload">Search</Label> */}
       <Input id="upload" name="upload" type="file" />
       <Input id="upload" name="upload" />
       <Input id="upload" name="upload" type="password" />
@@ -104,6 +103,7 @@ export const HasError: Story = {
         id="full_name"
         name="full_name"
         type="text"
+        enableStepper
       />
     </div>
   ),
