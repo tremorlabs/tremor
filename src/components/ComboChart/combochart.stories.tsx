@@ -169,13 +169,12 @@ export const Default: Story = {
 export const Biaxial: Story = {
   render: () => (
     <ComboChart
-      data-testid="combo-chart"
+      data-testid="combo-chart-biaxial"
       data={chartdata}
       index="date"
       enableBiaxial={true}
       barSeries={{
         categories: ["SolarCells"],
-        // showYAxis: true,
         yAxisLabel: "BarSeries",
       }}
       lineSeries={{
@@ -187,4 +186,248 @@ export const Biaxial: Story = {
       }}
     />
   ),
+}
+
+export const DefaultNegative: Story = {
+  args: {
+    barSeries: { categories: ["Adhesive", "SolarCells"] },
+    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+  },
+}
+
+export const WithValueFormatterBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Adhesive"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+    },
+  },
+}
+
+export const WithAxisLabelsBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Adhesive"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+      yAxisLabel: "BarSeries",
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+      yAxisLabel: "BarSeries",
+    },
+  },
+}
+
+export const WithAutoMinValueBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+      autoMinValue: true,
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      autoMinValue: true,
+    },
+  },
+}
+
+export const WithMinAndMaxValueBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+      minValue: 800,
+      maxValue: 5000,
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      minValue: 2500,
+      maxValue: 3500,
+    },
+  },
+}
+
+export const AllColorsBarsBiaxial: Story = {
+  args: {
+    barSeries: {
+      categories: [
+        "SolarCells",
+        "Glass",
+        "Encapsulant",
+        "BackSheet",
+        "Frame",
+        "JunctionBox",
+        "Adhesive",
+      ],
+    },
+  },
+}
+
+export const AllColorsLinesBiaxial: Story = {
+  args: {
+    lineSeries: {
+      categories: [
+        "SolarCells",
+        "Glass",
+        "Encapsulant",
+        "BackSheet",
+        "Frame",
+        "JunctionBox",
+        "Adhesive",
+      ],
+    },
+  },
+}
+
+export const WithLegendLeftBiaxial: Story = {
+  args: {
+    barSeries: { categories: ["Adhesive", "SolarCells"] },
+    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    enableBiaxial: true,
+    legendPosition: "left",
+  },
+}
+
+export const WithLegendCenterBiaxial: Story = {
+  args: {
+    barSeries: { categories: ["Adhesive", "SolarCells"] },
+    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    enableBiaxial: true,
+    legendPosition: "center",
+  },
+}
+
+export const WithLegendSliderBiaxial: Story = {
+  args: {
+    className: "max-w-md",
+    barSeries: {
+      categories: [
+        "SolarCells",
+        "Glass",
+        "Encapsulant",
+        "BackSheet",
+        "Frame",
+        "JunctionBox",
+        "Adhesive",
+      ],
+    },
+    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    enableLegendSlider: true,
+    onValueChange: (v) => console.log(v),
+  },
+}
+
+export const WithConnectNullsFalseBiaxial: Story = {
+  args: {
+    data: chartdata.map((item, index) => ({
+      date: item.date,
+      Adhesive: item.Adhesive,
+      SolarCells: index > 5 && index < 8 ? null : item.SolarCells,
+    })),
+    barSeries: {
+      categories: ["Adhesive"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      connectNulls: false,
+    },
+  },
+}
+
+export const WithStartEndOnlyBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+    },
+    startEndOnly: true,
+  },
+}
+
+export const WithoutYAxisBiaxial: Story = {
+  args: {
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+      showYAxis: false,
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      showYAxis: false,
+    },
+  },
+}
+
+export const WithNoGridlinesBiaxial: Story = {
+  args: {
+    showGridLines: false,
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+    },
+  },
+}
+
+export const WithNoLegendBiaxial: Story = {
+  args: {
+    showLegend: false,
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+    },
+  },
+}
+
+export const WithNoTooltipBiaxial: Story = {
+  args: {
+    showTooltip: false,
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+    },
+  },
+}
+
+export const WithOnValueChangeBiaxial: Story = {
+  args: {
+    onValueChange: (v) => console.log(v),
+    enableBiaxial: true,
+    barSeries: {
+      categories: ["Glass"],
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+    },
+  },
 }

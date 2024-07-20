@@ -554,8 +554,6 @@ const ChartTooltip = ({
   return null
 }
 
-//#region BarChart
-
 interface ActiveDot {
   index?: number
   dataKey?: string
@@ -586,8 +584,6 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   enableBiaxial?: boolean
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
-
-  // prop for every series
 
   barSeries: {
     categories: string[]
@@ -747,21 +743,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       }
     }
 
-    function onCategoryClick(dataKey: string) {
-      if (!hasOnValueChange) return
-      if (dataKey === activeLegend && !activeBar) {
-        setActiveLegend(undefined)
-        onValueChange?.(null)
-      } else {
-        setActiveLegend(dataKey)
-        onValueChange?.({
-          eventType: "category",
-          categoryClicked: dataKey,
-        })
-      }
-      setActiveBar(undefined)
-    }
-
     function onDotClick(itemData: any, event: React.MouseEvent) {
       event.stopPropagation()
 
@@ -788,6 +769,22 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
           ...itemData.payload,
         })
       }
+    }
+
+    function onCategoryClick(dataKey: string) {
+      if (!hasOnValueChange) return
+      //@sev active dot && or ||
+      if (dataKey === activeLegend && !activeBar && !activeDot) {
+        setActiveLegend(undefined)
+        onValueChange?.(null)
+      } else {
+        setActiveLegend(dataKey)
+        onValueChange?.({
+          eventType: "category",
+          categoryClicked: dataKey,
+        })
+      }
+      setActiveBar(undefined)
     }
 
     return (
