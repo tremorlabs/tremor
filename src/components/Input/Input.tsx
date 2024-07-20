@@ -1,4 +1,4 @@
-// Tremor Raw Input [v1.0.2]
+// Tremor Raw Input [v1.0.3]
 
 import React from "react"
 import { RiEyeFill, RiEyeOffFill, RiSearchLine } from "@remixicon/react"
@@ -44,7 +44,8 @@ const inputStyles = tv({
     },
     // number input
     enableStepper: {
-      true: "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+      false:
+        "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
     },
   },
 })
@@ -61,7 +62,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className,
       inputClassName,
       hasError,
-      enableStepper,
+      enableStepper = true,
       type,
       ...props
     }: InputProps,
