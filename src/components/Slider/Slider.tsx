@@ -47,7 +47,7 @@ const Slider = React.forwardRef<
         <SliderPrimitive.Range
           className={cx(
             // base
-            "absolute rounded-full bg-blue-500",
+            "absolute rounded-full bg-gray-900 dark:bg-gray-50",
             // orientation
             "data-[orientation='horizontal']:h-full",
             "data-[orientation='vertical']:w-full",
@@ -63,12 +63,13 @@ const Slider = React.forwardRef<
             // base
             "block size-4 shrink-0 rounded-full border-2 shadow transition-all",
             // boder color
-            "border-white",
+            "border-gray-900 dark:border-gray-50",
             // background color
-            "bg-blue-500",
+            "bg-white dark:bg-gray-50",
             // disabled
             "data-[disabled]:pointer-events-none data-[disabled]:bg-gray-300 dark:data-[disabled]:border-gray-500 dark:data-[disabled]:bg-gray-600",
             focusRing,
+            "outline-offset-0",
           )}
           aria-label={ariaLabelThumb}
         />
