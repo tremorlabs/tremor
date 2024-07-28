@@ -6,6 +6,7 @@ import { Card } from "../Card/Card"
 import { Divider } from "../Divider/Divider"
 import { Label } from "../Label/Label"
 import { Slider } from "./Slider"
+import { Slider2 } from "./Slider2"
 
 const meta: Meta<typeof Slider> = {
   title: "ui/Slider",
@@ -81,6 +82,24 @@ export const Vertical: Story = {
 
 export const StepSize: Story = {
   render: () => <Slider defaultValue={[55]} step={10} />,
+}
+export const Step2: Story = {
+  render: () => (
+    <Slider2
+      defaultValue={[50]}
+      step={25}
+      min={0}
+      max={100}
+      showMarks="full"
+      marks={[
+        { value: 0, label: "xs longer label" },
+        { value: 25, label: "sm" },
+        { value: 50, label: "md" },
+        { value: 75, label: "lg" },
+        { value: 100, label: "xl longer label" },
+      ]}
+    />
+  ),
 }
 
 export const ControlledForm: Story = {
