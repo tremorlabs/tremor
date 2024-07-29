@@ -17,8 +17,8 @@ import {
   AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
-} from "../../utils/chartColors"
-import { cx } from "../../utils/cx"
+} from "../../utils/chartColors.ts"
+import { cx } from "../../utils/cx.ts"
 
 const sumNumericArray = (arr: number[]): number =>
   arr.reduce((sum, num) => sum + num, 0)

@@ -4,10 +4,10 @@ import React from "react"
 import { RiEyeFill, RiEyeOffFill, RiSearchLine } from "@remixicon/react"
 import { tv, type VariantProps } from "tailwind-variants"
 
-import { cx } from "../../utils/cx"
-import { focusInput } from "../../utils/focusInput"
-import { focusRing } from "../../utils/focusRing"
-import { hasErrorInput } from "../../utils/hasErrorInput"
+import { cx } from "../../utils/cx.ts"
+import { focusInput } from "../../utils/focusInput.ts"
+import { focusRing } from "../../utils/focusRing.ts"
+import { hasErrorInput } from "../../utils/hasErrorInput.ts"
 
 const inputStyles = tv({
   base: [

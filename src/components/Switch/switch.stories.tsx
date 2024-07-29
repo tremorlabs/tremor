@@ -1,11 +1,11 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Card } from "../Card/Card"
-import { Divider } from "../Divider/Divider"
-import { Label } from "../Label/Label"
-import { Switch } from "./Switch"
+import { Button } from "../Button/Button.tsx"
+import { Card } from "../Card/Card.tsx"
+import { Divider } from "../Divider/Divider.tsx"
+import { Label } from "../Label/Label.tsx"
+import { Switch } from "./Switch.tsx"
 
 const meta: Meta<typeof Switch> = {
   title: "ui/Switch",

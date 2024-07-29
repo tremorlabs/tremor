@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Checkbox } from "../Checkbox/Checkbox"
-import { Input } from "../Input/Input"
-import { Label } from "./Label"
+import { Checkbox } from "../Checkbox/Checkbox.tsx"
+import { Input } from "../Input/Input.tsx"
+import { Label } from "./Label.tsx"
 
 const meta: Meta<typeof Label> = {
   title: "ui/Label",

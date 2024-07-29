@@ -1,9 +1,9 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Label } from "../Label/Label"
-import { Checkbox } from "./Checkbox"
+import { Button } from "../Button/Button.tsx"
+import { Label } from "../Label/Label.tsx"
+import { Checkbox } from "./Checkbox.tsx"
 
 const meta: Meta<typeof Checkbox> = {
   title: "ui/Checkbox",

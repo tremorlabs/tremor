@@ -5,8 +5,8 @@ import { Slot } from "@radix-ui/react-slot"
 import { RiLoader2Fill } from "@remixicon/react"
 import { tv, type VariantProps } from "tailwind-variants"
 
-import { cx } from "../../utils/cx"
-import { focusRing } from "../../utils/focusRing"
+import { cx } from "../../utils/cx.ts"
+import { focusRing } from "../../utils/focusRing.ts"
 
 const buttonVariants = tv({
   base: [

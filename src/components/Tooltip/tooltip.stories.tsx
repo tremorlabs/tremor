@@ -1,8 +1,8 @@
 import { RiInformation2Fill } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Tooltip } from "./Tooltip"
+import { Button } from "../Button/Button.tsx"
+import { Tooltip } from "./Tooltip.tsx"
 
 const meta: Meta<typeof Tooltip> = {
   title: "ui/Tooltip",

@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Checkbox } from "../Checkbox/Checkbox"
-import { Divider } from "../Divider/Divider"
-import { Input } from "../Input/Input"
-import { Label } from "../Label/Label"
-import { RadioGroup, RadioGroupItem } from "../RadioGroup/RadioGroup"
+import { Button } from "../Button/Button.tsx"
+import { Checkbox } from "../Checkbox/Checkbox.tsx"
+import { Divider } from "../Divider/Divider.tsx"
+import { Input } from "../Input/Input.tsx"
+import { Label } from "../Label/Label.tsx"
+import { RadioGroup, RadioGroupItem } from "../RadioGroup/RadioGroup.tsx"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../Select/Select"
-import { SelectNative } from "../SelectNative/SelectNative"
-import { Switch } from "../Switch/Switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Tabs/Tabs"
-import { Textarea } from "../Textarea/Textarea"
-import { Tooltip } from "../Tooltip/Tooltip"
-import { Card } from "./Card"
+} from "../Select/Select.tsx"
+import { SelectNative } from "../SelectNative/SelectNative.tsx"
+import { Switch } from "../Switch/Switch.tsx"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Tabs/Tabs.tsx"
+import { Textarea } from "../Textarea/Textarea.tsx"
+import { Tooltip } from "../Tooltip/Tooltip.tsx"
+import { Card } from "./Card.tsx"
 
 const meta: Meta<typeof Card> = {
   title: "ui/Card",

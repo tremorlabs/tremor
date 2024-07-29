@@ -1,9 +1,9 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Label } from "../Label/Label"
-import { Input } from "./Input"
+import { Button } from "../Button/Button.tsx"
+import { Label } from "../Label/Label.tsx"
+import { Input } from "./Input.tsx"
 
 const meta: Meta<typeof Input> = {
   title: "ui/Input",

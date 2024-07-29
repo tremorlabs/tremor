@@ -2,7 +2,7 @@ import React from "react"
 import { Label } from "@radix-ui/react-label"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   Dialog,
   DialogClose,
@@ -12,15 +12,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../Dialog/Dialog"
-import { Divider } from "../Divider/Divider"
-import { Input } from "../Input/Input"
+} from "../Dialog/Dialog.tsx"
+import { Divider } from "../Divider/Divider.tsx"
+import { Input } from "../Input/Input.tsx"
 import {
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-} from "./Popover"
+} from "./Popover.tsx"
 
 const meta: Meta<typeof Popover> = {
   title: "ui/Popover",

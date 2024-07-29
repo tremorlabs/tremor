@@ -8,9 +8,9 @@ import {
   AvailableChartColors,
   AvailableChartColorsKeys,
   getColorClassName,
-} from "../../utils/chartColors"
-import { cx } from "../../utils/cx"
-import { Tooltip } from "../Tooltip/Tooltip"
+} from "../../utils/chartColors.ts"
+import { cx } from "../../utils/cx.ts"
+import { Tooltip } from "../Tooltip/Tooltip.tsx"
 
 const getMarkerBgColor = (
   marker: number | undefined,

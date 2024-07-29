@@ -1,9 +1,9 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Label } from "../Label/Label"
-import { Switch } from "../Switch/Switch"
-import { AreaChart, TooltipProps } from "./AreaChart"
+import { Label } from "../Label/Label.tsx"
+import { Switch } from "../Switch/Switch.tsx"
+import { AreaChart, TooltipProps } from "./AreaChart.tsx"
 
 const chartdata = [
   {

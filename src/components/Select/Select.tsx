@@ -9,9 +9,9 @@ import {
   RiExpandUpDownLine,
 } from "@remixicon/react"
 
-import { cx } from "../../utils/cx"
-import { focusInput } from "../../utils/focusInput"
-import { hasErrorInput } from "../../utils/hasErrorInput"
+import { cx } from "../../utils/cx.ts"
+import { focusInput } from "../../utils/focusInput.ts"
+import { hasErrorInput } from "../../utils/hasErrorInput.ts"
 
 const Select = SelectPrimitives.Root
 Select.displayName = "Select"

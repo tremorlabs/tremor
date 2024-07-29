@@ -1,7 +1,7 @@
 import { RiErrorWarningFill, RiInformation2Fill } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Callout, calloutVariants } from "./Callout"
+import { Callout, calloutVariants } from "./Callout.tsx"
 
 const meta: Meta<typeof Callout> = {
   title: "ui/Callout",

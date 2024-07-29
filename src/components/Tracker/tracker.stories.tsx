@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Tracker, TrackerBlockProps } from "./Tracker"
+import { Tracker, TrackerBlockProps } from "./Tracker.tsx"
 
 const data: TrackerBlockProps[] = [
   { color: "bg-emerald-600 dark:bg-emerald-500", tooltip: "Tracker Info" },

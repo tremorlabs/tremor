@@ -3,7 +3,7 @@
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 
-import { cx } from "../../utils/cx"
+import { cx } from "../../utils/cx.ts"
 
 const calloutVariants = tv({
   base: "flex flex-col overflow-hidden rounded-md p-4 text-sm",

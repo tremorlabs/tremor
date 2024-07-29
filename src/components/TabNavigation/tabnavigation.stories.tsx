@@ -6,7 +6,7 @@ import {
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { TabNavigation, TabNavigationLink } from "./TabNavigation"
+import { TabNavigation, TabNavigationLink } from "./TabNavigation.tsx"
 
 const meta: Meta<typeof TabNavigation> = {
   title: "ui/TabNavigation",

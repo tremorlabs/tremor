@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { cx } from "../../utils/cx"
-import { Button, buttonVariants } from "./Button"
+import { cx } from "../../utils/cx.ts"
+import { Button, buttonVariants } from "./Button.tsx"
 
 const meta: Meta<typeof Button> = {
   title: "ui/Button",

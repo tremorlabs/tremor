@@ -22,9 +22,9 @@ import {
   AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
-} from "../../utils/chartColors"
-import { cx } from "../../utils/cx"
-import { getYAxisDomain } from "../../utils/getYAxisDomain"
+} from "../../utils/chartColors.ts"
+import { cx } from "../../utils/cx.ts"
+import { getYAxisDomain } from "../../utils/getYAxisDomain.ts"
 
 //#region SparkAreaChart
 

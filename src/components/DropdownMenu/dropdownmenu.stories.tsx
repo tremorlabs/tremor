@@ -22,7 +22,7 @@ import {
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -38,7 +38,7 @@ import {
   DropdownMenuSubMenuContent,
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
-} from "./DropdownMenu"
+} from "./DropdownMenu.tsx"
 
 RiUser2Line
 

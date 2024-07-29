@@ -21,15 +21,15 @@ import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { tv, VariantProps } from "tailwind-variants"
 
-import { cx } from "../../utils/cx"
-import { focusInput } from "../../utils/focusInput"
-import { focusRing } from "../../utils/focusRing"
-import { hasErrorInput } from "../../utils/hasErrorInput"
-import { Button } from "../Button/Button"
+import { cx } from "../../utils/cx.ts"
+import { focusInput } from "../../utils/focusInput.ts"
+import { focusRing } from "../../utils/focusRing.ts"
+import { hasErrorInput } from "../../utils/hasErrorInput.ts"
+import { Button } from "../Button/Button.tsx"
 import {
   Calendar as CalendarPrimitive,
   type Matcher,
-} from "../Calendar/Calendar"
+} from "../Calendar/Calendar.tsx"
 
 //#region TimeInput
 // ============================================================================

@@ -6,9 +6,9 @@ import {
   constructCategoryColors,
   getColorClassName,
   type AvailableChartColorsKeys,
-} from "./chartColors"
-import { getYAxisDomain } from "./getYAxisDomain"
-import { hasOnlyOneValueForKey } from "./hasOnlyOneValueForKey"
+} from "./chartColors.ts"
+import { getYAxisDomain } from "./getYAxisDomain.ts"
+import { hasOnlyOneValueForKey } from "./hasOnlyOneValueForKey.ts"
 
 describe("constructCategoryColors", () => {
   it("should correctly map categories to colors", () => {

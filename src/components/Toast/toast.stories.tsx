@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { toast } from "../../hooks/useToast"
-import { Button } from "../Button/Button"
-import { Toast, ToastProvider, ToastViewport } from "./Toast"
-import { Toaster } from "./Toaster"
+import { toast } from "../../hooks/useToast.ts"
+import { Button } from "../Button/Button.tsx"
+import { Toast, ToastProvider, ToastViewport } from "./Toast.tsx"
+import { Toaster } from "./Toaster.tsx"
 
 const meta: Meta<typeof Toast> = {
   title: "ui/Toast",

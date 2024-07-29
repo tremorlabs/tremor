@@ -2,15 +2,15 @@ import * as React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { fr } from "date-fns/locale"
 
-import { Button } from "../Button/Button"
-import { Divider } from "../Divider/Divider"
+import { Button } from "../Button/Button.tsx"
+import { Divider } from "../Divider/Divider.tsx"
 import {
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-} from "../Popover/Popover"
-import { DatePicker } from "./DatePicker"
+} from "../Popover/Popover.tsx"
+import { DatePicker } from "./DatePicker.tsx"
 
 const meta: Meta<typeof DatePicker> = {
   title: "ui/DatePicker",

@@ -4,9 +4,9 @@ import * as React from "react"
 import * as DrawerPrimitives from "@radix-ui/react-dialog"
 import { RiCloseLine } from "@remixicon/react"
 
-import { cx } from "../../utils/cx"
-import { focusRing } from "../../utils/focusRing"
-import { Button } from "../Button/Button"
+import { cx } from "../../utils/cx.ts"
+import { focusRing } from "../../utils/focusRing.ts"
+import { Button } from "../Button/Button.tsx"
 
 const Drawer = (
   props: React.ComponentPropsWithoutRef<typeof DrawerPrimitives.Root>,

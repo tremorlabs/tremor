@@ -1,7 +1,7 @@
 import { RiCalculatorLine, RiMapPin2Line } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs.tsx"
 
 const meta: Meta<typeof Tabs> = {
   title: "ui/Tabs",

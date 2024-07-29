@@ -3,8 +3,8 @@
 import React from "react"
 import * as DialogPrimitives from "@radix-ui/react-dialog"
 
-import { cx } from "../../utils/cx"
-import { focusRing } from "../../utils/focusRing"
+import { cx } from "../../utils/cx.ts"
+import { focusRing } from "../../utils/focusRing.ts"
 
 const Dialog = (
   props: React.ComponentPropsWithoutRef<typeof DialogPrimitives.Root>,

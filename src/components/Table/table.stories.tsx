@@ -1,7 +1,7 @@
 import { RiLoader3Line } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Badge, badgeVariants } from "../Badge/Badge"
+import { Badge, badgeVariants } from "../Badge/Badge.tsx"
 import {
   Table,
   TableBody,
@@ -12,7 +12,7 @@ import {
   TableHeaderCell,
   TableRoot,
   TableRow,
-} from "./Table"
+} from "./Table.tsx"
 
 const meta: Meta<typeof Table> = {
   title: "ui/Table",

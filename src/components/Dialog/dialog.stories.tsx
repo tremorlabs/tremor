@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   Dialog,
   DialogClose,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./Dialog"
+} from "./Dialog.tsx"
 
 const meta: Meta<typeof Dialog> = {
   title: "ui/Dialog",

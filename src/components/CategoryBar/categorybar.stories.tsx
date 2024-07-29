@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { CategoryBar } from "./CategoryBar"
+import { CategoryBar } from "./CategoryBar.tsx"
 
 const meta: Meta<typeof CategoryBar> = {
   title: "visualization/CategoryBar",

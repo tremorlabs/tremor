@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { SparkAreaChart } from "./SparkChart"
+import { SparkAreaChart } from "./SparkChart.tsx"
 
 const chartdata = [
   {

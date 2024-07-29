@@ -18,15 +18,15 @@ import {
 } from "recharts"
 import { AxisDomain } from "recharts/types/util/types"
 
-import { useOnWindowResize } from "../../hooks/useOnWindowResize"
+import { useOnWindowResize } from "../../hooks/useOnWindowResize.ts"
 import {
   AvailableChartColors,
   AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
-} from "../../utils/chartColors"
-import { cx } from "../../utils/cx"
-import { getYAxisDomain } from "../../utils/getYAxisDomain"
+} from "../../utils/chartColors.ts"
+import { cx } from "../../utils/cx.ts"
+import { getYAxisDomain } from "../../utils/getYAxisDomain.ts"
 
 //#region Shape
 

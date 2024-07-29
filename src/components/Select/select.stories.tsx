@@ -7,7 +7,7 @@ import {
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   Dialog,
   DialogClose,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../Dialog/Dialog"
+} from "../Dialog/Dialog.tsx"
 import {
   Select,
   SelectContent,
@@ -26,7 +26,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./Select"
+} from "./Select.tsx"
 
 const meta: Meta<typeof Select> = {
   title: "ui/Select",

@@ -3,7 +3,7 @@
 import React from "react"
 import * as HoverCardPrimitives from "@radix-ui/react-hover-card"
 
-import { cx } from "../../utils/cx"
+import { cx } from "../../utils/cx.ts"
 
 interface TrackerBlockProps {
   key?: string | number

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Label } from "../Label/Label"
-import { SelectNative } from "./SelectNative"
+import { Label } from "../Label/Label.tsx"
+import { SelectNative } from "./SelectNative.tsx"
 
 const meta: Meta<typeof SelectNative> = {
   title: "ui/SelectNative",

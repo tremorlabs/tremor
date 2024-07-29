@@ -2,8 +2,8 @@ import * as React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { fr } from "date-fns/locale"
 
-import { Button } from "../Button/Button"
-import { DateRange, DateRangePicker } from "./DatePicker"
+import { Button } from "../Button/Button.tsx"
+import { DateRange, DateRangePicker } from "./DatePicker.tsx"
 
 const meta: Meta<typeof DateRangePicker> = {
   title: "ui/DateRangePicker",

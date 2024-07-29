@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { SparkLineChart } from "./SparkChart"
+import { SparkLineChart } from "./SparkChart.tsx"
 
 const chartdata = [
   {

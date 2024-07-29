@@ -1,12 +1,12 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   RadioCardGroup,
   RadioCardIndicator,
   RadioCardItem,
-} from "./RadioCardGroup"
+} from "./RadioCardGroup.tsx"
 
 const meta: Meta<typeof RadioCardGroup> = {
   title: "ui/RadioCardGroup",

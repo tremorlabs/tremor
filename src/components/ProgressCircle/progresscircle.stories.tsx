@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Card } from "../Card/Card"
-import { ProgressCircle } from "./ProgressCircle"
+import { Card } from "../Card/Card.tsx"
+import { ProgressCircle } from "./ProgressCircle.tsx"
 
 const meta: Meta<typeof ProgressCircle> = {
   title: "visualization/ProgressCircle",

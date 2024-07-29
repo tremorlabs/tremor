@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
+import { Button } from "../Button/Button.tsx"
 import {
   Drawer,
   DrawerBody,
@@ -12,7 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./Drawer"
+} from "./Drawer.tsx"
 
 const meta: Meta<typeof Drawer> = {
   title: "ui/Drawer",

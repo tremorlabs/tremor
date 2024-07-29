@@ -1,8 +1,8 @@
 import { RiCalendar2Line } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Button } from "../Button/Button"
-import { Divider } from "./Divider"
+import { Button } from "../Button/Button.tsx"
+import { Divider } from "./Divider.tsx"
 
 const meta: Meta<typeof Divider> = {
   title: "ui/Divider",

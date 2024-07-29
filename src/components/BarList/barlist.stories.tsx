@@ -1,7 +1,7 @@
 import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { BarList } from "./BarList"
+import { BarList } from "./BarList.tsx"
 
 const meta: Meta<typeof BarList> = {
   title: "visualization/BarList",

@@ -7,14 +7,14 @@ import {
 } from "@remixicon/react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Badge } from "../Badge/Badge"
-import { Button } from "../Button/Button"
+import { Badge } from "../Badge/Badge.tsx"
+import { Button } from "../Button/Button.tsx"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "./Accordion"
+} from "./Accordion.tsx"
 
 const meta: Meta<typeof Accordion> = {
   title: "ui/Accordion",

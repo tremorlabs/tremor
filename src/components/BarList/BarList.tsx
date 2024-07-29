@@ -2,8 +2,8 @@
 
 import React from "react"
 
-import { cx } from "../../utils/cx"
-import { focusRing } from "../../utils/focusRing"
+import { cx } from "../../utils/cx.ts"
+import { focusRing } from "../../utils/focusRing.ts"
 
 type Bar<T> = T & {
   key?: string

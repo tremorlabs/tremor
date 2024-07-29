@@ -3,8 +3,8 @@
 import React from "react"
 import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu"
 
-import { cx } from "../../utils/cx"
-import { focusRing } from "../../utils/focusRing"
+import { cx } from "../../utils/cx.ts"
+import { focusRing } from "../../utils/focusRing.ts"
 
 function getSubtree(
   options: { asChild: boolean | undefined; children: React.ReactNode },
