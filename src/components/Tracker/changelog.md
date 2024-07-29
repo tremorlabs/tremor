@@ -1,5 +1,11 @@
 # Tremor Raw Tracker Changelog
 
+## 0.1.2
+
+### Changes
+
+- Fix: Items-center typo
+
 ## 0.1.1
 
 ### Changes

@@ -1,4 +1,4 @@
-// Tremor Raw Divider [v0.0.0]
+// Tremor Raw Divider [v0.0.1]
 
 import React from "react"
 
@@ -44,7 +44,7 @@ const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           className={cx(
             // base
             "h-[1px] w-full",
-            // backround color
+            // background color
             "bg-gray-200 dark:bg-gray-800",
           )}
         />

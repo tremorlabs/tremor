@@ -1,4 +1,4 @@
-// Tremor Raw Calendar [v0.0.3]
+// Tremor Raw Calendar [v0.0.4]
 
 "use client"
 
@@ -109,7 +109,7 @@ const Calendar = ({
       weekStartsOn={weekStartsOn}
       numberOfMonths={numberOfMonths}
       locale={locale}
-      showOutsideDays={numberOfMonths === 1 ? true : false}
+      showOutsideDays={numberOfMonths === 1}
       className={cx(className)}
       classNames={{
         months: "flex space-y-0",
