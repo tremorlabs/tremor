@@ -1,4 +1,4 @@
-// Tremor Raw Toast [v0.0.2]
+// Tremor Raw Toast [v0.0.3]
 
 import React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
@@ -62,7 +62,7 @@ const Toast = React.forwardRef<
     }: ToastProps,
     forwardedRef,
   ) => {
-    let Icon: React.ReactNode = null
+    let Icon: React.ReactNode
 
     switch (variant) {
       case "success":

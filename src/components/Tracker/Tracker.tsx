@@ -1,4 +1,4 @@
-// Tremor Raw Tracker [v0.1.1]
+// Tremor Raw Tracker [v0.1.2]
 
 import React from "react"
 import * as HoverCardPrimitives from "@radix-ui/react-hover-card"
@@ -82,7 +82,7 @@ const Tracker = React.forwardRef<HTMLDivElement, TrackerProps>(
     return (
       <div
         ref={forwardedRef}
-        className={cx("items-cente group flex h-8 w-full", className)}
+        className={cx("group flex h-8 w-full items-center", className)}
         {...props}
       >
         {data.map((props, index) => (
