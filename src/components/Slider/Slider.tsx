@@ -40,14 +40,12 @@ const Slider = React.forwardRef<
           // orientation
           "data-[orientation='horizontal']:h-1.5 data-[orientation='horizontal']:w-full",
           "data-[orientation='vertical']:h-full data-[orientation='vertical']:w-1.5",
-          // disabled
-          "data-[disabled]:bg-gray-100 dark:data-[disabled]:bg-gray-800",
         )}
       >
         <SliderPrimitive.Range
           className={cx(
             // base
-            "absolute rounded-full bg-gray-900 dark:bg-gray-50",
+            "absolute rounded-full bg-gray-900 dark:bg-gray-300",
             // orientation
             "data-[orientation='horizontal']:h-full",
             "data-[orientation='vertical']:w-full",
@@ -61,13 +59,13 @@ const Slider = React.forwardRef<
           key={index}
           className={cx(
             // base
-            "block size-4 shrink-0 rounded-full border-2 shadow transition-all",
+            "block size-[17px] shrink-0 rounded-full border shadow transition-all",
             // boder color
-            "border-gray-900 dark:border-gray-50",
+            "border-gray-400 dark:border-gray-500",
             // background color
-            "bg-white dark:bg-gray-50",
+            "bg-white",
             // disabled
-            "data-[disabled]:pointer-events-none data-[disabled]:bg-gray-300 dark:data-[disabled]:border-gray-500 dark:data-[disabled]:bg-gray-600",
+            "data-[disabled]:pointer-events-none data-[disabled]:bg-gray-200 dark:data-[disabled]:border-gray-800 dark:data-[disabled]:bg-gray-600",
             focusRing,
             "outline-offset-0",
           )}

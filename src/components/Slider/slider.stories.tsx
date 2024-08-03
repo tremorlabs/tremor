@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { Button } from "../Button/Button"
 import { Card } from "../Card/Card"
 import { Divider } from "../Divider/Divider"
-import { Label } from "../Label/Label"
 import { Slider } from "./Slider"
 
 const meta: Meta<typeof Slider> = {
@@ -20,38 +19,34 @@ const ControlledSlider = (args: any) => {
   const [value, setValue] = React.useState([55, 75])
 
   return (
-    <div className="space-y-4">
-      <Card className="w-96">
-        <form
-          onSubmit={(event) => {
-            event.preventDefault(), alert("Submitted")
-          }}
-          onReset={() => setValue([55, 75])}
-        >
-          <div className="flex items-center gap-3">
-            <Label htmlFor="a">Click the Label</Label>
-            <Slider id="a" value={value} onValueChange={setValue} {...args} />
-          </div>
-          <Divider />
-          <div className="flex gap-4">
-            <Button type="submit" className="mt-2 w-fit">
-              Submit
-            </Button>
+    <Card className="w-96">
+      <form
+        onSubmit={(event) => {
+          event.preventDefault(),
+            alert("Submitted: " + `${value[0]}, ${value[1]}`)
+        }}
+        onReset={() => setValue([55, 75])}
+      >
+        <Slider id="a" value={value} onValueChange={setValue} {...args} />
+        <Divider />
+        <div className="flex gap-4">
+          <Button type="submit" className="mt-2 w-fit">
+            Submit
+          </Button>
 
-            <Button type="reset" variant="secondary" className="mt-2 w-fit">
-              Reset Input
-            </Button>
-          </div>
-        </form>
-      </Card>
-
-      <p className="text-sm text-gray-500">
+          <Button type="reset" variant="secondary" className="mt-2 w-fit">
+            Reset Input
+          </Button>
+        </div>
+      </form>
+      <Divider />
+      <p className="mt-2 text-sm text-gray-500">
         Slider value:
         <span className="ml-1 font-semibold text-gray-900 dark:text-gray-50">
-          {value}
+          {value[0]}, {value[1]}
         </span>
       </p>
-    </div>
+    </Card>
   )
 }
 
