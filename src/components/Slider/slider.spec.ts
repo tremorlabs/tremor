@@ -74,11 +74,12 @@ test.describe("Slider component", () => {
     // Add an assertion to check the slider value if it is displayed in the UI
   })
 
-  test("is disabled when appropriate", async ({ page }) => {
+  test("to be disabled", async ({ page }) => {
     await page.goto("http://localhost:6006/?path=/story/ui-slider--disabled")
     const slider = page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("slider")
-    await expect(slider).toBeDisabled()
+    const isDataDisabled = await slider.getAttribute("data-disabled")
+    expect(isDataDisabled).not.toBeNull()
   })
 })
