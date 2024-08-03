@@ -18,6 +18,7 @@ const Demo = ({ mode, ...args }: Parameters<typeof Calendar>[0]) => {
         mode={mode}
         selected={mode === "single" ? date : dateRange}
         onSelect={mode === "single" ? setDate : setDateRange}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(args as any)}
       />
 
