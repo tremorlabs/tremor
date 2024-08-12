@@ -15,6 +15,7 @@ const meta: Meta<typeof Switch> = {
 export default meta
 type Story = StoryObj<typeof Switch>
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SimpleIdSwitch = (args: any) => {
   const [checked, setChecked] = React.useState<boolean>(false)
 

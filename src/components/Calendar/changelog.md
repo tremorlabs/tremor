@@ -1,5 +1,12 @@
 # Tremor Raw Calendar Changelog
 
+## 0.0.4
+
+### Changes
+
+- Fix: Z-index day
+- Fix: showOutsideDays logic
+
 ## 0.0.3
 
 ### Changes
