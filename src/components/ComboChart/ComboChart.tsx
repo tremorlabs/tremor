@@ -567,6 +567,20 @@ type BaseEventProps = {
 
 type BarChartEventProps = BaseEventProps | null | undefined
 
+type ChartSeries = {
+    categories: string[]
+    colors?: AvailableChartColorsKeys[]
+    valueFormatter?: (value: number) => string
+    showYAxis?: boolean
+    yAxisWidth?: number
+    allowDecimals?: boolean
+    yAxisLabel?: string
+    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
+    autoMinValue?: boolean
+    minValue?: number
+    maxValue?: number
+}
+
 interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
@@ -585,32 +599,8 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
 
-  barSeries: {
-    categories: string[]
-    colors?: AvailableChartColorsKeys[]
-    valueFormatter?: (value: number) => string
-    showYAxis?: boolean
-    yAxisWidth?: number
-    allowDecimals?: boolean
-    yAxisLabel?: string
-    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
-    autoMinValue?: boolean
-    minValue?: number
-    maxValue?: number
-  }
-
-  lineSeries?: {
-    categories: string[]
-    colors?: AvailableChartColorsKeys[]
-    valueFormatter?: (value: number) => string
-    showYAxis?: boolean
-    yAxisWidth?: number
-    allowDecimals?: boolean
-    yAxisLabel?: string
-    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
-    autoMinValue?: boolean
-    minValue?: number
-    maxValue?: number
+  barSeries: ChartSeries
+  lineSeries?: ChartSeries & {
     connectNulls?: boolean
   }
 
@@ -619,32 +609,23 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
   (props, forwardedRef) => {
-    const defaultBarSeries = {
-      categories: [],
-      colors: AvailableChartColors,
-      valueFormatter: (value: number) => value.toString(),
-      showYAxis: true,
-      yAxisWidth: 56,
-      yAxisLabel: undefined,
-      allowDecimals: true,
-      type: "default",
-      autoMinValue: false,
-      minValue: undefined,
-      maxValue: undefined,
-    }
+    const defaultSeries = {
+        categories: [],
+        colors: AvailableChartColors,
+        valueFormatter: (value: number) => value.toString(),
+        showYAxis: true,
+        yAxisWidth: 56,
+        yAxisLabel: undefined,
+        allowDecimals: true,
+        type: "default",
+        autoMinValue: false,
+        minValue: undefined,
+        maxValue: undefined,
+      }
 
+    const defaultBarSeries = defaultSeries
     const defaultLineSeries = {
-      categories: [],
-      colors: AvailableChartColors,
-      valueFormatter: (value: number) => value.toString(),
-      showYAxis: true,
-      yAxisWidth: 56,
-      yAxisLabel: undefined,
-      allowDecimals: true,
-      type: "default",
-      autoMinValue: false,
-      minValue: undefined,
-      maxValue: undefined,
+      ...defaultSeries,
       connectNulls: false,
     }
 
@@ -1043,6 +1024,31 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 onClick={onBarClick}
               />
             ))}
+            {/* hidden lines to increase clickable target area */}
+            {onValueChange
+              ? mergedLineSeries.categories.map((category) => (
+                  <Line
+                    yAxisId={enableBiaxial ? "right" : undefined}
+                    className={cx("cursor-pointer")}
+                    strokeOpacity={0}
+                    key={category}
+                    name={category}
+                    type="linear"
+                    dataKey={category}
+                    stroke="transparent"
+                    fill="transparent"
+                    legendType="none"
+                    tooltipType="none"
+                    strokeWidth={12}
+                    connectNulls={mergedLineSeries.connectNulls}
+                    onClick={(props: any, event) => {
+                      event.stopPropagation()
+                      const { name } = props
+                      onCategoryClick(name)
+                    }}
+                  />
+                ))
+              : null}
             {mergedLineSeries.categories.map((category) => (
               <Line
                 yAxisId={enableBiaxial ? "right" : undefined}
@@ -1152,31 +1158,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 connectNulls={mergedLineSeries.connectNulls}
               />
             ))}
-            {/* hidden lines to increase clickable target area */}
-            {onValueChange
-              ? mergedLineSeries.categories.map((category) => (
-                  <Line
-                    yAxisId={enableBiaxial ? "right" : undefined}
-                    className={cx("cursor-pointer")}
-                    strokeOpacity={0}
-                    key={category}
-                    name={category}
-                    type="linear"
-                    dataKey={category}
-                    stroke="transparent"
-                    fill="transparent"
-                    legendType="none"
-                    tooltipType="none"
-                    strokeWidth={12}
-                    connectNulls={mergedLineSeries.connectNulls}
-                    onClick={(props: any, event) => {
-                      event.stopPropagation()
-                      const { name } = props
-                      onCategoryClick(name)
-                    }}
-                  />
-                ))
-              : null}
           </RechartsComposedChart>
         </ResponsiveContainer>
       </div>
