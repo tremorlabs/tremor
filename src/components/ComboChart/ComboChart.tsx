@@ -568,17 +568,17 @@ type BaseEventProps = {
 type BarChartEventProps = BaseEventProps | null | undefined
 
 type ChartSeries = {
-    categories: string[]
-    colors?: AvailableChartColorsKeys[]
-    valueFormatter?: (value: number) => string
-    showYAxis?: boolean
-    yAxisWidth?: number
-    allowDecimals?: boolean
-    yAxisLabel?: string
-    type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
-    autoMinValue?: boolean
-    minValue?: number
-    maxValue?: number
+  categories: string[]
+  colors?: AvailableChartColorsKeys[]
+  valueFormatter?: (value: number) => string
+  showYAxis?: boolean
+  yAxisWidth?: number
+  allowDecimals?: boolean
+  yAxisLabel?: string
+  type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
+  autoMinValue?: boolean
+  minValue?: number
+  maxValue?: number
 }
 
 interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -610,18 +610,18 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
 const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
   (props, forwardedRef) => {
     const defaultSeries = {
-        categories: [],
-        colors: AvailableChartColors,
-        valueFormatter: (value: number) => value.toString(),
-        showYAxis: true,
-        yAxisWidth: 56,
-        yAxisLabel: undefined,
-        allowDecimals: true,
-        type: "default",
-        autoMinValue: false,
-        minValue: undefined,
-        maxValue: undefined,
-      }
+      categories: [],
+      colors: AvailableChartColors,
+      valueFormatter: (value: number) => value.toString(),
+      showYAxis: true,
+      yAxisWidth: 56,
+      yAxisLabel: undefined,
+      allowDecimals: true,
+      type: "default",
+      autoMinValue: false,
+      minValue: undefined,
+      maxValue: undefined,
+    }
 
     const defaultBarSeries = defaultSeries
     const defaultLineSeries = {
