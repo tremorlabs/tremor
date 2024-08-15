@@ -33,6 +33,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
+import { useInternalState } from "hooks";
 
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
@@ -76,6 +77,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    defaultDisplayedCategories: inputDefaultDisplayedCategories = categories,
+    displayedCategories: inputDisplayedCategories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -84,9 +88,14 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
+  const [displayedCategories, setDisplayedCategories] = useInternalState(
+    inputDefaultDisplayedCategories,
+    inputDisplayedCategories,
+  );
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  //   const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -278,9 +287,22 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
+
+                      const newDisplayedCategories =
+                        displayedCategories && displayedCategories.includes(clickedLegendItem)
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [
+                              ...(displayedCategories ? displayedCategories : []),
+                              clickedLegendItem,
+                            ];
+                      onDisplayCategoriesChange?.(newDisplayedCategories);
+                      setDisplayedCategories(newDisplayedCategories);
+                    },
                     enableLegendSlider,
                   )
                 }
@@ -364,7 +386,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 key={category}
                 name={category}
                 type={curveType}
-                dataKey={category}
+                dataKey={
+                  displayedCategories && displayedCategories.includes(category)
+                    ? category
+                    : undefined
+                }
                 stroke=""
                 strokeWidth={2}
                 strokeLinejoin="round"
@@ -372,6 +398,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 isAnimationActive={showAnimation}
                 animationDuration={animationDuration}
                 connectNulls={connectNulls}
+                // visibility={displayedCategories.includes(category) ? "visible" : "hidden"}
               />
             ))}
             {onValueChange
@@ -382,7 +409,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     key={category}
                     name={category}
                     type={curveType}
-                    dataKey={category}
+                    dataKey={
+                      displayedCategories && displayedCategories.includes(category)
+                        ? category
+                        : undefined
+                    }
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"

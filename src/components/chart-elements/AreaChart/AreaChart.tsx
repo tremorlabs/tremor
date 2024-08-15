@@ -34,6 +34,7 @@ import {
   tremorTwMerge,
 } from "lib";
 import { CurveType } from "../../../lib/inputTypes";
+import { useInternalState } from "hooks";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;
@@ -81,6 +82,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
     tickGap = 5,
     xAxisLabel,
     yAxisLabel,
+    defaultDisplayedCategories: inputDefaultDisplayedCategories = categories,
+    displayedCategories: inputDisplayedCategories,
+    onDisplayCategoriesChange,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -89,9 +93,14 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
   const [activeDot, setActiveDot] = useState<ActiveDot | undefined>(undefined);
   const [activeLegend, setActiveLegend] = useState<string | undefined>(undefined);
   const categoryColors = constructCategoryColors(categories, colors);
+  const [displayedCategories, setDisplayedCategories] = useInternalState(
+    inputDefaultDisplayedCategories,
+    inputDisplayedCategories,
+  );
 
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
   const hasOnValueChange = !!onValueChange;
+  //   const hasOnDisplayCategoriesChange = !!onDisplayCategoriesChange;
 
   function onDotClick(itemData: any, event: React.MouseEvent) {
     event.stopPropagation();
@@ -281,9 +290,22 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     categoryColors,
                     setLegendHeight,
                     activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) => onCategoryClick(clickedLegendItem)
-                      : undefined,
+                    displayedCategories,
+                    (clickedLegendItem: string) => {
+                      if (hasOnValueChange) {
+                        onCategoryClick(clickedLegendItem);
+                      }
+
+                      const newDisplayedCategories =
+                        displayedCategories && displayedCategories.includes(clickedLegendItem)
+                          ? displayedCategories.filter((category) => category !== clickedLegendItem)
+                          : [
+                              ...(displayedCategories ? displayedCategories : []),
+                              clickedLegendItem,
+                            ];
+                      onDisplayCategoriesChange?.(newDisplayedCategories);
+                      setDisplayedCategories(newDisplayedCategories);
+                    },
                     enableLegendSlider,
                   )
                 }
@@ -418,7 +440,9 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                 key={category}
                 name={category}
                 type={curveType}
-                dataKey={category}
+                dataKey={
+                  displayedCategories && displayedCategories.includes(category) ? category : ""
+                }
                 stroke=""
                 fill={`url(#${categoryColors.get(category)})`}
                 strokeWidth={2}
@@ -438,7 +462,11 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>((props, ref) 
                     key={category}
                     name={category}
                     type={curveType}
-                    dataKey={category}
+                    dataKey={
+                      displayedCategories && displayedCategories.includes(category)
+                        ? category
+                        : undefined
+                    }
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"
