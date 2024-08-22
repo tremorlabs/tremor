@@ -1,5 +1,11 @@
 # Tremor Raw Date Picker Changelog
 
+## 1.0.3
+
+### Changes
+
+- Chore: Add `tremor-id`
+
 ## 1.0.2
 
 ### Changes

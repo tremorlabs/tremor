@@ -1,4 +1,4 @@
-// Tremor Raw Radio Card [v0.0.1]
+// Tremor Raw Radio Card [v0.0.2]
 
 import React from "react"
 import * as RadioGroupPrimitives from "@radix-ui/react-radio-group"
@@ -15,6 +15,7 @@ const RadioCardGroup = React.forwardRef<
     <RadioGroupPrimitives.Root
       ref={forwardedRef}
       className={cx("grid gap-2", className)}
+      tremor-id="tremor-raw"
       {...props}
     />
   )

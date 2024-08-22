@@ -1,4 +1,4 @@
-// Tremor Raw ProgressCircle [v0.0.1]
+// Tremor Raw ProgressCircle [v0.0.2]
 
 import React from "react"
 import { tv, VariantProps } from "tailwind-variants"
@@ -73,7 +73,7 @@ const ProgressCircle = React.forwardRef<SVGSVGElement, ProgressCircleProps>(
     const { background, circle } = progressCircleVariants({ variant })
     return (
       <>
-        <div className={cx("relative")}>
+        <div className={cx("relative")} tremor-id="tremor-raw">
           <svg
             ref={forwardedRef}
             width={radius * 2}

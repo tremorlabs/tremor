@@ -1,4 +1,4 @@
-// Tremor Raw Date Picker [v1.0.2]
+// Tremor Raw Date Picker [v1.0.3]
 
 "use client"
 
@@ -607,7 +607,11 @@ const SingleDatePicker = ({
   }, [value, defaultValue])
 
   return (
-    <PopoverPrimitives.Root open={open} onOpenChange={onOpenChange}>
+    <PopoverPrimitives.Root
+      tremor-id="tremor-raw"
+      open={open}
+      onOpenChange={onOpenChange}
+    >
       <Trigger
         placeholder={placeholder}
         disabled={disabled}
@@ -905,7 +909,11 @@ const RangeDatePicker = ({
   }
 
   return (
-    <PopoverPrimitives.Root open={open} onOpenChange={onOpenChange}>
+    <PopoverPrimitives.Root
+      tremor-id="tremor-raw"
+      open={open}
+      onOpenChange={onOpenChange}
+    >
       <Trigger
         placeholder={placeholder}
         disabled={disabled}

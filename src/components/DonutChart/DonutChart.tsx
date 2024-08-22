@@ -1,4 +1,4 @@
-// Tremor Raw DonutChart [v0.0.0]
+// Tremor Raw DonutChart [v0.0.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -224,7 +224,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
     }
 
     return (
-      <div ref={forwardedRef} className={cx("h-40 w-40", className)} {...other}>
+      <div
+        ref={forwardedRef}
+        className={cx("h-40 w-40", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer className="size-full">
           <ReChartsDonutChart
             onClick={

@@ -1,4 +1,4 @@
-// Tremor Raw Slider [v0.0.0]
+// Tremor Raw Slider [v0.0.1]
 
 "use client"
 
@@ -31,6 +31,7 @@ const Slider = React.forwardRef<
         "data-[disabled]:pointer-events-none",
         className,
       )}
+      tremor-id="tremor-raw"
       {...props}
     >
       <SliderPrimitive.Track

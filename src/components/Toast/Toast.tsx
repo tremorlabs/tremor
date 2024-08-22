@@ -1,4 +1,4 @@
-// Tremor Raw Toast [v0.0.3]
+// Tremor Raw Toast [v0.0.4]
 
 import React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
@@ -124,6 +124,7 @@ const Toast = React.forwardRef<
           "data-[state=closed]:animate-hide",
           className,
         )}
+        tremor-id="tremor-raw"
         {...props}
       >
         <div

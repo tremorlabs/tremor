@@ -1,5 +1,11 @@
 # Tremor Raw Calendar Changelog
 
+## 0.0.5
+
+### Changes
+
+- Chore: Add `tremor-id`
+
 ## 0.0.4
 
 ### Changes

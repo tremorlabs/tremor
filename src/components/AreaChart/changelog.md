@@ -1,5 +1,11 @@
 # Tremor Raw AreaChart Changelog
 
+## 0.3.1
+
+### Changes
+
+- Feat: - Chore: Add `tremor-id`
+
 ## 0.3.0
 
 ### Changes

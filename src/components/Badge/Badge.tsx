@@ -1,4 +1,4 @@
-// Tremor Raw Badge [v0.0.0]
+// Tremor Raw Badge [v0.0.1]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
@@ -48,6 +48,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={forwardedRef}
         className={cx(badgeVariants({ variant }), className)}
+        tremor-id="tremor-raw"
         {...props}
       />
     )
