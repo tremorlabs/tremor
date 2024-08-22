@@ -1,4 +1,4 @@
-// Tremor Raw SelectNative [v0.0.0]
+// Tremor Raw SelectNative [v0.0.1]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
@@ -47,6 +47,7 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
       <select
         ref={forwardedRef}
         className={cx(selectNativeStyles({ hasError }), className)}
+        tremor-id="tremor-raw"
         {...props}
       />
     )

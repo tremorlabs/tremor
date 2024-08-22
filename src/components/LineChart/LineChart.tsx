@@ -1,4 +1,4 @@
-// Tremor Raw LineChart [v0.3.1]
+// Tremor Raw LineChart [v0.3.2]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -598,7 +598,12 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     }
 
     return (
-      <div ref={ref} className={cx("h-80 w-full", className)} {...other}>
+      <div
+        ref={ref}
+        className={cx("h-80 w-full", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer>
           <RechartsLineChart
             data={data}

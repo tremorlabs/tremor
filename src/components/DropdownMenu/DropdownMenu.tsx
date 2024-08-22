@@ -1,4 +1,4 @@
-// Tremor Raw Dropdown Menu [v0.0.0]
+// Tremor Raw Dropdown Menu [v0.0.1]
 
 "use client"
 
@@ -160,6 +160,7 @@ const DropdownMenuItem = React.forwardRef<
       "hover:bg-gray-100 hover:dark:bg-gray-900",
       className,
     )}
+    tremor-id="tremor-raw"
     {...props}
   >
     {children}

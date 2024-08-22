@@ -1,4 +1,4 @@
-// Tremor Raw AreaChart [v0.3.0]
+// Tremor Raw AreaChart [v0.3.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -643,7 +643,12 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
     }
 
     return (
-      <div ref={ref} className={cx("h-80 w-full", className)} {...other}>
+      <div
+        ref={ref}
+        className={cx("h-80 w-full", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer>
           <RechartsAreaChart
             data={data}

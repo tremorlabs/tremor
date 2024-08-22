@@ -1,4 +1,4 @@
-// Tremor Raw Accordion [v0.0.0]
+// Tremor Raw Accordion [v0.0.1]
 
 import React from "react"
 import * as AccordionPrimitives from "@radix-ui/react-accordion"
@@ -89,6 +89,7 @@ const AccordionItem = React.forwardRef<
       "border-gray-200 dark:border-gray-800",
       className,
     )}
+    tremor-id="tremor-raw"
     {...props}
   />
 ))

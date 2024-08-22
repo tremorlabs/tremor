@@ -1,4 +1,4 @@
-// Tremor Raw Switch [v0.0.0]
+// Tremor Raw Switch [v0.0.1]
 
 import React from "react"
 import * as SwitchPrimitives from "@radix-ui/react-switch"
@@ -78,6 +78,7 @@ const Switch = React.forwardRef<
     <SwitchPrimitives.Root
       ref={forwardedRef}
       className={cx(root(), className)}
+      tremor-id="tremor-raw"
       {...props}
     >
       <SwitchPrimitives.Thumb className={cx(thumb())} />

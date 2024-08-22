@@ -1,4 +1,4 @@
-// Tremor Raw Popover [v0.0.2]
+// Tremor Raw Popover [v0.0.3]
 
 import React from "react"
 import * as PopoverPrimitives from "@radix-ui/react-popover"
@@ -40,8 +40,9 @@ const PopoverClose = React.forwardRef<
 
 PopoverClose.displayName = "PopoverClose"
 
-interface ContentProps
-  extends React.ComponentPropsWithoutRef<typeof PopoverPrimitives.Content> {}
+type ContentProps = React.ComponentPropsWithoutRef<
+  typeof PopoverPrimitives.Content
+>
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitives.Content>,
@@ -84,6 +85,7 @@ const PopoverContent = React.forwardRef<
 
             className,
           )}
+          tremor-id="tremor-raw"
           // https://github.com/radix-ui/primitives/issues/1159
           onWheel={(event) => {
             event.stopPropagation()
