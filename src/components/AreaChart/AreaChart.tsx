@@ -604,25 +604,26 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       event.stopPropagation()
 
       if (!hasOnValueChange) return
+      const itemCategory = categories.find(category => category.category === itemData.dataKey)?.name || itemData.dataKey
       if (
         (itemData.index === activeDot?.index &&
-          itemData.dataKey === activeDot?.dataKey) ||
-        (hasOnlyOneValueForKey(data, itemData.dataKey) &&
+          itemCategory === activeDot?.dataKey) ||
+        (hasOnlyOneValueForKey(data, itemCategory) &&
           activeLegend &&
-          activeLegend === itemData.dataKey)
+          activeLegend === itemCategory)
       ) {
         setActiveLegend(undefined)
         setActiveDot(undefined)
         onValueChange?.(null)
       } else {
-        setActiveLegend(itemData.dataKey)
+        setActiveLegend(itemCategory)
         setActiveDot({
           index: itemData.index,
-          dataKey: itemData.dataKey,
+          dataKey: itemCategory,
         })
         onValueChange?.({
           eventType: "dot",
-          categoryClicked: itemData.dataKey,
+          categoryClicked: itemCategory,
           ...itemData.payload,
         })
       }
@@ -824,6 +825,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
             ) : null}
             {categories.map((category) => {
               const categoryId = `${areaId}-${category.category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryValue = category.name || category.category
               return (
                 <React.Fragment key={category.category}>
                   <defs key={category.category}>
@@ -847,7 +849,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                         fillType: fill,
                         activeDot: activeDot,
                         activeLegend: activeLegend,
-                        category: category.category,
+                        category: categoryValue,
                       })}
                     </linearGradient>
                   </defs>
@@ -855,13 +857,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     className={cx(
                       getColorClassName(
                         categoryColors.get(
-                            category.name || category.category,
+                            categoryValue,
                         ) as AvailableChartColorsKeys,
                         "stroke",
                       ),
                     )}
                     strokeOpacity={
-                      activeDot || (activeLegend && activeLegend !== category.category)
+                      activeDot || (activeLegend && activeLegend !== categoryValue)
                         ? 0.3
                         : 1
                     }
@@ -915,10 +917,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                         (hasOnlyOneValueForKey(data, category.category) &&
                           !(
                             activeDot ||
-                            (activeLegend && activeLegend !== category.category)
+                            (activeLegend && activeLegend !== categoryValue)
                           )) ||
                         (activeDot?.index === index &&
-                          activeDot?.dataKey === category.category)
+                          activeDot?.dataKey === categoryValue)
                       ) {
                         return (
                           <Dot
@@ -947,7 +949,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       return <React.Fragment key={index}></React.Fragment>
                     }}
                     key={category.category}
-                    name={category.name}
+                    name={categoryValue}
                     type="linear"
                     dataKey={category.category}
                     stroke=""
@@ -969,7 +971,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     className={cx("cursor-pointer")}
                     strokeOpacity={0}
                     key={category.category}
-                    name={category.name}
+                    name={category.name || category.category}
                     type="linear"
                     dataKey={category.category}
                     stroke="transparent"
