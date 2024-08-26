@@ -471,10 +471,15 @@ type BaseEventProps = {
 
 type AreaChartEventProps = BaseEventProps | null | undefined
 
+type Category = {
+    category: string
+    name?: string
+}
+
 interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
-  categories: string[]
+  categories: Category[]
   colors?: AvailableChartColorsKeys[]
   valueFormatter?: (value: number) => string
   startEndOnly?: boolean
@@ -546,7 +551,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(category => category.name || category.category)
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
@@ -751,16 +757,19 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
-                  ? payload.map((item: any) => ({
-                      category: item.dataKey,
-                      value: item.value,
-                      index: item.payload[index],
-                      color: categoryColors.get(
-                        item.dataKey,
-                      ) as AvailableChartColorsKeys,
-                      type: item.type,
-                      payload: item.payload,
-                    }))
+                  ? payload.map((item: any) => {
+                        const itemCategory = categories.find(category => category.category === item.dataKey)?.name || item.dataKey
+                        return ({
+                            category: itemCategory,
+                            value: item.value,
+                            index: item.payload[index],
+                            color: categoryColors.get(
+                                itemCategory
+                            ) as AvailableChartColorsKeys,
+                            type: item.type,
+                            payload: item.payload,
+                        })
+                    })
                   : []
 
                 if (
@@ -814,16 +823,16 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               />
             ) : null}
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryId = `${areaId}-${category.category.replace(/[^a-zA-Z0-9]/g, "")}`
               return (
-                <React.Fragment key={category}>
-                  <defs key={category}>
+                <React.Fragment key={category.category}>
+                  <defs key={category.category}>
                     <linearGradient
-                      key={category}
+                      key={category.category}
                       className={cx(
                         getColorClassName(
                           categoryColors.get(
-                            category,
+                            category.name || category.category,
                           ) as AvailableChartColorsKeys,
                           "text",
                         ),
@@ -838,7 +847,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                         fillType: fill,
                         activeDot: activeDot,
                         activeLegend: activeLegend,
-                        category: category,
+                        category: category.category,
                       })}
                     </linearGradient>
                   </defs>
@@ -846,13 +855,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     className={cx(
                       getColorClassName(
                         categoryColors.get(
-                          category,
+                            category.name || category.category,
                         ) as AvailableChartColorsKeys,
                         "stroke",
                       ),
                     )}
                     strokeOpacity={
-                      activeDot || (activeLegend && activeLegend !== category)
+                      activeDot || (activeLegend && activeLegend !== category.category)
                         ? 0.3
                         : 1
                     }
@@ -873,7 +882,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                             onValueChange ? "cursor-pointer" : "",
                             getColorClassName(
                               categoryColors.get(
-                                dataKey,
+                                categories.find(category => category.category === dataKey)?.name || dataKey
                               ) as AvailableChartColorsKeys,
                               "fill",
                             ),
@@ -903,13 +912,13 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       } = props
 
                       if (
-                        (hasOnlyOneValueForKey(data, category) &&
+                        (hasOnlyOneValueForKey(data, category.category) &&
                           !(
                             activeDot ||
-                            (activeLegend && activeLegend !== category)
+                            (activeLegend && activeLegend !== category.category)
                           )) ||
                         (activeDot?.index === index &&
-                          activeDot?.dataKey === category)
+                          activeDot?.dataKey === category.category)
                       ) {
                         return (
                           <Dot
@@ -927,7 +936,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                               onValueChange ? "cursor-pointer" : "",
                               getColorClassName(
                                 categoryColors.get(
-                                  dataKey,
+                                    categories.find(category => category.category === dataKey)?.name || dataKey
                                 ) as AvailableChartColorsKeys,
                                 "fill",
                               ),
@@ -937,10 +946,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                       }
                       return <React.Fragment key={index}></React.Fragment>
                     }}
-                    key={category}
-                    name={category}
+                    key={category.category}
+                    name={category.name}
                     type="linear"
-                    dataKey={category}
+                    dataKey={category.category}
                     stroke=""
                     strokeWidth={2}
                     strokeLinejoin="round"
@@ -959,10 +968,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                   <Line
                     className={cx("cursor-pointer")}
                     strokeOpacity={0}
-                    key={category}
-                    name={category}
+                    key={category.category}
+                    name={category.name}
                     type="linear"
-                    dataKey={category}
+                    dataKey={category.category}
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"
