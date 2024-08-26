@@ -152,13 +152,22 @@ const chartdata = [
   },
 ]
 
+const categories = [
+    {
+        category: "SolarCells",
+        name: "Solar Cells"
+    }, {
+        category: "Glass",
+    }
+]
+
 const meta: Meta<typeof LineChart> = {
   title: "visualization/LineChart",
   component: LineChart,
   args: {
     data: chartdata,
     index: "date",
-    categories: ["SolarCells", "Glass"],
+    categories,
   },
 }
 
@@ -171,14 +180,14 @@ export const Default: Story = {
       data-testid="line-chart"
       data={chartdata}
       index="date"
-      categories={["SolarCells", "Glass"]}
+      categories={categories}
     />
   ),
 }
 
 export const DefaultNegative: Story = {
   args: {
-    categories: ["SolarCells", "Adhesive"],
+    categories,
   },
 }
 
@@ -213,15 +222,13 @@ export const AllColors: Story = {
     data: chartdata,
     index: "date",
     categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
-      "Inverter",
-      "Cabling",
+        ...categories,
+        {category: "Glass"},
+        {category: "Encapsulant"},
+        {category: "BackSheet"},
+        {category: "Frame"},
+        {category: "JunctionBox"},
+        {category: "Adhesive"},
     ],
   },
 }
@@ -244,13 +251,13 @@ export const WithLegendSlider: Story = {
     data: chartdata,
     index: "date",
     categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
+        ...categories,
+        {category: "Glass"},
+        {category: "Encapsulant"},
+        {category: "BackSheet"},
+        {category: "Frame"},
+        {category: "JunctionBox"},
+        {category: "Adhesive"},
     ],
     enableLegendSlider: true,
     onValueChange: (v) => console.log(v),
@@ -284,7 +291,7 @@ export const WithConnectNullsFalse: Story = {
       },
     ),
     index: "date",
-    categories: ["SolarCells", "Glass"],
+    categories,
     colors: ["amber", "cyan"],
     connectNulls: false,
   },
@@ -341,7 +348,7 @@ export const WithTooltipCallback: Story = {
         <LineChart
           data={chartdata}
           index="date"
-          categories={["SolarCells", "Glass"]}
+          categories={categories}
           tooltipCallback={(tooltipContent) => setCallBack(tooltipContent)}
           showTooltip={checked}
         />
@@ -361,14 +368,14 @@ export const OneDataValue: Story = {
   args: {
     data: chartdata.slice(0, 1),
     index: "date",
-    categories: ["SolarCells", "Glass"],
+    categories,
     onValueChange: (v) => console.log(v),
   },
 }
 
 export const CustomTooltip: Story = {
   args: {
-    categories: ["SolarCells"],
+    categories: categories.slice(0, 1),
     yAxisWidth: 65,
     customTooltip: (props: TooltipProps) => {
       const { payload, active, label } = props

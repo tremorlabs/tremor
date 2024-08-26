@@ -830,11 +830,10 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                 <React.Fragment key={category.category}>
                   <defs key={category.category}>
                     <linearGradient
-                      key={category.category}
                       className={cx(
                         getColorClassName(
                           categoryColors.get(
-                            category.name || category.category,
+                            categoryValue,
                           ) as AvailableChartColorsKeys,
                           "text",
                         ),
