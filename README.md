@@ -17,7 +17,7 @@
 
  <h1>Copy & Paste React components to build modern web applications</h1>
 
-[Tremor Raw](https://raw.tremor.so/) offers customizable, accessible React components to build dashboards and modern web applications. Built on top of Tailwind CSS and Radix UI.
+[Tremor](https://tremor.so/) offers 35+ customizable, accessible React components to build dashboards and modern web applications. Built on top of Tailwind CSS and Radix UI.
 
 <br />
 
@@ -27,11 +27,11 @@
 
 ## Getting Started
 
-See our [Installation Guide](https://raw.tremor.so/docs/getting-started/installation) to get started.
+See our [Installation Guide](https://tremor.so/docs/getting-started/installation) to get started.
 
 ## Socials
 
-- [Tremor Raw Website](https://raw.tremor.so)
+- [Tremor Raw Website](https://tremor.so)
 - [Tremor on X (formerly Twitter)](https://twitter.com/tremorlabs)
 - [Tremor on Slack](https://tremor.so/slack)
 
@@ -41,6 +41,6 @@ We are always looking for new ideas or other ways to improve Tremor Raw. If you 
 
 ## License
 
-[Apache License 2.0](https://github.com/tremorlabs/tremor-raw/blob/main/License)
+[Apache License 2.0](https://github.com/tremorlabs/tremor/blob/main/License)
 
 Copyright &copy; 2024 Tremor. All rights reserved.
