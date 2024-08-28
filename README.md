@@ -3,8 +3,8 @@
 <p align="center">
   <a href="https://tremor.so/raw"> 
     <picture>
-       <source media="(prefers-color-scheme: dark)" srcset="public/images/tremor_logo_dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="public/images/tremor_logo_light.svg">
+       <source media="(prefers-color-scheme: dark)" srcset="public/images/tremor-logo-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="public/images/tremor-logo-light.svg">
     <img alt="Tremor Logo" src="public/images/tremor-logo-light.svg" height="50"/>
     </picture>
   </a>
@@ -31,7 +31,7 @@ See our [Installation Guide](https://tremor.so/docs/getting-started/installation
 
 ## Socials
 
-- [Tremor Raw Website](https://tremor.so)
+- [Tremor Website](https://tremor.so)
 - [Tremor on X (formerly Twitter)](https://twitter.com/tremorlabs)
 - [Tremor on Slack](https://tremor.so/slack)
 
