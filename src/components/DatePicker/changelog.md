@@ -1,4 +1,4 @@
-# Tremor Raw Date Picker Changelog
+# Tremor Date Picker Changelog
 
 ## 1.0.3
 
