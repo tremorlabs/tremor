@@ -1,4 +1,4 @@
-# Tremor Raw Callout Changelog
+# Tremor Callout Changelog
 
 ## 0.0.1
 

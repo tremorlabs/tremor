@@ -1,4 +1,4 @@
-# Tremor Raw SelectNative Changelog
+# Tremor SelectNative Changelog
 
 ## 0.0.1
 

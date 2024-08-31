@@ -1,4 +1,4 @@
-# Tremor Raw Table Changelog
+# Tremor Table Changelog
 
 ## 0.0.3
 

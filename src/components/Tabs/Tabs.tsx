@@ -1,4 +1,4 @@
-// Tremor Raw Tabs [v0.0.1]
+// Tremor Tabs [v0.0.1]
 
 import React from "react"
 import * as TabsPrimitives from "@radix-ui/react-tabs"

@@ -1,4 +1,4 @@
-# Tremor Raw BarList Changelog
+# Tremor BarList Changelog
 
 ## 0.1.1
 

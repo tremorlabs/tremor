@@ -1,4 +1,4 @@
-# Tremor Raw Checkbox Changelog
+# Tremor Checkbox Changelog
 
 ## 0.0.3
 

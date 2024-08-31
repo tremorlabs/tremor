@@ -1,4 +1,4 @@
-// Tremor Raw Table [v0.0.3]
+// Tremor Table [v0.0.3]
 
 import React from "react"
 

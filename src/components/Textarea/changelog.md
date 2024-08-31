@@ -1,4 +1,4 @@
-# Tremor Raw Textarea Changelog
+# Tremor Textarea Changelog
 
 ## 0.0.2
 

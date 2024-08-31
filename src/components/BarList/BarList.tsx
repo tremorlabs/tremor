@@ -1,4 +1,4 @@
-// Tremor Raw BarList [v0.1.1]
+// Tremor BarList [v0.1.1]
 
 import React from "react"
 

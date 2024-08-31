@@ -1,4 +1,4 @@
-# Tremor Raw Category Bar Changelog
+# Tremor Category Bar Changelog
 
 ## 0.0.1
 

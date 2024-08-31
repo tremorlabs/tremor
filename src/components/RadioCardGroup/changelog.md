@@ -1,4 +1,4 @@
-# Tremor Raw Radio Card Group Changelog
+# Tremor Radio Card Group Changelog
 
 ## 0.0.2
 

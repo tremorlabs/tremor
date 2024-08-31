@@ -1,4 +1,4 @@
-# Tremor Raw AreaChart Changelog
+# Tremor AreaChart Changelog
 
 ## 0.3.1
 

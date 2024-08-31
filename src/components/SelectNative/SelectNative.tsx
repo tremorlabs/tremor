@@ -1,4 +1,4 @@
-// Tremor Raw SelectNative [v0.0.1]
+// Tremor SelectNative [v0.0.1]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"

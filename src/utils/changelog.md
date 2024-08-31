@@ -1,4 +1,4 @@
-# Tremor Raw utils Changelog
+# Tremor utils Changelog
 
 ### Changes 0.1.0
 

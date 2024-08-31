@@ -1,4 +1,4 @@
-// Tremor Raw hasErrorInput [v0.0.1]
+// Tremor hasErrorInput [v0.0.1]
 
 export const hasErrorInput = [
   // base

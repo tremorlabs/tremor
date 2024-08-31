@@ -1,4 +1,4 @@
-// Tremor Raw Drawer [v0.0.1]
+// Tremor Drawer [v0.0.1]
 
 import * as React from "react"
 import * as DrawerPrimitives from "@radix-ui/react-dialog"

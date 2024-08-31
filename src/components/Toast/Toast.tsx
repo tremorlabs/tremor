@@ -1,4 +1,4 @@
-// Tremor Raw Toast [v0.0.4]
+// Tremor Toast [v0.0.4]
 
 import React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"

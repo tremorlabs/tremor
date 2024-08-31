@@ -1,4 +1,4 @@
-# Tremor Raw Tabs Changelog
+# Tremor Tabs Changelog
 
 ## 0.0.1
 

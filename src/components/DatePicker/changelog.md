@@ -1,4 +1,10 @@
-# Tremor Raw Date Picker Changelog
+# Tremor Date Picker Changelog
+
+## 1.0.4
+
+### Changes
+
+- Fix: Overflow styles
 
 ## 1.0.3
 

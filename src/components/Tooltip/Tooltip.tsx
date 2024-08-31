@@ -1,4 +1,4 @@
-// Tremor Raw Tooltip [v0.0.2]
+// Tremor Tooltip [v0.0.2]
 
 "use client"
 

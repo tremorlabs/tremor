@@ -1,4 +1,4 @@
-# Tremor Raw ProgressBar Changelog
+# Tremor ProgressBar Changelog
 
 ## 0.0.2
 

@@ -1,4 +1,4 @@
-// Tremor Raw Switch [v0.0.1]
+// Tremor Switch [v0.0.1]
 
 import React from "react"
 import * as SwitchPrimitives from "@radix-ui/react-switch"

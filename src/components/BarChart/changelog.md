@@ -1,4 +1,4 @@
-# Tremor Raw BarChart Changelog
+# Tremor BarChart Changelog
 
 ## 0.2.1
 

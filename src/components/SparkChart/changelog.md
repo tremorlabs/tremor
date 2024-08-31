@@ -1,4 +1,4 @@
-# Tremor Raw SparkChart Changelog
+# Tremor SparkChart Changelog
 
 ## 0.1.2
 

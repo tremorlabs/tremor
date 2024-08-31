@@ -1,4 +1,4 @@
-// Tremor Raw Textarea [v0.0.2]
+// Tremor Textarea [v0.0.2]
 
 import React from "react"
 

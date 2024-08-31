@@ -1,4 +1,4 @@
-// Tremor Raw ProgressCircle [v0.0.2]
+// Tremor ProgressCircle [v0.0.2]
 
 import React from "react"
 import { tv, VariantProps } from "tailwind-variants"

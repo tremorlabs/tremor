@@ -1,4 +1,4 @@
-// Tremor Raw Select [v0.0.3]
+// Tremor Select [v0.0.3]
 
 import React from "react"
 import * as SelectPrimitives from "@radix-ui/react-select"

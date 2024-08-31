@@ -1,4 +1,4 @@
-// Tremor Raw useToast [v0.0.0]
+// Tremor useToast [v0.0.0]
 
 "use client"
 

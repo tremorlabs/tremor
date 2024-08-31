@@ -1,4 +1,4 @@
-// Tremor Raw Accordion [v0.0.1]
+// Tremor Accordion [v0.0.1]
 
 import React from "react"
 import * as AccordionPrimitives from "@radix-ui/react-accordion"

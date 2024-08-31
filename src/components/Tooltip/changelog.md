@@ -1,4 +1,4 @@
-# Tremor Raw Tooltip Changelog
+# Tremor Tooltip Changelog
 
 ## 0.0.2
 

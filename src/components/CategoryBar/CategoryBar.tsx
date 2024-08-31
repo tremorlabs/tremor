@@ -1,4 +1,4 @@
-// Tremor Raw CategoryBar [v0.0.1]
+// Tremor CategoryBar [v0.0.1]
 
 "use client"
 

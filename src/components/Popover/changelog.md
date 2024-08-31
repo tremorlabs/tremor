@@ -1,4 +1,4 @@
-# Tremor Raw Popover Changelog
+# Tremor Popover Changelog
 
 ## 0.0.3
 
