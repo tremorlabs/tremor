@@ -1,4 +1,4 @@
-# Tremor Raw Toast Changelog
+# Tremor Toast Changelog
 
 ## 0.0.4
 

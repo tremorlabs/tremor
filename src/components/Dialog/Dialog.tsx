@@ -1,4 +1,4 @@
-// Tremor Raw Dialog [v0.0.1]
+// Tremor Dialog [v0.0.1]
 
 import React from "react"
 import * as DialogPrimitives from "@radix-ui/react-dialog"

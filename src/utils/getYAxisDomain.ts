@@ -1,4 +1,4 @@
-// Tremor Raw getYAxisDomain [v0.0.0]
+// Tremor getYAxisDomain [v0.0.0]
 
 export const getYAxisDomain = (
   autoMinValue: boolean,

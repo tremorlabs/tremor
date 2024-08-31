@@ -1,4 +1,4 @@
-# Tremor Raw Input Changelog
+# Tremor Input Changelog
 
 ## 1.0.4
 

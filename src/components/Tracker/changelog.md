@@ -1,4 +1,4 @@
-# Tremor Raw Tracker Changelog
+# Tremor Tracker Changelog
 
 ## 0.1.3
 

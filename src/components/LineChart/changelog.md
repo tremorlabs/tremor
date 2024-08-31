@@ -1,4 +1,4 @@
-# Tremor Raw LineChart Changelog
+# Tremor LineChart Changelog
 
 ## 0.3.2
 

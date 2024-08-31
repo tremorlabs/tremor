@@ -1,4 +1,4 @@
-# Tremor Raw Calendar Changelog
+# Tremor Calendar Changelog
 
 ## 0.0.5
 

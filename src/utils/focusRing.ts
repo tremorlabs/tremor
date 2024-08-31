@@ -1,4 +1,4 @@
-// Tremor Raw focusRing [v0.0.1]
+// Tremor focusRing [v0.0.1]
 
 export const focusRing = [
   // base

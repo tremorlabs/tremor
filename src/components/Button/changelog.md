@@ -1,4 +1,4 @@
-# Tremor Raw Button Changelog
+# Tremor Button Changelog
 
 ## 0.1.2
 

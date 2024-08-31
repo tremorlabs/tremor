@@ -1,4 +1,4 @@
-# Tremor Raw Drawer Changelog
+# Tremor Drawer Changelog
 
 ## 0.0.1
 

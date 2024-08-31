@@ -1,4 +1,4 @@
-// Tremor Raw Dropdown Menu [v0.0.2]
+// Tremor Dropdown Menu [v0.0.2]
 
 "use client"
 

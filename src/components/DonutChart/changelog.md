@@ -1,4 +1,4 @@
-# Tremor Raw DonutChart Changelog
+# Tremor DonutChart Changelog
 
 ## 0.0.1
 

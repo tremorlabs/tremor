@@ -1,4 +1,4 @@
-# Tremor Raw RadioGroup Changelog
+# Tremor RadioGroup Changelog
 
 ## 0.0.2
 

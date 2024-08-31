@@ -1,4 +1,4 @@
-# Tremor Raw Slider Changelog
+# Tremor Slider Changelog
 
 ## 0.0.1
 

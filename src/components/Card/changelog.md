@@ -1,4 +1,4 @@
-# Tremor Raw Card Changelog
+# Tremor Card Changelog
 
 ## 0.0.2
 

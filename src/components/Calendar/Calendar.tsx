@@ -1,4 +1,4 @@
-// Tremor Raw Calendar [v0.0.5]
+// Tremor Calendar [v0.0.5]
 
 "use client"
 

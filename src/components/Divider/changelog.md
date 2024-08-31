@@ -1,4 +1,4 @@
-# Tremor Raw Divider Changelog
+# Tremor Divider Changelog
 
 ## 0.0.2
 

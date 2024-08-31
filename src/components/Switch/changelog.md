@@ -1,4 +1,4 @@
-# Tremor Raw Switch Changelog
+# Tremor Switch Changelog
 
 ## 0.0.1
 

@@ -1,4 +1,4 @@
-# Tremor Raw TabNavigation Changelog
+# Tremor TabNavigation Changelog
 
 ## 0.0.2
 

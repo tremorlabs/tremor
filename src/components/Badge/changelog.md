@@ -1,4 +1,4 @@
-# Tremor Raw Badge Changelog
+# Tremor Badge Changelog
 
 ## 0.0.1
 

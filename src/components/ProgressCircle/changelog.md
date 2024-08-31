@@ -1,4 +1,4 @@
-# Tremor Raw ProgressCircle Changelog
+# Tremor ProgressCircle Changelog
 
 ## 0.0.2
 

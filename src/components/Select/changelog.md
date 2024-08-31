@@ -1,4 +1,4 @@
-# Tremor Raw Select Changelog
+# Tremor Select Changelog
 
 ## 0.0.3
 

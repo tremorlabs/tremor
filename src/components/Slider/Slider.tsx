@@ -1,4 +1,4 @@
-// Tremor Raw Slider [v0.0.1]
+// Tremor Slider [v0.0.1]
 
 "use client"
 

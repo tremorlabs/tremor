@@ -1,4 +1,4 @@
-# Tremor Raw Accordion Changelog
+# Tremor Accordion Changelog
 
 ## 0.0.1
 

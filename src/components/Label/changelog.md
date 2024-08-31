@@ -1,4 +1,4 @@
-# Tremor Raw Label Changelog
+# Tremor Label Changelog
 
 ## 0.0.2
 

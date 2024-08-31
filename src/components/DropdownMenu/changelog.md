@@ -1,4 +1,4 @@
-# Tremor Raw Dropdown Menu Changelog
+# Tremor Dropdown Menu Changelog
 
 ## 0.0.2
 

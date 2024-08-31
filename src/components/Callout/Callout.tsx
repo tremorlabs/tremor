@@ -1,4 +1,4 @@
-// Tremor Raw Callout [v0.0.1]
+// Tremor Callout [v0.0.1]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"

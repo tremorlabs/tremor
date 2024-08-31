@@ -1,4 +1,4 @@
-# Tremor Raw hooks Changelog
+# Tremor hooks Changelog
 
 ## 0.0.1
 
