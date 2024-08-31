@@ -1,4 +1,4 @@
-// Tremor Raw ComboChart [v0.0.0]
+// Tremor ComboChart [v0.0.0]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
