@@ -1,4 +1,4 @@
-// Tremor Date Picker [v1.0.3]
+// Tremor Date Picker [v1.0.4]
 
 "use client"
 
