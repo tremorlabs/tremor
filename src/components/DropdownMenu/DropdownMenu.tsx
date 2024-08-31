@@ -1,4 +1,4 @@
-// Tremor Raw Dropdown Menu [v0.0.0]
+// Tremor Dropdown Menu [v0.0.2]
 
 "use client"
 
@@ -30,7 +30,10 @@ DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup"
 
 const DropdownMenuSubMenuTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.SubTrigger>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.SubTrigger>
+  Omit<
+    React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.SubTrigger>,
+    "asChild"
+  >
 >(({ className, children, ...props }, forwardedRef) => (
   <DropdownMenuPrimitives.SubTrigger
     ref={forwardedRef}
@@ -140,7 +143,10 @@ DropdownMenuContent.displayName = "DropdownMenuContent"
 
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.Item>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Item> & {
+  Omit<
+    React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.Item>,
+    "asChild"
+  > & {
     shortcut?: string
     hint?: string
   }
@@ -160,6 +166,7 @@ const DropdownMenuItem = React.forwardRef<
       "hover:bg-gray-100 hover:dark:bg-gray-900",
       className,
     )}
+    tremor-id="tremor-raw"
     {...props}
   >
     {children}
@@ -183,7 +190,10 @@ DropdownMenuItem.displayName = "DropdownMenuItem"
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.CheckboxItem> & {
+  Omit<
+    React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.CheckboxItem>,
+    "asChild"
+  > & {
     shortcut?: string
     hint?: string
   }
@@ -244,7 +254,10 @@ DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem"
 
 const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitives.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.RadioItem> & {
+  Omit<
+    React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitives.RadioItem>,
+    "asChild"
+  > & {
     shortcut?: string
     hint?: string
   }

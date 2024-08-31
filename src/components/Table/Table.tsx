@@ -1,4 +1,4 @@
-// Tremor Raw Table [v0.0.2]
+// Tremor Table [v0.0.3]
 
 import React from "react"
 
@@ -31,6 +31,7 @@ const Table = React.forwardRef<
 >(({ className, ...props }, forwardedRef) => (
   <table
     ref={forwardedRef}
+    tremor-id="tremor-raw"
     className={cx(
       // base
       "w-full caption-bottom border-b",

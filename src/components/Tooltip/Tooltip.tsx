@@ -1,4 +1,4 @@
-// Tremor Raw Tooltip [v0.0.1]
+// Tremor Tooltip [v0.0.2]
 
 "use client"
 
@@ -49,6 +49,7 @@ const Tooltip = React.forwardRef<
           defaultOpen={defaultOpen}
           onOpenChange={onOpenChange}
           delayDuration={delayDuration}
+          tremor-id="tremor-raw"
         >
           <TooltipPrimitives.Trigger onClick={onClick} asChild={triggerAsChild}>
             {children}
@@ -89,5 +90,7 @@ const Tooltip = React.forwardRef<
     )
   },
 )
+
+Tooltip.displayName = "Tooltip"
 
 export { Tooltip, type TooltipProps }

@@ -1,4 +1,4 @@
-// Tremor Raw Tracker [v0.1.2]
+// Tremor Tracker [v0.1.3]
 
 import React from "react"
 import * as HoverCardPrimitives from "@radix-ui/react-hover-card"
@@ -26,6 +26,7 @@ const Block = ({
       onOpenChange={setOpen}
       openDelay={0}
       closeDelay={0}
+      tremor-id="tremor-raw"
     >
       <HoverCardPrimitives.Trigger onClick={() => setOpen(true)} asChild>
         <div className="size-full overflow-hidden px-[0.5px] transition first:rounded-l-[4px] first:pl-0 last:rounded-r-[4px] last:pr-0 sm:px-px">

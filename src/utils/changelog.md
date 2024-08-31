@@ -1,6 +1,10 @@
-# Tremor Raw utils Changelog
+# Tremor utils Changelog
 
-### Changes
+### Changes 0.1.0
+
+- New: chartColors added lime and fuchsia
+
+### Changes mixed
 
 - New: chartColors utilities
 - New: getYAxisDomain utility

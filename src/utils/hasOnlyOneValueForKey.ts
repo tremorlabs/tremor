@@ -1,4 +1,4 @@
-// Tremor Raw hasOnlyOneValueForKey [v0.1.0]
+// Tremor hasOnlyOneValueForKey [v0.1.0]
 
 export function hasOnlyOneValueForKey(
   array: any[],

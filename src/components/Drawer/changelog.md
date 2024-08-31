@@ -1,5 +1,7 @@
-# Tremor Raw Drawer Changelog
+# Tremor Drawer Changelog
 
-## 0.0.0
+## 0.0.1
 
 ### Changes
+
+- Chore: Add `tremor-id`

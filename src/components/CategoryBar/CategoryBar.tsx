@@ -1,4 +1,4 @@
-// Tremor Raw CategoryBar [v0.0.0]
+// Tremor CategoryBar [v0.0.1]
 
 "use client"
 
@@ -145,6 +145,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
         className={cx(className)}
         aria-label="category bar"
         aria-valuenow={marker?.value}
+        tremor-id="tremor-raw"
         {...props}
       >
         {showLabels ? <BarLabels values={values} /> : null}

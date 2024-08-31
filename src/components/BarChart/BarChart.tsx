@@ -1,4 +1,4 @@
-// Tremor Raw BarChart [v0.2.0]
+// Tremor BarChart [v0.2.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -650,6 +650,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       <div
         ref={forwardedRef}
         className={cx("h-80 w-full", className)}
+        tremor-id="tremor-raw"
         {...other}
       >
         <ResponsiveContainer>

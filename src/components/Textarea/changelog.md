@@ -1,4 +1,10 @@
-# Tremor Raw Textarea Changelog
+# Tremor Textarea Changelog
+
+## 0.0.2
+
+### Changes
+
+- Chore: Add `tremor-id`
 
 ## 0.0.1
 

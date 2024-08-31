@@ -1,4 +1,4 @@
-// Tremor Raw Card [v0.0.1]
+// Tremor Card [v0.0.2]
 
 import React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -24,6 +24,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           "border-gray-200 dark:border-gray-900",
           className,
         )}
+        tremor-id="tremor-raw"
         {...props}
       />
     )

@@ -1,4 +1,10 @@
-# Tremor Raw BarList Changelog
+# Tremor BarList Changelog
+
+## 0.1.1
+
+### Changes
+
+- Chore: Add `tremor-id`
 
 ## 0.1.0
 

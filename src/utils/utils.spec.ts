@@ -58,6 +58,7 @@ describe("hasOnlyOneValueForKey", () => {
   })
 
   it("returns true when the array is empty", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const array: any[] = []
     expect(hasOnlyOneValueForKey(array, "value")).toBe(true)
   })

@@ -1,4 +1,10 @@
-# Tremor Raw Tracker Changelog
+# Tremor Tracker Changelog
+
+## 0.1.3
+
+### Changes
+
+- Chore: Add `tremor-id`
 
 ## 0.1.2
 

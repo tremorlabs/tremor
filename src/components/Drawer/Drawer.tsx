@@ -1,4 +1,4 @@
-// Tremor Raw Drawer [v0.0.0]
+// Tremor Drawer [v0.0.1]
 
 import * as React from "react"
 import * as DrawerPrimitives from "@radix-ui/react-dialog"
@@ -11,7 +11,7 @@ import { Button } from "../Button/Button"
 const Drawer = (
   props: React.ComponentPropsWithoutRef<typeof DrawerPrimitives.Root>,
 ) => {
-  return <DrawerPrimitives.Root {...props} />
+  return <DrawerPrimitives.Root tremor-id="tremor-raw" {...props} />
 }
 Drawer.displayName = "Drawer"
 

@@ -15,6 +15,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 1800,
     Adhesive: -1700,
+    Inverter: 2600,
+    Cabling: 1400,
   },
   {
     date: "Feb 23",
@@ -25,6 +27,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 1750,
     Adhesive: -1650,
+    Inverter: 2450,
+    Cabling: 1300,
   },
   {
     date: "Mar 23",
@@ -35,6 +39,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2000,
     Adhesive: -1800,
+    Inverter: 2750,
+    Cabling: 1450,
   },
   {
     date: "Apr 23",
@@ -45,6 +51,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 1900,
     Adhesive: -1950,
+    Inverter: 2850,
+    Cabling: 1500,
   },
   {
     date: "May 23",
@@ -55,6 +63,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2200,
     Adhesive: -1600,
+    Inverter: 2900,
+    Cabling: 1550,
   },
   {
     date: "Jun 23",
@@ -65,6 +75,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2050,
     Adhesive: -1700,
+    Inverter: 2750,
+    Cabling: 1400,
   },
   {
     date: "Jul 23",
@@ -75,6 +87,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2300,
     Adhesive: -1800,
+    Inverter: 3050,
+    Cabling: 1600,
   },
   {
     date: "Aug 23",
@@ -85,6 +99,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2150,
     Adhesive: -1900,
+    Inverter: 2700,
+    Cabling: 1450,
   },
   {
     date: "Sep 23",
@@ -95,6 +111,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2000,
     Adhesive: -3750,
+    Inverter: 2550,
+    Cabling: 1350,
   },
   {
     date: "Oct 23",
@@ -105,6 +123,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2100,
     Adhesive: -2600,
+    Inverter: 2650,
+    Cabling: 1400,
   },
   {
     date: "Nov 23",
@@ -115,6 +135,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2400,
     Adhesive: -2950,
+    Inverter: 2750,
+    Cabling: 1450,
   },
   {
     date: "Dec 23",
@@ -125,6 +147,8 @@ const chartdata = [
     Frame: 1500,
     JunctionBox: 2250,
     Adhesive: -3800,
+    Inverter: 2900,
+    Cabling: 1500,
   },
 ]
 
@@ -196,6 +220,8 @@ export const AllColors: Story = {
       "Frame",
       "JunctionBox",
       "Adhesive",
+      "Inverter",
+      "Cabling",
     ],
   },
 }

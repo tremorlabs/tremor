@@ -1,4 +1,4 @@
-// Tremor Raw Calendar [v0.0.4]
+// Tremor Calendar [v0.0.5]
 
 "use client"
 
@@ -311,6 +311,7 @@ const Calendar = ({
           )
         },
       }}
+      tremor-id="tremor-raw"
       {...(props as SingleProps & RangeProps)}
     />
   )

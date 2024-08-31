@@ -1,4 +1,4 @@
-// Tremor Raw Toaster [v0.0.0]
+// Tremor Toaster [v0.0.0]
 
 "use client"
 

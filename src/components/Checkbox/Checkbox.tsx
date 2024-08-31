@@ -1,4 +1,4 @@
-// Tremor Raw Checkbox [v0.0.2]
+// Tremor Checkbox [v0.0.3]
 
 import React from "react"
 import * as CheckboxPrimitives from "@radix-ui/react-checkbox"
@@ -35,6 +35,7 @@ const Checkbox = React.forwardRef<
         focusRing,
         className,
       )}
+      tremor-id="tremor-raw"
     >
       <CheckboxPrimitives.Indicator
         asChild

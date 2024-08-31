@@ -1,4 +1,4 @@
-// Tremor Raw Dialog [v0.0.0]
+// Tremor Dialog [v0.0.1]
 
 import React from "react"
 import * as DialogPrimitives from "@radix-ui/react-dialog"
@@ -69,6 +69,7 @@ const DialogContent = React.forwardRef<
             focusRing,
             className,
           )}
+          tremor-id="tremor-raw"
           {...props}
         />
       </DialogOverlay>

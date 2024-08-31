@@ -1,4 +1,10 @@
-# Tremor Raw LineChart Changelog
+# Tremor LineChart Changelog
+
+## 0.3.2
+
+### Changes
+
+- Chore: Add `tremor-id`
 
 ## 0.3.1
 

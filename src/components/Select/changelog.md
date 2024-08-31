@@ -1,4 +1,10 @@
-# Tremor Raw Select Changelog
+# Tremor Select Changelog
+
+## 0.0.3
+
+### Changes
+
+- Chore: Add `tremor-id`
 
 ## 0.0.2
 

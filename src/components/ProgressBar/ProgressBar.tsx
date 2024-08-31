@@ -1,4 +1,4 @@
-// Tremor Raw ProgressBar [v0.0.1]
+// Tremor ProgressBar [v0.0.2]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
@@ -67,6 +67,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       <div
         ref={forwardedRef}
         className={cx("flex w-full items-center", className)}
+        tremor-id="tremor-raw"
         {...props}
       >
         <div

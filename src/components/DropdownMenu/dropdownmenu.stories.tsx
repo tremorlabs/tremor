@@ -15,7 +15,6 @@ import {
   RiSlackLine,
   RiStackLine,
   RiTelegramLine,
-  RiUser2Line,
   RiUserAddLine,
   RiUserSmileLine,
   RiWhatsappLine,
@@ -39,8 +38,6 @@ import {
   DropdownMenuSubMenuTrigger,
   DropdownMenuTrigger,
 } from "./DropdownMenu"
-
-RiUser2Line
 
 const meta: Meta<typeof DropdownMenu> = {
   title: "ui/DropdownMenu",

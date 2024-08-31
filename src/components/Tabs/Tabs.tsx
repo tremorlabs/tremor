@@ -1,4 +1,4 @@
-// Tremor Raw Tabs [v0.0.0]
+// Tremor Tabs [v0.0.1]
 
 import React from "react"
 import * as TabsPrimitives from "@radix-ui/react-tabs"
@@ -12,7 +12,7 @@ const Tabs = (
     "orientation"
   >,
 ) => {
-  return <TabsPrimitives.Root {...props} />
+  return <TabsPrimitives.Root tremor-id="tremor-raw" {...props} />
 }
 
 Tabs.displayName = "Tabs"

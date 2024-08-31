@@ -1,4 +1,4 @@
-// Tremor Raw Spark Chart [v0.1.1]
+// Tremor Spark Chart [v0.1.2]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -82,7 +82,12 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
     }
 
     return (
-      <div ref={forwardedRef} className={cx("h-12 w-28", className)} {...other}>
+      <div
+        ref={forwardedRef}
+        className={cx("h-12 w-28", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer>
           <RechartsAreaChart
             data={data}
@@ -188,7 +193,12 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
 
     return (
-      <div ref={forwardedRef} className={cx("h-12 w-28", className)} {...other}>
+      <div
+        ref={forwardedRef}
+        className={cx("h-12 w-28", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer>
           <RechartsLineChart
             data={data}
@@ -268,7 +278,12 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const stacked = type === "stacked" || type === "percent"
 
     return (
-      <div ref={forwardedRef} className={cx("h-12 w-28", className)} {...other}>
+      <div
+        ref={forwardedRef}
+        className={cx("h-12 w-28", className)}
+        tremor-id="tremor-raw"
+        {...other}
+      >
         <ResponsiveContainer>
           <RechartsBarChart
             data={data}

@@ -1,4 +1,4 @@
-// Tremor Raw Callout [v0.0.0]
+// Tremor Callout [v0.0.1]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
@@ -62,6 +62,7 @@ const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
       <div
         ref={forwardedRef}
         className={cx(calloutVariants({ variant }), className)}
+        tremor-id="tremor-raw"
         {...props}
       >
         <div className={cx("flex items-start")}>

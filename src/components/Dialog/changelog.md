@@ -1,5 +1,7 @@
-# Tremor Raw Dialog Changelog
+# Tremor Dialog Changelog
 
-## 0.0.0
+## 0.0.1
 
 ### Changes
+
+- Chore: Add `tremor-id`
