@@ -1,6 +1,9 @@
+import React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { ComboChart } from "./ComboChart"
+import { Label } from "../Label/Label"
+import { Switch } from "../Switch/Switch"
+import { ComboChart, TooltipProps } from "./ComboChart"
 
 const chartdata = [
   {
@@ -429,5 +432,84 @@ export const WithOnValueChangeBiaxial: Story = {
       colors: ["amber"],
       categories: ["SolarCells"],
     },
+  },
+}
+
+export const CustomTooltip: Story = {
+  args: {
+    enableBiaxial: true,
+
+    customTooltip: (props: TooltipProps) => {
+      const { payload, active, label } = props
+      if (!active || !payload || payload.length === 0) return null
+
+      const data = payload[0].payload
+
+      const categoriesToShow = ["Adhesive", "SolarCells"]
+
+      return (
+        <div className="w-56 rounded-md border bg-white p-3 text-sm shadow-sm">
+          <p className="mb-2 font-medium text-gray-900">{label}</p>
+          <div className="flex flex-col space-y-2">
+            {categoriesToShow.map((category) => (
+              <div key={category} className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div
+                    className={`h-5 w-1 rounded-full ${
+                      category === "Adhesive" ? "bg-blue-500" : "bg-amber-500"
+                    }`}
+                  />
+                  <p className="text-gray-700">{category}</p>
+                </div>
+                <p className="font-medium text-gray-900">{data[category]}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    },
+    barSeries: {
+      categories: ["Adhesive"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+    },
+    lineSeries: {
+      colors: ["amber"],
+      categories: ["SolarCells"],
+      valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
+    },
+  },
+}
+
+export const WithTooltipCallback: Story = {
+  render: () => {
+    const [callback, setCallBack] = React.useState<TooltipProps | null>(null)
+    const [checked, setChecked] = React.useState(true)
+    return (
+      <>
+        <div className="flex items-center gap-3">
+          <Label htmlFor="a">showTooltip</Label>
+          <Switch id="a" checked={checked} onCheckedChange={setChecked} />
+        </div>
+
+        <ComboChart
+          data={chartdata}
+          index="date"
+          barSeries={{
+            categories: ["Adhesive"],
+            valueFormatter: (v) =>
+              `$${Intl.NumberFormat("us").format(v).toString()}`,
+          }}
+          lineSeries={{
+            colors: ["amber"],
+            categories: ["SolarCells"],
+            valueFormatter: (v) =>
+              `$${Intl.NumberFormat("us").format(v).toString()}`,
+          }}
+          tooltipCallback={(cooltipContent) => setCallBack(cooltipContent)}
+          showTooltip={checked}
+        />
+        <pre className="text-xs">{JSON.stringify(callback, null, 2)}</pre>
+      </>
+    )
   },
 }

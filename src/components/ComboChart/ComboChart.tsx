@@ -598,12 +598,10 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   enableBiaxial?: boolean
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
-
   barSeries: ChartSeries
   lineSeries?: ChartSeries & {
     connectNulls?: boolean
   }
-
   type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
 }
 
@@ -647,7 +645,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
       barSeries = defaultBarSeries,
       lineSeries = defaultLineSeries,
-      // tooltipCallback, //@sev
+      tooltipCallback,
       customTooltip,
 
       type = "default", // sev
@@ -678,6 +676,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
+
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
+    const prevLabelRef = React.useRef<string | undefined>(undefined)
+
     const barCategoryColors = constructCategoryColors(
       mergedBarSeries.categories,
       mergedBarSeries.colors ?? AvailableChartColors, // sev check logic
@@ -772,6 +774,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       <div
         ref={forwardedRef}
         className={cx("h-80 w-full", className)}
+        tremor-id="tremor-raw"
         {...other}
       >
         <ResponsiveContainer>
@@ -949,15 +952,15 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     }))
                   : []
 
-                // if (
-                //   tooltipCallback &&
-                //   (active !== prevActiveRef.current ||
-                //     label !== prevLabelRef.current)
-                // ) {
-                //   tooltipCallback({ active, payload: cleanPayload, label })
-                //   prevActiveRef.current = active
-                //   prevLabelRef.current = label
-                // }
+                if (
+                  tooltipCallback &&
+                  (active !== prevActiveRef.current ||
+                    label !== prevLabelRef.current)
+                ) {
+                  tooltipCallback({ active, payload: cleanPayload, label })
+                  prevActiveRef.current = active
+                  prevLabelRef.current = label
+                }
 
                 return showTooltip && active ? (
                   CustomTooltip ? (
@@ -1167,4 +1170,4 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
 ComboChart.displayName = "ComboChart"
 
-export { ComboChart, type BarChartEventProps }
+export { ComboChart, type BarChartEventProps, type TooltipProps }
