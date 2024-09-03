@@ -122,7 +122,7 @@ const LegendItem = ({
     >
       <span
         className={cx(
-          { "size-2 rounded-sm": chartType === "bar" },
+          { "mr-1.5 size-2 rounded-sm": chartType === "bar" },
           {
             "h-[3px] w-3.5 shrink-0 rounded-full": chartType === "line",
           },
