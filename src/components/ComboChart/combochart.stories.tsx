@@ -191,6 +191,91 @@ export const Biaxial: Story = {
   ),
 }
 
+export const BiaxialDoubleBars: Story = {
+  render: () => (
+    <ComboChart
+      data-testid="combo-chart-biaxial"
+      data={chartdata}
+      index="date"
+      enableBiaxial={true}
+      barSeries={{
+        categories: ["SolarCells", "Encapsulant"],
+        yAxisLabel: "BarSeries",
+      }}
+      lineSeries={{
+        categories: ["Frame"],
+        showYAxis: true,
+        yAxisLabel: "LineSeries",
+        colors: ["amber"],
+        yAxisWidth: 70,
+      }}
+    />
+  ),
+}
+
+export const BiaxialDoubleBarsStacked: Story = {
+  render: () => (
+    <ComboChart
+      data={chartdata}
+      index="date"
+      enableBiaxial={true}
+      barSeries={{
+        categories: ["SolarCells", "Encapsulant"],
+        yAxisLabel: "BarSeries",
+        type: "stacked",
+      }}
+      lineSeries={{
+        categories: ["Frame"],
+        showYAxis: true,
+        yAxisLabel: "LineSeries",
+        colors: ["amber"],
+        yAxisWidth: 70,
+      }}
+    />
+  ),
+}
+
+export const DoubleBars: Story = {
+  render: () => (
+    <ComboChart
+      data={chartdata}
+      index="date"
+      barSeries={{
+        categories: ["SolarCells", "Encapsulant"],
+        yAxisLabel: "BarSeries",
+      }}
+      lineSeries={{
+        categories: ["Frame"],
+        showYAxis: true,
+        yAxisLabel: "LineSeries",
+        colors: ["amber"],
+        yAxisWidth: 70,
+      }}
+    />
+  ),
+}
+
+export const DoubleBarsStacked: Story = {
+  render: () => (
+    <ComboChart
+      data={chartdata}
+      index="date"
+      barSeries={{
+        categories: ["SolarCells", "Encapsulant"],
+        yAxisLabel: "BarSeries",
+        type: "stacked",
+      }}
+      lineSeries={{
+        categories: ["Frame"],
+        showYAxis: true,
+        yAxisLabel: "LineSeries",
+        colors: ["amber"],
+        yAxisWidth: 70,
+      }}
+    />
+  ),
+}
+
 export const DefaultNegative: Story = {
   args: {
     barSeries: { categories: ["Adhesive", "SolarCells"] },

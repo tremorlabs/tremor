@@ -325,7 +325,6 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     >
       <div
         ref={scrollableRef}
-        tabIndex={0}
         className={cx(
           "flex h-full",
           enableLegendSlider
@@ -565,7 +564,7 @@ type BaseEventProps = {
   [key: string]: number | string
 }
 
-type BarChartEventProps = BaseEventProps | null | undefined
+type ComboChartEventProps = BaseEventProps | null | undefined
 
 type ChartSeries = {
   categories: string[]
@@ -575,7 +574,6 @@ type ChartSeries = {
   yAxisWidth?: number
   allowDecimals?: boolean
   yAxisLabel?: string
-  type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
   autoMinValue?: boolean
   minValue?: number
   maxValue?: number
@@ -591,18 +589,19 @@ interface ComboChartProps extends React.HTMLAttributes<HTMLDivElement> {
   intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
   showLegend?: boolean
   showTooltip?: boolean
-  onValueChange?: (value: BarChartEventProps) => void
+  onValueChange?: (value: ComboChartEventProps) => void
   enableLegendSlider?: boolean
   legendPosition?: "left" | "center" | "right"
   tickGap?: number
   enableBiaxial?: boolean
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
-  barSeries: ChartSeries
+  barSeries: ChartSeries & {
+    type?: "default" | "stacked"
+  }
   lineSeries?: ChartSeries & {
     connectNulls?: boolean
   }
-  type?: "default" | "stacked" | "percent" // maybe without percent? remove all?
 }
 
 const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
@@ -648,8 +647,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       tooltipCallback,
       customTooltip,
 
-      type = "default", // sev
-
       className,
       ...other
     } = props
@@ -682,11 +679,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
     const barCategoryColors = constructCategoryColors(
       mergedBarSeries.categories,
-      mergedBarSeries.colors ?? AvailableChartColors, // sev check logic
+      mergedBarSeries.colors ?? AvailableChartColors, // @sev check logic
     )
     const lineCategoryColors = constructCategoryColors(
       mergedLineSeries.categories,
-      mergedLineSeries.colors ?? AvailableChartColors, // sev check logic
+      mergedLineSeries.colors ?? AvailableChartColors, // @sev check logic
     )
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
     const barYAxisDomain = getYAxisDomain(
@@ -700,10 +697,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
       mergedLineSeries.maxValue,
     )
     const hasOnValueChange = !!onValueChange
-    const stacked = type === "stacked" || type === "percent"
-    function valueToPercent(value: number) {
-      return `${(value * 100).toFixed(0)}%`
-    }
+    const stacked = barSeries.type === "stacked"
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation()
@@ -756,7 +750,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
     function onCategoryClick(dataKey: string) {
       if (!hasOnValueChange) return
-      //@sev active dot && or ||
       if (dataKey === activeLegend && !activeBar && !activeDot) {
         setActiveLegend(undefined)
         onValueChange?.(null)
@@ -791,11 +784,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
-              left: mergedBarSeries.yAxisLabel ? 20 : undefined, // sev
-              right: mergedLineSeries.yAxisLabel ? 20 : undefined, // sev
+              left: mergedBarSeries.yAxisLabel ? 20 : undefined, // @sev
+              right: mergedLineSeries.yAxisLabel ? 20 : undefined, // @sev
               top: 5,
             }}
-            stackOffset={type === "percent" ? "expand" : undefined}
           >
             {showGridLines ? (
               <CartesianGrid
@@ -861,11 +853,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               }}
               type="number"
               domain={barYAxisDomain as AxisDomain}
-              tickFormatter={
-                type === "percent"
-                  ? valueToPercent
-                  : mergedBarSeries.valueFormatter
-              }
+              tickFormatter={mergedBarSeries.valueFormatter}
               allowDecimals={mergedBarSeries.allowDecimals}
             >
               {mergedBarSeries.yAxisLabel && (
@@ -902,11 +890,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 }}
                 type="number"
                 domain={lineYAxisDomain as AxisDomain}
-                tickFormatter={
-                  type === "percent"
-                    ? valueToPercent
-                    : mergedLineSeries.valueFormatter
-                }
+                tickFormatter={mergedLineSeries.valueFormatter}
                 allowDecimals={mergedLineSeries.allowDecimals}
               >
                 {mergedLineSeries.yAxisLabel && (
@@ -1170,4 +1154,4 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
 ComboChart.displayName = "ComboChart"
 
-export { ComboChart, type BarChartEventProps, type TooltipProps }
+export { ComboChart, type ComboChartEventProps, type TooltipProps }
