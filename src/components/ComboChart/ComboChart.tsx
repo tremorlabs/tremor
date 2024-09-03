@@ -122,7 +122,7 @@ const LegendItem = ({
     >
       <span
         className={cx(
-          { "mr-1.5 size-2 rounded-sm": chartType === "bar" },
+          { "size-2 rounded-sm": chartType === "bar" },
           {
             "h-[3px] w-3.5 shrink-0 rounded-full": chartType === "line",
           },
@@ -505,21 +505,23 @@ const ChartTooltip = ({
                 className="flex items-center justify-between space-x-8"
               >
                 <div className="flex items-center space-x-2">
-                  <span
-                    aria-hidden="true"
-                    className={cx(
-                      { "size-2 rounded-sm": chartType === "bar" },
-                      {
-                        "h-[3px] w-3.5 shrink-0 rounded-full":
-                          chartType === "line",
-                      },
-                      "shrink-0",
-                      getColorClassName(
-                        chartType === "bar" ? barColor : lineColor,
-                        "bg",
-                      ),
-                    )}
-                  />
+                  <div className="flex w-5 items-center justify-center">
+                    <span
+                      aria-hidden="true"
+                      className={cx(
+                        { "size-2 rounded-sm": chartType === "bar" },
+                        {
+                          "h-[3px] w-3.5 shrink-0 rounded-full":
+                            chartType === "line",
+                        },
+                        "shrink-0",
+                        getColorClassName(
+                          chartType === "bar" ? barColor : lineColor,
+                          "bg",
+                        ),
+                      )}
+                    />
+                  </div>
                   <p
                     className={cx(
                       // base
@@ -679,11 +681,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
     const barCategoryColors = constructCategoryColors(
       mergedBarSeries.categories,
-      mergedBarSeries.colors ?? AvailableChartColors, // @sev check logic
+      mergedBarSeries.colors ?? AvailableChartColors,
     )
     const lineCategoryColors = constructCategoryColors(
       mergedLineSeries.categories,
-      mergedLineSeries.colors ?? AvailableChartColors, // @sev check logic
+      mergedLineSeries.colors ?? AvailableChartColors,
     )
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
     const barYAxisDomain = getYAxisDomain(
@@ -784,8 +786,8 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
-              left: mergedBarSeries.yAxisLabel ? 20 : undefined, // @sev
-              right: mergedLineSeries.yAxisLabel ? 20 : undefined, // @sev
+              left: mergedBarSeries.yAxisLabel ? 20 : undefined,
+              right: mergedLineSeries.yAxisLabel ? 20 : undefined,
               top: 5,
             }}
           >
@@ -911,7 +913,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={true}
               animationDuration={100}
-              cursor={{ fill: "#d1d5db", opacity: "0.15" }}
+              cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               offset={20}
               position={{
                 y: 0,
