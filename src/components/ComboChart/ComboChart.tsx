@@ -752,17 +752,28 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
 
     function onCategoryClick(dataKey: string) {
       if (!hasOnValueChange) return
+
       if (dataKey === activeLegend && !activeBar && !activeDot) {
         setActiveLegend(undefined)
         onValueChange?.(null)
-      } else {
+      } else if (
+        activeBar &&
+        activeBar.tooltipPayload?.[0]?.dataKey === dataKey
+      ) {
         setActiveLegend(dataKey)
         onValueChange?.({
           eventType: "category",
           categoryClicked: dataKey,
         })
+      } else {
+        setActiveLegend(dataKey)
+        setActiveBar(undefined)
+        setActiveDot(undefined)
+        onValueChange?.({
+          eventType: "category",
+          categoryClicked: dataKey,
+        })
       }
-      setActiveBar(undefined)
     }
 
     return (
@@ -776,9 +787,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
           <RechartsComposedChart
             data={data}
             onClick={
-              hasOnValueChange && (activeLegend || activeBar)
+              hasOnValueChange && (activeLegend || activeBar || activeDot)
                 ? () => {
                     setActiveBar(undefined)
+                    setActiveDot(undefined)
                     setActiveLegend(undefined)
                     onValueChange?.(null)
                   }
@@ -1048,6 +1060,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     ) as AvailableChartColorsKeys,
                     "stroke",
                   ),
+                  hasOnValueChange && "cursor-pointer",
                 )}
                 strokeOpacity={
                   activeDot || (activeLegend && activeLegend !== category)
@@ -1145,6 +1158,11 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 strokeLinecap="round"
                 isAnimationActive={false}
                 connectNulls={mergedLineSeries.connectNulls}
+                onClick={(props: any, event) => {
+                  event.stopPropagation()
+                  const { name } = props
+                  onCategoryClick(name)
+                }}
               />
             ))}
           </RechartsComposedChart>
