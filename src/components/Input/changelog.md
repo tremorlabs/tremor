@@ -1,5 +1,11 @@
 # Tremor Input Changelog
 
+## 1.0.5
+
+### Changes
+
+- fix: Remove redundant input css
+
 ## 1.0.4
 
 ### Changes
