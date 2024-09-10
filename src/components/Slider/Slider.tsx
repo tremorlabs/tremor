@@ -1,4 +1,4 @@
-// Tremor Slider [v0.0.1]
+// Tremor Slider [v0.1.0]
 
 "use client"
 
@@ -46,7 +46,7 @@ const Slider = React.forwardRef<
         <SliderPrimitive.Range
           className={cx(
             // base
-            "absolute rounded-full bg-gray-900 dark:bg-gray-300",
+            "absolute rounded-full bg-blue-500 dark:bg-blue-500",
             // orientation
             "data-[orientation='horizontal']:h-full",
             "data-[orientation='vertical']:w-full",
