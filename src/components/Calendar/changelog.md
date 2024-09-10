@@ -1,5 +1,11 @@
 # Tremor Calendar Changelog
 
+## 0.1.0
+
+### Changes
+
+- Feat: Update base color
+
 ## 0.0.5
 
 ### Changes

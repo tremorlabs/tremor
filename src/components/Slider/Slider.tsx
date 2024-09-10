@@ -1,4 +1,4 @@
-// Tremor Slider [v0.0.1]
+// Tremor Slider [v0.1.0]
 
 "use client"
 

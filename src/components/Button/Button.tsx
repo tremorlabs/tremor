@@ -1,4 +1,4 @@
-// Tremor Button [v0.1.2]
+// Tremor Button [v0.2.0]
 
 import React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -29,8 +29,8 @@ const buttonVariants = tv({
         // hover color
         "hover:bg-blue-600 dark:hover:bg-blue-600",
         // disabled
-        'disabled:bg-blue-300 disabled:text-white',
-        'disabled:dark:bg-blue-800 disabled:dark:text-blue-400',
+        "disabled:bg-blue-300 disabled:text-white",
+        "disabled:dark:bg-blue-800 disabled:dark:text-blue-400",
       ],
       secondary: [
         // border
@@ -95,7 +95,7 @@ const buttonVariants = tv({
 
 interface ButtonProps
   extends React.ComponentPropsWithoutRef<"button">,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean
   isLoading?: boolean
   loadingText?: string
