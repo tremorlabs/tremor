@@ -23,14 +23,14 @@ const buttonVariants = tv({
         // border
         "border-transparent",
         // text color
-        "text-white dark:text-gray-900",
+        "text-white dark:text-white",
         // background color
-        "bg-gray-900 dark:bg-gray-50",
+        "bg-blue-500 dark:bg-blue-500",
         // hover color
-        "hover:bg-gray-800 dark:hover:bg-gray-200",
+        "hover:bg-blue-600 dark:hover:bg-blue-600",
         // disabled
-        "disabled:bg-gray-100 disabled:text-gray-400",
-        "disabled:dark:bg-gray-800 disabled:dark:text-gray-600",
+        'disabled:bg-blue-300 disabled:text-white',
+        'disabled:dark:bg-blue-800 disabled:dark:text-blue-400',
       ],
       secondary: [
         // border
@@ -95,7 +95,7 @@ const buttonVariants = tv({
 
 interface ButtonProps
   extends React.ComponentPropsWithoutRef<"button">,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
   isLoading?: boolean
   loadingText?: string
