@@ -26,11 +26,16 @@ import {
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
 
+type Category = {
+  category: string
+  name?: string
+}
+
 //#region SparkAreaChart
 
 interface SparkAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
-  categories: string[]
+  categories: Category[]
   index: string
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
@@ -58,7 +63,10 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const stacked = type === "stacked" || type === "percent"
     const areaId = React.useId()
@@ -103,16 +111,17 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
 
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryId = `${areaId}-${category.category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryValue = category.name || category.category
               return (
-                <React.Fragment key={category}>
+                <React.Fragment key={category.category}>
                   <defs>
                     <linearGradient
-                      key={category}
+                      key={category.category}
                       className={cx(
                         getColorClassName(
                           categoryColors.get(
-                            category,
+                            categoryValue,
                           ) as AvailableChartColorsKeys,
                           "text",
                         ),
@@ -130,16 +139,17 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
                     className={cx(
                       getColorClassName(
                         categoryColors.get(
-                          category,
+                          categoryValue,
                         ) as AvailableChartColorsKeys,
                         "stroke",
                       ),
                     )}
+                    key={category.category}
+                    dataKey={category.category}
+                    name={category.category}
                     dot={false}
                     strokeOpacity={1}
-                    name={category}
                     type="linear"
-                    dataKey={category}
                     stroke=""
                     strokeWidth={2}
                     strokeLinejoin="round"
