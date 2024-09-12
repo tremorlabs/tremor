@@ -128,7 +128,14 @@ const chartdata = [
 const meta: Meta<typeof SparkLineChart> = {
   title: "visualization/SparkLineChart",
   component: SparkLineChart,
-  args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
+  args: {
+    data: chartdata,
+    index: "date",
+    categories: [
+      { category: "SolarCells", name: "Solar Cells" },
+      { category: "Glass" },
+    ],
+  },
 }
 
 export default meta
@@ -140,14 +147,17 @@ export const Default: Story = {
       data-testid="spark-line-chart"
       data={chartdata}
       index="date"
-      categories={["SolarCells", "Glass"]}
+      categories={[
+        { category: "SolarCells", name: "Solar Cells" },
+        { category: "Glass" },
+      ]}
     />
   ),
 }
 
 export const DefaultNegative: Story = {
   args: {
-    categories: ["SolarCells", "Adhesive"],
+    categories: [{ category: "SolarCells" }, { category: "Adhesive" }],
   },
 }
 
@@ -169,13 +179,13 @@ export const AllColors: Story = {
     data: chartdata,
     index: "date",
     categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
+      { category: "SolarCells" },
+      { category: "Glass" },
+      { category: "Encapsulant" },
+      { category: "BackSheet" },
+      { category: "Frame" },
+      { category: "JunctionBox" },
+      { category: "Adhesive" },
     ],
   },
 }
@@ -207,7 +217,10 @@ export const WithConnectNullsFalse: Story = {
       },
     ),
     index: "date",
-    categories: ["SolarCells", "Glass"],
+    categories: [
+      { category: "SolarCells", name: "Glass" },
+      { category: "Glass" },
+    ],
     colors: ["amber", "cyan"],
     connectNulls: false,
   },

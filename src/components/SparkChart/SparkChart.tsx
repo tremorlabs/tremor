@@ -175,7 +175,7 @@ SparkAreaChart.displayName = "SparkAreaChart"
 
 interface SparkLineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
-  categories: string[]
+  categories: Category[]
   index: string
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
@@ -199,7 +199,10 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
 
     return (
@@ -221,28 +224,33 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
           >
             <XAxis hide dataKey={index} />
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
-            {categories.map((category) => (
-              <Line
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "stroke",
-                  ),
-                )}
-                dot={false}
-                strokeOpacity={1}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={false}
-                connectNulls={connectNulls}
-              />
-            ))}
+            {categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Line
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "stroke",
+                    ),
+                  )}
+                  dot={false}
+                  strokeOpacity={1}
+                  key={category.category}
+                  name={category.category}
+                  type="linear"
+                  dataKey={category.category}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={false}
+                  connectNulls={connectNulls}
+                />
+              )
+            })}
           </RechartsLineChart>
         </ResponsiveContainer>
       </div>
