@@ -1,4 +1,4 @@
-// Tremor Tabs [v0.0.1]
+// Tremor Tabs [v0.1.0]
 
 import React from "react"
 import * as TabsPrimitives from "@radix-ui/react-tabs"
@@ -71,8 +71,8 @@ function getVariantStyles(tabVariant: TabsListVariant) {
         // border hover
         "hover:border-gray-300 hover:dark:border-gray-400",
         // selected
-        "data-[state=active]:border-gray-900 data-[state=active]:text-gray-900",
-        "data-[state=active]:dark:border-gray-50 data-[state=active]:dark:text-gray-50",
+        "data-[state=active]:border-blue-500 data-[state=active]:text-blue-500",
+        "data-[state=active]:dark:border-blue-500 data-[state=active]:dark:text-blue-500",
         // disabled
         "data-[disabled]:pointer-events-none",
         "data-[disabled]:text-gray-300 data-[disabled]:dark:text-gray-700",

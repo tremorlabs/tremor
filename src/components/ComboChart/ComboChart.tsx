@@ -737,6 +737,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
         setActiveDot(undefined)
         onValueChange?.(null)
       } else {
+        setActiveBar(undefined)
         setActiveLegend(itemData.dataKey)
         setActiveDot({
           index: itemData.index,

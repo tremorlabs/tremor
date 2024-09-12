@@ -1,5 +1,11 @@
 # Tremor Button Changelog
 
+## 0.2.0
+
+### Changes
+
+- Feat: Update base color
+
 ## 0.1.2
 
 ### Changes

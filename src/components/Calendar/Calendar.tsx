@@ -1,4 +1,4 @@
-// Tremor Calendar [v0.0.5]
+// Tremor Calendar [v0.1.0]
 
 "use client"
 
@@ -132,8 +132,8 @@ const Calendar = ({
         day_today: "font-semibold",
         day_selected: cx(
           "rounded",
-          "aria-selected:bg-gray-900 aria-selected:text-gray-50",
-          "dark:aria-selected:bg-gray-50 dark:aria-selected:text-gray-900",
+          "aria-selected:bg-blue-500 aria-selected:text-white",
+          "dark:aria-selected:bg-blue-500 dark:aria-selected:text-white",
         ),
         day_disabled:
           "!text-gray-300 dark:!text-gray-700 line-through disabled:hover:bg-transparent",
