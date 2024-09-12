@@ -265,7 +265,7 @@ SparkLineChart.displayName = "SparkLineChart"
 interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
-  categories: string[]
+  categories: Category[]
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
   minValue?: number
@@ -290,7 +290,10 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const stacked = type === "stacked" || type === "percent"
@@ -317,23 +320,28 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             <XAxis hide dataKey={index} />
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
 
-            {categories.map((category) => (
-              <Bar
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "fill",
-                  ),
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stackId={stacked ? "stack" : undefined}
-                isAnimationActive={false}
-                fill=""
-              />
-            ))}
+            {categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Bar
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "fill",
+                    ),
+                  )}
+                  key={category.category}
+                  name={category.category}
+                  type="linear"
+                  dataKey={category.category}
+                  stackId={stacked ? "stack" : undefined}
+                  isAnimationActive={false}
+                  fill=""
+                />
+              )
+            })}
           </RechartsBarChart>
         </ResponsiveContainer>
       </div>
