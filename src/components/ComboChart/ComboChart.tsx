@@ -568,8 +568,13 @@ type BaseEventProps = {
 
 type ComboChartEventProps = BaseEventProps | null | undefined
 
+type Category = {
+  category: string
+  name?: string
+}
+
 type ChartSeries = {
-  categories: string[]
+  categories: Category[]
   colors?: AvailableChartColorsKeys[]
   valueFormatter?: (value: number) => string
   showYAxis?: boolean
@@ -680,11 +685,15 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
     const prevLabelRef = React.useRef<string | undefined>(undefined)
 
     const barCategoryColors = constructCategoryColors(
-      mergedBarSeries.categories,
+      mergedBarSeries.categories.map(
+        (category) => category.name || category.category,
+      ),
       mergedBarSeries.colors ?? AvailableChartColors,
     )
     const lineCategoryColors = constructCategoryColors(
-      mergedLineSeries.categories,
+      mergedLineSeries.categories.map(
+        (category) => category.name || category.category,
+      ),
       mergedLineSeries.colors ?? AvailableChartColors,
     )
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
@@ -933,22 +942,32 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               }}
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
-                  ? payload.map((item: any) => ({
-                      category: item.dataKey,
-                      value: item.value,
-                      index: item.payload[index],
-                      barColor: barCategoryColors.get(
-                        item.dataKey,
-                      ) as AvailableChartColorsKeys,
-                      lineColor: lineCategoryColors.get(
-                        item.dataKey,
-                      ) as AvailableChartColorsKeys,
-                      chartType: barCategoryColors.get(item.dataKey)
-                        ? "bar"
-                        : ("line" as PayloadItem["chartType"]),
-                      type: item.type,
-                      payload: item.payload,
-                    }))
+                  ? payload.map((item: any) => {
+                      const itemCategory =
+                        mergedBarSeries.categories.find(
+                          (category) => category.category === item.dataKey,
+                        )?.name ||
+                        mergedLineSeries.categories.find(
+                          (category) => category.category === item.dataKey,
+                        )?.name ||
+                        item.dataKey
+                      return {
+                        category: itemCategory,
+                        value: item.value,
+                        index: item.payload[index],
+                        barColor: barCategoryColors.get(
+                          itemCategory,
+                        ) as AvailableChartColorsKeys,
+                        lineColor: lineCategoryColors.get(
+                          itemCategory,
+                        ) as AvailableChartColorsKeys,
+                        chartType: barCategoryColors.has(itemCategory)
+                          ? "bar"
+                          : "line",
+                        type: item.type,
+                        payload: item.payload,
+                      }
+                    })
                   : []
 
                 if (
@@ -1003,29 +1022,34 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 }
               />
             ) : null}
-            {mergedBarSeries.categories.map((category) => (
-              <Bar
-                yAxisId={enableBiaxial ? "left" : undefined}
-                className={cx(
-                  getColorClassName(
-                    barCategoryColors.get(category) as AvailableChartColorsKeys,
-                    "fill",
-                  ),
-                  onValueChange ? "cursor-pointer" : "",
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stackId={stacked ? "stack" : undefined}
-                isAnimationActive={false}
-                fill=""
-                shape={(props: any) =>
-                  renderShape(props, activeBar, activeLegend)
-                }
-                onClick={onBarClick}
-              />
-            ))}
+            {mergedBarSeries.categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Bar
+                  yAxisId={enableBiaxial ? "left" : undefined}
+                  className={cx(
+                    getColorClassName(
+                      barCategoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "fill",
+                    ),
+                    onValueChange ? "cursor-pointer" : "",
+                  )}
+                  key={category.category}
+                  dataKey={category.category}
+                  name={categoryValue}
+                  type="linear"
+                  stackId={stacked ? "stack" : undefined}
+                  isAnimationActive={false}
+                  fill=""
+                  shape={(props: any) =>
+                    renderShape(props, activeBar, activeLegend)
+                  }
+                  onClick={onBarClick}
+                />
+              )
+            })}
             {/* hidden lines to increase clickable target area */}
             {onValueChange
               ? mergedLineSeries.categories.map((category) => (
@@ -1033,10 +1057,10 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                     yAxisId={enableBiaxial ? "right" : undefined}
                     className={cx("cursor-pointer")}
                     strokeOpacity={0}
-                    key={category}
-                    name={category}
+                    key={category.category}
+                    name={category.name || category.category}
                     type="linear"
-                    dataKey={category}
+                    dataKey={category.category}
                     stroke="transparent"
                     fill="transparent"
                     legendType="none"
@@ -1051,121 +1075,127 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                   />
                 ))
               : null}
-            {mergedLineSeries.categories.map((category) => (
-              <Line
-                yAxisId={enableBiaxial ? "right" : undefined}
-                className={cx(
-                  getColorClassName(
-                    lineCategoryColors.get(
-                      category,
-                    ) as AvailableChartColorsKeys,
-                    "stroke",
-                  ),
-                  hasOnValueChange && "cursor-pointer",
-                )}
-                strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== category)
-                    ? 0.3
-                    : 1
-                }
-                activeDot={(props: any) => {
-                  const {
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    dataKey,
-                  } = props
-                  return (
-                    <Dot
-                      className={cx(
-                        "stroke-white dark:stroke-gray-950",
-                        onValueChange ? "cursor-pointer" : "",
-                        getColorClassName(
-                          lineCategoryColors.get(
-                            dataKey,
-                          ) as AvailableChartColorsKeys,
-                          "fill",
-                        ),
-                      )}
-                      cx={cxCoord}
-                      cy={cyCoord}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
-                      onClick={(_, event) => onDotClick(props, event)}
-                    />
-                  )
-                }}
-                dot={(props: any) => {
-                  const {
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    dataKey,
-                    index,
-                  } = props
-
-                  if (
-                    (hasOnlyOneValueForKey(data, category) &&
-                      !(
-                        activeDot ||
-                        (activeLegend && activeLegend !== category)
-                      )) ||
-                    (activeDot?.index === index &&
-                      activeDot?.dataKey === category)
-                  ) {
+            {mergedLineSeries.categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Line
+                  yAxisId={enableBiaxial ? "right" : undefined}
+                  className={cx(
+                    getColorClassName(
+                      lineCategoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "stroke",
+                    ),
+                    hasOnValueChange && "cursor-pointer",
+                  )}
+                  strokeOpacity={
+                    activeDot ||
+                    (activeLegend && activeLegend !== categoryValue)
+                      ? 0.3
+                      : 1
+                  }
+                  activeDot={(props: any) => {
+                    const {
+                      cx: cxCoord,
+                      cy: cyCoord,
+                      stroke,
+                      strokeLinecap,
+                      strokeLinejoin,
+                      strokeWidth,
+                      dataKey,
+                    } = props
                     return (
                       <Dot
-                        key={index}
-                        cx={cxCoord}
-                        cy={cyCoord}
-                        r={5}
-                        stroke={stroke}
-                        fill=""
-                        strokeLinecap={strokeLinecap}
-                        strokeLinejoin={strokeLinejoin}
-                        strokeWidth={strokeWidth}
                         className={cx(
                           "stroke-white dark:stroke-gray-950",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
                             lineCategoryColors.get(
-                              dataKey,
+                              mergedLineSeries.categories.find(
+                                (category) => category.category === dataKey,
+                              )?.name || dataKey,
                             ) as AvailableChartColorsKeys,
                             "fill",
                           ),
                         )}
+                        cx={cxCoord}
+                        cy={cyCoord}
+                        r={5}
+                        fill=""
+                        stroke={stroke}
+                        strokeLinecap={strokeLinecap}
+                        strokeLinejoin={strokeLinejoin}
+                        strokeWidth={strokeWidth}
+                        onClick={(_, event) => onDotClick(props, event)}
                       />
                     )
-                  }
-                  return <React.Fragment key={index}></React.Fragment>
-                }}
-                key={`${category}-line-id`}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={false}
-                connectNulls={mergedLineSeries.connectNulls}
-                onClick={(props: any, event) => {
-                  event.stopPropagation()
-                  const { name } = props
-                  onCategoryClick(name)
-                }}
-              />
-            ))}
+                  }}
+                  dot={(props: any) => {
+                    const {
+                      stroke,
+                      strokeLinecap,
+                      strokeLinejoin,
+                      strokeWidth,
+                      cx: cxCoord,
+                      cy: cyCoord,
+                      dataKey,
+                      index,
+                    } = props
+
+                    if (
+                      (hasOnlyOneValueForKey(data, category.category) &&
+                        !(
+                          activeDot ||
+                          (activeLegend && activeLegend !== categoryValue)
+                        )) ||
+                      (activeDot?.index === index &&
+                        activeDot?.dataKey === categoryValue)
+                    ) {
+                      return (
+                        <Dot
+                          key={index}
+                          cx={cxCoord}
+                          cy={cyCoord}
+                          r={5}
+                          stroke={stroke}
+                          fill=""
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
+                          className={cx(
+                            "stroke-white dark:stroke-gray-950",
+                            onValueChange ? "cursor-pointer" : "",
+                            getColorClassName(
+                              lineCategoryColors.get(
+                                dataKey,
+                              ) as AvailableChartColorsKeys,
+                              "fill",
+                            ),
+                          )}
+                        />
+                      )
+                    }
+                    return <React.Fragment key={index}></React.Fragment>
+                  }}
+                  key={`${category.category}-line-id`}
+                  dataKey={category.category}
+                  name={categoryValue}
+                  type="linear"
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={false}
+                  connectNulls={mergedLineSeries.connectNulls}
+                  onClick={(props: any, event) => {
+                    event.stopPropagation()
+                    const { name } = props
+                    onCategoryClick(name)
+                  }}
+                />
+              )
+            })}
           </RechartsComposedChart>
         </ResponsiveContainer>
       </div>

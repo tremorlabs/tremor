@@ -472,8 +472,8 @@ type BaseEventProps = {
 type LineChartEventProps = BaseEventProps | null | undefined
 
 type Category = {
-    category: string
-    name?: string
+  category: string
+  name?: string
 }
 
 interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -547,7 +547,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
-    const categoryKeys = categories.map(category => category.name || category.category)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
     const categoryColors = constructCategoryColors(categoryKeys, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
@@ -559,7 +561,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       event.stopPropagation()
 
       if (!hasOnValueChange) return
-      const itemCategory = categories.find(category => category.category === itemData.dataKey)?.name || itemData.dataKey
+      const itemCategory =
+        categories.find((category) => category.category === itemData.dataKey)
+          ?.name || itemData.dataKey
       if (
         (itemData.index === activeDot?.index &&
           itemCategory === activeDot?.dataKey) ||
@@ -710,19 +714,22 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               position={{ y: 0 }}
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
-                ? payload.map((item: any) => {
-                    const itemCategory = categories.find(category => category.category === item.dataKey)?.name || item.dataKey
-                    return ({
+                  ? payload.map((item: any) => {
+                      const itemCategory =
+                        categories.find(
+                          (category) => category.category === item.dataKey,
+                        )?.name || item.dataKey
+                      return {
                         category: itemCategory,
                         value: item.value,
                         index: item.payload[index],
                         color: categoryColors.get(
-                            itemCategory
+                          itemCategory,
                         ) as AvailableChartColorsKeys,
                         type: item.type,
                         payload: item.payload,
+                      }
                     })
-                })
                   : []
 
                 if (
@@ -776,114 +783,122 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               />
             ) : null}
             {categories.map((category) => {
-                const categoryValue = category.name || category.category
+              const categoryValue = category.name || category.category
 
-                return (
-              <Line
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(categoryValue) as AvailableChartColorsKeys,
-                    "stroke",
-                  ),
-                )}
-                strokeOpacity={
-                  activeDot || (activeLegend && activeLegend !== categoryValue)
-                    ? 0.3
-                    : 1
-                }
-                activeDot={(props: any) => {
-                  const {
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    dataKey,
-                  } = props
-                  return (
-                    <Dot
-                      className={cx(
-                        "stroke-white dark:stroke-gray-950",
-                        onValueChange ? "cursor-pointer" : "",
-                        getColorClassName(
-                          categoryColors.get(
-                            categories.find(category => category.category === dataKey)?.name || dataKey
-                        ) as AvailableChartColorsKeys,
-                          "fill",
-                        ),
-                      )}
-                      cx={cxCoord}
-                      cy={cyCoord}
-                      r={5}
-                      fill=""
-                      stroke={stroke}
-                      strokeLinecap={strokeLinecap}
-                      strokeLinejoin={strokeLinejoin}
-                      strokeWidth={strokeWidth}
-                      onClick={(_, event) => onDotClick(props, event)}
-                    />
-                  )
-                }}
-                dot={(props: any) => {
-                  const {
-                    stroke,
-                    strokeLinecap,
-                    strokeLinejoin,
-                    strokeWidth,
-                    cx: cxCoord,
-                    cy: cyCoord,
-                    dataKey,
-                    index,
-                  } = props
-
-                  if (
-                    (hasOnlyOneValueForKey(data, category.category) &&
-                      !(
-                        activeDot ||
-                        (activeLegend && activeLegend !== categoryValue)
-                      )) ||
-                    (activeDot?.index === index &&
-                      activeDot?.dataKey === categoryValue)
-                  ) {
+              return (
+                <Line
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "stroke",
+                    ),
+                  )}
+                  strokeOpacity={
+                    activeDot ||
+                    (activeLegend && activeLegend !== categoryValue)
+                      ? 0.3
+                      : 1
+                  }
+                  activeDot={(props: any) => {
+                    const {
+                      cx: cxCoord,
+                      cy: cyCoord,
+                      stroke,
+                      strokeLinecap,
+                      strokeLinejoin,
+                      strokeWidth,
+                      dataKey,
+                    } = props
                     return (
                       <Dot
-                        key={index}
-                        cx={cxCoord}
-                        cy={cyCoord}
-                        r={5}
-                        stroke={stroke}
-                        fill=""
-                        strokeLinecap={strokeLinecap}
-                        strokeLinejoin={strokeLinejoin}
-                        strokeWidth={strokeWidth}
                         className={cx(
                           "stroke-white dark:stroke-gray-950",
                           onValueChange ? "cursor-pointer" : "",
                           getColorClassName(
                             categoryColors.get(
-                                categories.find(category => category.category === dataKey)?.name || dataKey
+                              categories.find(
+                                (category) => category.category === dataKey,
+                              )?.name || dataKey,
                             ) as AvailableChartColorsKeys,
                             "fill",
                           ),
                         )}
+                        cx={cxCoord}
+                        cy={cyCoord}
+                        r={5}
+                        fill=""
+                        stroke={stroke}
+                        strokeLinecap={strokeLinecap}
+                        strokeLinejoin={strokeLinejoin}
+                        strokeWidth={strokeWidth}
+                        onClick={(_, event) => onDotClick(props, event)}
                       />
                     )
-                  }
-                  return <React.Fragment key={index}></React.Fragment>
-                }}
-                key={category.category}
-                    name={categoryValue}
-                type="linear"
-                dataKey={category.category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={false}
-                connectNulls={connectNulls}
-              />
-            )})}
+                  }}
+                  dot={(props: any) => {
+                    const {
+                      stroke,
+                      strokeLinecap,
+                      strokeLinejoin,
+                      strokeWidth,
+                      cx: cxCoord,
+                      cy: cyCoord,
+                      dataKey,
+                      index,
+                    } = props
+
+                    if (
+                      (hasOnlyOneValueForKey(data, category.category) &&
+                        !(
+                          activeDot ||
+                          (activeLegend && activeLegend !== categoryValue)
+                        )) ||
+                      (activeDot?.index === index &&
+                        activeDot?.dataKey === categoryValue)
+                    ) {
+                      return (
+                        <Dot
+                          key={index}
+                          cx={cxCoord}
+                          cy={cyCoord}
+                          r={5}
+                          stroke={stroke}
+                          fill=""
+                          strokeLinecap={strokeLinecap}
+                          strokeLinejoin={strokeLinejoin}
+                          strokeWidth={strokeWidth}
+                          className={cx(
+                            "stroke-white dark:stroke-gray-950",
+                            onValueChange ? "cursor-pointer" : "",
+                            getColorClassName(
+                              categoryColors.get(
+                                categories.find(
+                                  (category) => category.category === dataKey,
+                                )?.name || dataKey,
+                              ) as AvailableChartColorsKeys,
+                              "fill",
+                            ),
+                          )}
+                        />
+                      )
+                    }
+                    return <React.Fragment key={index}></React.Fragment>
+                  }}
+                  key={category.category}
+                  name={categoryValue}
+                  type="linear"
+                  dataKey={category.category}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={false}
+                  connectNulls={connectNulls}
+                />
+              )
+            })}
             {/* hidden lines to increase clickable target area */}
             {onValueChange
               ? categories.map((category) => (
