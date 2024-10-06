@@ -1,4 +1,4 @@
-// Tremor CategoryBar [v0.0.1]
+// Tremor CategoryBar [v0.0.2]
 
 "use client"
 
@@ -88,14 +88,14 @@ const BarLabels = ({ values }: { values: number[] }) => {
                 "translate-x-1/2 text-sm tabular-nums",
               )}
             >
-              {prefixSum}
+              {prefixSum.toFixed(1)}
             </span>
           </div>
         )
       })}
       <div className="absolute bottom-0 left-0 flex items-center">0</div>
       <div className="absolute bottom-0 right-0 flex items-center">
-        {sumValues}
+        {sumValues.toFixed(1)}
       </div>
     </div>
   )
