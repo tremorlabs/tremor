@@ -13,6 +13,12 @@ type Story = StoryObj<typeof CategoryBar>
 
 export const Default: Story = {
   args: {
+    values: [70, 18, 11],
+  },
+}
+
+export const WithFloatingPoints: Story = {
+  args: {
     values: [70.1, 18.3, 11.6],
   },
 }
