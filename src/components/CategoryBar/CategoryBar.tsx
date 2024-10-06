@@ -46,6 +46,13 @@ const getPositionLeft = (
 const sumNumericArray = (arr: number[]) =>
   arr.reduce((prefixSum, num) => prefixSum + num, 0)
 
+const formatNumber = (num: number): string => {
+  if (Number.isInteger(num)) {
+    return num.toString()
+  }
+  return num.toFixed(1)
+}
+
 const BarLabels = ({ values }: { values: number[] }) => {
   const sumValues = React.useMemo(() => sumNumericArray(values), [values])
   let prefixSum = 0
@@ -88,14 +95,14 @@ const BarLabels = ({ values }: { values: number[] }) => {
                 "translate-x-1/2 text-sm tabular-nums",
               )}
             >
-              {prefixSum.toFixed(1)}
+              {formatNumber(prefixSum)}
             </span>
           </div>
         )
       })}
       <div className="absolute bottom-0 left-0 flex items-center">0</div>
       <div className="absolute bottom-0 right-0 flex items-center">
-        {sumValues.toFixed(1)}
+        {formatNumber(sumValues)}
       </div>
     </div>
   )
