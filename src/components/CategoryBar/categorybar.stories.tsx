@@ -17,7 +17,7 @@ export const Default: Story = {
   },
 }
 
-export const WithFloatingPoints: Story = {
+export const WithFloatingPointValues: Story = {
   args: {
     values: [70.1, 18.3, 11.6],
   },
