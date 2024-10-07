@@ -159,10 +159,10 @@ export const Default: Story = {
       data={chartdata}
       index="date"
       barSeries={{
-        categories: ["SolarCells"],
+        categories: [{ category: "SolarCells", name: "Solar Cells" }],
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         colors: ["amber"],
       }}
     />
@@ -177,11 +177,11 @@ export const Biaxial: Story = {
       index="date"
       enableBiaxial={true}
       barSeries={{
-        categories: ["SolarCells"],
+        categories: [{ category: "SolarCells" }],
         yAxisLabel: "BarSeries",
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["amber"],
@@ -199,11 +199,14 @@ export const BiaxialDoubleBars: Story = {
       index="date"
       enableBiaxial={true}
       barSeries={{
-        categories: ["SolarCells", "Encapsulant"],
+        categories: [
+          { category: "SolarCells", name: "Solar Cells" },
+          { category: "Encapsulant" },
+        ],
         yAxisLabel: "BarSeries",
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["amber"],
@@ -220,12 +223,15 @@ export const BiaxialDoubleBarsStacked: Story = {
       index="date"
       enableBiaxial={true}
       barSeries={{
-        categories: ["SolarCells", "Encapsulant"],
+        categories: [
+          { category: "SolarCells", name: "Solar Cells" },
+          { category: "Encapsulant" },
+        ],
         yAxisLabel: "BarSeries",
         type: "stacked",
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["amber"],
@@ -241,11 +247,14 @@ export const DoubleBars: Story = {
       data={chartdata}
       index="date"
       barSeries={{
-        categories: ["SolarCells", "Encapsulant"],
+        categories: [
+          { category: "SolarCells", name: "Solar Cells" },
+          { category: "Encapsulant" },
+        ],
         yAxisLabel: "BarSeries",
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["amber"],
@@ -261,12 +270,15 @@ export const DoubleBarsStacked: Story = {
       data={chartdata}
       index="date"
       barSeries={{
-        categories: ["SolarCells", "Encapsulant"],
+        categories: [
+          { category: "SolarCells", name: "Solar Cells" },
+          { category: "Encapsulant" },
+        ],
         yAxisLabel: "BarSeries",
         type: "stacked",
       }}
       lineSeries={{
-        categories: ["Frame"],
+        categories: [{ category: "Frame" }],
         showYAxis: true,
         yAxisLabel: "LineSeries",
         colors: ["amber"],
@@ -278,8 +290,12 @@ export const DoubleBarsStacked: Story = {
 
 export const DefaultNegative: Story = {
   args: {
-    barSeries: { categories: ["Adhesive", "SolarCells"] },
-    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    barSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
+    lineSeries: {
+      categories: [{ category: "SolarCells" }, { category: "Adhesive" }],
+    },
   },
 }
 
@@ -287,12 +303,12 @@ export const WithValueFormatterBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Adhesive"],
+      categories: [{ category: "Adhesive" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
     },
   },
@@ -302,13 +318,13 @@ export const WithAxisLabelsBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Adhesive"],
+      categories: [{ category: "Adhesive" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
       yAxisLabel: "BarSeries",
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
       yAxisLabel: "BarSeries",
     },
@@ -319,12 +335,12 @@ export const WithAutoMinValueBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
       autoMinValue: true,
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       autoMinValue: true,
     },
   },
@@ -334,13 +350,13 @@ export const WithMinAndMaxValueBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
       minValue: 800,
       maxValue: 5000,
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       minValue: 2500,
       maxValue: 3500,
     },
@@ -351,13 +367,13 @@ export const AllColorsBarsBiaxial: Story = {
   args: {
     barSeries: {
       categories: [
-        "SolarCells",
-        "Glass",
-        "Encapsulant",
-        "BackSheet",
-        "Frame",
-        "JunctionBox",
-        "Adhesive",
+        { category: "SolarCells" },
+        { category: "Glass" },
+        { category: "Encapsulant" },
+        { category: "BackSheet" },
+        { category: "Frame" },
+        { category: "JunctionBox" },
+        { category: "Adhesive" },
       ],
     },
   },
@@ -367,13 +383,13 @@ export const AllColorsLinesBiaxial: Story = {
   args: {
     lineSeries: {
       categories: [
-        "SolarCells",
-        "Glass",
-        "Encapsulant",
-        "BackSheet",
-        "Frame",
-        "JunctionBox",
-        "Adhesive",
+        { category: "SolarCells" },
+        { category: "Glass" },
+        { category: "Encapsulant" },
+        { category: "BackSheet" },
+        { category: "Frame" },
+        { category: "JunctionBox" },
+        { category: "Adhesive" },
       ],
     },
   },
@@ -381,8 +397,12 @@ export const AllColorsLinesBiaxial: Story = {
 
 export const WithLegendLeftBiaxial: Story = {
   args: {
-    barSeries: { categories: ["Adhesive", "SolarCells"] },
-    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    barSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
+    lineSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
     enableBiaxial: true,
     legendPosition: "left",
   },
@@ -390,8 +410,12 @@ export const WithLegendLeftBiaxial: Story = {
 
 export const WithLegendCenterBiaxial: Story = {
   args: {
-    barSeries: { categories: ["Adhesive", "SolarCells"] },
-    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    barSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
+    lineSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
     enableBiaxial: true,
     legendPosition: "center",
   },
@@ -402,16 +426,18 @@ export const WithLegendSliderBiaxial: Story = {
     className: "max-w-md",
     barSeries: {
       categories: [
-        "SolarCells",
-        "Glass",
-        "Encapsulant",
-        "BackSheet",
-        "Frame",
-        "JunctionBox",
-        "Adhesive",
+        { category: "SolarCells" },
+        { category: "Glass" },
+        { category: "Encapsulant" },
+        { category: "BackSheet" },
+        { category: "Frame" },
+        { category: "JunctionBox" },
+        { category: "Adhesive" },
       ],
     },
-    lineSeries: { categories: ["Adhesive", "SolarCells"] },
+    lineSeries: {
+      categories: [{ category: "Adhesive" }, { category: "SolarCells" }],
+    },
     enableLegendSlider: true,
     onValueChange: (v) => console.log(v),
   },
@@ -425,11 +451,11 @@ export const WithConnectNullsFalseBiaxial: Story = {
       SolarCells: index > 5 && index < 8 ? null : item.SolarCells,
     })),
     barSeries: {
-      categories: ["Adhesive"],
+      categories: [{ category: "Adhesive" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       connectNulls: false,
     },
   },
@@ -439,11 +465,11 @@ export const WithStartEndOnlyBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
     },
     startEndOnly: true,
   },
@@ -453,12 +479,12 @@ export const WithoutYAxisBiaxial: Story = {
   args: {
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
       showYAxis: false,
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       showYAxis: false,
     },
   },
@@ -469,11 +495,11 @@ export const WithNoGridlinesBiaxial: Story = {
     showGridLines: false,
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
     },
   },
 }
@@ -483,11 +509,11 @@ export const WithNoLegendBiaxial: Story = {
     showLegend: false,
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
     },
   },
 }
@@ -497,11 +523,11 @@ export const WithNoTooltipBiaxial: Story = {
     showTooltip: false,
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
     },
   },
 }
@@ -511,11 +537,11 @@ export const WithOnValueChangeBiaxial: Story = {
     onValueChange: (v) => console.log(v),
     enableBiaxial: true,
     barSeries: {
-      categories: ["Glass"],
+      categories: [{ category: "Glass" }],
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
     },
   },
 }
@@ -554,12 +580,12 @@ export const CustomTooltip: Story = {
       )
     },
     barSeries: {
-      categories: ["Adhesive"],
+      categories: [{ category: "Adhesive" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
     },
     lineSeries: {
       colors: ["amber"],
-      categories: ["SolarCells"],
+      categories: [{ category: "SolarCells" }],
       valueFormatter: (v) => `$${Intl.NumberFormat("us").format(v).toString()}`,
     },
   },
@@ -580,13 +606,13 @@ export const WithTooltipCallback: Story = {
           data={chartdata}
           index="date"
           barSeries={{
-            categories: ["Adhesive"],
+            categories: [{ category: "Adhesive" }],
             valueFormatter: (v) =>
               `$${Intl.NumberFormat("us").format(v).toString()}`,
           }}
           lineSeries={{
             colors: ["amber"],
-            categories: ["SolarCells"],
+            categories: [{ category: "SolarCells" }],
             valueFormatter: (v) =>
               `$${Intl.NumberFormat("us").format(v).toString()}`,
           }}

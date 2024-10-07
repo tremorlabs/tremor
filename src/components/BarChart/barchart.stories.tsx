@@ -128,10 +128,19 @@ const chartdata = [
   },
 ]
 
+const categories = [
+    {
+        category: "SolarCells",
+        name: "Solar Cells"
+    }, {
+        category: "Glass",
+    }
+]
+
 const meta: Meta<typeof BarChart> = {
   title: "visualization/BarChart",
   component: BarChart,
-  args: { data: chartdata, index: "date", categories: ["SolarCells", "Glass"] },
+  args: { data: chartdata, index: "date", categories: categories },
 }
 
 export default meta
@@ -143,14 +152,14 @@ export const Default: Story = {
       data-testid="bar-chart"
       data={chartdata}
       index="date"
-      categories={["SolarCells", "Glass"]}
+      categories={categories}
     />
   ),
 }
 
 export const DefaultNegative: Story = {
   args: {
-    categories: ["SolarCells", "Adhesive"],
+    categories: categories,
   },
 }
 
@@ -185,14 +194,14 @@ export const AllColors: Story = {
     data: chartdata,
     index: "date",
     categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
-    ],
+            ...categories,
+            {category: "Glass"},
+            {category: "Encapsulant"},
+            {category: "BackSheet"},
+            {category: "Frame"},
+            {category: "JunctionBox"},
+            {category: "Adhesive"},
+        ],
   },
 }
 
@@ -214,14 +223,14 @@ export const WithLegendSlider: Story = {
     data: chartdata,
     index: "date",
     categories: [
-      "SolarCells",
-      "Glass",
-      "Encapsulant",
-      "BackSheet",
-      "Frame",
-      "JunctionBox",
-      "Adhesive",
-    ],
+            ...categories,
+            {category: "Glass"},
+            {category: "Encapsulant"},
+            {category: "BackSheet"},
+            {category: "Frame"},
+            {category: "JunctionBox"},
+            {category: "Adhesive"},
+        ],
     enableLegendSlider: true,
     onValueChange: (v) => console.log(v),
   },
@@ -284,7 +293,7 @@ export const WithTooltipCallback: Story = {
         <BarChart
           data={chartdata}
           index="date"
-          categories={["SolarCells", "Glass"]}
+          categories={categories}
           tooltipCallback={(tooltipContent) => setCallBack(tooltipContent)}
           showTooltip={checked}
         />
@@ -308,7 +317,7 @@ export const WithBarCategoryGap: Story = {
 
 export const WithLayoutVertical: Story = {
   args: {
-    categories: ["SolarCells"],
+    categories: categories.slice(0,1),
     layout: "vertical",
   },
 }
@@ -342,14 +351,14 @@ export const OneDataValue: Story = {
   args: {
     data: chartdata.slice(0, 1),
     index: "date",
-    categories: ["SolarCells", "Glass"],
+    categories: categories,
     onValueChange: (v) => console.log(v),
   },
 }
 
 export const CustomTooltip: Story = {
   args: {
-    categories: ["SolarCells"],
+    categories: categories.slice(0,1),
     yAxisWidth: 65,
     customTooltip: (props: TooltipProps) => {
       const { payload, active, label } = props

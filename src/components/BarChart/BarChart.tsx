@@ -525,10 +525,15 @@ type BaseEventProps = {
 
 type BarChartEventProps = BaseEventProps | null | undefined
 
+type Category = {
+    category: string
+    name?: string
+}
+
 interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
-  categories: string[]
+  categories: Category[]
   colors?: AvailableChartColorsKeys[]
   valueFormatter?: (value: number) => string
   startEndOnly?: boolean
@@ -597,7 +602,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(category => category.name || category.category)
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
@@ -790,17 +796,20 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               }}
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
-                  ? payload.map((item: any) => ({
-                      category: item.dataKey,
-                      value: item.value,
-                      index: item.payload[index],
-                      color: categoryColors.get(
-                        item.dataKey,
-                      ) as AvailableChartColorsKeys,
-                      type: item.type,
-                      payload: item.payload,
-                    }))
-                  : []
+                    ? payload.map((item: any) => {
+                        const itemCategory = categories.find(category => category.category === item.dataKey)?.name || item.dataKey
+                        return ({
+                            category: itemCategory,
+                            value: item.value,
+                            index: item.payload[index],
+                            color: categoryColors.get(
+                                itemCategory
+                            ) as AvailableChartColorsKeys,
+                            type: item.type,
+                            payload: item.payload,
+                        })
+                    })
+                : []
 
                 if (
                   tooltipCallback &&
@@ -851,19 +860,21 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 }
               />
             ) : null}
-            {categories.map((category) => (
+            {categories.map((category) => {
+            const categoryValue = category.name || category.category
+            return (
               <Bar
                 className={cx(
                   getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
+                    categoryColors.get(categoryValue) as AvailableChartColorsKeys,
                     "fill",
                   ),
                   onValueChange ? "cursor-pointer" : "",
                 )}
-                key={category}
-                name={category}
+                key={category.category}
+                name={categoryValue}
                 type="linear"
-                dataKey={category}
+                dataKey={category.category}
                 stackId={stacked ? "stack" : undefined}
                 isAnimationActive={false}
                 fill=""
@@ -872,7 +883,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 }
                 onClick={onBarClick}
               />
-            ))}
+            )
+            })}
           </RechartsBarChart>
         </ResponsiveContainer>
       </div>

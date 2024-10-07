@@ -20,7 +20,7 @@ test.describe("Expect default line chart", () => {
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
         .locator("li")
-        .filter({ hasText: "SolarCells" }),
+        .filter({ hasText: "Solar Cells" }),
     ).toBeVisible()
     await expect(
       page

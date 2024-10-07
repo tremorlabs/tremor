@@ -26,11 +26,16 @@ import {
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
 
+type Category = {
+  category: string
+  name?: string
+}
+
 //#region SparkAreaChart
 
 interface SparkAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
-  categories: string[]
+  categories: Category[]
   index: string
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
@@ -58,7 +63,10 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const stacked = type === "stacked" || type === "percent"
     const areaId = React.useId()
@@ -103,16 +111,17 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
 
             {categories.map((category) => {
-              const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryId = `${areaId}-${category.category.replace(/[^a-zA-Z0-9]/g, "")}`
+              const categoryValue = category.name || category.category
               return (
-                <React.Fragment key={category}>
+                <React.Fragment key={category.category}>
                   <defs>
                     <linearGradient
-                      key={category}
+                      key={category.category}
                       className={cx(
                         getColorClassName(
                           categoryColors.get(
-                            category,
+                            categoryValue,
                           ) as AvailableChartColorsKeys,
                           "text",
                         ),
@@ -130,16 +139,17 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
                     className={cx(
                       getColorClassName(
                         categoryColors.get(
-                          category,
+                          categoryValue,
                         ) as AvailableChartColorsKeys,
                         "stroke",
                       ),
                     )}
+                    key={category.category}
+                    dataKey={category.category}
+                    name={category.category}
                     dot={false}
                     strokeOpacity={1}
-                    name={category}
                     type="linear"
-                    dataKey={category}
                     stroke=""
                     strokeWidth={2}
                     strokeLinejoin="round"
@@ -165,7 +175,7 @@ SparkAreaChart.displayName = "SparkAreaChart"
 
 interface SparkLineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
-  categories: string[]
+  categories: Category[]
   index: string
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
@@ -189,7 +199,10 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
 
     return (
@@ -211,28 +224,33 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
           >
             <XAxis hide dataKey={index} />
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
-            {categories.map((category) => (
-              <Line
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "stroke",
-                  ),
-                )}
-                dot={false}
-                strokeOpacity={1}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stroke=""
-                strokeWidth={2}
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                isAnimationActive={false}
-                connectNulls={connectNulls}
-              />
-            ))}
+            {categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Line
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "stroke",
+                    ),
+                  )}
+                  dot={false}
+                  strokeOpacity={1}
+                  key={category.category}
+                  name={category.category}
+                  type="linear"
+                  dataKey={category.category}
+                  stroke=""
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  isAnimationActive={false}
+                  connectNulls={connectNulls}
+                />
+              )
+            })}
           </RechartsLineChart>
         </ResponsiveContainer>
       </div>
@@ -247,7 +265,7 @@ SparkLineChart.displayName = "SparkLineChart"
 interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Record<string, any>[]
   index: string
-  categories: string[]
+  categories: Category[]
   colors?: AvailableChartColorsKeys[]
   autoMinValue?: boolean
   minValue?: number
@@ -272,7 +290,10 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       ...other
     } = props
 
-    const categoryColors = constructCategoryColors(categories, colors)
+    const categoryKeys = categories.map(
+      (category) => category.name || category.category,
+    )
+    const categoryColors = constructCategoryColors(categoryKeys, colors)
 
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const stacked = type === "stacked" || type === "percent"
@@ -299,23 +320,28 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             <XAxis hide dataKey={index} />
             <YAxis hide={true} domain={yAxisDomain as AxisDomain} />
 
-            {categories.map((category) => (
-              <Bar
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "fill",
-                  ),
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stackId={stacked ? "stack" : undefined}
-                isAnimationActive={false}
-                fill=""
-              />
-            ))}
+            {categories.map((category) => {
+              const categoryValue = category.name || category.category
+              return (
+                <Bar
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(
+                        categoryValue,
+                      ) as AvailableChartColorsKeys,
+                      "fill",
+                    ),
+                  )}
+                  key={category.category}
+                  name={category.category}
+                  type="linear"
+                  dataKey={category.category}
+                  stackId={stacked ? "stack" : undefined}
+                  isAnimationActive={false}
+                  fill=""
+                />
+              )
+            })}
           </RechartsBarChart>
         </ResponsiveContainer>
       </div>
