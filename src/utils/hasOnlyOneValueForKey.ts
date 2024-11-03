@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Tremor hasOnlyOneValueForKey [v0.1.0]
 
 export function hasOnlyOneValueForKey(

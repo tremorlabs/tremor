@@ -24,6 +24,7 @@ const SimpleIdSwitch = (args: any) => {
       <Card className="w-96">
         <form
           onSubmit={(event) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             event.preventDefault(), alert("Submitted")
           }}
           onReset={() => setChecked(false)}

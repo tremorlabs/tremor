@@ -43,7 +43,6 @@ test.describe("Expect tracker default", () => {
         .first(),
     ).toBeVisible()
     page
-    page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .locator(".size-full > .size-full")
       .first()

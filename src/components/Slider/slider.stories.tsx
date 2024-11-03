@@ -22,6 +22,7 @@ const ControlledSlider = (args: any) => {
     <Card className="w-96">
       <form
         onSubmit={(event) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           event.preventDefault(),
             alert("Submitted: " + `${value[0]}, ${value[1]}`)
         }}
