@@ -1,4 +1,5 @@
-// Tremor Tooltip [v0.0.2]
+// Tremor Tooltip [v0.0.3]
+
 import React from "react"
 import * as TooltipPrimitives from "@radix-ui/react-tooltip"
 
