@@ -1,6 +1,4 @@
-// Tremor Tooltip [v0.0.2]
-
-"use client"
+// Tremor Tooltip [v0.0.3]
 
 import React from "react"
 import * as TooltipPrimitives from "@radix-ui/react-tooltip"
@@ -37,7 +35,7 @@ const Tooltip = React.forwardRef<
       showArrow = true,
       side,
       sideOffset = 10,
-      triggerAsChild = false,
+      triggerAsChild = true,
       ...props
     }: TooltipProps,
     forwardedRef,

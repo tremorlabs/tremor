@@ -1,5 +1,11 @@
 # Tremor Tooltip Changelog
 
+## 0.0.3
+
+### Changes
+
+- Fix: Set triggerAsChild default to `true`
+
 ## 0.0.2
 
 ### Changes
