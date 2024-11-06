@@ -1,5 +1,11 @@
 # Tremor ProgressCircle Changelog
 
+## 0.0.3
+
+### Changes
+
+- Fix: Acessibility ARIA roles
+
 ## 0.0.2
 
 ### Changes

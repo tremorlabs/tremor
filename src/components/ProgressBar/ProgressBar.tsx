@@ -1,4 +1,4 @@
-// Tremor ProgressBar [v0.0.2]
+// Tremor ProgressBar [v0.0.3]
 
 import React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
@@ -75,7 +75,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
             "relative flex h-2 w-full items-center rounded-full",
             background(),
           )}
-          aria-label="progress bar"
+          aria-label="progressbar"
           aria-valuenow={value}
           aria-valuemax={max}
         >

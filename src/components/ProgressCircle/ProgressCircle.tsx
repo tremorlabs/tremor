@@ -1,4 +1,4 @@
-// Tremor ProgressCircle [v0.0.2]
+// Tremor ProgressCircle [v0.0.3]
 
 import React from "react"
 import { tv, VariantProps } from "tailwind-variants"
@@ -73,20 +73,23 @@ const ProgressCircle = React.forwardRef<SVGSVGElement, ProgressCircleProps>(
     const { background, circle } = progressCircleVariants({ variant })
     return (
       <>
-        <div className={cx("relative")} tremor-id="tremor-raw">
+        <div
+          className={cx("relative")}
+          role="progressbar"
+          aria-label="progress bar"
+          aria-valuenow={value}
+          aria-valuemin={0}
+          aria-valuemax={max}
+          data-max={max}
+          data-value={safeValue ?? null}
+          tremor-id="tremor-raw"
+        >
           <svg
             ref={forwardedRef}
             width={radius * 2}
             height={radius * 2}
             viewBox={`0 0 ${radius * 2} ${radius * 2}`}
             className={cx("-rotate-90 transform", className)}
-            role="progress circle"
-            aria-label="progress bar"
-            aria-valuenow={value}
-            aria-valuemin={0}
-            aria-valuemax={max}
-            data-max={max}
-            data-value={safeValue ?? null}
             {...props}
           >
             <circle
