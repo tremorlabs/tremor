@@ -189,7 +189,7 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
               }}
             >
               {marker.tooltip ? (
-                <Tooltip triggerAsChild content={marker.tooltip}>
+                <Tooltip asChild content={marker.tooltip}>
                   <div
                     aria-hidden="true"
                     className={cx(
