@@ -46,7 +46,7 @@
     "react-dom": "^18.3.1",
     "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.4",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.2",
