@@ -1,4 +1,4 @@
-// Tremor CategoryBar [v0.0.2]
+// Tremor CategoryBar [v0.0.3]
 
 "use client"
 
@@ -67,6 +67,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
         "text-gray-700 dark:text-gray-300",
       )}
     >
+      <div className="absolute bottom-0 left-0 flex items-center">0</div>
       {values.map((widthPercentage, index) => {
         prefixSum += widthPercentage
 
@@ -89,18 +90,16 @@ const BarLabels = ({ values }: { values: number[] }) => {
             className="flex items-center justify-end pr-0.5"
             style={{ width: `${widthPositionLeft}%` }}
           >
-            <span
-              className={cx(
-                showLabel ? "block" : "hidden",
-                "translate-x-1/2 text-sm tabular-nums",
-              )}
-            >
-              {formatNumber(prefixSum)}
-            </span>
+            {showLabel ? (
+              <span
+                className={cx("block translate-x-1/2 text-sm tabular-nums")}
+              >
+                {formatNumber(prefixSum)}
+              </span>
+            ) : null}
           </div>
         )
       })}
-      <div className="absolute bottom-0 left-0 flex items-center">0</div>
       <div className="absolute bottom-0 right-0 flex items-center">
         {formatNumber(sumValues)}
       </div>

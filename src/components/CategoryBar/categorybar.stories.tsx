@@ -4,7 +4,7 @@ import { CategoryBar } from "./CategoryBar"
 
 const meta: Meta<typeof CategoryBar> = {
   title: "visualization/CategoryBar",
-  render: (args) => <CategoryBar {...args} data-testid="CategoryBar" />,
+  render: (args) => <CategoryBar {...args} data-testid="category-bar" />,
   component: CategoryBar,
 }
 
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof CategoryBar>
 
 export const Default: Story = {
   args: {
-    values: [70, 18, 11],
+    values: [70, 18, 12],
   },
 }
 
