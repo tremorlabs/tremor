@@ -1,5 +1,11 @@
 # Tremor Tooltip Changelog
 
+## 0.1.0
+
+### Changes
+
+- Feat!: Replace `triggerAsChild` with `asChild`
+
 ## 0.0.3
 
 ### Changes
