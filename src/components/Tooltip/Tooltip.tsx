@@ -1,4 +1,4 @@
-// Tremor Tooltip [v0.0.3]
+// Tremor Tooltip [v0.1.0]
 
 import React from "react"
 import * as TooltipPrimitives from "@radix-ui/react-tooltip"
@@ -15,7 +15,6 @@ interface TooltipProps
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   side?: "bottom" | "left" | "top" | "right"
   showArrow?: boolean
-  triggerAsChild?: boolean
 }
 
 const Tooltip = React.forwardRef<
@@ -35,7 +34,7 @@ const Tooltip = React.forwardRef<
       showArrow = true,
       side,
       sideOffset = 10,
-      triggerAsChild = true,
+      asChild,
       ...props
     }: TooltipProps,
     forwardedRef,
@@ -49,7 +48,7 @@ const Tooltip = React.forwardRef<
           delayDuration={delayDuration}
           tremor-id="tremor-raw"
         >
-          <TooltipPrimitives.Trigger onClick={onClick} asChild={triggerAsChild}>
+          <TooltipPrimitives.Trigger onClick={onClick} asChild={asChild}>
             {children}
           </TooltipPrimitives.Trigger>
           <TooltipPrimitives.Portal>
