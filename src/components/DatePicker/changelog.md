@@ -1,5 +1,12 @@
 # Tremor Date Picker Changelog
 
+## 1.0.5
+
+### Changes
+
+- Fix: State types
+- Fix: TimeInput visibility
+
 ## 1.0.4
 
 ### Changes

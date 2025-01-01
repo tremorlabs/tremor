@@ -1,4 +1,4 @@
-// Tremor Date Picker [v1.0.4]
+// Tremor Date Picker [v1.0.5]
 
 "use client"
 
@@ -56,7 +56,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
   const { segmentProps } = useDateSegment(segment, state, ref)
 
   const isColon = segment.type === "literal" && segment.text === ":"
-  const isSpace = segment.type === "literal" && segment.text === " "
+  const isSpace = segment.type === "literal" && segment.text === " "
 
   const isDecorator = isColon || isSpace
 
@@ -99,7 +99,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
       >
         {segment.placeholder}
       </span>
-      {segment.isPlaceholder ? "" : segment.text}
+      {segment.isPlaceholder ? " " : segment.text}
     </div>
   )
 }
@@ -500,7 +500,7 @@ const SingleDatePicker = ({
   )
   const [month, setMonth] = React.useState<Date | undefined>(date)
 
-  const [time, setTime] = React.useState<TimeValue>(
+  const [time, setTime] = React.useState<TimeValue | null>(
     value
       ? new Time(value.getHours(), value.getMinutes())
       : defaultValue
@@ -562,7 +562,7 @@ const SingleDatePicker = ({
     setDate(newDate)
   }
 
-  const onTimeChange = (time: TimeValue) => {
+  const onTimeChange = (time: TimeValue | null) => {
     setTime(time)
 
     if (!date) {
@@ -729,14 +729,14 @@ const RangeDatePicker = ({
   )
   const [month, setMonth] = React.useState<Date | undefined>(range?.from)
 
-  const [startTime, setStartTime] = React.useState<TimeValue>(
+  const [startTime, setStartTime] = React.useState<TimeValue | null>(
     value?.from
       ? new Time(value.from.getHours(), value.from.getMinutes())
       : defaultValue?.from
         ? new Time(defaultValue.from.getHours(), defaultValue.from.getMinutes())
         : new Time(0, 0),
   )
-  const [endTime, setEndTime] = React.useState<TimeValue>(
+  const [endTime, setEndTime] = React.useState<TimeValue | null>(
     value?.to
       ? new Time(value.to.getHours(), value.to.getMinutes())
       : defaultValue?.to
@@ -814,7 +814,7 @@ const RangeDatePicker = ({
     setOpen(open)
   }
 
-  const onTimeChange = (time: TimeValue, pos: "start" | "end") => {
+  const onTimeChange = (time: TimeValue | null, pos: "start" | "end") => {
     switch (pos) {
       case "start":
         setStartTime(time)
