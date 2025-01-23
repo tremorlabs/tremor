@@ -118,7 +118,7 @@ const TimeInput = React.forwardRef<HTMLDivElement, TimeInputProps>(
       () => innerRef?.current,
     )
 
-    const locale = window !== undefined ? window.navigator.language : "en-US"
+    const locale = typeof window !== "undefined" ? window.navigator.language : "en-US"
 
     const state = useTimeFieldState({
       hourCycle: hourCycle,
