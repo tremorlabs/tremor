@@ -1,0 +1,54 @@
+{
+  "$schema": "https://unpkg.com/jsrepo@1.39.1/schemas/registry-config.json",
+  "meta": {
+    "authors": ["tremorlabs"],
+    "bugs": "https://github.com/tremorlabs/tremor/issues",
+    "repository": "https://github.com/tremorlabs/tremor",
+    "description": "Copy & Paste React components to build modern web applications.",
+    "homepage": "https://tremor.so/",
+    "tags": [
+      "react",
+      "components",
+      "typescript",
+      "ui",
+      "dashboard",
+      "tailwindcss",
+      "radix-ui"
+    ]
+  },
+  "configFiles": [
+    {
+      "name": "tailwind.config.js",
+      "path": "./tailwind.config.js",
+      "expectedPath": "./tailwind.config.js"
+    },
+    {
+      "name": "Global CSS",
+      "path": "./src/index.css",
+      "expectedPath": "./src/index.css"
+    }
+  ],
+  "dirs": ["./src"],
+  "doNotListBlocks": [],
+  "doNotListCategories": ["utils"],
+  "listBlocks": [],
+  "listCategories": [],
+  "excludeDeps": ["react"],
+  "includeBlocks": [],
+  "includeCategories": [],
+  "excludeBlocks": [],
+  "excludeCategories": [],
+  "preview": true,
+  "rules": {
+    "no-category-index-file-dependency": "warn",
+    "no-unpinned-dependency": "warn",
+    "require-local-dependency-exists": "error",
+    "max-local-dependencies": ["warn", 10],
+    "no-circular-dependency": "warn",
+    "no-unused-block": "warn",
+    "no-framework-dependency": "warn",
+    "require-config-file-exists": "error",
+    "no-config-file-framework-dependency": "warn",
+    "no-config-file-unpinned-dependency": "warn"
+  }
+}

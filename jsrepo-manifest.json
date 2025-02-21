@@ -1,0 +1,1213 @@
+{
+	"meta": {
+		"authors": [
+			"tremorlabs"
+		],
+		"bugs": "https://github.com/tremorlabs/tremor/issues",
+		"description": "Copy & Paste React components to build modern web applications.",
+		"homepage": "https://tremor.so/",
+		"repository": "https://github.com/tremorlabs/tremor",
+		"tags": [
+			"react",
+			"components",
+			"typescript",
+			"ui",
+			"dashboard",
+			"tailwindcss",
+			"radix-ui"
+		]
+	},
+	"configFiles": [
+		{
+			"name": "tailwind.config.js",
+			"path": "./tailwind.config.js",
+			"expectedPath": "./tailwind.config.js",
+			"optional": false,
+			"dependencies": [],
+			"devDependencies": []
+		},
+		{
+			"name": "Global CSS",
+			"path": "./src/index.css",
+			"expectedPath": "./src/index.css",
+			"optional": false,
+			"dependencies": [],
+			"devDependencies": []
+		}
+	],
+	"categories": [
+		{
+			"name": "components",
+			"blocks": [
+				{
+					"name": "Accordion",
+					"directory": "src/components/Accordion",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"accordion.spec.ts",
+						"accordion.stories.tsx",
+						"Accordion.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-accordion@^1.2.1",
+						"@remixicon/react@^4.6.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "AreaChart",
+					"directory": "src/components/AreaChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"areachart.spec.ts",
+						"areachart.stories.tsx",
+						"AreaChart.tsx"
+					],
+					"localDependencies": [
+						"hooks/useOnWindowResize",
+						"utils/chartColors",
+						"utils/cx",
+						"utils/getYAxisDomain",
+						"utils/hasOnlyOneValueForKey"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../hooks/useOnWindowResize": "{{hooks/useOnWindowResize}}",
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/getYAxisDomain": "{{utils/getYAxisDomain}}",
+						"../../utils/hasOnlyOneValueForKey": "{{utils/hasOnlyOneValueForKey}}"
+					}
+				},
+				{
+					"name": "Badge",
+					"directory": "src/components/Badge",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"badge.spec.ts",
+						"badge.stories.tsx",
+						"Badge.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "BarChart",
+					"directory": "src/components/BarChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"barchart.spec.ts",
+						"barchart.stories.tsx",
+						"BarChart.tsx"
+					],
+					"localDependencies": [
+						"hooks/useOnWindowResize",
+						"utils/chartColors",
+						"utils/cx",
+						"utils/getYAxisDomain"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../hooks/useOnWindowResize": "{{hooks/useOnWindowResize}}",
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/getYAxisDomain": "{{utils/getYAxisDomain}}"
+					}
+				},
+				{
+					"name": "BarList",
+					"directory": "src/components/BarList",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"barlist.spec.ts",
+						"barlist.stories.tsx",
+						"BarList.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Button",
+					"directory": "src/components/Button",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"button.spec.ts",
+						"button.stories.tsx",
+						"Button.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-slot@^1.1.0",
+						"@remixicon/react@^4.6.0",
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Calendar",
+					"directory": "src/components/Calendar",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"calendar.spec.ts",
+						"calendar.stories.tsx",
+						"Calendar.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"date-fns@^3.6.0",
+						"react-day-picker@^8.10.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Callout",
+					"directory": "src/components/Callout",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"callout.spec.ts",
+						"callout.stories.tsx",
+						"Callout.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "Card",
+					"directory": "src/components/Card",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"card.spec.ts",
+						"card.stories.tsx",
+						"Card.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-slot@^1.1.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "CategoryBar",
+					"directory": "src/components/CategoryBar",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"categorybar.spec.ts",
+						"categorybar.stories.tsx",
+						"CategoryBar.tsx"
+					],
+					"localDependencies": [
+						"utils/chartColors",
+						"utils/cx",
+						"components/Tooltip"
+					],
+					"dependencies": [],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../Tooltip/Tooltip": "{{components/Tooltip}}/Tooltip"
+					}
+				},
+				{
+					"name": "Checkbox",
+					"directory": "src/components/Checkbox",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"checkbox.spec.ts",
+						"checkbox.stories.tsx",
+						"Checkbox.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-checkbox@^1.1.2"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "ComboChart",
+					"directory": "src/components/ComboChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"combochart.spec.ts",
+						"combochart.stories.tsx",
+						"ComboChart.tsx"
+					],
+					"localDependencies": [
+						"hooks/useOnWindowResize",
+						"utils/chartColors",
+						"utils/cx",
+						"utils/getYAxisDomain",
+						"utils/hasOnlyOneValueForKey"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../hooks/useOnWindowResize": "{{hooks/useOnWindowResize}}",
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/getYAxisDomain": "{{utils/getYAxisDomain}}",
+						"../../utils/hasOnlyOneValueForKey": "{{utils/hasOnlyOneValueForKey}}"
+					}
+				},
+				{
+					"name": "DatePicker",
+					"directory": "src/components/DatePicker",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"datepicker.spec.ts",
+						"datepicker.stories.tsx",
+						"DatePicker.tsx",
+						"daterangepicker.stories.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/focusRing",
+						"utils/hasErrorInput",
+						"components/Button",
+						"components/Calendar"
+					],
+					"dependencies": [
+						"@internationalized/date@^3.6.0",
+						"@radix-ui/react-popover@^1.1.2",
+						"@react-aria/datepicker@^3.12.0",
+						"@react-stately/datepicker@^3.11.0",
+						"@remixicon/react@^4.6.0",
+						"date-fns@^3.6.0",
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/focusRing": "{{utils/focusRing}}",
+						"../../utils/hasErrorInput": "{{utils/hasErrorInput}}",
+						"../Button/Button": "{{components/Button}}/Button",
+						"../Calendar/Calendar": "{{components/Calendar}}/Calendar"
+					}
+				},
+				{
+					"name": "Dialog",
+					"directory": "src/components/Dialog",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"dialog.spec.ts",
+						"dialog.stories.tsx",
+						"Dialog.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-dialog@^1.1.2"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Divider",
+					"directory": "src/components/Divider",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"divider.spec.ts",
+						"divider.stories.tsx",
+						"Divider.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "DonutChart",
+					"directory": "src/components/DonutChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"donutchart.spec.ts",
+						"donutchart.stories.tsx",
+						"DonutChart.tsx"
+					],
+					"localDependencies": [
+						"utils/chartColors",
+						"utils/cx"
+					],
+					"dependencies": [
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "Drawer",
+					"directory": "src/components/Drawer",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"drawer.spec.ts",
+						"drawer.stories.tsx",
+						"Drawer.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing",
+						"components/Button"
+					],
+					"dependencies": [
+						"@radix-ui/react-dialog@^1.1.2",
+						"@remixicon/react@^4.6.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}",
+						"../Button/Button": "{{components/Button}}/Button"
+					}
+				},
+				{
+					"name": "DropdownMenu",
+					"directory": "src/components/DropdownMenu",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"dropdownmenu.spec.ts",
+						"dropdownmenu.stories.tsx",
+						"DropdownMenu.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-dropdown-menu@^2.1.2",
+						"@remixicon/react@^4.6.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "Input",
+					"directory": "src/components/Input",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"input.spec.ts",
+						"input.stories.tsx",
+						"Input.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/focusRing",
+						"utils/hasErrorInput"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/focusRing": "{{utils/focusRing}}",
+						"../../utils/hasErrorInput": "{{utils/hasErrorInput}}"
+					}
+				},
+				{
+					"name": "Label",
+					"directory": "src/components/Label",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"label.spec.ts",
+						"label.stories.tsx",
+						"Label.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-label@^2.1.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "LineChart",
+					"directory": "src/components/LineChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"linechart.spec.ts",
+						"linechart.stories.tsx",
+						"LineChart.tsx"
+					],
+					"localDependencies": [
+						"hooks/useOnWindowResize",
+						"utils/chartColors",
+						"utils/cx",
+						"utils/getYAxisDomain",
+						"utils/hasOnlyOneValueForKey"
+					],
+					"dependencies": [
+						"@remixicon/react@^4.6.0",
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../hooks/useOnWindowResize": "{{hooks/useOnWindowResize}}",
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/getYAxisDomain": "{{utils/getYAxisDomain}}",
+						"../../utils/hasOnlyOneValueForKey": "{{utils/hasOnlyOneValueForKey}}"
+					}
+				},
+				{
+					"name": "Popover",
+					"directory": "src/components/Popover",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"popover.spec.ts",
+						"popover.stories.tsx",
+						"Popover.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-popover@^1.1.2"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "ProgressBar",
+					"directory": "src/components/ProgressBar",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"progressbar.spec.ts",
+						"progressbar.stories.tsx",
+						"ProgressBar.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "ProgressCircle",
+					"directory": "src/components/ProgressCircle",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"progresscircle.spec.ts",
+						"progresscircle.stories.tsx",
+						"ProgressCircle.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "RadioCardGroup",
+					"directory": "src/components/RadioCardGroup",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"radiocardgroup.spec.ts",
+						"radiocardgroup.stories.tsx",
+						"RadioCardGroup.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-radio-group@^1.2.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "RadioGroup",
+					"directory": "src/components/RadioGroup",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"radiogroup.spec.ts",
+						"radiogroup.stories.tsx",
+						"RadioGroup.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-radio-group@^1.2.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Select",
+					"directory": "src/components/Select",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"select.spec.ts",
+						"select.stories.tsx",
+						"Select.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/hasErrorInput"
+					],
+					"dependencies": [
+						"@radix-ui/react-select@^2.1.2",
+						"@remixicon/react@^4.6.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/hasErrorInput": "{{utils/hasErrorInput}}"
+					}
+				},
+				{
+					"name": "SelectNative",
+					"directory": "src/components/SelectNative",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"selectnative.spec.ts",
+						"selectnative.stories.tsx",
+						"SelectNative.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/hasErrorInput"
+					],
+					"dependencies": [
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/hasErrorInput": "{{utils/hasErrorInput}}"
+					}
+				},
+				{
+					"name": "Slider",
+					"directory": "src/components/Slider",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"slider.spec.ts",
+						"slider.stories.tsx",
+						"Slider.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-slider@^1.2.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "SparkChart",
+					"directory": "src/components/SparkChart",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"sparkareachart.stories.tsx",
+						"sparkbarchart.stories.tsx",
+						"sparkchart.spec.ts",
+						"SparkChart.tsx",
+						"sparklinechart.stories.tsx"
+					],
+					"localDependencies": [
+						"utils/chartColors",
+						"utils/cx",
+						"utils/getYAxisDomain"
+					],
+					"dependencies": [
+						"recharts@^2.15.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/chartColors": "{{utils/chartColors}}",
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/getYAxisDomain": "{{utils/getYAxisDomain}}"
+					}
+				},
+				{
+					"name": "Switch",
+					"directory": "src/components/Switch",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"switch.spec.ts",
+						"switch.stories.tsx",
+						"Switch.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-switch@^1.1.1",
+						"tailwind-variants@^0.3.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Table",
+					"directory": "src/components/Table",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"table.spec.ts",
+						"table.stories.tsx",
+						"Table.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "TabNavigation",
+					"directory": "src/components/TabNavigation",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"tabnavigation.spec.tsx",
+						"tabnavigation.stories.tsx",
+						"TabNavigation.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-navigation-menu@^1.2.1"
+					],
+					"devDependencies": [
+						"@playwright/test@^1.49.1"
+					],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Tabs",
+					"directory": "src/components/Tabs",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"tabs.spec.tsx",
+						"tabs.stories.tsx",
+						"Tabs.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-tabs@^1.1.1"
+					],
+					"devDependencies": [
+						"@playwright/test@^1.49.1"
+					],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Textarea",
+					"directory": "src/components/Textarea",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"textarea.spec.ts",
+						"textarea.stories.tsx",
+						"Textarea.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusInput",
+						"utils/hasErrorInput"
+					],
+					"dependencies": [],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusInput": "{{utils/focusInput}}",
+						"../../utils/hasErrorInput": "{{utils/hasErrorInput}}"
+					}
+				},
+				{
+					"name": "Toast",
+					"directory": "src/components/Toast",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"toast.stories.tsx",
+						"Toast.tsx",
+						"Toaster.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"hooks/useToast"
+					],
+					"dependencies": [
+						"@radix-ui/react-toast@^1.2.2",
+						"@remixicon/react@^4.6.0"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../hooks/useToast": "{{hooks/useToast}}"
+					}
+				},
+				{
+					"name": "Toggle",
+					"directory": "src/components/Toggle",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"toggle.spec.ts",
+						"toggle.stories.tsx",
+						"Toggle.tsx"
+					],
+					"localDependencies": [
+						"utils/cx",
+						"utils/focusRing"
+					],
+					"dependencies": [
+						"@radix-ui/react-toggle@^1.1.1",
+						"@radix-ui/react-toggle-group@^1.1.1"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}",
+						"../../utils/focusRing": "{{utils/focusRing}}"
+					}
+				},
+				{
+					"name": "Tooltip",
+					"directory": "src/components/Tooltip",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"tooltip.spec.ts",
+						"tooltip.stories.tsx",
+						"Tooltip.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-tooltip@^1.1.4"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				},
+				{
+					"name": "Tracker",
+					"directory": "src/components/Tracker",
+					"category": "components",
+					"tests": true,
+					"subdirectory": true,
+					"list": true,
+					"files": [
+						"tracker.spec.ts",
+						"tracker.stories.tsx",
+						"Tracker.tsx"
+					],
+					"localDependencies": [
+						"utils/cx"
+					],
+					"dependencies": [
+						"@radix-ui/react-hover-card@^1.1.2"
+					],
+					"devDependencies": [],
+					"_imports_": {
+						"../../utils/cx": "{{utils/cx}}"
+					}
+				}
+			]
+		},
+		{
+			"name": "hooks",
+			"blocks": [
+				{
+					"name": "useOnWindowResize",
+					"directory": "src/hooks",
+					"category": "hooks",
+					"tests": false,
+					"subdirectory": false,
+					"list": true,
+					"files": [
+						"useOnWindowResize.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "useToast",
+					"directory": "src/hooks",
+					"category": "hooks",
+					"tests": false,
+					"subdirectory": false,
+					"list": true,
+					"files": [
+						"useToast.ts"
+					],
+					"localDependencies": [
+						"components/Toast"
+					],
+					"_imports_": {
+						"../components/Toast/Toast": "{{components/Toast}}/Toast"
+					},
+					"dependencies": [],
+					"devDependencies": []
+				}
+			]
+		},
+		{
+			"name": "utils",
+			"blocks": [
+				{
+					"name": "chartColors",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"chartColors.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "cx",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"cx.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [
+						"clsx@^2.1.1",
+						"tailwind-merge@^2.5.5"
+					],
+					"devDependencies": []
+				},
+				{
+					"name": "focusInput",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"focusInput.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "focusRing",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"focusRing.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "getYAxisDomain",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"getYAxisDomain.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "hasErrorInput",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"hasErrorInput.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				},
+				{
+					"name": "hasOnlyOneValueForKey",
+					"directory": "src/utils",
+					"category": "utils",
+					"tests": false,
+					"subdirectory": false,
+					"list": false,
+					"files": [
+						"hasOnlyOneValueForKey.ts"
+					],
+					"localDependencies": [],
+					"_imports_": {},
+					"dependencies": [],
+					"devDependencies": []
+				}
+			]
+		}
+	]
+}
