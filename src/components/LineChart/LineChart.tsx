@@ -17,6 +17,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { CurveType } from "recharts/types/shape/Curve"
 import { AxisDomain } from "recharts/types/util/types"
 
 import { useOnWindowResize } from "../../hooks/useOnWindowResize"
@@ -498,6 +499,7 @@ interface LineChartProps extends React.HTMLAttributes<HTMLDivElement> {
   legendPosition?: "left" | "center" | "right"
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
+  curveType?: CurveType
 }
 
 const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
@@ -530,6 +532,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
       legendPosition = "right",
       tooltipCallback,
       customTooltip,
+      curveType = "linear",
       ...other
     } = props
     const CustomTooltip = customTooltip
@@ -861,7 +864,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 }}
                 key={category}
                 name={category}
-                type="linear"
+                type={curveType}
                 dataKey={category}
                 stroke=""
                 strokeWidth={2}
@@ -879,7 +882,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                     strokeOpacity={0}
                     key={category}
                     name={category}
-                    type="linear"
+                    type={curveType}
                     dataKey={category}
                     stroke="transparent"
                     fill="transparent"

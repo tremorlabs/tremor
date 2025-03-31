@@ -257,6 +257,17 @@ export const WithLegendSlider: Story = {
   },
 }
 
+export const WithRoundedCurves: Story = {
+  args: {
+    className: "max-w-md",
+    data: chartdata,
+    index: "date",
+    categories: ["SolarCells", "Adhesive"],
+    curveType: "monotone",
+    onValueChange: (v) => console.log(v),
+  },
+}
+
 export const ShiftColors: Story = {
   args: {
     colors: ["amber", "cyan"],

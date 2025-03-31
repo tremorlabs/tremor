@@ -18,6 +18,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { CurveType } from "recharts/types/shape/Curve"
 import { AxisDomain } from "recharts/types/util/types"
 
 import { useOnWindowResize } from "../../hooks/useOnWindowResize"
@@ -500,6 +501,7 @@ interface AreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
   fill?: "gradient" | "solid" | "none"
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
+  curveType?: CurveType
 }
 
 const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
@@ -534,6 +536,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
       fill = "gradient",
       tooltipCallback,
       customTooltip,
+      curveType = "linear",
       ...other
     } = props
     const CustomTooltip = customTooltip
@@ -939,7 +942,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     }}
                     key={category}
                     name={category}
-                    type="linear"
                     dataKey={category}
                     stroke=""
                     strokeWidth={2}
@@ -949,6 +951,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     connectNulls={connectNulls}
                     stackId={stacked ? "stack" : undefined}
                     fill={`url(#${categoryId})`}
+                    type={curveType}
                   />
                 </React.Fragment>
               )
@@ -961,7 +964,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     strokeOpacity={0}
                     key={category}
                     name={category}
-                    type="linear"
                     dataKey={category}
                     stroke="transparent"
                     fill="transparent"
@@ -969,6 +971,7 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                     tooltipType="none"
                     strokeWidth={12}
                     connectNulls={connectNulls}
+                    type={curveType}
                     onClick={(props: any, event) => {
                       event.stopPropagation()
                       const { name } = props
