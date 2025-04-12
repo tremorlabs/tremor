@@ -72,3 +72,4 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 /storybook-static/
+config.bat

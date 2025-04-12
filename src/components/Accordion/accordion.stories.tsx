@@ -211,7 +211,7 @@ export const DefaultValueAndCollapsibleDisabled: Story = {
         <AccordionItem value="item-1">
           <AccordionTrigger>
             <span className="flex items-center gap-2">
-              <RiCoupon3Fill className="group-data-[disabled]:texdark:t-blue-200 group-data-[disabled]:t8xt-blue-200 size-4 text-blue-500" />
+              <RiCoupon3Fill className="size-4 text-blue-500 group-data-disabled:text-blue-200 dark:group-data-disabled:text-blue-200" />
               Access Your Booking
             </span>
           </AccordionTrigger>
