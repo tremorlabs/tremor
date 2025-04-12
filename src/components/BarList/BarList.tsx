@@ -1,4 +1,4 @@
-// Tremor BarList [v0.1.1]
+// Tremor BarList [v1.0.0]
 
 import React from "react"
 
@@ -69,14 +69,14 @@ function BarListInner<T>(
             }}
             className={cx(
               // base
-              "group w-full rounded",
+              "group w-full rounded-sm",
               // focus
               focusRing,
               onValueChange
                 ? [
-                    "!-m-0 cursor-pointer",
+                    "-m-0! cursor-pointer",
                     // hover
-                    "hover:bg-gray-50 hover:dark:bg-gray-900",
+                    "hover:bg-gray-50 dark:hover:bg-gray-900",
                   ]
                 : "",
             )}
@@ -84,12 +84,12 @@ function BarListInner<T>(
             <div
               className={cx(
                 // base
-                "flex items-center rounded transition-all",
+                "flex items-center rounded-sm transition-all",
                 rowHeight,
                 // background color
                 "bg-blue-200 dark:bg-blue-900",
                 onValueChange
-                  ? "group-hover:bg-blue-300 group-hover:dark:bg-blue-800"
+                  ? "group-hover:bg-blue-300 dark:group-hover:bg-blue-800"
                   : "",
                 // margin and duration
                 {
@@ -105,7 +105,7 @@ function BarListInner<T>(
                     href={item.href}
                     className={cx(
                       // base
-                      "truncate whitespace-nowrap rounded text-sm",
+                      "truncate whitespace-nowrap rounded-sm text-sm",
                       // text color
                       "text-gray-900 dark:text-gray-50",
                       // hover

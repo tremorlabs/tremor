@@ -374,10 +374,10 @@ export const CustomTooltip: Story = {
       const { payload, active, label } = props
       if (!active || !payload || payload.length === 0) return null
       return (
-        <div className="w-56 rounded-md border bg-white p-2 text-sm shadow-sm">
+        <div className="w-56 rounded-md border bg-white p-2 text-sm shadow-xs">
           <div className="flex flex-1 space-x-2.5">
             <div
-              className={`flex w-1.5 flex-col bg-${payload[0].color}-500 rounded`}
+              className={`flex w-1.5 flex-col bg-${payload[0].color}-500 rounded-sm`}
             />
             <div className="w-full">
               <p className="font-medium text-gray-900">{label}</p>

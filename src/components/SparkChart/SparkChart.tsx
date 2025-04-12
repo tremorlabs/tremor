@@ -1,4 +1,4 @@
-// Tremor Spark Chart [v0.1.2]
+// Tremor Spark Chart [v1.0.0]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -15,11 +15,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import { AxisDomain } from "recharts/types/util/types"
+import type { AxisDomain } from "recharts/types/util/types"
 
 import {
   AvailableChartColors,
-  AvailableChartColorsKeys,
+  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
 } from "../../utils/chartColors"

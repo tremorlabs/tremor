@@ -1,4 +1,4 @@
-// Tremor Toast [v0.0.4]
+// Tremor Toast [v1.0.0]
 
 import React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
@@ -22,7 +22,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={forwardedRef}
     className={cx(
-      "fixed right-0 top-0 z-[9999] m-0 flex w-full max-w-[100vw] list-none flex-col gap-2 p-[var(--viewport-padding)] [--viewport-padding:_15px] sm:max-w-md sm:gap-4",
+      "fixed right-0 top-0 z-9999 m-0 flex w-full max-w-[100vw] list-none flex-col gap-2 p-[var(--viewport-padding)] [--viewport-padding:_15px] sm:max-w-md sm:gap-4",
       className,
     )}
     {...props}
@@ -120,7 +120,7 @@ const Toast = React.forwardRef<
           // swipe
           "data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none",
           // transition
-          "data-[state=open]:animate-slideLeftAndFade",
+          "data-[state=open]:animate-slide-left-and-fade",
           "data-[state=closed]:animate-hide",
           className,
         )}
@@ -160,11 +160,11 @@ const Toast = React.forwardRef<
                   // base
                   "flex flex-1 items-center justify-center px-6 text-sm font-semibold transition-colors",
                   // hover
-                  "hover:bg-gray-50 hover:dark:bg-gray-900/30",
+                  "hover:bg-gray-50 dark:hover:bg-gray-900/30",
                   // text color
                   "text-gray-800 dark:text-gray-100",
                   // active
-                  "active:bg-gray-100 active:dark:bg-gray-800",
+                  "active:bg-gray-100 dark:active:bg-gray-800",
                   {
                     "text-red-600 dark:text-red-500": variant === "error",
                   },
@@ -188,7 +188,7 @@ const Toast = React.forwardRef<
                 // text color
                 "text-gray-600 dark:text-gray-400",
                 // hover
-                "hover:bg-gray-50 hover:dark:bg-gray-900/30",
+                "hover:bg-gray-50 dark:hover:bg-gray-900/30",
                 // active
                 "active:bg-gray-100",
                 action ? "h-1/2" : "h-full",

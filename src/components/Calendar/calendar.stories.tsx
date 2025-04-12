@@ -23,12 +23,12 @@ const Demo = ({ mode, ...args }: Parameters<typeof Calendar>[0]) => {
       />
 
       {mode === "single" && (
-        <p className="rounded bg-gray-100 p-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
+        <p className="rounded-sm bg-gray-100 p-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
           Selected Date: {date ? date.toDateString() : "None"}
         </p>
       )}
       {mode === "range" && (
-        <p className="rounded bg-gray-100 p-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
+        <p className="rounded-sm bg-gray-100 p-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
           Selected Range:{" "}
           {dateRange
             ? `${dateRange.from?.toDateString()} – ${

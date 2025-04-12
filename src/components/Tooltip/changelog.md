@@ -1,5 +1,11 @@
 # Tremor Tooltip Changelog
 
+## 1.0.0
+
+### Changes
+
+- BREAKING CHANGE: Tailwind CSS v4
+
 ## 0.1.0
 
 ### Changes
@@ -23,3 +29,4 @@
 ### Changes
 
 - Fix: Make tooltip a client component
+

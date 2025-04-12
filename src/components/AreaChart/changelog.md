@@ -1,10 +1,16 @@
 # Tremor AreaChart Changelog
 
+## 1.0.0
+
+### Changes
+
+- BREAKING CHANGE: Tailwind CSS v4
+
 ## 0.3.1
 
 ### Changes
 
-- Feat: - Chore: Add `tremor-id`
+- Chore: Add `tremor-id`
 
 ## 0.3.0
 

@@ -1,4 +1,4 @@
-// Tremor Toggle [v0.0.0]
+// Tremor Toggle [v1.0.0]
 "use client"
 
 import React from "react"
@@ -10,7 +10,7 @@ import { focusRing } from "../../utils/focusRing"
 
 const toggleStyles = [
   // base
-  "group inline-flex h-9 min-w-9 items-center justify-center gap-2 rounded-md border px-2 text-sm font-medium shadow-sm transition-all duration-100 ease-in-out",
+  "group inline-flex h-9 min-w-9 items-center justify-center gap-2 rounded-md border px-2 text-sm font-medium shadow-xs transition-all duration-100 ease-in-out",
   "border-gray-300 dark:border-gray-800",
   // text color
   "text-gray-700 dark:text-gray-300",
@@ -19,7 +19,7 @@ const toggleStyles = [
   //hover color
   "hover:bg-gray-50 dark:hover:bg-gray-900/60",
   // disabled
-  "disabled:pointer-events-none disabled:text-gray-400 disabled:dark:text-gray-600",
+  "disabled:pointer-events-none disabled:text-gray-400 dark:disabled:text-gray-600",
   "data-[state=on]:bg-gray-100 data-[state=on]:text-gray-900 dark:data-[state=on]:bg-gray-800 dark:data-[state=on]:text-gray-50",
   focusRing,
 ]
