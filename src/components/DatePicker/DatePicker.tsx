@@ -55,7 +55,11 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
   const { segmentProps } = useDateSegment(segment, state, ref)
 
   // Skip rendering for any non-editable segments except colon
-  if (!segment.isEditable && segment.type === "literal" && segment.text !== ":") {
+  if (
+    !segment.isEditable &&
+    segment.type === "literal" &&
+    segment.text !== ":"
+  ) {
     return null
   }
 
@@ -80,7 +84,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
           "w-fit! border-none bg-transparent px-0 text-gray-400 shadow-none":
             segment.type === "literal",
           "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
-            state.isDisabled,
+            state.isDisabled && segment.text !== ":",
         },
       )}
     >
@@ -173,7 +177,7 @@ const triggerStyles = tv({
 
 interface TriggerProps
   extends React.ComponentProps<"button">,
-  VariantProps<typeof triggerStyles> {
+    VariantProps<typeof triggerStyles> {
   placeholder?: string
 }
 
@@ -866,9 +870,9 @@ const RangeDatePicker = ({
         ? new Time(value.from.getHours(), value.from.getMinutes())
         : defaultValue?.from
           ? new Time(
-            defaultValue.from.getHours(),
-            defaultValue.from.getMinutes(),
-          )
+              defaultValue.from.getHours(),
+              defaultValue.from.getMinutes(),
+            )
           : new Time(0, 0),
     )
     setEndTime(
@@ -885,8 +889,9 @@ const RangeDatePicker = ({
       return null
     }
 
-    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${range.to ? formatDate(range.to, locale, showTimePicker) : ""
-      }`
+    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${
+      range.to ? formatDate(range.to, locale, showTimePicker) : ""
+    }`
   }, [range, locale, showTimePicker])
 
   const onApply = () => {
@@ -1134,7 +1139,8 @@ const validatePresets = (
 
           if (presetDay && presetDay < fromDay.getDate()) {
             throw new Error(
-              `Preset ${preset.dateRange.from
+              `Preset ${
+                preset.dateRange.from
               }'s 'from' is before fromDay ${format(fromDay, "MMM dd, yyyy")}.`,
             )
           }
