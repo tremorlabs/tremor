@@ -6,10 +6,10 @@ import * as React from "react"
 import { Time } from "@internationalized/date"
 import * as PopoverPrimitives from "@radix-ui/react-popover"
 import {
-  type AriaTimeFieldProps,
-  type TimeValue,
   useDateSegment,
   useTimeField,
+  type AriaTimeFieldProps,
+  type TimeValue,
 } from "@react-aria/datepicker"
 import {
   useTimeFieldState,
@@ -52,13 +52,16 @@ type TimeSegmentProps = {
 
 const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
   const ref = React.useRef<HTMLDivElement>(null)
-
   const { segmentProps } = useDateSegment(segment, state, ref)
 
-  const isColon = segment.type === "literal" && segment.text === ":"
-  const isSpace = segment.type === "literal" && segment.text === " "
-
-  const isDecorator = isColon || isSpace
+  // Skip rendering for any non-editable segments except colon
+  if (
+    !segment.isEditable &&
+    segment.type === "literal" &&
+    segment.text !== ":"
+  ) {
+    return null
+  }
 
   return (
     <div
@@ -76,30 +79,16 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
         // focus
         focusInput,
         // invalid (optional)
-        "invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-invalid/time-input:border-red-500 group-aria-invalid/time-input:ring-2 group-aria-invalid/time-input:ring-red-200 dark:group-aria-invalid/time-input:ring-red-400/20",
+        "group-aria-invalid/time-input:border-red-500 group-aria-invalid/time-input:ring-2 group-aria-invalid/time-input:ring-red-200 invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 dark:group-aria-invalid/time-input:ring-red-400/20",
         {
           "w-fit! border-none bg-transparent px-0 text-gray-400 shadow-none":
-            isDecorator,
-          hidden: isSpace,
+            segment.type === "literal",
           "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
-            state.isDisabled,
-          "bg-transparent! text-gray-400!": !segment.isEditable,
+            state.isDisabled && segment.text !== ":",
         },
       )}
     >
-      <span
-        aria-hidden="true"
-        className={cx(
-          "pointer-events-none block w-full text-left text-gray-700 sm:text-sm",
-          {
-            hidden: !segment.isPlaceholder,
-            "h-0": !segment.isPlaceholder,
-          },
-        )}
-      >
-        {segment.placeholder}
-      </span>
-      {segment.isPlaceholder ? " " : segment.text}
+      {segment.isPlaceholder ? segment.placeholder : segment.text}
     </div>
   )
 }
@@ -188,7 +177,7 @@ const triggerStyles = tv({
 
 interface TriggerProps
   extends React.ComponentProps<"button">,
-  VariantProps<typeof triggerStyles> {
+    VariantProps<typeof triggerStyles> {
   placeholder?: string
 }
 
@@ -205,7 +194,7 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
           {...props}
         >
           <RiCalendar2Fill className="size-5 shrink-0 text-gray-400 dark:text-gray-600" />
-          <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-900 dark:text-gray-50">
+          <span className="flex-1 overflow-hidden text-left text-ellipsis whitespace-nowrap text-gray-900 dark:text-gray-50">
             {children ? (
               children
             ) : placeholder ? (
@@ -242,7 +231,7 @@ const CalendarPopover = React.forwardRef<
           // base
           "relative z-50 w-fit rounded-md border text-sm shadow-xl shadow-black/[2.5%]",
           // widths
-          "min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
+          "max-w-[95vw] min-w-[calc(var(--radix-select-trigger-width)-2px)]",
           // border color
           "border-gray-200 dark:border-gray-800",
           // background color
@@ -357,7 +346,8 @@ const PresetContainer = <TPreset extends Preset, TValue>({
       const value = currentValue as DateRange | undefined
 
       return value && compareRanges(value, preset.dateRange)
-    } if (isDatePresets(preset)) {
+    }
+    if (isDatePresets(preset)) {
       const value = currentValue as Date | undefined
 
       return value && compareDates(value, preset.date)
@@ -368,14 +358,15 @@ const PresetContainer = <TPreset extends Preset, TValue>({
 
   return (
     <ul className="flex items-start gap-x-2 sm:flex-col">
-      {presets.map((preset, index) => {
+      {presets.map((preset) => {
         return (
-          <li key={index} className="sm:w-full sm:py-px">
+          <li key={`preset-${preset.label}`} className="sm:w-full sm:py-px">
             <button
+              type="button"
               title={preset.label}
               className={cx(
                 // base
-                "relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-sm border px-2.5 py-1.5 text-left text-base shadow-xs outline-hidden transition-all sm:border-none sm:py-2 sm:text-sm sm:shadow-none",
+                "relative w-full overflow-hidden rounded-sm border px-2.5 py-1.5 text-left text-base text-ellipsis whitespace-nowrap shadow-xs outline-hidden transition-all sm:border-none sm:py-2 sm:text-sm sm:shadow-none",
                 // text color
                 "text-gray-700 dark:text-gray-300",
                 // border color
@@ -631,7 +622,7 @@ const SingleDatePicker = ({
               <div
                 className={cx(
                   "relative flex h-14 w-full items-center sm:h-full sm:w-40",
-                  "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
+                  "border-b border-gray-200 sm:border-r sm:border-b-0 dark:border-gray-800",
                   "overflow-auto",
                 )}
               >
@@ -879,9 +870,9 @@ const RangeDatePicker = ({
         ? new Time(value.from.getHours(), value.from.getMinutes())
         : defaultValue?.from
           ? new Time(
-            defaultValue.from.getHours(),
-            defaultValue.from.getMinutes(),
-          )
+              defaultValue.from.getHours(),
+              defaultValue.from.getMinutes(),
+            )
           : new Time(0, 0),
     )
     setEndTime(
@@ -898,8 +889,9 @@ const RangeDatePicker = ({
       return null
     }
 
-    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${range.to ? formatDate(range.to, locale, showTimePicker) : ""
-      }`
+    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${
+      range.to ? formatDate(range.to, locale, showTimePicker) : ""
+    }`
   }, [range, locale, showTimePicker])
 
   const onApply = () => {
@@ -932,7 +924,7 @@ const RangeDatePicker = ({
               <div
                 className={cx(
                   "relative flex h-16 w-full items-center sm:h-full sm:w-40",
-                  "border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-800",
+                  "border-b border-gray-200 sm:border-r sm:border-b-0 dark:border-gray-800",
                   "overflow-auto",
                 )}
               >
@@ -994,7 +986,7 @@ const RangeDatePicker = ({
                 </div>
               )}
               <div className="border-t border-gray-200 p-3 sm:flex sm:items-center sm:justify-between dark:border-gray-800">
-                <p className="tabular-nums text-gray-900 dark:text-gray-50">
+                <p className="text-gray-900 tabular-nums dark:text-gray-50">
                   <span className="text-gray-700 dark:text-gray-300">
                     {translations?.range ?? "Range"}:
                   </span>{" "}
@@ -1040,7 +1032,7 @@ const validatePresets = (
     const fromYearToUse = fromYear
     const toYearToUse = toYear
 
-    presets.forEach((preset) => {
+    for (const preset of presets) {
       if ("date" in preset) {
         const presetYear = preset.date.getFullYear()
 
@@ -1147,7 +1139,8 @@ const validatePresets = (
 
           if (presetDay && presetDay < fromDay.getDate()) {
             throw new Error(
-              `Preset ${preset.dateRange.from
+              `Preset ${
+                preset.dateRange.from
               }'s 'from' is before fromDay ${format(fromDay, "MMM dd, yyyy")}.`,
             )
           }
@@ -1166,7 +1159,7 @@ const validatePresets = (
           }
         }
       }
-    })
+    }
   }
 }
 
