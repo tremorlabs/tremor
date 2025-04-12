@@ -1,4 +1,4 @@
-// Tremor DonutChart [v0.0.1]
+// Tremor DonutChart [v1.0.0]
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
@@ -14,7 +14,7 @@ import {
 
 import {
   AvailableChartColors,
-  AvailableChartColorsKeys,
+  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
 } from "../../utils/chartColors"
@@ -255,7 +255,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             )}
             <Pie
               className={cx(
-                "stroke-white dark:stroke-gray-950 [&_.recharts-pie-sector]:outline-none",
+                "stroke-white dark:stroke-gray-950 [&_.recharts-pie-sector]:outline-hidden",
                 onValueChange ? "cursor-pointer" : "cursor-default",
               )}
               data={parseData(data, categoryColors, category)}

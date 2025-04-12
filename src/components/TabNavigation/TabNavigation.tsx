@@ -1,4 +1,4 @@
-// Tremor TabNavigation [v0.1.0]
+// Tremor TabNavigation [v1.0.0]
 
 import React from "react"
 import * as NavigationMenuPrimitives from "@radix-ui/react-navigation-menu"
@@ -79,12 +79,12 @@ const TabNavigationLink = React.forwardRef<
             // text color
             "text-gray-500 dark:text-gray-500",
             // hover
-            "group-hover:text-gray-700 group-hover:dark:text-gray-400",
+            "group-hover:text-gray-700 dark:group-hover:text-gray-400",
             // border hover
-            "group-hover:border-gray-300 group-hover:dark:border-gray-400",
+            "group-hover:border-gray-300 dark:group-hover:border-gray-400",
             // selected
-            "group-data-[active]:border-blue-500 group-data-[active]:text-blue-500",
-            "group-data-[active]:dark:border-blue-500 group-data-[active]:dark:text-blue-500",
+            "group-data-active:border-blue-500 group-data-active:text-blue-500",
+            "dark:group-data-active:border-blue-500 dark:group-data-active:text-blue-500",
             // disabled
             disabled
               ? "pointer-events-none text-gray-300 dark:text-gray-700"

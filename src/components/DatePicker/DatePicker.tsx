@@ -1,4 +1,4 @@
-// Tremor Date Picker [v1.0.5]
+// Tremor Date Picker [v2.0.0]
 
 "use client"
 
@@ -6,8 +6,8 @@ import * as React from "react"
 import { Time } from "@internationalized/date"
 import * as PopoverPrimitives from "@radix-ui/react-popover"
 import {
-  AriaTimeFieldProps,
-  TimeValue,
+  type AriaTimeFieldProps,
+  type TimeValue,
   useDateSegment,
   useTimeField,
 } from "@react-aria/datepicker"
@@ -19,7 +19,7 @@ import {
 import { RiCalendar2Fill, RiSubtractFill } from "@remixicon/react"
 import { format, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
-import { tv, VariantProps } from "tailwind-variants"
+import { tv, type VariantProps } from "tailwind-variants"
 
 import { cx } from "../../utils/cx"
 import { focusInput } from "../../utils/focusInput"
@@ -66,7 +66,7 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
       ref={ref}
       className={cx(
         // base
-        "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-sm outline-none transition sm:text-sm",
+        "relative block w-full appearance-none rounded-md border px-2.5 py-1.5 text-left uppercase tabular-nums shadow-xs outline-hidden transition sm:text-sm",
         // border color
         "border-gray-300 dark:border-gray-800",
         // text color
@@ -76,14 +76,14 @@ const TimeSegment = ({ segment, state }: TimeSegmentProps) => {
         // focus
         focusInput,
         // invalid (optional)
-        "invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-[invalid=true]/time-input:border-red-500 group-aria-[invalid=true]/time-input:ring-2 group-aria-[invalid=true]/time-input:ring-red-200 group-aria-[invalid=true]/time-input:dark:ring-red-400/20",
+        "invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 group-aria-invalid/time-input:border-red-500 group-aria-invalid/time-input:ring-2 group-aria-invalid/time-input:ring-red-200 dark:group-aria-invalid/time-input:ring-red-400/20",
         {
-          "!w-fit border-none bg-transparent px-0 text-gray-400 shadow-none":
+          "w-fit! border-none bg-transparent px-0 text-gray-400 shadow-none":
             isDecorator,
           hidden: isSpace,
           "border-gray-300 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500":
             state.isDisabled,
-          "!bg-transparent !text-gray-400": !segment.isEditable,
+          "bg-transparent! text-gray-400!": !segment.isEditable,
         },
       )}
     >
@@ -159,7 +159,7 @@ TimeInput.displayName = "TimeInput"
 const triggerStyles = tv({
   base: [
     // base
-    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 shadow-sm outline-none transition-all sm:text-sm",
+    "peer flex w-full cursor-pointer appearance-none items-center gap-x-2 truncate rounded-md border px-3 py-2 shadow-xs outline-hidden transition-all sm:text-sm",
     // background color
     "bg-white dark:bg-gray-950",
     // border color
@@ -169,15 +169,15 @@ const triggerStyles = tv({
     // placeholder color
     "placeholder-gray-400 dark:placeholder-gray-500",
     // hover
-    "hover:bg-gray-50 hover:dark:bg-gray-950/50",
+    "hover:bg-gray-50 dark:hover:bg-gray-950/50",
     // disabled
     "disabled:pointer-events-none",
     "disabled:bg-gray-100 disabled:text-gray-400",
-    "disabled:dark:border-gray-800 disabled:dark:bg-gray-800 disabled:dark:text-gray-500",
+    "dark:disabled:border-gray-800 dark:disabled:bg-gray-800 dark:disabled:text-gray-500",
     // focus
     focusInput,
     // invalid (optional)
-    // "aria-[invalid=true]:dark:ring-red-400/20 aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-red-200 aria-[invalid=true]:border-red-500 invalid:ring-2 invalid:ring-red-200 invalid:border-red-500"
+    // "dark:aria-invalid:ring-red-400/20 aria-invalid:ring-2 aria-invalid:ring-red-200 aria-invalid:border-red-500 invalid:ring-2 invalid:ring-red-200 invalid:border-red-500"
   ],
   variants: {
     hasError: {
@@ -188,7 +188,7 @@ const triggerStyles = tv({
 
 interface TriggerProps
   extends React.ComponentProps<"button">,
-    VariantProps<typeof triggerStyles> {
+  VariantProps<typeof triggerStyles> {
   placeholder?: string
 }
 
@@ -250,7 +250,7 @@ const CalendarPopover = React.forwardRef<
           // transition
           "will-change-[transform,opacity]",
           "data-[state=closed]:animate-hide",
-          "data-[state=open]:data-[side=bottom]:animate-slideDownAndFade data-[state=open]:data-[side=left]:animate-slideLeftAndFade data-[state=open]:data-[side=right]:animate-slideRightAndFade data-[state=open]:data-[side=top]:animate-slideUpAndFade",
+          "data-[state=open]:data-[side=bottom]:animate-slide-down-and-fade data-[state=open]:data-[side=left]:animate-slide-left-and-fade data-[state=open]:data-[side=right]:animate-slide-right-and-fade data-[state=open]:data-[side=top]:animate-slide-up-and-fade",
           className,
         )}
         {...props}
@@ -357,7 +357,7 @@ const PresetContainer = <TPreset extends Preset, TValue>({
       const value = currentValue as DateRange | undefined
 
       return value && compareRanges(value, preset.dateRange)
-    } else if (isDatePresets(preset)) {
+    } if (isDatePresets(preset)) {
       const value = currentValue as Date | undefined
 
       return value && compareDates(value, preset.date)
@@ -375,7 +375,7 @@ const PresetContainer = <TPreset extends Preset, TValue>({
               title={preset.label}
               className={cx(
                 // base
-                "relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded border px-2.5 py-1.5 text-left text-base shadow-sm outline-none transition-all sm:border-none sm:py-2 sm:text-sm sm:shadow-none",
+                "relative w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-sm border px-2.5 py-1.5 text-left text-base shadow-xs outline-hidden transition-all sm:border-none sm:py-2 sm:text-sm sm:shadow-none",
                 // text color
                 "text-gray-700 dark:text-gray-300",
                 // border color
@@ -383,8 +383,8 @@ const PresetContainer = <TPreset extends Preset, TValue>({
                 // focus
                 focusRing,
                 // background color
-                "focus-visible:bg-gray-100 focus-visible:dark:bg-gray-900",
-                "hover:bg-gray-100 hover:dark:bg-gray-900",
+                "focus-visible:bg-gray-100 dark:focus-visible:bg-gray-900",
+                "hover:bg-gray-100 dark:hover:bg-gray-900",
                 {
                   "bg-gray-100 dark:bg-gray-900": matchesCurrent(preset),
                 },
@@ -879,9 +879,9 @@ const RangeDatePicker = ({
         ? new Time(value.from.getHours(), value.from.getMinutes())
         : defaultValue?.from
           ? new Time(
-              defaultValue.from.getHours(),
-              defaultValue.from.getMinutes(),
-            )
+            defaultValue.from.getHours(),
+            defaultValue.from.getMinutes(),
+          )
           : new Time(0, 0),
     )
     setEndTime(
@@ -898,9 +898,8 @@ const RangeDatePicker = ({
       return null
     }
 
-    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${
-      range.to ? formatDate(range.to, locale, showTimePicker) : ""
-    }`
+    return `${range.from ? formatDate(range.from, locale, showTimePicker) : ""} - ${range.to ? formatDate(range.to, locale, showTimePicker) : ""
+      }`
   }, [range, locale, showTimePicker])
 
   const onApply = () => {
@@ -1148,8 +1147,7 @@ const validatePresets = (
 
           if (presetDay && presetDay < fromDay.getDate()) {
             throw new Error(
-              `Preset ${
-                preset.dateRange.from
+              `Preset ${preset.dateRange.from
               }'s 'from' is before fromDay ${format(fromDay, "MMM dd, yyyy")}.`,
             )
           }

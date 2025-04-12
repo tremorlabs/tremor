@@ -533,7 +533,7 @@ export const CustomTooltip: Story = {
       const categoriesToShow = ["Adhesive", "SolarCells"]
 
       return (
-        <div className="w-56 rounded-md border bg-white p-3 text-sm shadow-sm">
+        <div className="w-56 rounded-md border bg-white p-3 text-sm shadow-xs">
           <p className="mb-2 font-medium text-gray-900">{label}</p>
           <div className="flex flex-col space-y-2">
             {categoriesToShow.map((category) => (

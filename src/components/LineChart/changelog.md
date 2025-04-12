@@ -1,5 +1,11 @@
 # Tremor LineChart Changelog
 
+## 1.0.0
+
+### Changes
+
+- BREAKING CHANGE: Tailwind CSS v4
+
 ## 0.3.2
 
 ### Changes

@@ -1,5 +1,11 @@
 # Tremor Date Picker Changelog
 
+## 2.0.0
+
+### Changes
+
+- BREAKING CHANGE: Tailwind CSS v4
+
 ## 1.0.5
 
 ### Changes

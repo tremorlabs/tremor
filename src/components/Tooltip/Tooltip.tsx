@@ -1,4 +1,4 @@
-// Tremor Tooltip [v0.1.0]
+// Tremor Tooltip [v1.0.0]
 
 import React from "react"
 import * as TooltipPrimitives from "@radix-ui/react-tooltip"
@@ -7,10 +7,10 @@ import { cx } from "../../utils/cx"
 
 interface TooltipProps
   extends Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,
-    Pick<
-      TooltipPrimitives.TooltipProps,
-      "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
-    > {
+  Pick<
+    TooltipPrimitives.TooltipProps,
+    "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
+  > {
   content: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   side?: "bottom" | "left" | "top" | "right"
@@ -66,7 +66,7 @@ const Tooltip = React.forwardRef<
                 "bg-gray-900 dark:bg-gray-50",
                 // transition
                 "will-change-[transform,opacity]",
-                "data-[side=bottom]:animate-slideDownAndFade data-[side=left]:animate-slideLeftAndFade data-[side=right]:animate-slideRightAndFade data-[side=top]:animate-slideUpAndFade data-[state=closed]:animate-hide",
+                "data-[side=bottom]:animate-slide-down-and-fade data-[side=left]:animate-slide-left-and-fade data-[side=right]:animate-slide-right-and-fade data-[side=top]:animate-slide-up-and-fade data-[state=closed]:animate-hide",
                 className,
               )}
               {...props}
