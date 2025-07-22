@@ -1,5 +1,4 @@
 // Tremor DonutChart [v1.0.0]
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -271,7 +270,6 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
               nameKey={category}
               isAnimationActive={false}
               onClick={handleShapeClick}
-              activeIndex={activeIndex}
               inactiveShape={renderInactiveShape}
               style={{ outline: "none" }}
             />
