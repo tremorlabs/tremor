@@ -1,5 +1,4 @@
 // Tremor BarChart [v1.0.0]
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
@@ -807,9 +806,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   (active !== prevActiveRef.current ||
                     label !== prevLabelRef.current)
                 ) {
-                  tooltipCallback({ active, payload: cleanPayload, label })
+                  tooltipCallback({ active, payload: cleanPayload, label?.toString() || '' })
                   prevActiveRef.current = active
-                  prevLabelRef.current = label
+                  prevLabelRef.current = label?.toString()
                 }
 
                 return showTooltip && active ? (
@@ -817,13 +816,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     <CustomTooltip
                       active={active}
                       payload={cleanPayload}
-                      label={label}
+                      label={label?.toString() || ''}
                     />
                   ) : (
                     <ChartTooltip
                       active={active}
                       payload={cleanPayload}
-                      label={label}
+                      label={label?.toString() || ''}
                       valueFormatter={valueFormatter}
                     />
                   )
