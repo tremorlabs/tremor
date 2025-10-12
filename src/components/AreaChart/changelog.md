@@ -1,5 +1,11 @@
 # Tremor AreaChart Changelog
 
+## 1.0.1
+
+### Changes
+
+- Moved gradient inside refs and are outside refs as Recharts documents.
+
 ## 1.0.0
 
 ### Changes
