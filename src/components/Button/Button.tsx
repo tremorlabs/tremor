@@ -1,7 +1,7 @@
 // Tremor Button [v1.0.0]
 
 import React from "react"
-import { Slot } from "@radix-ui/react-slot"
+import { Slot, Slottable } from "@radix-ui/react-slot"
 import { RiLoader2Fill } from "@remixicon/react"
 import { tv, type VariantProps } from "tailwind-variants"
 
@@ -95,7 +95,7 @@ const buttonVariants = tv({
 
 interface ButtonProps
   extends React.ComponentPropsWithoutRef<"button">,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
   isLoading?: boolean
   loadingText?: string
@@ -124,8 +124,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         tremor-id="tremor-raw"
         {...props}
       >
-        {isLoading ? (
-          <span className="pointer-events-none flex shrink-0 items-center justify-center gap-1.5">
+        {isLoading && (
+          <>
             <RiLoader2Fill
               className="size-4 shrink-0 animate-spin"
               aria-hidden="true"
@@ -133,11 +133,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <span className="sr-only">
               {loadingText ? loadingText : "Loading"}
             </span>
-            {loadingText ? loadingText : children}
-          </span>
-        ) : (
-          children
+          </>
         )}
+        <Slottable>{isLoading && loadingText ? loadingText : children}</Slottable>
       </Component>
     )
   },
