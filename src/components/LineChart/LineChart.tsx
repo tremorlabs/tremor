@@ -694,6 +694,28 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 </Label>
               )}
             </YAxis>
+            {showLegend ? (
+              <RechartsLegend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) =>
+                          onCategoryClick(clickedLegendItem)
+                      : undefined,
+                    enableLegendSlider,
+                    legendPosition,
+                    yAxisWidth,
+                  )
+                }
+              />
+            ) : null}
+
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={true}
@@ -743,28 +765,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 ) : null
               }}
             />
-
-            {showLegend ? (
-              <RechartsLegend
-                verticalAlign="top"
-                height={legendHeight}
-                content={({ payload }) =>
-                  ChartLegend(
-                    { payload },
-                    categoryColors,
-                    setLegendHeight,
-                    activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
-                      : undefined,
-                    enableLegendSlider,
-                    legendPosition,
-                    yAxisWidth,
-                  )
-                }
-              />
-            ) : null}
             {categories.map((category) => (
               <Line
                 className={cx(

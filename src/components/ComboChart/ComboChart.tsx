@@ -922,6 +922,29 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               </YAxis>
             ) : null}
 
+            {showLegend ? (
+              <RechartsLegend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    barCategoryColors,
+                    lineCategoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) =>
+                          onCategoryClick(clickedLegendItem)
+                      : undefined,
+                    enableLegendSlider,
+                    legendPosition,
+                    mergedBarSeries.yAxisWidth,
+                    mergedLineSeries.yAxisWidth,
+                  )
+                }
+              />
+            ) : null}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={true}
@@ -980,29 +1003,6 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 ) : null
               }}
             />
-            {showLegend ? (
-              <RechartsLegend
-                verticalAlign="top"
-                height={legendHeight}
-                content={({ payload }) =>
-                  ChartLegend(
-                    { payload },
-                    barCategoryColors,
-                    lineCategoryColors,
-                    setLegendHeight,
-                    activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
-                      : undefined,
-                    enableLegendSlider,
-                    legendPosition,
-                    mergedBarSeries.yAxisWidth,
-                    mergedLineSeries.yAxisWidth,
-                  )
-                }
-              />
-            ) : null}
             {mergedBarSeries.categories.map((category) => (
               <Bar
                 yAxisId={enableBiaxial ? "left" : undefined}

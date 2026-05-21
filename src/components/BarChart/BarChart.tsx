@@ -778,6 +778,27 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 </Label>
               )}
             </YAxis>
+            {showLegend ? (
+              <RechartsLegend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) =>
+                          onCategoryClick(clickedLegendItem)
+                      : undefined,
+                    enableLegendSlider,
+                    legendPosition,
+                    yAxisWidth,
+                  )
+                }
+              />
+            ) : null}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={true}
@@ -830,27 +851,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 ) : null
               }}
             />
-            {showLegend ? (
-              <RechartsLegend
-                verticalAlign="top"
-                height={legendHeight}
-                content={({ payload }) =>
-                  ChartLegend(
-                    { payload },
-                    categoryColors,
-                    setLegendHeight,
-                    activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
-                      : undefined,
-                    enableLegendSlider,
-                    legendPosition,
-                    yAxisWidth,
-                  )
-                }
-              />
-            ) : null}
             {categories.map((category) => (
               <Bar
                 className={cx(

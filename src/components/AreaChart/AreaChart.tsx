@@ -742,6 +742,28 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                 </Label>
               )}
             </YAxis>
+            {showLegend ? (
+              <RechartsLegend
+                verticalAlign="top"
+                height={legendHeight}
+                content={({ payload }) =>
+                  ChartLegend(
+                    { payload },
+                    categoryColors,
+                    setLegendHeight,
+                    activeLegend,
+                    hasOnValueChange
+                      ? (clickedLegendItem: string) =>
+                          onCategoryClick(clickedLegendItem)
+                      : undefined,
+                    enableLegendSlider,
+                    legendPosition,
+                    yAxisWidth,
+                  )
+                }
+              />
+            ) : null}
+
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={true}
@@ -791,28 +813,6 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
                 ) : null
               }}
             />
-
-            {showLegend ? (
-              <RechartsLegend
-                verticalAlign="top"
-                height={legendHeight}
-                content={({ payload }) =>
-                  ChartLegend(
-                    { payload },
-                    categoryColors,
-                    setLegendHeight,
-                    activeLegend,
-                    hasOnValueChange
-                      ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
-                      : undefined,
-                    enableLegendSlider,
-                    legendPosition,
-                    yAxisWidth,
-                  )
-                }
-              />
-            ) : null}
             {categories.map((category) => {
               const categoryId = `${areaId}-${category.replace(/[^a-zA-Z0-9]/g, "")}`
               return (
