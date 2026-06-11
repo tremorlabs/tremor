@@ -33,7 +33,6 @@ test.describe("Expect date picker single", () => {
   })
   test("to close on Cancel", async ({ page }) => {
     await page.goto("http://localhost:6006/?path=/story/ui-datepicker--single")
-    await page.getByRole("button", { name: "Hide addons [⌥ A]" }).click()
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("button", { name: "Select date" })
@@ -51,7 +50,6 @@ test.describe("Expect date picker single", () => {
   })
   test("to close on Apply", async ({ page }) => {
     await page.goto("http://localhost:6006/?path=/story/ui-datepicker--single")
-    await page.getByRole("button", { name: "Hide addons [⌥ A]" }).click()
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("button", { name: "Select date" })
@@ -150,15 +148,13 @@ test.describe("Expect date picker range", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("div")
-        .getByRole("presentation")
+        .getByRole("grid")
         .first(),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("div")
-        .getByRole("presentation")
+        .getByRole("grid")
         .last(),
     ).toBeVisible()
   })
@@ -186,11 +182,16 @@ test.describe("Expect date picker range", () => {
     await page.goto(
       "http://localhost:6006/?path=/story/ui-daterangepicker--range",
     )
-    await page.getByRole("button", { name: "Hide addons [⌥ A]" }).click()
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("button", { name: "Select date range" })
       .click()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByRole("grid")
+        .first(),
+    ).toBeVisible()
 
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
@@ -199,20 +200,23 @@ test.describe("Expect date picker range", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("div")
-        .first()
-        .getByRole("presentation"),
-    ).toBeHidden()
+        .getByRole("grid"),
+    ).toHaveCount(0)
   })
   test("to close on Apply", async ({ page }) => {
     await page.goto(
       "http://localhost:6006/?path=/story/ui-daterangepicker--range",
     )
-    await page.getByRole("button", { name: "Hide addons [⌥ A]" }).click()
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("button", { name: "Select date range" })
       .click()
+    await expect(
+      page
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByRole("grid")
+        .first(),
+    ).toBeVisible()
     await page
       .frameLocator('iframe[title="storybook-preview-iframe"]')
       .getByRole("button", { name: "Apply" })
@@ -220,10 +224,8 @@ test.describe("Expect date picker range", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("div")
-        .first()
-        .getByRole("presentation"),
-    ).toBeHidden()
+        .getByRole("grid"),
+    ).toHaveCount(0)
   })
   test("to render presets", async ({ page }) => {
     await page.goto(

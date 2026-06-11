@@ -25,7 +25,7 @@ SelectValue.displayName = "SelectValue"
 const selectTriggerStyles = [
   cx(
     // base
-    "group/trigger flex w-full select-none items-center justify-between gap-2 truncate rounded-md border px-3 py-2 shadow-xs outline-hidden transition sm:text-sm",
+    "group/trigger flex w-full items-center justify-between gap-2 truncate rounded-md border px-3 py-2 shadow-xs outline-hidden transition select-none sm:text-sm",
     // border color
     "border-gray-300 dark:border-gray-800",
     // text color
@@ -138,7 +138,7 @@ const SelectContent = React.forwardRef<
           // base
           "relative z-50 overflow-hidden rounded-md border shadow-xl shadow-black/[2.5%]",
           // widths
-          "min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[95vw]",
+          "max-w-[95vw] min-w-[calc(var(--radix-select-trigger-width)-2px)]",
           // heights
           "max-h-(--radix-select-content-available-height)",
           // background color
@@ -164,7 +164,7 @@ const SelectContent = React.forwardRef<
           className={cx(
             "p-1",
             position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[calc(var(--radix-select-trigger-width))]",
           )}
         >
           {children}

@@ -5,7 +5,7 @@ import {
   RiCheckboxMultipleFill,
   RiCoupon3Fill,
 } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Badge } from "../Badge/Badge"
 import { Button } from "../Button/Button"

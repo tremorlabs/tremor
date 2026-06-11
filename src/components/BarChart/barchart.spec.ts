@@ -50,13 +50,17 @@ test.describe("Expect default bar chart", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator(".recharts-layer > rect")
+        .locator(".recharts-bar-rectangles")
+        .first()
+        .locator("rect")
         .first(),
     ).toBeVisible()
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("g:nth-child(8) > g > g > rect")
+        .locator(".recharts-bar-rectangles")
+        .nth(1)
+        .locator("rect")
         .first(),
     ).toBeVisible()
   })

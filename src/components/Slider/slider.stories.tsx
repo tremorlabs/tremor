@@ -1,5 +1,5 @@
 import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button"
 import { Card } from "../Card/Card"
@@ -23,8 +23,8 @@ const ControlledSlider = (args: any) => {
       <form
         onSubmit={(event) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-          event.preventDefault(),
-            alert("Submitted: " + `${value[0]}, ${value[1]}`)
+          ;(event.preventDefault(),
+            alert("Submitted: " + `${value[0]}, ${value[1]}`))
         }}
         onReset={() => setValue([55, 75])}
       >

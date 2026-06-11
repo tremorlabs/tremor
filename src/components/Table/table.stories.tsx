@@ -1,5 +1,5 @@
 import { RiLoader3Line } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Badge, badgeVariants } from "../Badge/Badge"
 import {

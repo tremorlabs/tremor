@@ -22,7 +22,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={forwardedRef}
     className={cx(
-      "fixed right-0 top-0 z-9999 m-0 flex w-full max-w-[100vw] list-none flex-col gap-2 p-[var(--viewport-padding)] [--viewport-padding:_15px] sm:max-w-md sm:gap-4",
+      "fixed top-0 right-0 z-9999 m-0 flex w-full max-w-[100vw] list-none flex-col gap-2 p-[var(--viewport-padding)] [--viewport-padding:_15px] sm:max-w-md sm:gap-4",
       className,
     )}
     {...props}
@@ -37,8 +37,9 @@ interface ActionProps {
   onClick: () => void | Promise<void>
 }
 
-interface ToastProps
-  extends React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> {
+interface ToastProps extends React.ComponentPropsWithoutRef<
+  typeof ToastPrimitives.Root
+> {
   variant?: "info" | "success" | "warning" | "error" | "loading"
   title?: string
   description?: string

@@ -23,9 +23,9 @@ import type { AxisDomain } from "recharts/types/util/types"
 import { useOnWindowResize } from "../../hooks/useOnWindowResize"
 import {
   AvailableChartColors,
-  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  type AvailableChartColorsKeys,
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
@@ -265,7 +265,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
-              ? "snap-mandatory items-center overflow-auto pr-12 pl-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              ? "snap-mandatory [scrollbar-width:none] items-center overflow-auto pr-12 pl-4 [&::-webkit-scrollbar]:hidden"
               : ""
             : "flex-wrap",
         )}
@@ -551,7 +551,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const hasOnValueChange = !!onValueChange
     const stacked = type === "stacked" || type === "percent"
-    const areaId = React.useId()
+    // strip useId delimiters («» in React 19) — unsafe in SVG url(#id) refs
+    const areaId = React.useId().replace(/[^a-zA-Z0-9-]/g, "")
 
     const prevActiveRef = React.useRef<boolean | undefined>(undefined)
     const prevLabelRef = React.useRef<string | undefined>(undefined)
@@ -749,7 +750,8 @@ const AreaChart = React.forwardRef<HTMLDivElement, AreaChartProps>(
               cursor={{ stroke: "#d1d5db", strokeWidth: 1 }}
               offset={20}
               position={{ y: 0 }}
-              content={({ active, payload, label }) => {
+              content={({ active, payload, label: rawLabel }) => {
+                const label = rawLabel == null ? "" : String(rawLabel)
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,

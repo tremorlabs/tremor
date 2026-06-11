@@ -10,7 +10,7 @@ import { hasErrorInput } from "../../utils/hasErrorInput"
 const selectNativeStyles = tv({
   base: [
     // base
-    "peer w-full cursor-pointer appearance-none truncate rounded-md border py-2 pl-3 pr-7 shadow-xs outline-hidden transition-all sm:text-sm",
+    "peer w-full cursor-pointer appearance-none truncate rounded-md border py-2 pr-7 pl-3 shadow-xs outline-hidden transition-all sm:text-sm",
     // background color
     "bg-white dark:bg-gray-950",
     // border color
@@ -38,7 +38,8 @@ const selectNativeStyles = tv({
 })
 
 interface SelectNativeProps
-  extends React.InputHTMLAttributes<HTMLSelectElement>,
+  extends
+    React.InputHTMLAttributes<HTMLSelectElement>,
     VariantProps<typeof selectNativeStyles> {}
 
 const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(

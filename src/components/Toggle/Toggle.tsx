@@ -45,7 +45,10 @@ const ToggleGroup = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <ToggleGroupPrimitive.Root
     ref={ref}
-    className={cx("flex items-center justify-center gap-1 flex-nowrap", className)}
+    className={cx(
+      "flex flex-nowrap items-center justify-center gap-1",
+      className,
+    )}
     {...props}
   >
     {children}

@@ -105,7 +105,7 @@ test.describe("Expect callout icon", () => {
     await expect(
       page
         .frameLocator('iframe[title="storybook-preview-iframe"]')
-        .locator("svg"),
+        .locator("#storybook-root svg"),
     ).toBeVisible()
   })
 })

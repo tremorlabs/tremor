@@ -14,9 +14,9 @@ import {
 
 import {
   AvailableChartColors,
-  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  type AvailableChartColorsKeys,
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 
@@ -97,7 +97,7 @@ const ChartTooltip = ({
                 <p
                   className={cx(
                     // base
-                    "whitespace-nowrap text-right",
+                    "text-right whitespace-nowrap",
                     // text color
                     "text-gray-700 dark:text-gray-300",
                   )}
@@ -108,7 +108,7 @@ const ChartTooltip = ({
               <p
                 className={cx(
                   // base
-                  "whitespace-nowrap text-right font-medium tabular-nums",
+                  "text-right font-medium whitespace-nowrap tabular-nums",
                   // text color
                   "text-gray-900 dark:text-gray-50",
                 )}
@@ -271,8 +271,14 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
               nameKey={category}
               isAnimationActive={false}
               onClick={handleShapeClick}
-              activeIndex={activeIndex}
-              inactiveShape={renderInactiveShape}
+              // recharts v3 removed activeIndex; select active/inactive shape manually
+              shape={(props: any) =>
+                activeIndex === undefined || props.index === activeIndex ? (
+                  <Sector {...props} style={{ outline: "none" }} />
+                ) : (
+                  renderInactiveShape(props)
+                )
+              }
               style={{ outline: "none" }}
             />
             {showTooltip && (

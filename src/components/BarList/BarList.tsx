@@ -12,8 +12,9 @@ type Bar<T> = T & {
   name: string
 }
 
-interface BarListProps<T = unknown>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface BarListProps<
+  T = unknown,
+> extends React.HTMLAttributes<HTMLDivElement> {
   data: Bar<T>[]
   valueFormatter?: (value: number) => string
   showAnimation?: boolean
@@ -105,7 +106,7 @@ function BarListInner<T>(
                     href={item.href}
                     className={cx(
                       // base
-                      "truncate whitespace-nowrap rounded-sm text-sm",
+                      "truncate rounded-sm text-sm whitespace-nowrap",
                       // text color
                       "text-gray-900 dark:text-gray-50",
                       // hover
@@ -123,7 +124,7 @@ function BarListInner<T>(
                   <p
                     className={cx(
                       // base
-                      "truncate whitespace-nowrap text-sm",
+                      "truncate text-sm whitespace-nowrap",
                       // text color
                       "text-gray-900 dark:text-gray-50",
                     )}
@@ -149,7 +150,7 @@ function BarListInner<T>(
             <p
               className={cx(
                 // base
-                "truncate whitespace-nowrap text-sm leading-none",
+                "truncate text-sm leading-none whitespace-nowrap",
                 // text color
                 "text-gray-900 dark:text-gray-50",
               )}

@@ -1,5 +1,5 @@
 import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Label } from "../Label/Label"
 import { Switch } from "../Switch/Switch"
@@ -150,10 +150,10 @@ export const CustomTooltip: Story = {
             />
             <div className="w-full">
               <div className="flex items-center justify-between space-x-2">
-                <p className="whitespace-nowrap text-right text-gray-700">
+                <p className="text-right whitespace-nowrap text-gray-700">
                   {payload[0].category}
                 </p>
-                <p className="whitespace-nowrap text-right font-medium text-gray-900">
+                <p className="text-right font-medium whitespace-nowrap text-gray-900">
                   {payload[0].value}
                 </p>
               </div>

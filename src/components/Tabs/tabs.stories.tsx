@@ -1,5 +1,5 @@
 import { RiCalculatorLine, RiMapPin2Line } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs"
 
@@ -19,7 +19,7 @@ export const VariantLine: Story = {
         <TabsTrigger value="tab1">Returns</TabsTrigger>
         <TabsTrigger value="tab2">Shipping</TabsTrigger>
       </TabsList>
-      <div className="ml-2 mt-4">
+      <div className="mt-4 ml-2">
         <TabsContent
           value="tab1"
           className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"
@@ -67,7 +67,7 @@ export const VariantSolid: Story = {
         <TabsTrigger value="tab1">Returns</TabsTrigger>
         <TabsTrigger value="tab2">Shipping</TabsTrigger>
       </TabsList>
-      <div className="ml-2 mt-4">
+      <div className="mt-4 ml-2">
         <TabsContent
           value="tab1"
           className="space-y-2 text-sm leading-7 text-gray-600 dark:text-gray-500"

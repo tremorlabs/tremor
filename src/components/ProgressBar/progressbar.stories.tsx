@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Card } from "../Card/Card"
 import { ProgressBar } from "./ProgressBar"
@@ -84,7 +84,7 @@ export const WithKPICard: Story = {
         Sales Progress
       </p>
       <div className="mt-2 flex items-center space-x-2">
-        <span className="whitespace-nowrap text-sm text-gray-500">
+        <span className="text-sm whitespace-nowrap text-gray-500">
           Goal 2023
         </span>
         <ProgressBar value={54} max={100} label="54%" />

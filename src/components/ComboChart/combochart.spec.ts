@@ -29,7 +29,7 @@ test.describe("ComboChart Component Tests", () => {
 
     test("should render x-axis with correct labels", async ({ page }) => {
       const xAxis = getStoryFrame(page).locator(
-        ".recharts-xAxis .recharts-cartesian-axis-tick",
+        ".recharts-xAxis-tick-labels .recharts-cartesian-axis-tick-value",
       )
       await expect(xAxis.first()).toContainText("Jan 23")
       await expect(xAxis.last()).toContainText("Dec 23")
@@ -37,7 +37,7 @@ test.describe("ComboChart Component Tests", () => {
 
     test("should render y-axis with correct values", async ({ page }) => {
       const yAxis = getStoryFrame(page).locator(
-        ".recharts-yAxis .recharts-cartesian-axis-tick",
+        ".recharts-yAxis-tick-labels .recharts-cartesian-axis-tick-value",
       )
       await expect(yAxis.first()).toContainText("0")
       await expect(yAxis.last()).toContainText("3600")
@@ -96,12 +96,12 @@ test.describe("ComboChart Component Tests", () => {
       await expect(yAxes).toHaveCount(2)
 
       const leftAxisLabel = chart
-        .locator('.recharts-yAxis text[style="text-anchor: middle;"]')
+        .locator('text[style*="text-anchor: middle"]')
         .first()
       await expect(leftAxisLabel).toHaveText("BarSeries")
 
       const rightAxisLabel = chart
-        .locator('.recharts-yAxis text[style="text-anchor: middle;"]')
+        .locator('text[style*="text-anchor: middle"]')
         .last()
       await expect(rightAxisLabel).toHaveText("LineSeries")
 
@@ -123,16 +123,16 @@ test.describe("ComboChart Component Tests", () => {
       const chart = getStoryFrame(page).locator('[tremor-id="tremor-raw"]')
 
       const leftYAxisTicks = chart
-        .locator(".recharts-yAxis")
+        .locator(".recharts-yAxis-tick-labels")
         .first()
-        .locator(".recharts-cartesian-axis-tick")
+        .locator(".recharts-cartesian-axis-tick-value")
       await expect(leftYAxisTicks.first()).toContainText("$-4,000")
       await expect(leftYAxisTicks.last()).toContainText("$4,000")
 
       const rightYAxisTicks = chart
-        .locator(".recharts-yAxis")
+        .locator(".recharts-yAxis-tick-labels")
         .last()
-        .locator(".recharts-cartesian-axis-tick")
+        .locator(".recharts-cartesian-axis-tick-value")
       await expect(rightYAxisTicks.first()).toContainText("$0")
       await expect(rightYAxisTicks.last()).toContainText("$3,600")
     })
@@ -146,21 +146,21 @@ test.describe("ComboChart Component Tests", () => {
     test("should respect custom min and max values for y-axes", async ({
       page,
     }) => {
-      const yAxes = getStoryFrame(page).locator(".recharts-yAxis")
+      const yAxes = getStoryFrame(page).locator(".recharts-yAxis-tick-labels")
       const leftYAxis = yAxes.nth(0)
       const rightYAxis = yAxes.nth(1)
 
       await expect(
-        leftYAxis.locator(".recharts-cartesian-axis-tick").first(),
+        leftYAxis.locator(".recharts-cartesian-axis-tick-value").first(),
       ).toContainText("800")
       await expect(
-        leftYAxis.locator(".recharts-cartesian-axis-tick").last(),
+        leftYAxis.locator(".recharts-cartesian-axis-tick-value").last(),
       ).toContainText("5000")
       await expect(
-        rightYAxis.locator(".recharts-cartesian-axis-tick").first(),
+        rightYAxis.locator(".recharts-cartesian-axis-tick-value").first(),
       ).toContainText("2500")
       await expect(
-        rightYAxis.locator(".recharts-cartesian-axis-tick").last(),
+        rightYAxis.locator(".recharts-cartesian-axis-tick-value").last(),
       ).toContainText("3500")
     })
   })

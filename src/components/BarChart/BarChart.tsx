@@ -21,9 +21,9 @@ import type { AxisDomain } from "recharts/types/util/types"
 import { useOnWindowResize } from "../../hooks/useOnWindowResize"
 import {
   AvailableChartColors,
-  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  type AvailableChartColorsKeys,
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
@@ -322,7 +322,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
-              ? "snap-mandatory items-center overflow-auto pr-12 pl-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              ? "snap-mandatory [scrollbar-width:none] items-center overflow-auto pr-12 pl-4 [&::-webkit-scrollbar]:hidden"
               : ""
             : "flex-wrap",
         )}
@@ -788,7 +788,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 y: layout === "horizontal" ? 0 : undefined,
                 x: layout === "horizontal" ? undefined : yAxisWidth + 20,
               }}
-              content={({ active, payload, label }) => {
+              content={({ active, payload, label: rawLabel }) => {
+                const label = rawLabel == null ? "" : String(rawLabel)
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,

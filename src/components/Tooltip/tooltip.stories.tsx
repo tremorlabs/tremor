@@ -1,5 +1,5 @@
 import { RiInformation2Fill } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button"
 import { Tooltip } from "./Tooltip"

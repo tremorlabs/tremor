@@ -4,7 +4,7 @@ import {
   RiExchange2Line,
   RiHome2Line,
 } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { TabNavigation, TabNavigationLink } from "./TabNavigation"
 

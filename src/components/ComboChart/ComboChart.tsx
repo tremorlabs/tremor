@@ -23,9 +23,9 @@ import type { AxisDomain } from "recharts/types/util/types"
 import { useOnWindowResize } from "../../hooks/useOnWindowResize"
 import {
   AvailableChartColors,
-  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  type AvailableChartColorsKeys,
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
@@ -110,7 +110,7 @@ const LegendItem = ({
     <li
       className={cx(
         // base
-        "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded-sm px-2 py-1 transition",
+        "group inline-flex flex-nowrap items-center gap-1.5 rounded-sm px-2 py-1 whitespace-nowrap transition",
         hasOnValueChange
           ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
           : "cursor-default",
@@ -135,7 +135,7 @@ const LegendItem = ({
       <p
         className={cx(
           // base
-          "truncate whitespace-nowrap text-xs",
+          "truncate text-xs whitespace-nowrap",
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
@@ -329,7 +329,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           "flex h-full",
           enableLegendSlider
             ? hasScroll?.right || hasScroll?.left
-              ? "snap-mandatory items-center overflow-auto pl-4 pr-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              ? "snap-mandatory [scrollbar-width:none] items-center overflow-auto pr-12 pl-4 [&::-webkit-scrollbar]:hidden"
               : ""
             : "flex-wrap",
         )}
@@ -354,7 +354,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
           <div
             className={cx(
               // base
-              "absolute bottom-0 right-0 top-0 flex h-full items-center justify-center pr-1",
+              "absolute top-0 right-0 bottom-0 flex h-full items-center justify-center pr-1",
               // background color
               "bg-white dark:bg-gray-950",
             )}
@@ -525,7 +525,7 @@ const ChartTooltip = ({
                   <p
                     className={cx(
                       // base
-                      "whitespace-nowrap text-right",
+                      "text-right whitespace-nowrap",
                       // text color
                       "text-gray-700 dark:text-gray-300",
                     )}
@@ -536,7 +536,7 @@ const ChartTooltip = ({
                 <p
                   className={cx(
                     // base
-                    "whitespace-nowrap text-right font-medium tabular-nums",
+                    "text-right font-medium whitespace-nowrap tabular-nums",
                     // text color
                     "text-gray-900 dark:text-gray-50",
                   )}
@@ -850,7 +850,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               )}
             </XAxis>
             <YAxis
-              yAxisId={enableBiaxial ? "left" : undefined}
+              yAxisId={enableBiaxial ? "left" : 0}
               width={mergedBarSeries.yAxisWidth}
               hide={!mergedBarSeries.showYAxis}
               axisLine={false}
@@ -931,7 +931,8 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               position={{
                 y: 0,
               }}
-              content={({ active, payload, label }) => {
+              content={({ active, payload, label: rawLabel }) => {
+                const label = rawLabel == null ? "" : String(rawLabel)
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
                       category: item.dataKey,
@@ -986,7 +987,19 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
                 height={legendHeight}
                 content={({ payload }) =>
                   ChartLegend(
-                    { payload },
+                    {
+                      // recharts v3 emits line series first; restore bar-first order
+                      payload: [...(payload ?? [])].sort((a, b) => {
+                        const order = [
+                          ...mergedBarSeries.categories,
+                          ...mergedLineSeries.categories,
+                        ]
+                        return (
+                          order.indexOf(a.value as string) -
+                          order.indexOf(b.value as string)
+                        )
+                      }),
+                    },
                     barCategoryColors,
                     lineCategoryColors,
                     setLegendHeight,
@@ -1005,7 +1018,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
             ) : null}
             {mergedBarSeries.categories.map((category) => (
               <Bar
-                yAxisId={enableBiaxial ? "left" : undefined}
+                yAxisId={enableBiaxial ? "left" : 0}
                 className={cx(
                   getColorClassName(
                     barCategoryColors.get(category) as AvailableChartColorsKeys,
@@ -1030,7 +1043,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
             {onValueChange
               ? mergedLineSeries.categories.map((category) => (
                   <Line
-                    yAxisId={enableBiaxial ? "right" : undefined}
+                    yAxisId={enableBiaxial ? "right" : 0}
                     className={cx("cursor-pointer")}
                     strokeOpacity={0}
                     key={category}
@@ -1053,7 +1066,7 @@ const ComboChart = React.forwardRef<HTMLDivElement, ComboChartProps>(
               : null}
             {mergedLineSeries.categories.map((category) => (
               <Line
-                yAxisId={enableBiaxial ? "right" : undefined}
+                yAxisId={enableBiaxial ? "right" : 0}
                 className={cx(
                   getColorClassName(
                     lineCategoryColors.get(

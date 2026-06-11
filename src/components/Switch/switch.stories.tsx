@@ -1,5 +1,5 @@
 import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button"
 import { Card } from "../Card/Card"
@@ -25,7 +25,7 @@ const SimpleIdSwitch = (args: any) => {
         <form
           onSubmit={(event) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            event.preventDefault(), alert("Submitted")
+            ;(event.preventDefault(), alert("Submitted"))
           }}
           onReset={() => setChecked(false)}
         >

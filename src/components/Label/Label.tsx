@@ -5,8 +5,9 @@ import * as LabelPrimitives from "@radix-ui/react-label"
 
 import { cx } from "../../utils/cx"
 
-interface LabelProps
-  extends React.ComponentPropsWithoutRef<typeof LabelPrimitives.Root> {
+interface LabelProps extends React.ComponentPropsWithoutRef<
+  typeof LabelPrimitives.Root
+> {
   disabled?: boolean
 }
 

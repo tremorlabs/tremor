@@ -8,8 +8,9 @@ import * as SliderPrimitive from "@radix-ui/react-slider"
 import { cx } from "../../utils/cx"
 import { focusRing } from "../../utils/focusRing"
 
-interface SliderProps
-  extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+interface SliderProps extends React.ComponentPropsWithoutRef<
+  typeof SliderPrimitive.Root
+> {
   ariaLabelThumb?: string
 }
 

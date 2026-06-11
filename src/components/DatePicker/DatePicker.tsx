@@ -176,8 +176,7 @@ const triggerStyles = tv({
 })
 
 interface TriggerProps
-  extends React.ComponentProps<"button">,
-    VariantProps<typeof triggerStyles> {
+  extends React.ComponentProps<"button">, VariantProps<typeof triggerStyles> {
   placeholder?: string
 }
 

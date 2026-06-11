@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { cx } from "../../utils/cx"
 import { Badge, badgeVariants } from "./Badge"
@@ -48,7 +48,7 @@ export const AnchorWithBadgeVariantsStyle: Story = {
 
 export const CustomisedBadge: Story = {
   render: () => (
-    <div className="flex items-center justify-between gap-8 rounded-md bg-blue-50 py-2.5 pl-2.5 pr-4 text-sm dark:bg-blue-900/50">
+    <div className="flex items-center justify-between gap-8 rounded-md bg-blue-50 py-2.5 pr-4 pl-2.5 text-sm dark:bg-blue-900/50">
       <div className="flex items-center gap-2 truncate">
         <Badge className="ring-none dark:ring-none rounded-full bg-blue-800 text-white dark:bg-blue-500 dark:text-white">
           Export Request

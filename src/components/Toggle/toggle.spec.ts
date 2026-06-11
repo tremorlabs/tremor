@@ -5,8 +5,8 @@ test.describe("Expect Toggle", () => {
     await page.goto("http://localhost:6006/?path=/story/ui-toggle--default")
     await expect(
       page
-        .frameLocator('iframe[title="storybook-preview-iframe"]').getByLabel('Toggle star')
+        .frameLocator('iframe[title="storybook-preview-iframe"]')
+        .getByLabel("Toggle star"),
     ).toBeVisible()
   })
-
 })

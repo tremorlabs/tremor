@@ -11,7 +11,7 @@ const switchVariants = tv({
   slots: {
     root: [
       // base
-      "group relative isolate inline-flex shrink-0 cursor-pointer items-center rounded-full p-0.5 shadow-inner outline-hidden ring-1 ring-inset transition-all",
+      "group relative isolate inline-flex shrink-0 cursor-pointer items-center rounded-full p-0.5 shadow-inner ring-1 outline-hidden transition-all ring-inset",
       "bg-gray-200 dark:bg-gray-950",
       // ring color
       "ring-black/5 dark:ring-gray-800",
@@ -63,7 +63,8 @@ const switchVariants = tv({
 })
 
 interface SwitchProps
-  extends Omit<
+  extends
+    Omit<
       React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>,
       "asChild"
     >,

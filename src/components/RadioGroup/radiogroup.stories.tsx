@@ -1,5 +1,5 @@
 import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button"
 import { Label } from "../Label/Label"
@@ -79,7 +79,7 @@ export const WithLabelAndDescription: Story = {
         <RadioGroupItem value="1" id="radio_11" />
         <div className="mt-px flex flex-col gap-y-2.5">
           <Label
-            className="text-sm font-semibold leading-none"
+            className="text-sm leading-none font-semibold"
             htmlFor="radio_11"
             aria-describedby="radio_11-description"
           >
@@ -95,7 +95,7 @@ export const WithLabelAndDescription: Story = {
         <RadioGroupItem value="2" id="radio_22" />
         <div className="mt-px flex flex-col gap-y-2.5">
           <Label
-            className="text-sm font-semibold leading-none"
+            className="text-sm leading-none font-semibold"
             htmlFor="radio_22"
             aria-describedby="radio_22-description"
           >
@@ -111,7 +111,7 @@ export const WithLabelAndDescription: Story = {
         <RadioGroupItem value="3" id="radio_33" />
         <div className="mt-px flex flex-col gap-y-2.5">
           <Label
-            className="text-sm font-semibold leading-none"
+            className="text-sm leading-none font-semibold"
             htmlFor="radio_33"
             aria-describedby="radio_33-description"
           >

@@ -1,5 +1,5 @@
 import { RiCalendar2Line } from "@remixicon/react"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 import { Button } from "../Button/Button"
 import { Divider } from "./Divider"

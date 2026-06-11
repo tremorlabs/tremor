@@ -19,9 +19,9 @@ import type { AxisDomain } from "recharts/types/util/types"
 
 import {
   AvailableChartColors,
-  type AvailableChartColorsKeys,
   constructCategoryColors,
   getColorClassName,
+  type AvailableChartColorsKeys,
 } from "../../utils/chartColors"
 import { cx } from "../../utils/cx"
 import { getYAxisDomain } from "../../utils/getYAxisDomain"
@@ -61,7 +61,8 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
     const categoryColors = constructCategoryColors(categories, colors)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
     const stacked = type === "stacked" || type === "percent"
-    const areaId = React.useId()
+    // strip useId delimiters («» in React 19) — unsafe in SVG url(#id) refs
+    const areaId = React.useId().replace(/[^a-zA-Z0-9-]/g, "")
 
     const getFillContent = (fillType: SparkAreaChartProps["fill"]) => {
       switch (fillType) {

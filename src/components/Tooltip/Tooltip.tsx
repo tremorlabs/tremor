@@ -6,11 +6,12 @@ import * as TooltipPrimitives from "@radix-ui/react-tooltip"
 import { cx } from "../../utils/cx"
 
 interface TooltipProps
-  extends Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,
-  Pick<
-    TooltipPrimitives.TooltipProps,
-    "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
-  > {
+  extends
+    Omit<TooltipPrimitives.TooltipContentProps, "content" | "onClick">,
+    Pick<
+      TooltipPrimitives.TooltipProps,
+      "open" | "defaultOpen" | "onOpenChange" | "delayDuration"
+    > {
   content: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   side?: "bottom" | "left" | "top" | "right"
@@ -59,7 +60,7 @@ const Tooltip = React.forwardRef<
               align="center"
               className={cx(
                 // base
-                "max-w-60 select-none rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md",
+                "max-w-60 rounded-md px-2.5 py-1.5 text-sm leading-5 shadow-md select-none",
                 // text color
                 "text-gray-50 dark:text-gray-900",
                 // background color

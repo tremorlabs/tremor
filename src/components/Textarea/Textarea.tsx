@@ -6,8 +6,7 @@ import { cx } from "../../utils/cx"
 import { focusInput } from "../../utils/focusInput"
 import { hasErrorInput } from "../../utils/hasErrorInput"
 
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   hasError?: boolean
 }
 

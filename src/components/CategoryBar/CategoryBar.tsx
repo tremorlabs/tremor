@@ -100,7 +100,7 @@ const BarLabels = ({ values }: { values: number[] }) => {
           </div>
         )
       })}
-      <div className="absolute bottom-0 right-0 flex items-center">
+      <div className="absolute right-0 bottom-0 flex items-center">
         {formatNumber(sumValues)}
       </div>
     </div>

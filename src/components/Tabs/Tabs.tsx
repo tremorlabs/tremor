@@ -21,8 +21,9 @@ type TabsListVariant = "line" | "solid"
 
 const TabsListVariantContext = React.createContext<TabsListVariant>("line")
 
-interface TabsListProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitives.List> {
+interface TabsListProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitives.List
+> {
   variant?: TabsListVariant
 }
 
@@ -63,7 +64,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
     case "line":
       return cx(
         // base
-        "-mb-px items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 pb-2 text-sm font-medium transition-all",
+        "-mb-px items-center justify-center border-b-2 border-transparent px-3 pb-2 text-sm font-medium whitespace-nowrap transition-all",
         // text color
         "text-gray-500 dark:text-gray-500",
         // hover
@@ -80,7 +81,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
     case "solid":
       return cx(
         // base
-        "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1 text-sm font-medium ring-1 ring-inset transition-all",
+        "inline-flex items-center justify-center rounded-sm px-3 py-1 text-sm font-medium whitespace-nowrap ring-1 transition-all ring-inset",
         // text color
         "text-gray-500 dark:text-gray-400",
         // hover
