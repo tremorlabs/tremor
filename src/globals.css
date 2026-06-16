@@ -95,11 +95,13 @@
   @keyframes dialogContentShow {
     from {
       opacity: 0;
-      transform: translate(-50%, -45%) scale(0.95);
+      scale: 0.95;
+      translate: -50% -45%;
     }
     to {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+      scale: 1;
+      translate: -50% -50%;
     }
   }
   @keyframes drawerSlideLeftAndFade {

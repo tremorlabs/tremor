@@ -34,7 +34,7 @@ const DialogOverlay = React.forwardRef<
       ref={forwardedRef}
       className={cx(
         // base
-        "fixed inset-0 z-50 overflow-y-auto",
+        "fixed inset-0 z-50",
         // background color
         "bg-black/70",
         // transition
@@ -54,25 +54,24 @@ const DialogContent = React.forwardRef<
 >(({ className, ...props }, forwardedRef) => {
   return (
     <DialogPortal>
-      <DialogOverlay>
-        <DialogPrimitives.Content
-          ref={forwardedRef}
-          className={cx(
-            // base
-            "fixed left-1/2 top-1/2 z-50 w-[95vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-md border p-6 shadow-lg",
-            // border color
-            "border-gray-200 dark:border-gray-900",
-            // background color
-            "bg-white dark:bg-[#090E1A]",
-            // transition
-            "data-[state=open]:animate-dialog-content-show",
-            focusRing,
-            className,
-          )}
-          tremor-id="tremor-raw"
-          {...props}
-        />
-      </DialogOverlay>
+      <DialogOverlay />
+      <DialogPrimitives.Content
+        ref={forwardedRef}
+        className={cx(
+          // base
+          "fixed left-1/2 top-1/2 z-50 w-[95vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-md border p-6 shadow-lg",
+          // border color
+          "border-gray-200 dark:border-gray-900",
+          // background color
+          "bg-white dark:bg-[#090E1A]",
+          // transition
+          "data-[state=open]:animate-dialog-content-show",
+          focusRing,
+          className,
+        )}
+        tremor-id="tremor-raw"
+        {...props}
+      />
     </DialogPortal>
   )
 })
